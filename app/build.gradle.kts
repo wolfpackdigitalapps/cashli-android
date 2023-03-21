@@ -12,7 +12,7 @@ plugins {
 android {
     compileSdk = Versions.COMPILE_SDK
     defaultConfig {
-        applicationId = "com.wolfpackdigital.baseproject"
+        applicationId = "com.wolfpackdigital.cashli"
         minSdk = Versions.MIN_SDK
         targetSdk = Versions.TARGET_SDK
         versionCode = Versions.VERSION_CODE
@@ -21,30 +21,14 @@ android {
         buildConfigField(
             "String",
             "BASE_URL",
-            "\"https://5d4c17f600dbb1001487a4ab.mockapi.io/api/\""
+            "\"https://example.com\""
         )
-
         vectorDrawables.useSupportLibrary = true
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments["room.incremental"] = "true"
-            }
-        }
     }
 
     signingConfigs {
         getByName("debug") {}
-        create("release") {
-//            Set these according to your project
-//            Take care that you need to sign the app in release mode
-//            to be able to make a Firebase Distribution release through Circle CI
-
-//            storeFileFile = file('../keystore')
-//            storePassword = System.getenv("KEYSTORE_PASSWORD")
-//            keyAlias = System.getenv("KEY_ALIAS")
-//            keyPassword = System.getenv("KEY_PASSWORD")
-        }
+        create("release") {}
     }
 
     buildTypes {
@@ -76,7 +60,7 @@ android {
 //            (build_and_release) file for Circle CI
         create("develop") {
             this.dimension = dimension
-            resValue("string", "app_name", "Android Base Project DEV")
+            resValue("string", "app_name", "Cashli Dev")
             versionCode = getBuildVersion()
             applicationIdSuffix = ".develop"
             versionNameSuffix = "-develop"
@@ -85,9 +69,20 @@ android {
             }
         }
 
+        create("staging") {
+            this.dimension = dimension
+            resValue("string", "app_name", "Cashli Staging")
+            versionCode = getBuildVersion()
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+            firebaseAppDistribution {
+                testers = "wolfpackdigitaltesting@gmail.com"
+            }
+        }
+
         create("production") {
             this.dimension = dimension
-            resValue("string", "app_name", "Android Base Project")
+            resValue("string", "app_name", "Cashli")
             versionCode = 1
             versionName = "1.0"
             firebaseAppDistribution {

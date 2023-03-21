@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.wolfpackdigital.baseproject.presentation.main.list.ListViewModel" />
+            type="com.wolfpackdigital.cashli.presentation.main.list.ListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.wolfpackdigital.baseproject.presentation.main.list.ListFragment">
+        tools:context="com.wolfpackdigital.cashli.presentation.main.list.ListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_mock"

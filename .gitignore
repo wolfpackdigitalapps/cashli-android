@@ -50,7 +50,10 @@ captures/
 .cxx/
 
 # Google Services (e.g. APIs or Firebase)
- google-services.json
+cashli_keystore
+google-services.json
+app/src/dev/google-services.json
+app/src/staging/google-services.json
 
 # Freeline
 freeline.py

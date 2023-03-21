@@ -3,4 +3,4 @@ include(
     "depconstraints"
 )
 
-rootProject.name = "Base Project"
+rootProject.name = "Cashli"

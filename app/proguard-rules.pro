@@ -20,8 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.wolfpackdigital.baseproject.shared.** { *; }
--keep class com.wolfpackdigital.baseproject.data.** { *; }
+-keep class com.wolfpackdigital.cashli.shared.** { *; }
+-keep class com.wolfpackdigital.cashli.data.** { *; }
 
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.

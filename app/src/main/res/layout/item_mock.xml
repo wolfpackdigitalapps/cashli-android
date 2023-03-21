@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.wolfpackdigital.baseproject.domain.entities.MockItem" />
+            type="com.wolfpackdigital.cashli.domain.entities.MockItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

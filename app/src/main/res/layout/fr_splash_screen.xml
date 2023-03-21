@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.wolfpackdigital.baseproject.presentation.main.splash.SplashScreenViewModel" />
+            type="com.wolfpackdigital.cashli.presentation.main.splash.SplashScreenViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
