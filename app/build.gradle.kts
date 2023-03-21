@@ -50,23 +50,12 @@ android {
     val dimension = "env"
     flavorDimensions += listOf(dimension)
     productFlavors {
-//            Don't forget to also set the `FIREBASE_TOKEN` variable on Circle CI according to docs
-//            ################
-//                  use ./gradlew appDistributionLogin to retrieve the FIREBASE_TOKEN
-//            ################
-//            Check firebase app distribution documentation for more details and how to get the App ID
-//            **********
-//            Also, enable the build process for Firebase APK on the config.yml
-//            (build_and_release) file for Circle CI
         create("develop") {
             this.dimension = dimension
             resValue("string", "app_name", "Cashli Dev")
             versionCode = getBuildVersion()
             applicationIdSuffix = ".develop"
             versionNameSuffix = "-develop"
-            firebaseAppDistribution {
-                testers = "wolfpackdigitaltesting@gmail.com"
-            }
         }
 
         create("staging") {
@@ -75,9 +64,6 @@ android {
             versionCode = getBuildVersion()
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
-            firebaseAppDistribution {
-                testers = "wolfpackdigitaltesting@gmail.com"
-            }
         }
 
         create("production") {
@@ -85,9 +71,6 @@ android {
             resValue("string", "app_name", "Cashli")
             versionCode = 1
             versionName = "1.0"
-            firebaseAppDistribution {
-                testers = "wolfpackdigitaltesting@gmail.com"
-            }
         }
     }
 
