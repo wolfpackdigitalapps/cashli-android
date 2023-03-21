@@ -1,5 +1,5 @@
 object Libs {
-    const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:"
+    const val KOTLIN_STD_LIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     const val KTX_COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     const val KTX_COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android"
 
@@ -23,10 +23,8 @@ object Libs {
     const val GOOGLE_FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-ktx"
     const val GOOGLE_FIREBASE_MESSAGES = "com.google.firebase:firebase-messaging-ktx"
 
-    const val KOIN_CORE = "org.koin:koin-core"
-    const val KOIN_ANDROID = "org.koin:koin-android"
-    const val KOIN_ANDROIDX_SCOPE = "org.koin:koin-androidx-scope"
-    const val KOIN_ANDROIDX_VIEWMODEL = "org.koin:koin-androidx-viewmodel"
+    const val KOIN_CORE = "io.insert-koin:koin-core"
+    const val KOIN_ANDROID = "io.insert-koin:koin-android"
 
     const val RETROFIT = "com.squareup.retrofit2:retrofit"
     const val RETROFIT_GSON_CONVERTER = "com.squareup.retrofit2:converter-gson"

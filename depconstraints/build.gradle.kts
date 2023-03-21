@@ -2,26 +2,26 @@ plugins {
     id("java-platform")
 }
 
-val coroutinesVersion = "1.5.2"
+val coroutinesVersion = "1.6.4"
 
-val androidLifecycle = "2.4.1"
-val androidxCore = "1.8.0"
-val androidxFragment = "1.4.1"
-val androidxAppcompat = "1.4.2"
+val androidLifecycle = "2.6.0"
+val androidxCore = "1.9.0"
+val androidxFragment = "1.5.5"
+val androidxAppcompat = "1.6.1"
 val androidxAnnotation = "1.3.0"
 val androidxLegacy = "1.0.0"
 val androidxConstraint = "2.1.4"
-val androidxRecyclerview = "1.2.1"
+val androidxRecyclerview = "1.3.0"
 val androidxCardView = "1.0.0"
 
-val googleMaterial = "1.6.1"
+val googleMaterial = "1.8.0"
 
-val koinVersion = "2.0.1"
+val koinVersion = "3.3.3"
 
 val retrofit = "2.9.0"
 val converters = "2.9.0"
-val loggingInterceptor = "4.9.1"
-val gson = "2.9.0"
+val loggingInterceptor = "4.10.0"
+val gson = "2.10.1"
 
 val rxPermissions = "0.12"
 val rxAndroid = "2.1.1"
@@ -58,8 +58,6 @@ dependencies {
 
         api("${Libs.KOIN_CORE}:$koinVersion")
         api("${Libs.KOIN_ANDROID}:$koinVersion")
-        api("${Libs.KOIN_ANDROIDX_SCOPE}:$koinVersion")
-        api("${Libs.KOIN_ANDROIDX_VIEWMODEL}:$koinVersion")
 
         api("${Libs.RETROFIT}:$retrofit")
         api("${Libs.RETROFIT_GSON_CONVERTER}:$converters")

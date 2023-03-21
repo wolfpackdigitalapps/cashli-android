@@ -26,16 +26,7 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    signingConfigs {
-        getByName("debug") {}
-        create("release") {}
-    }
-
     buildTypes {
-        getByName("debug") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -43,7 +34,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
         }
     }
 
@@ -88,6 +78,9 @@ android {
     }
 
     kotlinOptions.jvmTarget = "11"
+    kotlin {
+        jvmToolchain(11)
+    }
 }
 
 fun getBuildVersion() =
@@ -130,8 +123,6 @@ dependencies {
     // Koin
     implementation(Libs.KOIN_CORE)
     implementation(Libs.KOIN_ANDROID)
-    implementation(Libs.KOIN_ANDROIDX_SCOPE)
-    implementation(Libs.KOIN_ANDROIDX_VIEWMODEL)
 
     // Networking
     implementation(Libs.RETROFIT)
