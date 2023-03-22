@@ -39,4 +39,5 @@ object Libs {
 
     const val HAWK = "com.orhanobut:hawk"
 
+    const val SPLASH_SCREEN = "androidx.core:core-splashscreen"
 }
