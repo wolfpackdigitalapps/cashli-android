@@ -35,6 +35,7 @@ constructor(@LayoutRes private val layoutResource: Int) : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        loadingDialog?.dismiss()
         loadingDialog = null
     }
 

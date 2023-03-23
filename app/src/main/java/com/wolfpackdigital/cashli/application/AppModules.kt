@@ -9,14 +9,12 @@ import com.wolfpackdigital.cashli.domain.usecases.GetMockListUseCase
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.main.list.ListViewModel
-import com.wolfpackdigital.cashli.presentation.main.splash.SplashScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
-        viewModel { SplashScreenViewModel() }
         viewModel { ChooseLanguageViewModel() }
         viewModel { ListViewModel(get()) }
     }

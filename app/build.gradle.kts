@@ -137,4 +137,7 @@ dependencies {
 
     // Hawk
     implementation(Libs.HAWK)
+
+    // SplashScreen
+    implementation(Libs.SPLASH_SCREEN)
 }

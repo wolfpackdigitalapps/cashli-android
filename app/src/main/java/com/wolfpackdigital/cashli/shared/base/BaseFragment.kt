@@ -34,6 +34,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
         super.onCreate(savedInstanceState)
         enterTransition = enterTrans
         exitTransition = exitTrans
+        loadingDialog?.apply { if (isShowing) dismiss() }
     }
 
     @CallSuper
