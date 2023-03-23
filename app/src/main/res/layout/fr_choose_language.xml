@@ -10,8 +10,8 @@
             type="com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel" />
 
         <variable
-            name="constants"
-            type="com.wolfpackdigital.cashli.shared.Constants" />
+            name="languages"
+            type="com.wolfpackdigital.cashli.domain.entities.enums.Languages" />
 
     </data>
 
@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark">
-
 
         <ImageView
             android:id="@+id/iv_top"
@@ -84,7 +83,7 @@
             android:layout_marginHorizontal="@dimen/dimen_56dp"
             android:backgroundTint="@null"
             android:gravity="start"
-            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(constants.ENGLISH)}"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.ENGLISH)}"
             android:paddingVertical="@dimen/dimen_16dp"
             android:text="@string/language_english"
             android:textAlignment="textStart"
@@ -104,7 +103,7 @@
             android:layout_marginHorizontal="@dimen/dimen_56dp"
             android:backgroundTint="@null"
             android:gravity="start"
-            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(constants.SPANISH)}"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.SPANISH)}"
             android:paddingVertical="@dimen/dimen_16dp"
             android:text="@string/language_spanish"
             android:textAlignment="textStart"
@@ -124,7 +123,7 @@
             android:layout_marginHorizontal="@dimen/dimen_56dp"
             android:backgroundTint="@null"
             android:gravity="start"
-            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(constants.HAITI)}"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.HAITI)}"
             android:paddingVertical="@dimen/dimen_16dp"
             android:text="@string/language_creole"
             android:textAlignment="textStart"
