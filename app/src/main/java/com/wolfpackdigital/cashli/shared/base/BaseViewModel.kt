@@ -1,6 +1,7 @@
 package com.wolfpackdigital.cashli.shared.base
 
 import android.app.Application
+import androidx.annotation.IdRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -67,6 +68,10 @@ sealed class BaseCommand {
     class ShowToast(val message: String) : BaseCommand()
     class ShowSnackbarById(val stringId: Int) : BaseCommand()
     class ShowSnackbar(val message: String) : BaseCommand()
-    class PerformNavAction(val direction: NavDirections) : BaseCommand()
+    class PerformNavAction(
+        val direction: NavDirections,
+        @IdRes val popUpTo: Int? = null,
+        val inclusive: Boolean = false
+    ) : BaseCommand()
     object GoBack : BaseCommand()
 }

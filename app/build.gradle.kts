@@ -140,4 +140,7 @@ dependencies {
 
     // SplashScreen
     implementation(Libs.SPLASH_SCREEN)
+
+    // ViewPager2
+    implementation(Libs.VIEW_PAGER2)
 }

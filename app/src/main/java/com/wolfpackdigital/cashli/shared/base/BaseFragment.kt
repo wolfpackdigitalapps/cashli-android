@@ -10,7 +10,9 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import com.wolfpackdigital.cashli.BR
+import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
@@ -73,10 +75,25 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                         .show()
                 is BaseCommand.ShowSnackbarById -> snackBar(getString(it.stringId))
                 is BaseCommand.ShowSnackbar -> snackBar(it.message)
-                is BaseCommand.PerformNavAction -> navController?.navigate(it.direction)
+                is BaseCommand.PerformNavAction -> navigate(it)
                 is BaseCommand.GoBack -> navController?.popBackStack()
             }
         }
+    }
+
+    private fun navigate(cmd: BaseCommand.PerformNavAction) {
+        navController?.navigate(
+            cmd.direction,
+            NavOptions.Builder()
+                .setEnterAnim(R.anim.fade_in)
+                .setPopExitAnim(R.anim.fade_out)
+                .setPopEnterAnim(R.anim.fade_in)
+                .setExitAnim(R.anim.fade_out)
+                .apply {
+                    cmd.popUpTo?.let { popUpTo -> setPopUpTo(popUpTo, cmd.inclusive) }
+                }
+                .build()
+        )
     }
 
     private fun observeLoadingDialog() {
