@@ -1,7 +1,5 @@
 package com.wolfpackdigital.cashli.presentation.main.language
 
-import com.orhanobut.hawk.Hawk
-import com.wolfpackdigital.cashli.shared.Constants
 import com.wolfpackdigital.cashli.shared.Constants.ENGLISH
 import com.wolfpackdigital.cashli.shared.Constants.HAITI
 import com.wolfpackdigital.cashli.shared.Constants.SPANISH
@@ -16,6 +14,6 @@ class ChooseLanguageViewModel : BaseViewModel(), PersistentService {
             SPANISH -> language = SPANISH
             HAITI -> language = HAITI
         }
+        // TODO: Implement the navigation to onboarding screen
     }
 }
-
