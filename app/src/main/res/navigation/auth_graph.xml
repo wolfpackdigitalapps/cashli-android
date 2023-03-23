@@ -6,6 +6,11 @@
     app:startDestination="@id/onboardingFragment">
 
     <fragment
+        android:id="@+id/chooseLanguageFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageFragment"
+        android:label="ChooseLanguageFragment" />
+
+    <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.wolfpackdigital.cashli.presentation.onboarding.OnboardingFragment"
         android:label="OnboardingFragment"

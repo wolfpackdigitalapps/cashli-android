@@ -8,6 +8,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
 import com.wolfpackdigital.cashli.domain.usecases.GetMockListUseCase
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
+import com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -15,6 +16,7 @@ object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel() }
+        viewModel { ChooseLanguageViewModel() }
     }
 
     private val apiModule = module {
