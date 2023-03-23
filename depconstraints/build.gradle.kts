@@ -29,6 +29,7 @@ val rxAndroid = "2.1.1"
 val spinKit = "1.4.0"
 
 val hawk = "2.0.1"
+val splashScreen = "1.0.0"
 
 dependencies {
     constraints {
@@ -69,5 +70,7 @@ dependencies {
 
         api("${Libs.SPINKIT}:$spinKit")
         api("${Libs.HAWK}:$hawk")
+
+        api("${Libs.SPLASH_SCREEN}:$splashScreen")
     }
 }
