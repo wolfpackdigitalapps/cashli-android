@@ -16,9 +16,9 @@ class SplashScreenFragment : BaseFragment<SplashScreenBinding, SplashScreenViewM
     override val viewModel by viewModel<SplashScreenViewModel>()
 
     override fun setupViews() {
-        lifecycleScope.launch {
-            delay(DELAY)
-            navController?.navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToListFragment())
-        }
+//        lifecycleScope.launch {
+//            delay(DELAY)
+//            navController?.navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToListFragment())
+//        }
     }
 }

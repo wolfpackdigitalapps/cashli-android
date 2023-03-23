@@ -7,6 +7,7 @@ import com.wolfpackdigital.cashli.data.repositories.MockRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
 import com.wolfpackdigital.cashli.domain.usecases.GetMockListUseCase
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
+import com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.main.list.ListViewModel
 import com.wolfpackdigital.cashli.presentation.main.splash.SplashScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -16,6 +17,7 @@ object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
         viewModel { SplashScreenViewModel() }
+        viewModel { ChooseLanguageViewModel() }
         viewModel { ListViewModel(get()) }
     }
 

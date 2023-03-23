@@ -1,3 +1,7 @@
 <resources>
     <string name="splash_screen">Splash Screen</string>
+
+    <string name="language_english">I speak English</string>
+    <string name="language_spanish">Yo hablo Español</string>
+    <string name="language_creole">Mwen pale Kreyol</string>
 </resources>
