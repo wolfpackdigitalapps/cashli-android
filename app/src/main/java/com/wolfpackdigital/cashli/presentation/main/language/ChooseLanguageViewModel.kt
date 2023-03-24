@@ -8,6 +8,6 @@ class ChooseLanguageViewModel : BaseViewModel(), PersistentService {
 
     fun setLanguageAndNavigateToOnboarding(lang: Languages) {
         language = lang
-        // TODO: Implement the navigation to onboarding screen
+        // TODO Implement the navigation to onboarding screen
     }
 }
