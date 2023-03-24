@@ -8,15 +8,6 @@
 
 
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.wolfpackdigital.cashli.presentation.main.list.ListFragment"
-        android:label="ListFragment"
-        tools:layout="@layout/fr_list" />
-    <fragment
-        android:id="@+id/chooseLanguageFragment"
-        android:name="com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageFragment"
-        android:label="ChooseLanguageFragment" />
-    <fragment
         android:id="@+id/informativeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.auth.signup.InformativeFragment"
         android:label="InformativeFragment" />

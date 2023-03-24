@@ -11,8 +11,6 @@ import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
-import com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel
-import com.wolfpackdigital.cashli.presentation.main.list.ListViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.InformativeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -24,7 +22,6 @@ object AppModules {
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
-        viewModel { ListViewModel(get()) }
     }
 
     private val apiModule = module {
