@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ChooseLanguageBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel" />
+
+        <variable
+            name="languages"
+            type="com.wolfpackdigital.cashli.domain.entities.enums.Languages" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_choose_language_top" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.32" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@id/background_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_guideline"
+            tools:srcCompat="@drawable/ic_background_blue_dots" />
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toTopOf="@id/btn_english"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_top"
+            app:srcCompat="@drawable/ic_logo" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.68" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/background_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.72" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_english"
+            style="@style/Widget.Cashli.Button.Radius28dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_56dp"
+            android:backgroundTint="@null"
+            android:gravity="start"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.ENGLISH)}"
+            android:paddingVertical="@dimen/dimen_16dp"
+            android:text="@string/language_english"
+            android:textAlignment="textStart"
+            app:icon="@drawable/ic_us"
+            app:iconPadding="@dimen/dimen_12dp"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toTopOf="@id/btn_spanish"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottom_guideline" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_spanish"
+            style="@style/Widget.Cashli.Button.Radius28dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_56dp"
+            android:backgroundTint="@null"
+            android:gravity="start"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.SPANISH)}"
+            android:paddingVertical="@dimen/dimen_16dp"
+            android:text="@string/language_spanish"
+            android:textAlignment="textStart"
+            app:icon="@drawable/ic_spanish"
+            app:iconPadding="@dimen/dimen_12dp"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toTopOf="@id/btn_creole"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_english" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_creole"
+            style="@style/Widget.Cashli.Button.Radius28dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_56dp"
+            android:backgroundTint="@null"
+            android:gravity="start"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.HAITI)}"
+            android:paddingVertical="@dimen/dimen_16dp"
+            android:text="@string/language_creole"
+            android:textAlignment="textStart"
+            app:icon="@drawable/ic_haiti"
+            app:iconPadding="@dimen/dimen_12dp"
+            app:iconTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_spanish" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
