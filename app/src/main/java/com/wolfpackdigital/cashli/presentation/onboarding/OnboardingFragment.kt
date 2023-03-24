@@ -47,7 +47,6 @@ class OnboardingFragment :
             adapter = OnboardingPagerAdapter(this@OnboardingFragment, steps)
             registerOnPageChangeCallback(onPageChanged)
             binding?.dotsIndicator?.attachTo(this)
-            offscreenPageLimit = VIEW_PAGER_OFFSCREEN_PAGE_LIMIT
         }
     }
 
