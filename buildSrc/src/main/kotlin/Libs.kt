@@ -40,4 +40,6 @@ object Libs {
     const val HAWK = "com.orhanobut:hawk"
 
     const val SPLASH_SCREEN = "androidx.core:core-splashscreen"
+    const val VIEW_PAGER2 = "androidx.viewpager2:viewpager2"
+    const val DOT_INDICATOR = "com.tbuonomo:dotsindicator"
 }
