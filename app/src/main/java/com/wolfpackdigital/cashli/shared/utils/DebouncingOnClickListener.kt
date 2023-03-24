@@ -1,12 +1,12 @@
 package com.wolfpackdigital.cashli.shared.utils
 
 import android.view.View
-import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS
+import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_300
 import com.wolfpackdigital.cashli.shared.utils.DebouncingClickEnabled.ENABLE_AGAIN
 import com.wolfpackdigital.cashli.shared.utils.DebouncingClickEnabled.enabled
 
 class DebouncingOnClickListener(
-    private val debounceInterval: Long = DEBOUNCE_INTERVAL_MILLIS,
+    private val debounceInterval: Long = DEBOUNCE_INTERVAL_MILLIS_300,
     private val listener: View.OnClickListener
 ) : View.OnClickListener {
     override fun onClick(v: View?) {

@@ -2,6 +2,8 @@ package com.wolfpackdigital.cashli.shared.utils.extensions
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Parcelable
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,13 +12,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_PREFIX_LABEL
+import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 
 fun Fragment.snackBar(message: String, action: ((View) -> Unit)? = {}, actionText: String? = null) {
     this.view?.let {
         Snackbar.make(
-            it,
-            message,
-            Snackbar.LENGTH_LONG
+            it, message, Snackbar.LENGTH_LONG
         ).setAction(actionText, action).show()
     }
 }
@@ -24,9 +26,7 @@ fun Fragment.snackBar(message: String, action: ((View) -> Unit)? = {}, actionTex
 fun Activity.snackBar(message: String, action: ((View) -> Unit)? = {}, actionText: String? = null) {
     this.window?.decorView?.let {
         Snackbar.make(
-            it,
-            message,
-            Snackbar.LENGTH_LONG
+            it, message, Snackbar.LENGTH_LONG
         ).setAction(actionText, action).show()
     }
 }
@@ -43,9 +43,7 @@ fun Fragment.showDialog(
 ): AlertDialog? {
     this.context?.let {
         val builder = AlertDialog.Builder(it)
-        builder.setTitle(title)
-            .setMessage(message)
-            .setCancelable(isCancelable)
+        builder.setTitle(title).setMessage(message).setCancelable(isCancelable)
         positiveButtonText?.let { text ->
             builder.setPositiveButton(text) { dialog, _ ->
                 dialog.dismiss()
@@ -74,9 +72,7 @@ fun Activity.showDialog(
     negativeButtonClick: () -> Unit = {}
 ): AlertDialog {
     val builder = AlertDialog.Builder(this)
-    builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(isCancelable)
+    builder.setTitle(title).setMessage(message).setCancelable(isCancelable)
     positiveButtonText?.let { text ->
         builder.setPositiveButton(text) { dialog, _ ->
             dialog.dismiss()
@@ -107,3 +103,10 @@ val Fragment.navController: NavController?
 
 val Activity.navController: NavController?
     get() = runCatching { findNavController(R.id.main_host_fragment) }.getOrNull()
+
+fun Activity.showDialer(phoneNumber: String = SUPPORT_PHONE_NUMBER) {
+    Intent(Intent.ACTION_DIAL).apply {
+        data = Uri.parse("$PHONE_NUMBER_PREFIX_LABEL$phoneNumber")
+        startActivity(this)
+    }
+}

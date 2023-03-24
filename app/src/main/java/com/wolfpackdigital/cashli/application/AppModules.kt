@@ -5,18 +5,21 @@ import com.wolfpackdigital.cashli.data.mappers.MockItemToMockItemDtoMapper
 import com.wolfpackdigital.cashli.data.remote.api.common.ApiProvider
 import com.wolfpackdigital.cashli.data.repositories.MockRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
-import com.wolfpackdigital.cashli.domain.usecases.GetMockListUseCase
+import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
+import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
-import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel
+import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
+import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
-        viewModel { OnboardingViewModel() }
+        viewModel { OnboardingViewModel(get()) }
         viewModel { ChooseLanguageViewModel() }
+        viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
     }
 
     private val apiModule = module {
@@ -33,7 +36,7 @@ object AppModules {
     }
 
     private val useCases = module {
-        single { GetMockListUseCase(get()) }
+        single { GetOnboardingStepsUseCase() }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases)
