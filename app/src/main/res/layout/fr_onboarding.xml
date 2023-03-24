@@ -34,14 +34,14 @@
             app:dotsSize="@dimen/dimen_10dp"
             app:dotsSpacing="@dimen/dimen_4dp"
             app:dotsWidthFactor="1"
-            app:layout_constraintBottom_toTopOf="@+id/already_have_account_tv"
+            app:layout_constraintBottom_toTopOf="@+id/tv_already_have_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:progressMode="false"
             app:selectedDotColor="@color/colorWhite" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/back_btn"
+            android:id="@+id/btn_back"
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,24 +62,24 @@
             android:contentDescription="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/back_btn"
+            app:layout_constraintTop_toTopOf="@+id/btn_back"
             app:srcCompat="@drawable/ic_logo_toolbar" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/already_have_account_tv"
+            android:id="@+id/tv_already_have_account"
             style="@style/TextView_400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_28dp"
             android:text="@string/already_have_an_account"
             android:textColor="@color/colorGrayB6"
-            app:layout_constraintBottom_toTopOf="@+id/create_account_btn"
-            app:layout_constraintEnd_toStartOf="@+id/sign_in_tv"
+            app:layout_constraintBottom_toTopOf="@+id/btn_create_account"
+            app:layout_constraintEnd_toStartOf="@+id/tv_sign_in"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/sign_in_tv"
+            android:id="@+id/tv_sign_in"
             style="@style/TextView_700"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,12 +88,12 @@
             android:onClick="@{() -> viewModel.signIn()}"
             android:text="@string/sign_in"
             android:textColor="@color/colorGrayDC"
-            app:layout_constraintBottom_toTopOf="@+id/create_account_btn"
+            app:layout_constraintBottom_toTopOf="@+id/btn_create_account"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/already_have_account_tv" />
+            app:layout_constraintStart_toEndOf="@+id/tv_already_have_account" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/create_account_btn"
+            android:id="@+id/btn_create_account"
             style="@style/Widget.Cashli.Button.Accent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -101,12 +101,12 @@
             android:layout_marginBottom="@dimen/dimen_8dp"
             android:onClick="@{() -> viewModel.createAccount()}"
             android:text="@string/create_account"
-            app:layout_constraintBottom_toTopOf="@+id/get_support_btn"
+            app:layout_constraintBottom_toTopOf="@+id/btn_get_support"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/get_support_btn"
+            android:id="@+id/btn_get_support"
             style="@style/Widget.Cashli.Button.NoBackground"
             android:layout_width="wrap_content"
             android:layout_height="0dp"

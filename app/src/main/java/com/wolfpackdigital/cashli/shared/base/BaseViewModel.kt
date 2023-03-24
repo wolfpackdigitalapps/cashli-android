@@ -1,13 +1,17 @@
 package com.wolfpackdigital.cashli.shared.base
 
 import android.app.Application
+import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.core.os.bundleOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigator
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.minusAssign
 import com.wolfpackdigital.cashli.shared.utils.extensions.plusAssign
@@ -73,5 +77,14 @@ sealed class BaseCommand {
         @IdRes val popUpTo: Int? = null,
         val inclusive: Boolean = false
     ) : BaseCommand()
+
+    data class PerformNavById(
+        val currentDestinationId: Int,
+        val destinationId: Int,
+        val bundle: Bundle = bundleOf(),
+        val options: NavOptions? = null,
+        val extras: Navigator.Extras? = null
+    ) : BaseCommand()
+
     object GoBack : BaseCommand()
 }

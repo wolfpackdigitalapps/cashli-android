@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.wolfpackdigital.cashli.presentation.main.language.ChooseLanguageViewModel" />
+            type="com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel" />
 
         <variable
             name="languages"
@@ -77,7 +77,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_english"
-            style="@style/Widget.Cashli.Button.Radius28dp"
+            style="@style/Widget.Cashli.Button.Primary.Language"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_56dp"
@@ -97,7 +97,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_spanish"
-            style="@style/Widget.Cashli.Button.Radius28dp"
+            style="@style/Widget.Cashli.Button.Primary.Language"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_56dp"
@@ -117,7 +117,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_creole"
-            style="@style/Widget.Cashli.Button.Radius28dp"
+            style="@style/Widget.Cashli.Button.Primary.Language"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_56dp"

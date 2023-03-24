@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.presentation.main.language
+package com.wolfpackdigital.cashli.presentation.language
 
 import com.wolfpackdigital.cashli.ChooseLanguageBinding
 import com.wolfpackdigital.cashli.R

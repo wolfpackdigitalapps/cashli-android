@@ -18,9 +18,7 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
 
 abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewModel>(
-    @LayoutRes private val layoutResource: Int,
-    private val enterTrans: android.transition.Transition = android.transition.Fade(),
-    private val exitTrans: android.transition.Transition = android.transition.Fade()
+    @LayoutRes private val layoutResource: Int
 ) : Fragment() {
 
     // In the case of fragments, simply having the binding as a
@@ -34,8 +32,6 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enterTransition = enterTrans
-        exitTransition = exitTrans
         loadingDialog?.apply { if (isShowing) dismiss() }
     }
 
@@ -76,6 +72,12 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                 is BaseCommand.ShowSnackbarById -> snackBar(getString(it.stringId))
                 is BaseCommand.ShowSnackbar -> snackBar(it.message)
                 is BaseCommand.PerformNavAction -> navigate(it)
+                is BaseCommand.PerformNavById -> navController?.navigate(
+                    it.destinationId,
+                    it.bundle,
+                    it.options,
+                    it.extras
+                )
                 is BaseCommand.GoBack -> navController?.popBackStack()
             }
         }

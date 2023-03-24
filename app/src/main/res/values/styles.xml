@@ -19,12 +19,9 @@
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
-    <style name="Widget.Cashli.Button.Radius28dp" parent="Widget.MaterialComponents.Button">
-        <item name="fontFamily">@font/lato</item>
+    <style name="Widget.Cashli.Button.Primary.Language">
         <item name="fontWeight">600</item>
         <item name="android:textSize">@dimen/size_16sp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textAllCaps">false</item>
         <item name="cornerRadius">@dimen/dimen_28dp</item>
     </style>
 
@@ -32,6 +29,18 @@
         <item name="android:theme">@style/ButtonTheme.Accent</item>
         <item name="android:height">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorPinkBF</item>
+    </style>
+
+    <style name="Widget.Cashli.Button.PrimaryDark">
+        <item name="android:theme">@style/ButtonTheme.PrimaryDark</item>
+        <item name="android:height">@dimen/dimen_64dp</item>
+        <item name="rippleColor">@color/colorGray64</item>
+    </style>
+
+    <style name="Widget.Cashli.Button.Primary">
+        <item name="android:theme">@style/ButtonTheme.Primary</item>
+        <item name="android:height">@dimen/dimen_64dp</item>
+        <item name="rippleColor">@color/colorGray64</item>
     </style>
 
     <style name="Widget.Cashli.Button.NoBackground" parent="Widget.MaterialComponents.Button.TextButton">
@@ -49,6 +58,16 @@
     <style name="ButtonTheme.Accent">
         <item name="colorPrimary">@color/btn_background_accent_selector</item>
         <item name="backgroundTint">@color/btn_background_accent_selector</item>
+    </style>
+
+    <style name="ButtonTheme.Primary">
+        <item name="colorPrimary">@color/btn_background_primary_selector</item>
+        <item name="backgroundTint">@color/btn_background_primary_selector</item>
+    </style>
+
+    <style name="ButtonTheme.PrimaryDark">
+        <item name="colorPrimary">@color/btn_background_primary_dark_selector</item>
+        <item name="backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>
 
     <style name="TextView">
