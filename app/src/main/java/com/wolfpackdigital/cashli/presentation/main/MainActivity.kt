@@ -11,11 +11,20 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : BaseActivity<ActMainBinding, MainActivityViewModel>(R.layout.activity_main) {
     override val viewModel by viewModel<MainActivityViewModel>()
 
+    private var keepSplash = true
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        installSplashScreen().setKeepOnScreenCondition { keepSplash }
         super.onCreate(savedInstanceState)
     }
+
     override fun setupViews() {
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        viewModel.keepShowingSplash.observe(this) {
+            keepSplash = it
+        }
     }
 
     override fun parseNotificationFromIntent(notification: NotificationModel?) {

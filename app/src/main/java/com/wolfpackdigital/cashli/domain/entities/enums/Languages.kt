@@ -1,5 +1,9 @@
 package com.wolfpackdigital.cashli.domain.entities.enums
 
-enum class Languages(val lang: String) {
-    ENGLISH("english"), SPANISH("spanish"), HAITI("haiti")
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class Languages : Parcelable {
+    ENGLISH, SPANISH, HAITI
 }
