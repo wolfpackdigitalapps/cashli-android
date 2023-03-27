@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class OnboardingStep(
-    @DrawableRes val image: Int? = null,
-    @StringRes val title: Int? = null,
+    @DrawableRes val image: Int,
+    @StringRes val title: Int,
     @StringRes val subtitle: Int? = null,
     @StringRes val content: Int? = null,
     @StringRes val news: Int? = null,

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -31,7 +31,7 @@
         <item name="rippleColor">@color/colorPinkBF</item>
     </style>
 
-    <style name="Widget.Cashli.Button.PrimaryDark">
+    <style tools:ignore="UnusedResources" name="Widget.Cashli.Button.PrimaryDark">
         <item name="android:theme">@style/ButtonTheme.PrimaryDark</item>
         <item name="android:height">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorGray64</item>
@@ -65,7 +65,7 @@
         <item name="backgroundTint">@color/btn_background_primary_selector</item>
     </style>
 
-    <style name="ButtonTheme.PrimaryDark">
+    <style tools:ignore="UnusedResources" name="ButtonTheme.PrimaryDark">
         <item name="colorPrimary">@color/btn_background_primary_dark_selector</item>
         <item name="backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>

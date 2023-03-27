@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
+            android:src="@drawable/ic_top_shapes_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_choose_language_top" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/top_guideline"
@@ -44,11 +44,11 @@
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:scaleType="fitXY"
+            android:src="@drawable/ic_background_blue_dots"
             app:layout_constraintBottom_toTopOf="@id/background_guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_guideline"
-            tools:srcCompat="@drawable/ic_background_blue_dots" />
+            app:layout_constraintTop_toBottomOf="@id/top_guideline" />
 
         <ImageView
             android:id="@+id/iv_logo"

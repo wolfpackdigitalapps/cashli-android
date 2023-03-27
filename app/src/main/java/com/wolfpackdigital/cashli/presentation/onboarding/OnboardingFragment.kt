@@ -9,8 +9,6 @@ import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.extensions.showDialer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private const val VIEW_PAGER_OFFSCREEN_PAGE_LIMIT = 1
-
 class OnboardingFragment :
     BaseFragment<OnboardingBinding, OnboardingViewModel>(R.layout.fr_onboarding) {
 
@@ -47,7 +45,6 @@ class OnboardingFragment :
             adapter = OnboardingPagerAdapter(this@OnboardingFragment, steps)
             registerOnPageChangeCallback(onPageChanged)
             binding?.dotsIndicator?.attachTo(this)
-            offscreenPageLimit = VIEW_PAGER_OFFSCREEN_PAGE_LIMIT
         }
     }
 
