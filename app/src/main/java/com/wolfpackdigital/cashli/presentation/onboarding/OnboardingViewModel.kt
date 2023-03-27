@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.successOr
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
@@ -78,7 +79,9 @@ class OnboardingViewModel(
     }
 
     fun createAccount() {
-        // TODO
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            OnboardingFragmentDirections.actionOnboardingFragmentToInformativeFragment()
+        )
     }
 
     fun getSupport() {

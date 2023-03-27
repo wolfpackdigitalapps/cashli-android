@@ -19,5 +19,14 @@
         android:id="@+id/onboardingFragment"
         android:name="com.wolfpackdigital.cashli.presentation.onboarding.OnboardingFragment"
         android:label="OnboardingFragment"
-        tools:layout="@layout/fr_onboarding" />
+        tools:layout="@layout/fr_onboarding" >
+        <action
+            android:id="@+id/action_onboardingFragment_to_informativeFragment"
+            app:destination="@id/informativeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/informativeFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.InformativeFragment"
+        android:label="InformativeFragment"
+        tools:layout="@layout/fr_informative"/>
 </navigation>

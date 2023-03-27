@@ -18,13 +18,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_back"
-            style="@style/Widget.Material3.Button.TextButton.Icon"
+            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
             android:layout_marginTop="@dimen/dimen_16dp"
-            android:background="@null"
             android:contentDescription="@string/back"
             android:onClick="@{() -> viewModel.back()}"
             app:icon="@drawable/ic_arrow_back"
