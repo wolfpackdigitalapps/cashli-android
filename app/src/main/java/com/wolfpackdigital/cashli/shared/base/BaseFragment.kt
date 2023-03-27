@@ -10,15 +10,15 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import com.wolfpackdigital.cashli.BR
+import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
 
 abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewModel>(
-    @LayoutRes private val layoutResource: Int,
-    private val enterTrans: android.transition.Transition = android.transition.Fade(),
-    private val exitTrans: android.transition.Transition = android.transition.Fade()
+    @LayoutRes private val layoutResource: Int
 ) : Fragment() {
 
     // In the case of fragments, simply having the binding as a
@@ -32,8 +32,6 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enterTransition = enterTrans
-        exitTransition = exitTrans
         loadingDialog?.apply { if (isShowing) dismiss() }
     }
 
@@ -73,10 +71,31 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                         .show()
                 is BaseCommand.ShowSnackbarById -> snackBar(getString(it.stringId))
                 is BaseCommand.ShowSnackbar -> snackBar(it.message)
-                is BaseCommand.PerformNavAction -> navController?.navigate(it.direction)
+                is BaseCommand.PerformNavAction -> navigate(it)
+                is BaseCommand.PerformNavById -> navController?.navigate(
+                    it.destinationId,
+                    it.bundle,
+                    it.options,
+                    it.extras
+                )
                 is BaseCommand.GoBack -> navController?.popBackStack()
             }
         }
+    }
+
+    private fun navigate(cmd: BaseCommand.PerformNavAction) {
+        navController?.navigate(
+            cmd.direction,
+            NavOptions.Builder()
+                .setEnterAnim(R.anim.fade_in)
+                .setPopExitAnim(R.anim.fade_out)
+                .setPopEnterAnim(R.anim.fade_in)
+                .setExitAnim(R.anim.fade_out)
+                .apply {
+                    cmd.popUpTo?.let { popUpTo -> setPopUpTo(popUpTo, cmd.inclusive) }
+                }
+                .build()
+        )
     }
 
     private fun observeLoadingDialog() {

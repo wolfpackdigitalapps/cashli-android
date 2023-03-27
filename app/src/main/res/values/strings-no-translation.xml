@@ -4,7 +4,7 @@
     <string name="push_notification_channel_name" translatable="false">Notifications from BaseProject</string>
     <string name="push_notification_channel_desc" translatable="false">Notifications from BaseProject</string>
 
-    <string name="language_english">I speak English</string>
-    <string name="language_spanish">Yo hablo Español</string>
-    <string name="language_creole">Mwen pale Kreyol</string>
+    <string name="language_english" translatable="false">I speak English</string>
+    <string name="language_spanish" translatable="false">Yo hablo Español</string>
+    <string name="language_creole" translatable="false">Mwen pale Kreyol</string>
 </resources>

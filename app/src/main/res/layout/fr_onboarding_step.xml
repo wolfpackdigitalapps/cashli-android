@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".OnboardingStepBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        tools:background="@color/colorPrimaryDark">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/top_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                app:drawableRes="@{viewModel.model.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_onboarding_3" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_negative_48dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_iv"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintVertical_chainStyle="spread_inside">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_onboarding_title"
+                    style="@style/TextView_700"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_48dp"
+                    android:textSize="@dimen/size_28sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:textRes="@{viewModel.model.title}"
+                    tools:text="@string/onboarding_title_3" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_onboarding_in_progress"
+                    style="@style/TextView_400"
+                    visibility="@{viewModel.model.inProgress}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_8dp"
+                    android:text="@string/work_in_progress"
+                    android:textColor="@color/colorGrayB6"
+                    android:textSize="@dimen/size_12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_onboarding_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_title"
+                    tools:text="@string/work_in_progress" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_onboarding_subtitle"
+                    style="@style/TextView_700"
+                    visibility="@{viewModel.model.subtitle != null}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_48dp"
+                    android:textSize="@dimen/size_18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_title"
+                    app:textRes="@{viewModel.model.subtitle}"
+                    tools:text="@string/onboarding_subtitle_1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_onboarding_content"
+                style="@style/TextView_400"
+                visibility="@{viewModel.model.content != null}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_48dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:lineSpacingExtra="@dimen/dimen_4dp"
+                android:textColor="@color/colorGrayB6"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_news"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_header"
+                app:textRes="@{viewModel.model.content}"
+                tools:text="@string/onboarding_content_1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_onboarding_news"
+                style="@style/TextView_400"
+                visibility="@{viewModel.model.news != null}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_48dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:lineSpacingExtra="@dimen/dimen_8dp"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_onboarding_content"
+                app:layout_constraintVertical_bias="0.0"
+                app:textRes="@{viewModel.model.news}"
+                tools:text="@string/onboarding_news_1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
