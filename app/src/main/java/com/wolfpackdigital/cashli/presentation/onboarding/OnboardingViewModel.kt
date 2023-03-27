@@ -43,11 +43,10 @@ class OnboardingViewModel(
 
     private fun toggleStepSwipeJob() {
         viewModelScope.launch {
-            if (job == null) initStepSwipeJob()
-            else {
+            job?.let {
                 cancelStepSwipeJob()
                 checkIfStepSwipeJobNeedToToggle()
-            }
+            } ?: run { initStepSwipeJob() }
         }
     }
 

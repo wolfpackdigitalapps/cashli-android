@@ -52,7 +52,6 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_onboarding_title"
                     style="@style/TextView_700"
-                    visibility="@{viewModel.model.title != null}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_48dp"
