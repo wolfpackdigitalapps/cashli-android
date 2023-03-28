@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -31,7 +31,7 @@
         <item name="rippleColor">@color/colorPinkBF</item>
     </style>
 
-    <style tools:ignore="UnusedResources" name="Widget.Cashli.Button.PrimaryDark">
+    <style name="Widget.Cashli.Button.PrimaryDark">
         <item name="android:theme">@style/ButtonTheme.PrimaryDark</item>
         <item name="android:height">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorGray64</item>
@@ -65,7 +65,7 @@
         <item name="backgroundTint">@color/btn_background_primary_selector</item>
     </style>
 
-    <style tools:ignore="UnusedResources" name="ButtonTheme.PrimaryDark">
+    <style name="ButtonTheme.PrimaryDark">
         <item name="colorPrimary">@color/btn_background_primary_dark_selector</item>
         <item name="backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>
@@ -104,4 +104,15 @@
         <item name="android:textColorHint">@color/colorGrayB6</item>
         <item name="hintTextColor">@color/colorGrayB6</item>
     </style>
+
+    <style name="ScrollView">
+        <item name="android:fillViewport">true</item>
+    </style>
+
+    <style name="ScrollView.VerticalDarkScrollBar">
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarThumbVertical">@drawable/scrollview_thumb</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
 </resources>
