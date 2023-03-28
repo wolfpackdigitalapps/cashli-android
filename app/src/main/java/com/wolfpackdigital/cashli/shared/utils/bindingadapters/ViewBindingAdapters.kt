@@ -3,6 +3,7 @@ package com.wolfpackdigital.cashli.shared.utils.bindingadapters
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
@@ -40,4 +41,9 @@ fun TextView.textRes(@StringRes textRes: Int?) {
 fun ImageView.drawableRes(@DrawableRes drawableRes: Int?) {
     drawableRes ?: return
     setImageResource(drawableRes)
+}
+
+@BindingAdapter("app:tint")
+fun ImageView.setImageTint(@ColorInt color: Int) {
+    setColorFilter(color)
 }
