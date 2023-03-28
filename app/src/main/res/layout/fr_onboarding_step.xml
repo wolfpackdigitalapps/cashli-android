@@ -14,12 +14,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
+        style="@style/ScrollView.VerticalDarkScrollBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadeScrollbars="false"
-        android:fillViewport="true"
-        android:scrollbarThumbVertical="@drawable/scrollview_thumb"
-        android:scrollbars="vertical"
         tools:background="@color/colorPrimaryDark">
 
         <androidx.constraintlayout.widget.ConstraintLayout
