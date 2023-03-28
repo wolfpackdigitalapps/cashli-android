@@ -81,8 +81,27 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="TextView_600" parent="TextView">
+        <item name="fontWeight">600</item>
+    </style>
+
+    <style name="TextView_600.Label">
+        <item name="android:textSize">@dimen/size_12sp</item>
+    </style>
+
     <style name="TextView_700" parent="TextView">
         <item name="fontWeight">700</item>
     </style>
 
+    <style name="BaseTextInputEditText">
+        <item name="android:background">@drawable/text_input_edit_text_background_selector</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textSize">@dimen/size_16sp</item>
+        <item name="android:paddingTop">@dimen/dimen_12dp</item>
+        <item name="android:paddingBottom">@dimen/dimen_12dp</item>
+        <item name="android:paddingStart">@dimen/dimen_20dp</item>
+        <item name="android:textColorHint">@color/colorGrayB6</item>
+        <item name="hintTextColor">@color/colorGrayB6</item>
+    </style>
 </resources>
