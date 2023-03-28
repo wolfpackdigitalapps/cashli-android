@@ -87,6 +87,7 @@
 
     <style name="TextView_600" parent="TextView">
         <item name="fontWeight">600</item>
+    </style>
 
     <style name="ScrollView">
         <item name="android:fillViewport">true</item>
