@@ -85,4 +85,8 @@
         <item name="fontWeight">700</item>
     </style>
 
+    <style name="TextView_600" parent="TextView">
+        <item name="fontWeight">600</item>
+    </style>
+
 </resources>
