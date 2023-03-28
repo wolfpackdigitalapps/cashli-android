@@ -28,5 +28,14 @@
         android:id="@+id/informativeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.auth.signup.InformativeFragment"
         android:label="InformativeFragment"
-        tools:layout="@layout/fr_informative"/>
+        tools:layout="@layout/fr_informative">
+        <action
+            android:id="@+id/action_informativeFragment_to_phoneNumberFragment"
+            app:destination="@id/phoneNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneNumberFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberFragment"
+        android:label="PhoneNumberFragment"
+        tools:layout="@layout/fr_phone_number"/>
 </navigation>

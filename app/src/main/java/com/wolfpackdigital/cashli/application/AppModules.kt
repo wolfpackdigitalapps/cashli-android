@@ -8,6 +8,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.presentation.auth.signup.InformativeViewModel
+import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
@@ -22,6 +23,7 @@ object AppModules {
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
+        viewModel { PhoneNumberViewModel() }
     }
 
     private val apiModule = module {
