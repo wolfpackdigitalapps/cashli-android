@@ -14,9 +14,9 @@ fun View.visibility(visible: Boolean?) {
     this.visibility = if (visible == true) View.VISIBLE else View.GONE
 }
 
-@BindingAdapter("invisibility")
-fun View.invisibility(visible: Boolean?) {
-    this.visibility = if (visible == true) View.VISIBLE else View.INVISIBLE
+@BindingAdapter("hidden")
+fun View.hide(invisible: Boolean?) {
+    this.visibility = if (invisible == true) View.INVISIBLE else View.VISIBLE
 }
 
 @BindingAdapter(value = ["android:onClick", "debounceInterval"], requireAll = false)
