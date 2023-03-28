@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ThreeStepsCounterBinding">
+
+        <variable
+            name="isVisible"
+            type="Boolean" />
+
+        <variable
+            name="currentStep"
+            type="Integer" />
+
+        <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        visibility="@{isVisible}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        tools:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/iv_first_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toStartOf="@+id/iv_second_step"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_rounded_rectangle_start"
+            app:tint="@{currentStep == Constants.STEP_1 ? @color/colorGrayF4 : @color/colorPrimary}"
+            tools:src="@drawable/ic_logo_toolbar" />
+
+        <ImageView
+            android:id="@+id/iv_second_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_2dp"
+            android:layout_marginEnd="@dimen/dimen_2dp"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toStartOf="@id/iv_third_step"
+            app:layout_constraintStart_toEndOf="@id/iv_first_step"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_rectangle"
+            app:tint="@{currentStep == Constants.STEP_2 ? @color/colorGrayF4 : @color/colorPrimary}"
+            tools:src="@drawable/ic_logo_toolbar" />
+
+        <ImageView
+            android:id="@+id/iv_third_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_second_step"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_rounded_rectangle_end"
+            app:tint="@{currentStep == Constants.STEP_3 ? @color/colorGrayF4 : @color/colorPrimary}"
+            tools:src="@drawable/ic_logo_toolbar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
