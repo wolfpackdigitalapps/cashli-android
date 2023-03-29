@@ -50,7 +50,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_onboarding_title"
-                    style="@style/TextView_700"
+                    style="@style/TextView.Bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_48dp"
@@ -63,7 +63,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_onboarding_in_progress"
-                    style="@style/TextView_400"
+                    style="@style/TextView.Regular"
                     visibility="@{viewModel.model.inProgress}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_onboarding_subtitle"
-                    style="@style/TextView_700"
+                    style="@style/TextView.Bold"
                     visibility="@{viewModel.model.subtitle != null}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_onboarding_content"
-                style="@style/TextView_400"
+                style="@style/TextView.Regular"
                 visibility="@{viewModel.model.content != null}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_onboarding_news"
-                style="@style/TextView_400"
+                style="@style/TextView.Regular"
                 visibility="@{viewModel.model.news != null}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

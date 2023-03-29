@@ -55,7 +55,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title"
-            style="@style/TextView_600"
+            style="@style/TextView.SemiBold"
             visibility="@{viewModel.titleId != null}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

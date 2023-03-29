@@ -40,34 +40,17 @@
             app:progressMode="false"
             app:selectedDotColor="@color/colorWhite" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_back"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/dimen_8dp"
-            android:layout_marginTop="@dimen/dimen_16dp"
-            android:onClick="@{() -> viewModel.back()}"
-            app:icon="@drawable/ic_arrow_back"
-            app:iconTint="@null"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_8dp"
-            android:contentDescription="@null"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_back"
-            app:srcCompat="@drawable/ic_logo_toolbar" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_already_have_account"
-            style="@style/TextView_400"
+            style="@style/TextView.Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_28dp"
@@ -80,7 +63,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_sign_in"
-            style="@style/TextView_700"
+            style="@style/TextView.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_4dp"

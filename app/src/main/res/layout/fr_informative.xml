@@ -15,31 +15,13 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_back"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/dimen_8dp"
-            android:layout_marginTop="@dimen/dimen_16dp"
-            android:contentDescription="@string/back"
-            android:onClick="@{() -> viewModel.back()}"
-            app:icon="@drawable/ic_arrow_back"
-            app:iconTint="@color/colorGrayDC"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_8dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_logo_small"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
 
         <include
             android:id="@+id/layout_message_one"
@@ -105,7 +87,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_already_account"
-            style="@style/TextView_400"
+            style="@style/TextView.Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_16dp"
@@ -118,7 +100,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_sign_in"
-            style="@style/TextView_700"
+            style="@style/TextView.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_4dp"
