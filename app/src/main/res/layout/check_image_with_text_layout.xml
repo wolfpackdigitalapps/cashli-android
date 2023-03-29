@@ -9,7 +9,7 @@
             type="String" />
 
         <variable
-            name="isVisible"
+            name="hidden"
             type="Boolean" />
 
     </data>
@@ -25,7 +25,7 @@
             android:layout_marginEnd="@dimen/dimen_16dp"
             android:contentDescription="@null"
             android:paddingTop="@dimen/dimen_4dp"
-            app:invisibility="@{isVisible}"
+            app:hidden="@{hidden}"
             app:layout_constraintEnd_toStartOf="@id/tv_first_sign_up_screen_message_one"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
