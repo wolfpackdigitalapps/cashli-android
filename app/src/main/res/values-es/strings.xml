@@ -13,4 +13,11 @@
     <string name="onboarding_news_1">No tricks. No interest. No credit checks.\nNo SSN. No ITIN. No hidden or late fees.</string>
     <string name="onboarding_news_2">The only cash advance app in three languages.\n(and more to come)</string>
     <string name="work_in_progress">(work in progress)</string>
+    <string name="back">back</string>
+
+    <!--Signup -->
+    <string name="sign_up">Sign up</string>
+    <string name="first_sign_up_screen_message_one">You\'ll be alerted on your phone when your \nbank balance is running too low.</string>
+    <string name="first_sign_up_screen_message_two">You\'ll be able to request a cash advance to \nkeep up with bills &amp; unexpected expenses.</string>
+    <string name="first_sign_up_screen_message_three">Do you often send money to loved ones \noverseas? You could save hundreds of $ in \ntransfer fees (work in progress).</string>
 </resources>
