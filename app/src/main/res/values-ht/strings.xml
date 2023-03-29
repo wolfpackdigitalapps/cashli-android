@@ -22,4 +22,6 @@
     <string name="first_sign_up_screen_message_three">Do you often send money to loved ones \noverseas? You could save hundreds of $ in \ntransfer fees (work in progress).</string>
     <string name="continue_name">Continue</string>
     <string name="phone_number_question">What is your phone \nnumber?</string>
+    <string name="phone_number">Phone number</string>
+    <string name="country_code_US">+1</string>
 </resources>

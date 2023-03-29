@@ -23,6 +23,7 @@
             app:viewModel="@{viewModel.toolbar}" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_question"
             style="@style/TextView.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,6 +37,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <include
+            android:id="@+id/layout_phone_number"
+            layout="@layout/phone_number_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_question" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.Cashli.Button.Accent"
