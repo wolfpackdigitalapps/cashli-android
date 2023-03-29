@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/tv_label"
-            style="@style/TextView_600.Label"
+            style="@style/TextView.SemiBold.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorGrayF4"
@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/tv_error"
-            style="@style/TextView_600.Label"
+            style="@style/TextView.SemiBold.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorRed62"
