@@ -16,6 +16,7 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_layout"
+            app:viewModel="@{viewModel.toolbar}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
