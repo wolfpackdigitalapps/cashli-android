@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -30,7 +30,7 @@
         <item name="rippleColor">@color/colorPinkBF</item>
     </style>
 
-    <style name="Widget.Cashli.Button.PrimaryDark" tools:ignore="UnusedResources">
+    <style name="Widget.Cashli.Button.PrimaryDark">
         <item name="android:theme">@style/ButtonTheme.PrimaryDark</item>
         <item name="android:height">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorGray64</item>
@@ -63,7 +63,7 @@
         <item name="backgroundTint">@color/btn_background_primary_selector</item>
     </style>
 
-    <style name="ButtonTheme.PrimaryDark" tools:ignore="UnusedResources">
+    <style name="ButtonTheme.PrimaryDark">
         <item name="colorPrimary">@color/btn_background_primary_dark_selector</item>
         <item name="backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>
@@ -84,6 +84,21 @@
 
     <style name="TextView.SemiBold" parent="TextView">
         <item name="fontFamily">@font/lato_semi_bold</item>
+    </style>
+
+    <style name="TextView.SemiBold.Label">
+        <item name="android:textSize">@dimen/size_12sp</item>
+    </style>
+
+    <style name="BaseTextInputEditText">
+        <item name="android:background">@drawable/text_input_edit_text_background_selector</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textSize">@dimen/size_16sp</item>
+        <item name="android:paddingTop">@dimen/dimen_12dp</item>
+        <item name="android:paddingBottom">@dimen/dimen_12dp</item>
+        <item name="android:paddingStart">@dimen/dimen_20dp</item>
+        <item name="android:textColorHint">@color/colorGrayB6</item>
+        <item name="hintTextColor">@color/colorGrayB6</item>
     </style>
 
     <style name="ScrollView">

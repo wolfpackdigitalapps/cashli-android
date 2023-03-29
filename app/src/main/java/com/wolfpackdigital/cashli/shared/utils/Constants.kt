@@ -5,6 +5,7 @@ object Constants {
     const val DEBOUNCE_INTERVAL_MILLIS_300 = 350L
     const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"
     const val PHONE_NUMBER_PREFIX_LABEL = "tel:"
+    const val EMPTY_STRING = ""
 
     //MISC
     const val STEP_1 = 1
