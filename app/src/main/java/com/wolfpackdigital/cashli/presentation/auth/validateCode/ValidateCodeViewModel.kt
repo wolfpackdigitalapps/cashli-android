@@ -48,7 +48,9 @@ class ValidateCodeViewModel(
         // TODO add api call and replace mock behavior
         performApiCall {
             delay(200)
-            if (verificationCode.value != "1234")
+            if (verificationCode.value == "4321")
+                _invalidCodeErrorVisible.value = R.string.invalid_code_too_many_attempts
+            else if (verificationCode.value != "1234")
                 _invalidCodeErrorVisible.value = R.string.invalid_code
         }
     }
