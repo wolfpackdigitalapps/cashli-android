@@ -24,4 +24,8 @@
     <string name="phone_number_question">What is your phone \nnumber?</string>
     <string name="phone_number">Phone number</string>
     <string name="country_code_US">+1</string>
+    <string name="phone_number_hint">ex: 0123456789</string>
+    <string name="phone_number_length_error">The phone number must contain 10 digits</string>
+    <string name="phone_number_digits_error">The phone number must contain digits only</string>
+    <string name="phone_number_unique_error">The phone number already exists</string>
 </resources>

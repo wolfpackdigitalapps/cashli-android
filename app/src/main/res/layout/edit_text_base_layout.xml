@@ -14,7 +14,9 @@
             style="@style/TextView.SemiBold.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dimen_8dp"
             android:textColor="@color/colorGrayF4"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Label" />
@@ -27,7 +29,7 @@
             android:imeOptions="actionDone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_label" />
 
         <ImageView
             android:id="@+id/iv_drawable_end"

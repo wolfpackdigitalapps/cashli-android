@@ -10,8 +10,10 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.lifecycle.LiveData
 import com.wolfpackdigital.cashli.BaseEditTextBinding
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
@@ -43,6 +45,13 @@ fun BaseEditText.setCliText(content: LiveData<String>?) {
 @InverseBindingAdapter(attribute = "cliText")
 fun BaseEditText.getCliText() = text
 
+@BindingAdapter("cliTextAttrChanged")
+fun BaseEditText.setTextListener(attrChange: InverseBindingListener) {
+    binding.tietContent.doOnTextChanged { _, _, _, _ ->
+        attrChange.onChange()
+    }
+}
+
 @BindingAdapter("cliInputType")
 fun BaseEditText.cliInputType(type: Int?) {
     binding.tietContent.inputType = type ?: InputType.TYPE_CLASS_TEXT
@@ -65,12 +74,14 @@ fun BaseEditText.cliHintRes(@StringRes hintRes: Int?) {
 fun BaseEditText.cliLabel(label: String?) {
     label ?: return
     binding.tvLabel.text = label
+    binding.tvLabel.visibility = View.VISIBLE
 }
 
 @BindingAdapter("cliLabelRes")
 fun BaseEditText.cliLabelRes(@StringRes labelRes: Int?) {
     labelRes ?: return
     binding.tvLabel.text = context.getString(labelRes)
+    binding.tvLabel.visibility = View.VISIBLE
 }
 
 @BindingAdapter("cliMaxChars")
@@ -103,3 +114,5 @@ fun BaseEditText.cliDrawable(end: Drawable?) {
         binding.ivDrawableEnd.setImageDrawable(it)
     }
 }
+
+

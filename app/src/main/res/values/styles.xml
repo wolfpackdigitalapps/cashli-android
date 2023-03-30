@@ -9,7 +9,7 @@
     </style>
 
     <!-- Buttons -->
-    <style name="Widget.Cashli.Button" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.Cashli.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="fontFamily">@font/lato_bold</item>
         <item name="android:textSize">@dimen/size_18sp</item>
         <item name="android:textAlignment">center</item>
@@ -102,8 +102,8 @@
         <item name="android:background">@drawable/text_input_edit_text_background_selector</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textSize">@dimen/size_16sp</item>
-        <item name="android:paddingTop">@dimen/dimen_12dp</item>
-        <item name="android:paddingBottom">@dimen/dimen_12dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:paddingVertical">@dimen/dimen_16dp</item>
         <item name="android:paddingStart">@dimen/dimen_20dp</item>
         <item name="android:textColorHint">@color/colorGrayB6</item>
         <item name="hintTextColor">@color/colorGrayB6</item>

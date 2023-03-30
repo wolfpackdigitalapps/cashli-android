@@ -14,6 +14,7 @@ import com.google.gson.JsonSyntaxException
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.shared.base.ApiError
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_1000
+import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_LENGTH
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -46,6 +47,13 @@ fun String.hasEmailPattern(): Boolean {
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
             "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
             "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+    )
+    return pattern.matcher(this).matches()
+}
+
+fun String.hasPhoneNumberPattern(): Boolean {
+    val pattern = Pattern.compile(
+        "^[0-9]+$"
     )
     return pattern.matcher(this).matches()
 }
