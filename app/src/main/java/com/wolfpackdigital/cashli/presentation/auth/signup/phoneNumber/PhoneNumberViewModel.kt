@@ -10,7 +10,7 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.hasPhoneNumberPattern
 
-class PhoneNumberViewModel() : BaseViewModel() {
+class PhoneNumberViewModel : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -28,28 +28,29 @@ class PhoneNumberViewModel() : BaseViewModel() {
         number.length > Constants.PHONE_NUMBER_LENGTH
     }
 
-    val tooLong = disableButton.map { disabled ->
+    private val tooLong = disableButton.map { disabled ->
         if (disabled) R.string.phone_number_length_error else null
     }
 
-    private val _error = MutableLiveData<Int?>(null)
-    var error: LiveData<Int?> = _error
-    
+    private val _onContinueError = MutableLiveData<Int?>(null)
+    var onContinueError: LiveData<Int?> = _onContinueError
 
+    val error: MediatorLiveData<Int?> = MediatorLiveData<Int?>().apply {
+        addSource(tooLong) { error -> value = error }
+        addSource(onContinueError) { error -> value = error }
+    }
 
     fun onContinueClicked() {
         phoneNumber.value?.let { number ->
             if (number.hasPhoneNumberPattern()) {
                 if (number.length == Constants.PHONE_NUMBER_LENGTH) {
-
+                    // TODO navigate to next screen
                 } else {
-                    _error.value = R.string.phone_number_length_error
+                    _onContinueError.value = R.string.phone_number_length_error
                 }
             } else {
-                _error.value = R.string.phone_number_digits_error
+                _onContinueError.value = R.string.phone_number_digits_error
             }
         }
     }
-
-
 }

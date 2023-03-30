@@ -1,3 +1,4 @@
+@file:SuppressWarnings("TooManyFunctions")
 package com.wolfpackdigital.cashli.shared.utils.views
 
 import android.content.Context
@@ -114,5 +115,3 @@ fun BaseEditText.cliDrawable(end: Drawable?) {
         binding.ivDrawableEnd.setImageDrawable(it)
     }
 }
-
-
