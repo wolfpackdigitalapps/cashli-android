@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import com.wolfpackdigital.cashli.BR
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.shared.utils.extensions.hideSoftKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
@@ -79,6 +80,11 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                     it.extras
                 )
                 is BaseCommand.GoBack -> navController?.popBackStack()
+                is BaseCommand.ForceCloseKeyboard ->
+                    binding?.root?.findFocus()?.let { viewWithFocus ->
+                        hideSoftKeyboard(viewWithFocus)
+                        viewWithFocus.clearFocus()
+                    }
             }
         }
     }

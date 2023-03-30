@@ -10,6 +10,6 @@ data class Toolbar(
     val currentStep: Int = 0,
     val isStepCounterVisible: Boolean = false,
     val onBack: () -> Unit = {}
-    ) {
+) {
     fun onBackPressed() = onBack()
 }

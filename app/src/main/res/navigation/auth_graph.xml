@@ -19,7 +19,7 @@
         android:id="@+id/onboardingFragment"
         android:name="com.wolfpackdigital.cashli.presentation.onboarding.OnboardingFragment"
         android:label="OnboardingFragment"
-        tools:layout="@layout/fr_onboarding" >
+        tools:layout="@layout/fr_onboarding">
         <action
             android:id="@+id/action_onboardingFragment_to_informativeFragment"
             app:destination="@id/informativeFragment" />
@@ -28,5 +28,18 @@
         android:id="@+id/informativeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.auth.signup.InformativeFragment"
         android:label="InformativeFragment"
-        tools:layout="@layout/fr_informative"/>
+        tools:layout="@layout/fr_informative">
+        <action
+            android:id="@+id/action_informativeFragment_to_validateCodeFragment"
+            app:destination="@id/validateCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/validateCodeFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.validateCode.ValidateCodeFragment"
+        android:label="ValidateCodeFragment"
+        tools:layout="@layout/fr_validate_code" >
+        <argument
+            android:name="codeReceivedViaType"
+            app:argType="com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType" />
+    </fragment>
 </navigation>

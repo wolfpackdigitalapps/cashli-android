@@ -9,12 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_label"
             style="@style/TextView_600.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dimen_8dp"
             android:textColor="@color/colorGrayF4"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Label" />
@@ -27,7 +29,7 @@
             android:imeOptions="actionDone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_label" />
 
         <ImageView
             android:id="@+id/iv_drawable_end"
@@ -42,11 +44,12 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription,RtlSymmetry" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_error"
             style="@style/TextView_600.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:textColor="@color/colorRed62"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
