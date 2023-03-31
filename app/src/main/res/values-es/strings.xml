@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    // Onboarding
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--Onboarding -->
     <string name="create_account">Create account</string>
     <string name="get_support">Get support</string>
     <string name="sign_in">Sign in</string>
@@ -20,4 +20,15 @@
     <string name="first_sign_up_screen_message_one">You\'ll be alerted on your phone when your \nbank balance is running too low.</string>
     <string name="first_sign_up_screen_message_two">You\'ll be able to request a cash advance to \nkeep up with bills &amp; unexpected expenses.</string>
     <string name="first_sign_up_screen_message_three">Do you often send money to loved ones \noverseas? You could save hundreds of $ in \ntransfer fees (work in progress).</string>
+
+    <!--Validate Code -->
+    <string name="code_from_sms" tools:ignore="Typos">Enter the code received via SMS</string>
+    <string name="code_from_email" tools:ignore="Typos">Enter the code received via email</string>
+    <string name="invalid_code">Wrong code. Please try again</string>
+    <string name="invalid_code_too_many_attempts">You have entered a wrong code 5 times. Please re-start the process.</string>
+    <string name="resend_code">Resend code</string>
+    <string name="resend_code_counter">Resend code in %d s</string>
+
+    <!--Generic -->
+    <string name="generic_continue">Continue</string>
 </resources>

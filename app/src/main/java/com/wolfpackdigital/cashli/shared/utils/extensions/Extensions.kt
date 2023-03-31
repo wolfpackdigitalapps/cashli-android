@@ -2,11 +2,14 @@
 
 package com.wolfpackdigital.cashli.shared.utils.extensions
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -27,6 +30,7 @@ import java.util.regex.Pattern
 private const val GENERIC_SERVER_ERROR = "Something went wrong, please try again."
 private const val PARSING_SERVER_ERROR = "The response could not be parsed"
 private const val SYNTAX_SERVER_ERROR = "The response doesn't have a valid format"
+private const val KEYBOARD_HIDDEN_FLAG = 0
 
 fun Throwable.getParsedError(): String = try {
     val response = (this as? HttpException)?.response()?.errorBody()
@@ -109,3 +113,8 @@ fun initTimer(totalSeconds: Int): Flow<Int> =
         .onStart { emit(totalSeconds) }
         .conflate() // In case the operation onTick takes some time, conflate keeps the time ticking separately
         .transform { emit(it) }
+
+fun hideSoftKeyboard(view: View) {
+    val imm = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    imm?.hideSoftInputFromWindow(view.applicationWindowToken, KEYBOARD_HIDDEN_FLAG)
+}

@@ -9,7 +9,7 @@
     </style>
 
     <!-- Buttons -->
-    <style name="Widget.Cashli.Button" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.Cashli.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="fontFamily">@font/lato</item>
         <item name="fontWeight">700</item>
         <item name="android:textSize">@dimen/size_18sp</item>
@@ -56,18 +56,18 @@
     <style name="ButtonTheme" />
 
     <style name="ButtonTheme.Accent">
-        <item name="colorPrimary">@color/btn_background_accent_selector</item>
-        <item name="backgroundTint">@color/btn_background_accent_selector</item>
+        <item name="android:colorPrimary">@color/btn_background_accent_selector</item>
+        <item name="android:backgroundTint">@color/btn_background_accent_selector</item>
     </style>
 
     <style name="ButtonTheme.Primary">
-        <item name="colorPrimary">@color/btn_background_primary_selector</item>
-        <item name="backgroundTint">@color/btn_background_primary_selector</item>
+        <item name="android:colorPrimary">@color/btn_background_primary_selector</item>
+        <item name="android:backgroundTint">@color/btn_background_primary_selector</item>
     </style>
 
     <style name="ButtonTheme.PrimaryDark" tools:ignore="UnusedResources">
-        <item name="colorPrimary">@color/btn_background_primary_dark_selector</item>
-        <item name="backgroundTint">@color/btn_background_primary_dark_selector</item>
+        <item name="android:colorPrimary">@color/btn_background_primary_dark_selector</item>
+        <item name="android:backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>
 
     <style name="TextView">
@@ -81,12 +81,29 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="TextView_600" parent="TextView">
+        <item name="fontWeight">600</item>
+    </style>
+
+    <style name="TextView_600.Label">
+        <item name="android:textSize">@dimen/size_12sp</item>
+    </style>
+
     <style name="TextView_700" parent="TextView">
         <item name="fontWeight">700</item>
     </style>
 
-    <style name="TextView_600" parent="TextView">
-        <item name="fontWeight">600</item>
+    <style name="BaseTextInputEditText">
+        <item name="android:background">@drawable/text_input_edit_text_background_selector</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:paddingVertical">@dimen/dimen_16dp</item>
+        <item name="android:textSize">@dimen/size_16sp</item>
+        <item name="android:paddingStart">@dimen/dimen_20dp</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorHint">@color/colorGrayB6</item>
+        <item name="hintTextColor">@color/colorGrayB6</item>
     </style>
 
     <style name="ScrollView">

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ValidateCodeBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.auth.validateCode.ValidateCodeViewModel" />
+
+        <import type="android.text.InputType" />
+
+        <import type="android.view.inputmethod.EditorInfo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@color/colorPrimaryDark">
+
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:viewModel="@{viewModel.toolbar}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_code_title"
+            style="@style/TextView_700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_40dp"
+            android:textSize="@dimen/size_34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+            app:textRes="@{viewModel.titleRes}"
+            tools:text="@string/onboarding_title_3" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_40dp"
+            app:cliError="@{viewModel.invalidCodeErrorVisible}"
+            app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+            app:cliInputType="@{InputType.TYPE_CLASS_NUMBER}"
+            app:cliText="@={viewModel.verificationCode}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_code_title"
+            app:onCliImeDoneAction="@{() -> viewModel.closeKeyboardAndClearFocus()}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_resend_code"
+            style="@style/TextView_400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:enabled="@{viewModel.timerResendEnabled}"
+            android:onClick="@{() -> viewModel.resendConfirmationCodeAndStartTimer()}"
+            android:padding="@dimen/dimen_16dp"
+            android:text="@{viewModel.timerResendCounter == null ? @string/resend_code : @string/resend_code_counter(viewModel.timerResendCounter)}"
+            android:textColor="@color/text_gray_selector"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_code" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create_account"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
+            android:enabled="@{viewModel.codeValidateButtonEnabled}"
+            android:onClick="@{() -> viewModel.validateCode()}"
+            android:text="@string/generic_continue"
+            app:layout_constraintBottom_toTopOf="@+id/btn_get_support"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_get_support"
+            style="@style/Widget.Cashli.Button.NoBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:onClick="@{() -> viewModel.getSupport()}"
+            android:text="@string/get_support"
+            android:textColor="@color/colorGrayDC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
