@@ -20,12 +20,15 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.wolfpackdigital.cashli.shared.** { *; }
--keep class com.wolfpackdigital.cashli.data.** { *; }
-
+-keep class com.wolfpackdigital.cashli.domain.entities.* {
+    public protected private *;
+}
+-keep class com.wolfpackdigital.cashli.presentation.entities.* {
+    public protected private *;
+}
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.
--keepattributes Signature, InnerClasses, EnclosingMethod, *Annotation*
+-keepattributes SourceFile, LineNumberTable, Signature, InnerClasses, EnclosingMethod, *Annotation*
 
 # Retain service method parameters when optimizing.
 -keepclassmembers,allowshrinking,allowobfuscation interface * {
@@ -37,3 +40,5 @@
 -keep class com.orhanobut.hawk.** { *; }
 
 -keep class **.R$*
+-keep @kotlinx.parcelize.Parcelize public class *
+
