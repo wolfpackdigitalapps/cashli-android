@@ -13,7 +13,6 @@
     <string name="onboarding_news_1">No tricks. No interest. No credit checks.\nNo SSN. No ITIN. No hidden or late fees.</string>
     <string name="onboarding_news_2">The only cash advance app in three languages.\n(and more to come)</string>
     <string name="work_in_progress">(work in progress)</string>
-    <string name="back">back</string>
 
     <!--Signup -->
     <string name="sign_up">Sign up</string>
@@ -27,7 +26,6 @@
     <string name="phone_number_hint">ex: 0123456789</string>
     <string name="phone_number_length_error">The phone number must contain 10 digits</string>
     <string name="phone_number_digits_error">The phone number must contain digits only</string>
-    <string name="phone_number_unique_error">The phone number already exists</string>
 
     <!--Validate Code -->
     <string name="code_from_sms" tools:ignore="Typos">Enter the code received via SMS</string>
