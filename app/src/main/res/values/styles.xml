@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -30,7 +30,7 @@
         <item name="rippleColor">@color/colorPinkBF</item>
     </style>
 
-    <style name="Widget.Cashli.Button.PrimaryDark">
+    <style name="Widget.Cashli.Button.PrimaryDark" tools:ignore="UnusedResources">
         <item name="android:theme">@style/ButtonTheme.PrimaryDark</item>
         <item name="android:height">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorGray64</item>
@@ -62,18 +62,18 @@
     <style name="ButtonTheme" />
 
     <style name="ButtonTheme.Accent">
-        <item name="colorPrimary">@color/btn_background_accent_selector</item>
-        <item name="backgroundTint">@color/btn_background_accent_selector</item>
+        <item name="android:colorPrimary">@color/btn_background_accent_selector</item>
+        <item name="android:backgroundTint">@color/btn_background_accent_selector</item>
     </style>
 
     <style name="ButtonTheme.Primary">
-        <item name="colorPrimary">@color/btn_background_primary_selector</item>
-        <item name="backgroundTint">@color/btn_background_primary_selector</item>
+        <item name="android:colorPrimary">@color/btn_background_primary_selector</item>
+        <item name="android:backgroundTint">@color/btn_background_primary_selector</item>
     </style>
 
-    <style name="ButtonTheme.PrimaryDark">
-        <item name="colorPrimary">@color/btn_background_primary_dark_selector</item>
-        <item name="backgroundTint">@color/btn_background_primary_dark_selector</item>
+    <style name="ButtonTheme.PrimaryDark" tools:ignore="UnusedResources">
+        <item name="android:colorPrimary">@color/btn_background_primary_dark_selector</item>
+        <item name="android:backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>
 
     <style name="TextView">
@@ -105,6 +105,7 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:paddingVertical">@dimen/dimen_16dp</item>
         <item name="android:paddingStart">@dimen/dimen_20dp</item>
+        <item name="android:textCursorDrawable">@null</item>
         <item name="android:textColorHint">@color/colorGrayB6</item>
         <item name="hintTextColor">@color/colorGrayB6</item>
     </style>

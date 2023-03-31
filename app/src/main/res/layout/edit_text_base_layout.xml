@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_label"
             style="@style/TextView.SemiBold.Label"
             android:layout_width="wrap_content"
@@ -44,11 +44,12 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription,RtlSymmetry" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_error"
             style="@style/TextView.SemiBold.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:textColor="@color/colorRed62"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"

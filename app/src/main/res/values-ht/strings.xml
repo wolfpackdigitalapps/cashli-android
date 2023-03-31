@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    // Onboarding
+    <!--Onboarding -->
     <string name="create_account">Create account</string>
     <string name="get_support">Get support</string>
     <string name="sign_in">Sign in</string>
@@ -28,4 +28,15 @@
     <string name="phone_number_length_error">The phone number must contain 10 digits</string>
     <string name="phone_number_digits_error">The phone number must contain digits only</string>
     <string name="phone_number_unique_error">The phone number already exists</string>
+
+    <!--Validate Code -->
+    <string name="code_from_sms">Enter the code received via SMS</string>
+    <string name="code_from_email">Enter the code received via email</string>
+    <string name="invalid_code">Wrong code. Please try again</string>
+    <string name="invalid_code_too_many_attempts">You have entered a wrong code 5 times. Please re-start the process.</string>
+    <string name="resend_code">Resend code</string>
+    <string name="resend_code_counter">Resend code in %d s</string>
+
+    <!--Generic -->
+    <string name="generic_continue">Continue</string>
 </resources>

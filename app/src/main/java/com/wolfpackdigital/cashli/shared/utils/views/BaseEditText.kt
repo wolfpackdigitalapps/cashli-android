@@ -1,4 +1,5 @@
-@file:SuppressWarnings("TooManyFunctions")
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.shared.utils.views
 
 import android.content.Context
@@ -50,6 +51,17 @@ fun BaseEditText.getCliText() = text
 fun BaseEditText.setTextListener(attrChange: InverseBindingListener) {
     binding.tietContent.doOnTextChanged { _, _, _, _ ->
         attrChange.onChange()
+    }
+}
+
+@BindingAdapter("onCliImeDoneAction")
+fun BaseEditText.setOnImeDoneActionListener(callback: () -> Unit) {
+    binding.tietContent.setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            callback.invoke()
+            return@setOnEditorActionListener true
+        }
+        false
     }
 }
 

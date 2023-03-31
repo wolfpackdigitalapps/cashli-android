@@ -45,6 +45,10 @@ abstract class BaseViewModel : ViewModel() {
     open fun back() {
         _baseCmd.value = BaseCommand.GoBack
     }
+
+    open fun closeKeyboardAndClearFocus() {
+        _baseCmd.value = BaseCommand.ForceCloseKeyboard
+    }
 }
 
 abstract class BaseAndroidViewModel(application: Application) : AndroidViewModel(application) {
@@ -87,4 +91,5 @@ sealed class BaseCommand {
     ) : BaseCommand()
 
     object GoBack : BaseCommand()
+    object ForceCloseKeyboard : BaseCommand()
 }
