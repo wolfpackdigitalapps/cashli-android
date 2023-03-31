@@ -44,7 +44,7 @@ class PhoneNumberViewModel : BaseViewModel() {
         phoneNumber.value?.let { number ->
             if (number.hasPhoneNumberPattern()) {
                 if (number.length == Constants.PHONE_NUMBER_LENGTH) {
-                    // TODO navigate to next screen
+                    // TODO navigate to next screen here check in the response if number already exists
                 } else {
                     _onContinueError.value = R.string.phone_number_length_error
                 }
