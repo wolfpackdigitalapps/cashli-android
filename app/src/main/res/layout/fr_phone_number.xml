@@ -47,7 +47,7 @@
             app:error="@{viewModel.error}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_question"
-            app:viewModel="@{viewModel.phoneNumber}" />
+            app:viewModel="@{viewModel}" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.Cashli.Button.Accent"

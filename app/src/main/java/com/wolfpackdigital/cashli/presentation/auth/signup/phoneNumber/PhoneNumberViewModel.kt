@@ -5,7 +5,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.hasPhoneNumberPattern
@@ -44,7 +46,12 @@ class PhoneNumberViewModel : BaseViewModel() {
         phoneNumber.value?.let { number ->
             if (number.hasPhoneNumberPattern()) {
                 if (number.length == Constants.PHONE_NUMBER_LENGTH) {
-                    // TODO navigate to next screen here check in the response if number already exists
+                    // TODO  check in the response if number already exists
+                    _baseCmd.value = BaseCommand.PerformNavAction(
+                        PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
+                            CodeReceivedViaType.SMS
+                        )
+                    )
                 } else {
                     _onContinueError.value = R.string.phone_number_length_error
                 }

@@ -10,12 +10,12 @@
             type="androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged" />
 
         <variable
-            name="viewModel"
-            type="androidx.lifecycle.MutableLiveData&lt;String&gt;" />
-
-        <variable
             name="error"
             type="Integer" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel" />
 
         <import type="android.text.InputType" />
     </data>
@@ -62,10 +62,11 @@
             app:cliError="@{error}"
             app:cliHint="@{@string/phone_number_hint}"
             app:cliInputType="@{InputType.TYPE_CLASS_NUMBER}"
-            app:cliText="@={viewModel}"
+            app:cliText="@={viewModel.phoneNumber}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_country"
-            app:layout_constraintTop_toTopOf="@id/btn_country" />
+            app:layout_constraintTop_toTopOf="@id/btn_country"
+            app:onCliImeDoneAction="@{() -> viewModel.closeKeyboardAndClearFocus()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
