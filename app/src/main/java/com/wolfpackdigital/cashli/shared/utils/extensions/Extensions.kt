@@ -54,6 +54,13 @@ fun String.hasEmailPattern(): Boolean {
     return pattern.matcher(this).matches()
 }
 
+fun String.hasPhoneNumberPattern(): Boolean {
+    val pattern = Pattern.compile(
+        "^[0-9]*$"
+    )
+    return pattern.matcher(this).matches()
+}
+
 operator fun MutableLiveData<Int>.minusAssign(t: Int) {
     val current = this.value ?: 0
     this.value = current - t

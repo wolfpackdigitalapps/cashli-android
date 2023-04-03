@@ -30,9 +30,20 @@
         android:label="InformativeFragment"
         tools:layout="@layout/fr_informative">
         <action
-            android:id="@+id/action_informativeFragment_to_validateCodeFragment"
+            android:id="@+id/action_informativeFragment_to_phoneNumberFragment"
+            app:destination="@id/phoneNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneNumberFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberFragment"
+        android:label="PhoneNumberFragment"
+        tools:layout="@layout/fr_phone_number">
+
+        <action
+            android:id="@+id/action_phoneNumberFragment_to_validateCodeFragment"
             app:destination="@id/validateCodeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/validateCodeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.auth.validateCode.ValidateCodeFragment"

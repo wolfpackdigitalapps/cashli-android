@@ -11,4 +11,6 @@ object Constants {
     const val STEP_1 = 1
     const val STEP_2 = 2
     const val STEP_3 = 3
+
+    const val PHONE_NUMBER_LENGTH = 10
 }

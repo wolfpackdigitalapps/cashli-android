@@ -3,8 +3,10 @@ package com.wolfpackdigital.cashli.presentation.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.successOr
@@ -32,6 +34,14 @@ class OnboardingViewModel(
     private val _currentStep = MutableLiveData(ONBOARDING_FIRST_STEP_INDEX)
     private var totalSteps: Int = ONBOARDING_FIRST_STEP_INDEX
     private var job: Job? = null
+
+    private val _toolbar = MutableLiveData(
+        Toolbar(
+            titleLogoId = R.drawable.ic_logo_toolbar,
+            onBack = ::back
+        )
+    )
+    val toolbar: LiveData<Toolbar> = _toolbar
 
     init {
         performApiCall(showLoading = false) {

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.InputType" />
+
+        <import type="kotlin.jvm.functions.Function0" />
+
+        <import type="kotlin.Unit" />
+
+        <variable
+            name="error"
+            type="Integer" />
+
+        <variable
+            name="phoneNumber"
+            type="androidx.lifecycle.MutableLiveData&lt;String&gt;" />
+
+        <variable
+            name="onCloseKeyboard"
+            type="Function0&lt;Unit>" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_label"
+            style="@style/TextView.SemiBold.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:text="@string/phone_number"
+            android:textAllCaps="true"
+            android:textColor="@color/colorGrayDC"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_country"
+            style="@style/Widget.Cashli.Button.Primary.CountryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:clickable="false"
+            android:padding="@dimen/dimen_16dp"
+            android:text="@string/country_code_US"
+            app:icon="@drawable/ic_us"
+            app:iconSize="@dimen/dimen_24dp"
+            app:iconTint="@null"
+            app:layout_constraintStart_toStartOf="@id/tv_label"
+            app:layout_constraintTop_toBottomOf="@id/tv_label" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_6dp"
+            android:layout_marginEnd="@dimen/dimen_32dp"
+            android:textColor="@color/colorWhite"
+            app:cliError="@{error}"
+            app:cliHint="@{@string/phone_number_hint}"
+            app:cliInputType="@{InputType.TYPE_CLASS_NUMBER}"
+            app:cliText="@={phoneNumber}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_country"
+            app:layout_constraintTop_toTopOf="@id/btn_country"
+            app:onCliImeDoneAction="@{() -> onCloseKeyboard.invoke()}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
