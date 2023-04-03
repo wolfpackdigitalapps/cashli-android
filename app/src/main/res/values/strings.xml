@@ -34,7 +34,20 @@
     <string name="resend_code">Resend code</string>
     <string name="resend_code_counter">Resend code in %d s</string>
 
+    <!--Create Profile -->
+    <string name="mandatory_message">All the fields marked with * are mandatory.</string>
+    <string name="create_your_profile">Create your profile</string>
+    <string name="et_hint">type here</string>
+    <string name="city_state_hint">ex: Chicago, IL</string>
+    <string name="et_zip_code">ZIP CODE*</string>
+    <string name="et_city_state">CITY AND STATE*</string>
+    <string name="et_email">EMAIL*</string>
+    <string name="et_first_name">FIRST NAME*</string>
+    <string name="et_last_name">LAST NAME*</string>
+    <string name="et_street">STREET*</string>
+
     <!--Generic -->
     <string name="generic_continue">Continue</string>
+
 
 </resources>

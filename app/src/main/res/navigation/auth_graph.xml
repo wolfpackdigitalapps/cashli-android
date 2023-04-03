@@ -52,5 +52,13 @@
         <argument
             android:name="codeReceivedViaType"
             app:argType="com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType" />
+        <action
+            android:id="@+id/action_validateCodeFragment_to_createProfileFragment"
+            app:destination="@id/createProfileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/createProfileFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileFragment"
+        android:label="CreateProfileFragment"
+        tools:layout="@layout/fr_create_profile"/>
 </navigation>

@@ -1,13 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class=".CreateProfileBinding">
 
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_44dp"
+            android:layout_marginEnd="@dimen/dimen_32dp"
+            android:text="@string/create_your_profile"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/size_34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_first_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_36dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:cliHint="@{@string/et_hint}"
+            app:cliLabel="@{@string/et_first_name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_last_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_28dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:cliHint="@{@string/et_hint}"
+            app:cliLabel="@{@string/et_last_name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_first_name" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_street"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_28dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:cliHint="@{@string/et_hint}"
+            app:cliLabel="@{@string/et_street}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_last_name" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_zip_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_28dp"
+            app:cliHint="@{@string/et_hint}"
+            app:cliLabel="@{@string/et_zip_code}"
+            app:layout_constraintEnd_toStartOf="@id/et_city_state"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_street" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_city_state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_28dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:cliHint="@{@string/city_state_hint}"
+            app:cliLabel="@{@string/et_city_state}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_zip_code"
+            app:layout_constraintTop_toBottomOf="@id/et_street" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_36dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:cliHint="@{@string/et_hint}"
+            app:cliLabel="@{@string/et_email}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_zip_code" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextView.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_28dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
+            android:text="@string/mandatory_message"
+            android:textColor="@color/colorGrayB6"
+            app:layout_constraintBottom_toTopOf="@id/btn_continue"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_continue"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
+            android:onClick="@{()-> viewModel.onContinueClicked()}"
+            android:text="@string/continue_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
