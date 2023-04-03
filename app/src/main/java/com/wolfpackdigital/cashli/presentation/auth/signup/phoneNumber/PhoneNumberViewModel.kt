@@ -35,29 +35,28 @@ class PhoneNumberViewModel : BaseViewModel() {
     }
 
     private val _onContinueError = MutableLiveData<Int?>(null)
-    var onContinueError: LiveData<Int?> = _onContinueError
 
     val error: MediatorLiveData<Int?> = MediatorLiveData<Int?>().apply {
         addSource(tooLong) { error -> value = error }
-        addSource(onContinueError) { error -> value = error }
+        addSource(_onContinueError) { error -> value = error }
     }
 
     fun onContinueClicked() {
         phoneNumber.value?.let { number ->
-            if (number.hasPhoneNumberPattern()) {
-                if (number.length == Constants.PHONE_NUMBER_LENGTH) {
-                    // TODO  check in the response if number already exists
-                    _baseCmd.value = BaseCommand.PerformNavAction(
-                        PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
-                            CodeReceivedViaType.SMS
-                        )
-                    )
-                } else {
-                    _onContinueError.value = R.string.phone_number_length_error
-                }
-            } else {
+            if (!number.hasPhoneNumberPattern()) {
                 _onContinueError.value = R.string.phone_number_digits_error
+                return
             }
+            if (number.length != Constants.PHONE_NUMBER_LENGTH) {
+                _onContinueError.value = R.string.phone_number_length_error
+                return
+            }
+            _baseCmd.value = BaseCommand.PerformNavAction(
+                PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
+                    CodeReceivedViaType.SMS
+                )
+            )
+
         }
     }
 }

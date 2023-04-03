@@ -5,19 +5,24 @@
 
     <data>
 
-        <variable
-            name="onTextChanged"
-            type="androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged" />
+        <import type="android.text.InputType" />
+
+        <import type="kotlin.jvm.functions.Function0" />
+
+        <import type="kotlin.Unit" />
 
         <variable
             name="error"
             type="Integer" />
 
         <variable
-            name="viewModel"
-            type="com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel" />
+            name="phoneNumber"
+            type="androidx.lifecycle.MutableLiveData&lt;String&gt;" />
 
-        <import type="android.text.InputType" />
+        <variable
+            name="onCloseKeyboard"
+            type="Function0&lt;Unit>" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,11 +67,11 @@
             app:cliError="@{error}"
             app:cliHint="@{@string/phone_number_hint}"
             app:cliInputType="@{InputType.TYPE_CLASS_NUMBER}"
-            app:cliText="@={viewModel.phoneNumber}"
+            app:cliText="@={phoneNumber}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_country"
             app:layout_constraintTop_toTopOf="@id/btn_country"
-            app:onCliImeDoneAction="@{() -> viewModel.closeKeyboardAndClearFocus()}" />
+            app:onCliImeDoneAction="@{() -> onCloseKeyboard.invoke()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
