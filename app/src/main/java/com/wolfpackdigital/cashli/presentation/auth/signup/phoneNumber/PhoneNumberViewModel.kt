@@ -34,21 +34,21 @@ class PhoneNumberViewModel : BaseViewModel() {
         if (disabled) R.string.phone_number_length_error else null
     }
 
-    private val _onContinueError = MutableLiveData<Int?>(null)
+    private val onContinueError = MutableLiveData<Int?>(null)
 
     val error: MediatorLiveData<Int?> = MediatorLiveData<Int?>().apply {
         addSource(tooLong) { error -> value = error }
-        addSource(_onContinueError) { error -> value = error }
+        addSource(onContinueError) { error -> value = error }
     }
 
     fun onContinueClicked() {
         phoneNumber.value?.let { number ->
             if (!number.hasPhoneNumberPattern()) {
-                _onContinueError.value = R.string.phone_number_digits_error
+                onContinueError.value = R.string.phone_number_digits_error
                 return
             }
             if (number.length != Constants.PHONE_NUMBER_LENGTH) {
-                _onContinueError.value = R.string.phone_number_length_error
+                onContinueError.value = R.string.phone_number_length_error
                 return
             }
             _baseCmd.value = BaseCommand.PerformNavAction(
@@ -56,7 +56,6 @@ class PhoneNumberViewModel : BaseViewModel() {
                     CodeReceivedViaType.SMS
                 )
             )
-
         }
     }
 }
