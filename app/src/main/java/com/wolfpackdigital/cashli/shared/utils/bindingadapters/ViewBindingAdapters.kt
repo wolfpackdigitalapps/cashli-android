@@ -21,9 +21,9 @@ fun View.hide(invisible: Boolean?) {
 }
 
 @BindingAdapter(value = ["android:onClick", "debounceInterval"], requireAll = false)
-fun View.setOnClickBindingAdapter(
-    onClickListener: View.OnClickListener,
-    debounceInterval: Long?
+fun View.setOnClickDebounced(
+    debounceInterval: Long? = DEBOUNCE_INTERVAL_MILLIS_300,
+    onClickListener: View.OnClickListener
 ) = setOnClickListener(
     DebouncingOnClickListener(
         debounceInterval ?: DEBOUNCE_INTERVAL_MILLIS_300,

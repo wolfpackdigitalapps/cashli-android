@@ -12,8 +12,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
+import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_PREFIX_LABEL
 import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
+import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
 
 fun Fragment.snackBar(message: String, action: ((View) -> Unit)? = {}, actionText: String? = null) {
     this.view?.let {
@@ -31,32 +34,27 @@ fun Activity.snackBar(message: String, action: ((View) -> Unit)? = {}, actionTex
     }
 }
 
-@SuppressWarnings("LongParameterList")
-fun Fragment.showDialog(
-    title: String = "",
-    message: String = "",
-    isCancelable: Boolean = true,
-    positiveButtonText: String? = null,
-    negativeButtonText: String? = null,
-    positiveButtonClick: () -> Unit = {},
-    negativeButtonClick: () -> Unit = {}
-): AlertDialog? {
-    this.context?.let {
-        val builder = AlertDialog.Builder(it)
-        builder.setTitle(title).setMessage(message).setCancelable(isCancelable)
-        positiveButtonText?.let { text ->
-            builder.setPositiveButton(text) { dialog, _ ->
-                dialog.dismiss()
-                positiveButtonClick()
-            }
-        }
-        negativeButtonText?.let { text ->
-            builder.setNegativeButton(text) { dialog, _ ->
-                dialog.dismiss()
-                negativeButtonClick()
-            }
-        }
-        return builder.show()
+@Suppress("ComplexMethod", "SpreadOperator")
+fun Fragment.showPopupById(command: BaseCommand.ShowPopupById): PopupDialog? {
+    context?.let { ctx ->
+        val popupDialog = PopupDialog(
+            ctx,
+            ctx.stringFromResource(command.titleId),
+            command.contentId?.let { contentId ->
+                command.contentFormatArgs?.let {
+                    ctx.stringFromResource(contentId, *it)
+                } ?: ctx.stringFromResource(contentId)
+            } ?: command.content ?: EMPTY_STRING,
+            command.imageId,
+            command.timerCount,
+            command.buttonPrimaryId?.let { ctx.stringFromResource(it) },
+            command.buttonSecondaryId?.let { ctx.stringFromResource(it) },
+            command.buttonPrimaryClick,
+            command.buttonSecondaryClick,
+            command.buttonCloseClick
+        )
+        popupDialog.show()
+        return popupDialog
     }
     return null
 }

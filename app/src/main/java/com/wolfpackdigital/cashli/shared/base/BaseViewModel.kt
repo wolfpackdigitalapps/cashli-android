@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.shared.base
 
+import android.app.AlertDialog
 import android.app.Application
 import android.os.Bundle
 import androidx.annotation.IdRes
@@ -76,6 +77,20 @@ sealed class BaseCommand {
     class ShowToast(val message: String) : BaseCommand()
     class ShowSnackbarById(val stringId: Int) : BaseCommand()
     class ShowSnackbar(val message: String) : BaseCommand()
+    data class ShowPopupById(
+        var titleId: Int,
+        var contentId: Int? = null,
+        var imageId: Int,
+        var content: String? = null,
+        var timerCount: Long? = null,
+        var buttonPrimaryId: Int? = null,
+        var buttonSecondaryId: Int? = null,
+        var buttonPrimaryClick: (AlertDialog) -> Unit = {},
+        var buttonSecondaryClick: (AlertDialog) -> Unit = {},
+        var buttonCloseClick: ((AlertDialog) -> Unit)? = null,
+        var contentFormatArgs: Array<Any>? = null
+    ) : BaseCommand()
+
     class PerformNavAction(
         val direction: NavDirections,
         @IdRes val popUpTo: Int? = null,

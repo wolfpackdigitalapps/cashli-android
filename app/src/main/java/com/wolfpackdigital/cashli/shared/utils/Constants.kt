@@ -13,4 +13,6 @@ object Constants {
     const val STEP_3 = 3
 
     const val PHONE_NUMBER_LENGTH = 10
+    const val COUNT_DOWN_TIME_6s = 6000L
+
 }

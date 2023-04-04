@@ -7,9 +7,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -17,6 +19,7 @@ import com.google.gson.JsonSyntaxException
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.shared.base.ApiError
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_1000
+import java.util.regex.Pattern
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -25,7 +28,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.transform
 import retrofit2.HttpException
-import java.util.regex.Pattern
 
 private const val GENERIC_SERVER_ERROR = "Something went wrong, please try again."
 private const val PARSING_SERVER_ERROR = "The response could not be parsed"
@@ -124,4 +126,23 @@ fun initTimer(totalSeconds: Int): Flow<Int> =
 fun hideSoftKeyboard(view: View) {
     val imm = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     imm?.hideSoftInputFromWindow(view.applicationWindowToken, KEYBOARD_HIDDEN_FLAG)
+}
+
+fun Context.stringFromResource(@StringRes id: Int, vararg formatArgs: Any?): String {
+    return resources.getString(id, *formatArgs)
+}
+
+fun startCounter(
+    millisInFuture: Long,
+    countDownIntervalInMillis: Long = DEBOUNCE_INTERVAL_MILLIS_1000,
+    onTickCallback: (Long) -> Unit = {},
+    onFinishCallback: () -> Unit = {}
+) = object : CountDownTimer(millisInFuture, countDownIntervalInMillis) {
+    override fun onTick(millisUntilFinished: Long) {
+        onTickCallback.invoke(millisUntilFinished)
+    }
+
+    override fun onFinish() {
+        onFinishCallback.invoke()
+    }
 }
