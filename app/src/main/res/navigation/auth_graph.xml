@@ -60,5 +60,9 @@
         android:id="@+id/createProfileFragment"
         android:name="com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileFragment"
         android:label="CreateProfileFragment"
-        tools:layout="@layout/fr_create_profile"/>
+        tools:layout="@layout/fr_create_profile">
+        <action
+            android:id="@+id/action_createProfileFragment_to_validateCodeFragment"
+            app:destination="@id/validateCodeFragment" />
+    </fragment>
 </navigation>

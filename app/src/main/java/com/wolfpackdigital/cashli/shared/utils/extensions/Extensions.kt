@@ -54,9 +54,23 @@ fun String.hasEmailPattern(): Boolean {
     return pattern.matcher(this).matches()
 }
 
-fun String.hasPhoneNumberPattern(): Boolean {
+fun String.containOnlyDigits(): Boolean {
     val pattern = Pattern.compile(
         "^[0-9]*$"
+    )
+    return pattern.matcher(this).matches()
+}
+
+fun String.containOnlyLettersAndComma(): Boolean {
+    val pattern = Pattern.compile(
+        "[a-zA-Z\\s]{0,64}" + "\\," + "[a-zA-Z\\s]{0,64}"
+    )
+    return pattern.matcher(this).matches()
+}
+
+fun String.hasNamePattern(): Boolean {
+    val pattern = Pattern.compile(
+        "[a-zA-Z\\-\\'\\s]{0,64}"
     )
     return pattern.matcher(this).matches()
 }
