@@ -41,12 +41,7 @@ class CreateProfileViewModel : BaseViewModel() {
         firstName.asFlow(), lastName.asFlow(), street.asFlow(),
         zipCode.asFlow(), email.asFlow(), cityAndState.asFlow()
     ) { inputs ->
-        for (field in inputs) {
-            if (field.isEmpty()) {
-                return@combine false
-            }
-        }
-        return@combine true
+        inputs.fold(true) { acc, field -> acc && field.isNotEmpty() }
     }.asLiveData()
 
     private val _zipCodeError = MutableLiveData<Int?>(null)
