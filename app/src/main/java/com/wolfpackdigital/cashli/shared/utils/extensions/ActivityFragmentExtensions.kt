@@ -2,16 +2,21 @@ package com.wolfpackdigital.cashli.shared.utils.extensions
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
 import android.view.View
+import androidx.browser.customtabs.CustomTabColorSchemeParams
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_PREFIX_LABEL
 import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 
@@ -33,8 +38,8 @@ fun Activity.snackBar(message: String, action: ((View) -> Unit)? = {}, actionTex
 
 @SuppressWarnings("LongParameterList")
 fun Fragment.showDialog(
-    title: String = "",
-    message: String = "",
+    title: String = EMPTY_STRING,
+    message: String = EMPTY_STRING,
     isCancelable: Boolean = true,
     positiveButtonText: String? = null,
     negativeButtonText: String? = null,
@@ -63,8 +68,8 @@ fun Fragment.showDialog(
 
 @SuppressWarnings("LongParameterList")
 fun Activity.showDialog(
-    title: String = "",
-    message: String = "",
+    title: String = EMPTY_STRING,
+    message: String = EMPTY_STRING,
     isCancelable: Boolean = true,
     positiveButtonText: String? = null,
     negativeButtonText: String? = null,
@@ -109,4 +114,15 @@ fun Activity.showDialer(phoneNumber: String = SUPPORT_PHONE_NUMBER) {
         data = Uri.parse("$PHONE_NUMBER_PREFIX_LABEL$phoneNumber")
         startActivity(this)
     }
+}
+
+fun Context.openUrl(urlResource: Int) {
+    val builder = CustomTabsIntent.Builder().apply {
+        val darkParams = CustomTabColorSchemeParams.Builder()
+            .setToolbarColor(ContextCompat.getColor(this@openUrl, R.color.colorPrimary))
+            .build()
+        setDefaultColorSchemeParams(darkParams)
+    }
+    val customTabsIntent = builder.build()
+    customTabsIntent.launchUrl(this@openUrl, Uri.parse(getString(urlResource)))
 }

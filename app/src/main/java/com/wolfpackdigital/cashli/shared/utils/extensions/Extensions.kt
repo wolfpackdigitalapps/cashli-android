@@ -31,6 +31,7 @@ private const val GENERIC_SERVER_ERROR = "Something went wrong, please try again
 private const val PARSING_SERVER_ERROR = "The response could not be parsed"
 private const val SYNTAX_SERVER_ERROR = "The response doesn't have a valid format"
 private const val KEYBOARD_HIDDEN_FLAG = 0
+private const val PASSWORD_COMPLEXITY_REGEXP = "^(?=.*\\d)(?=.*[A-Za-z])(?=.*\\W).{8,}\$"
 
 fun Throwable.getParsedError(): String = try {
     val response = (this as? HttpException)?.response()?.errorBody()
@@ -44,6 +45,11 @@ fun Throwable.getParsedError(): String = try {
 
 val appVersion: String
     get() = "v${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})"
+
+fun String.hasPasswordPattern(): Boolean {
+    val pattern = Pattern.compile(PASSWORD_COMPLEXITY_REGEXP)
+    return pattern.matcher(this).matches()
+}
 
 fun String.hasEmailPattern(): Boolean {
     val pattern = Pattern.compile(

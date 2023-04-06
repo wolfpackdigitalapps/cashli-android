@@ -48,9 +48,17 @@
         android:id="@+id/validateCodeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.auth.validateCode.ValidateCodeFragment"
         android:label="ValidateCodeFragment"
-        tools:layout="@layout/fr_validate_code" >
+        tools:layout="@layout/fr_validate_code">
         <argument
             android:name="codeReceivedViaType"
             app:argType="com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType" />
+        <action
+            android:id="@+id/action_validateCodeFragment_to_choosePasswordFragment"
+            app:destination="@id/choosePasswordFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/choosePasswordFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.choosePassword.ChoosePasswordFragment"
+        android:label="ChoosePasswordFragment"
+        tools:layout="@layout/fr_choose_password" />
 </navigation>

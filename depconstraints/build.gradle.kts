@@ -32,6 +32,7 @@ val hawk = "2.0.1"
 val splashScreen = "1.0.0"
 val viewPager2 = "1.0.0"
 val dotIndicator = "4.3"
+val androidxBrowser = "1.5.0"
 
 dependencies {
     constraints {
@@ -76,5 +77,6 @@ dependencies {
         api("${Libs.SPLASH_SCREEN}:$splashScreen")
         api("${Libs.VIEW_PAGER2}:$viewPager2")
         api("${Libs.DOT_INDICATOR}:$dotIndicator")
+        api("${Libs.ANDROIDX_BROWSER}:$androidxBrowser")
     }
 }
