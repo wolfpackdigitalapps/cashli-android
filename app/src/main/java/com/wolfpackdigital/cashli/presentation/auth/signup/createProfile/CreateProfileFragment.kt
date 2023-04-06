@@ -12,7 +12,7 @@ class CreateProfileFragment :
     override val viewModel by viewModel<CreateProfileViewModel>()
 
     override fun setupViews() {
-        requireActivity().onBackPressedDispatcher.addCallback(this) {}
+        activity?.onBackPressedDispatcher?.addCallback(this) {}
         setupObservers()
     }
 

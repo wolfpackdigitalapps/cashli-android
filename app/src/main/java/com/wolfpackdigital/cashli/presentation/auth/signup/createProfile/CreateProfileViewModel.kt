@@ -5,6 +5,8 @@ package com.wolfpackdigital.cashli.presentation.auth.signup.createProfile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
@@ -15,6 +17,7 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
 import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyLettersAndComma
 import com.wolfpackdigital.cashli.shared.utils.extensions.hasEmailPattern
 import com.wolfpackdigital.cashli.shared.utils.extensions.hasNamePattern
+import kotlinx.coroutines.flow.combine
 
 class CreateProfileViewModel : BaseViewModel() {
 
@@ -35,14 +38,13 @@ class CreateProfileViewModel : BaseViewModel() {
     val zipCode = MutableLiveData<String>()
     val cityAndState = MutableLiveData<String>()
 
-    val isEnabled = MediatorLiveData<Boolean>().apply {
-        addSource(firstName) { value = enableButton() }
-        addSource(lastName) { value = enableButton() }
-        addSource(street) { value = enableButton() }
-        addSource(zipCode) { value = enableButton() }
-        addSource(cityAndState) { value = enableButton() }
-        addSource(email) { value = enableButton() }
-    }
+    val isEnabled = combine(
+        firstName.asFlow(), lastName.asFlow(), street.asFlow(),
+        zipCode.asFlow(), email.asFlow(), cityAndState.asFlow()
+    ) { inputs ->
+        inputs[0].isNotEmpty() && inputs[1].isNotEmpty() && inputs[2].isNotEmpty()
+                && inputs[3].isNotEmpty() && inputs[4].isNotEmpty() && inputs[5].isNotEmpty()
+    }.asLiveData()
 
     private val _zipCodeError = MutableLiveData<Int?>(null)
     val zipCodeError: LiveData<Int?> = _zipCodeError
@@ -62,14 +64,9 @@ class CreateProfileViewModel : BaseViewModel() {
     private val _lastNameError = MutableLiveData<Int?>(null)
     val lastNameError: LiveData<Int?> = _lastNameError
 
-    private fun enableButton() =
-        firstName.value?.isNotEmpty() == true && lastName.value?.isNotEmpty() == true &&
-            street.value?.isNotEmpty() == true && email.value?.isNotEmpty() == true &&
-            zipCode.value?.isNotEmpty() == true && cityAndState.value?.isNotEmpty() == true
-
     fun onContinueClicked() {
-        if (validateZipCode() == true && validateEmail() == true && validateCityAndState() == true &&
-            validateStreet() == true && validateFirstName() == true && validateLastName() == true
+        if ((validateZipCode() == true) and (validateEmail() == true) and (validateCityAndState() == true) and
+            (validateStreet() == true) and (validateFirstName() == true) and (validateLastName() == true)
         ) {
             _baseCmd.value = BaseCommand.PerformNavAction(
                 CreateProfileFragmentDirections.actionCreateProfileFragmentToValidateCodeFragment(
