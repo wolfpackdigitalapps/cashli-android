@@ -32,8 +32,8 @@ private const val PARSING_SERVER_ERROR = "The response could not be parsed"
 private const val SYNTAX_SERVER_ERROR = "The response doesn't have a valid format"
 private const val KEYBOARD_HIDDEN_FLAG = 0
 private const val EMAIL_PATTERN = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
-        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
-        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
+    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
 private const val DIGITS_PATTERN = "^[0-9]*$"
 private const val LETTERS_COMMA_PATTERN = "[a-zA-Z\\s]{0,64}" + "\\," + "[a-zA-Z\\s]{0,64}"
 private const val NAME_PATTERN = "[a-zA-Z\\-\\'\\s]{0,64}"

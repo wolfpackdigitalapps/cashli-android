@@ -1,9 +1,8 @@
-@file:Suppress("TooManyFunctions", "ComplexCondition")
+@file:Suppress("TooManyFunctions", "ComplexCondition", "MagicNumber")
 
 package com.wolfpackdigital.cashli.presentation.auth.signup.createProfile
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
@@ -42,8 +41,8 @@ class CreateProfileViewModel : BaseViewModel() {
         firstName.asFlow(), lastName.asFlow(), street.asFlow(),
         zipCode.asFlow(), email.asFlow(), cityAndState.asFlow()
     ) { inputs ->
-        inputs[0].isNotEmpty() && inputs[1].isNotEmpty() && inputs[2].isNotEmpty()
-                && inputs[3].isNotEmpty() && inputs[4].isNotEmpty() && inputs[5].isNotEmpty()
+        inputs[0].isNotEmpty() && inputs[1].isNotEmpty() && inputs[2].isNotEmpty() &&
+            inputs[3].isNotEmpty() && inputs[4].isNotEmpty() && inputs[5].isNotEmpty()
     }.asLiveData()
 
     private val _zipCodeError = MutableLiveData<Int?>(null)
