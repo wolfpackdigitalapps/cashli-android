@@ -1,6 +1,6 @@
 package com.wolfpackdigital.cashli.presentation.auth.choosePassword
 
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import com.wolfpackdigital.cashli.ChoosePasswordBinding
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
@@ -16,12 +16,6 @@ class ChoosePasswordFragment :
     }
 
     private fun handleOnBackPressed() {
-        activity?.onBackPressedDispatcher?.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                }
-            }
-        )
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {}
     }
 }
