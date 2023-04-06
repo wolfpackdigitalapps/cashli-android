@@ -12,7 +12,7 @@ class CreateProfileFragment :
     override val viewModel by viewModel<CreateProfileViewModel>()
 
     override fun setupViews() {
-        activity?.onBackPressedDispatcher?.addCallback(this) {}
+        handleOnBackPressed()
         setupObservers()
     }
 
@@ -23,5 +23,9 @@ class CreateProfileFragment :
         viewModel.street.observe(viewLifecycleOwner) { viewModel.clearStreetError() }
         viewModel.firstName.observe(viewLifecycleOwner) { viewModel.clearFirstNameError() }
         viewModel.lastName.observe(viewLifecycleOwner) { viewModel.clearLastNameError() }
+    }
+
+    private fun handleOnBackPressed() {
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {}
     }
 }
