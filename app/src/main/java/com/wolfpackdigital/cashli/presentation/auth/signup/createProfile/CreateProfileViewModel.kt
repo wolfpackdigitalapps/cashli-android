@@ -1,4 +1,4 @@
-@file:Suppress("TooManyFunctions", "ComplexCondition", "MagicNumber")
+@file:Suppress("TooManyFunctions", "ComplexCondition")
 
 package com.wolfpackdigital.cashli.presentation.auth.signup.createProfile
 
@@ -41,8 +41,12 @@ class CreateProfileViewModel : BaseViewModel() {
         firstName.asFlow(), lastName.asFlow(), street.asFlow(),
         zipCode.asFlow(), email.asFlow(), cityAndState.asFlow()
     ) { inputs ->
-        inputs[0].isNotEmpty() && inputs[1].isNotEmpty() && inputs[2].isNotEmpty() &&
-            inputs[3].isNotEmpty() && inputs[4].isNotEmpty() && inputs[5].isNotEmpty()
+        for (field in inputs) {
+            if (field.isEmpty()) {
+                return@combine false
+            }
+        }
+        return@combine true
     }.asLiveData()
 
     private val _zipCodeError = MutableLiveData<Int?>(null)
