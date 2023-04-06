@@ -4,7 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data class=".PopupDialogBinding" />
+    <data class=".PopupDialogBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.entities.PopupConfig" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +27,8 @@
             app:icon="@drawable/ic_close"
             app:iconTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibility="@{viewModel.isBackVisible}" />
 
         <ImageView
             android:id="@+id/iv_top"
@@ -30,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_64dp"
             android:contentDescription="@null"
+            app:drawableRes="@{viewModel.imageId}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,6 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_top"
+            app:textRes="@{viewModel.titleId}"
             tools:text="Congrats!" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -63,6 +71,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:textArgs="@{viewModel.contentFormatArgs}"
+            app:textIdOrString="@{viewModel.contentIdOrString}"
             tools:text="Connection to your bank account has been successful." />
 
         <androidx.constraintlayout.widget.Barrier
@@ -85,6 +95,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_content"
             app:layout_constraintVertical_bias="0.0"
+            app:textRes="@{viewModel.buttonPrimaryId}"
+            app:visibility="@{viewModel.buttonPrimaryId != null}"
             tools:text="Ok"
             tools:visibility="visible" />
 
@@ -101,6 +113,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_primary"
             app:layout_constraintVertical_bias="0.0"
+            app:textRes="@{viewModel.buttonSecondaryId}"
+            app:visibility="@{viewModel.buttonSecondaryId != null}"
             tools:text="Close"
             tools:visibility="visible" />
 
@@ -111,7 +125,8 @@
             android:layout_marginBottom="@dimen/dimen_40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:visibility="@{viewModel.timerCount != null}">
 
             <ImageView
                 android:id="@+id/iv_timer"

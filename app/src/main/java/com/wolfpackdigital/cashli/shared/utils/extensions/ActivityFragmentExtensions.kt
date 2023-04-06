@@ -12,8 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.shared.base.BaseCommand
-import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_PREFIX_LABEL
 import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
@@ -35,24 +34,9 @@ fun Activity.snackBar(message: String, action: ((View) -> Unit)? = {}, actionTex
 }
 
 @Suppress("ComplexMethod", "SpreadOperator")
-fun Fragment.showPopupById(command: BaseCommand.ShowPopupById): PopupDialog? {
+fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
     context?.let { ctx ->
-        val popupDialog = PopupDialog(
-            ctx,
-            ctx.stringFromResource(command.titleId),
-            command.contentId?.let { contentId ->
-                command.contentFormatArgs?.let {
-                    ctx.stringFromResource(contentId, *it)
-                } ?: ctx.stringFromResource(contentId)
-            } ?: command.content ?: EMPTY_STRING,
-            command.imageId,
-            command.timerCount,
-            command.buttonPrimaryId?.let { ctx.stringFromResource(it) },
-            command.buttonSecondaryId?.let { ctx.stringFromResource(it) },
-            command.buttonPrimaryClick,
-            command.buttonSecondaryClick,
-            command.buttonCloseClick
-        )
+        val popupDialog = PopupDialog(ctx, popupConfig)
         popupDialog.show()
         return popupDialog
     }

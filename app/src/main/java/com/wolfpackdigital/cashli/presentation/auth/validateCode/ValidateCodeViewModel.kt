@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseValidateCodeViewModel
@@ -56,13 +57,15 @@ class ValidateCodeViewModel(
                 _invalidCodeErrorVisible.value = R.string.invalid_code
             else
                 _baseCmd.value = BaseCommand.ShowPopupById(
-                    titleId = R.string.bravo_text,
-                    contentId = R.string.account_created_successfully,
-                    imageId = R.drawable.ic_profile_check,
-                    timerCount = COUNT_DOWN_TIME_6s,
-                    buttonCloseClick = {
-                        // TODO add redirect to sign in screen
-                    }
+                    PopupConfig(
+                        titleId = R.string.bravo_text,
+                        contentIdOrString = R.string.account_created_successfully,
+                        imageId = R.drawable.ic_profile_check,
+                        timerCount = COUNT_DOWN_TIME_6s,
+                        buttonCloseClick = {
+                            // TODO add redirect to sign in screen
+                        }
+                    )
                 )
         }
     }

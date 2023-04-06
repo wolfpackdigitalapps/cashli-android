@@ -80,7 +80,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                     it.options,
                     it.extras
                 )
-                is BaseCommand.ShowPopupById -> showPopupById(it)
+                is BaseCommand.ShowPopupById -> showPopupById(it.popupConfig)
                 is BaseCommand.GoBack -> navController?.popBackStack()
                 is BaseCommand.ForceCloseKeyboard ->
                     binding?.root?.findFocus()?.let { viewWithFocus ->
