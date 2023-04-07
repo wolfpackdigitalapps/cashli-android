@@ -28,6 +28,7 @@
     <dimen name="size_14sp">14sp</dimen>
     <dimen name="size_16sp">16sp</dimen>
     <dimen name="size_18sp">18sp</dimen>
+    <dimen name="size_24sp">24sp</dimen>
     <dimen name="size_28sp">28sp</dimen>
     <dimen name="size_34sp">34sp</dimen>
 </resources>
