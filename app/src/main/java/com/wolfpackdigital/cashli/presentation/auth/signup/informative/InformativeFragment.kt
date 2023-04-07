@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.presentation.auth.signup
+package com.wolfpackdigital.cashli.presentation.auth.signup.informative
 
 import com.wolfpackdigital.cashli.InformativeBinding
 import com.wolfpackdigital.cashli.R

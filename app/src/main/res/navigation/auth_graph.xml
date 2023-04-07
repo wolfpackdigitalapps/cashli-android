@@ -14,7 +14,6 @@
             android:id="@+id/action_chooseLanguageFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.wolfpackdigital.cashli.presentation.onboarding.OnboardingFragment"
@@ -26,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/informativeFragment"
-        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.InformativeFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeFragment"
         android:label="InformativeFragment"
         tools:layout="@layout/fr_informative">
         <action
@@ -38,15 +37,13 @@
         android:name="com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberFragment"
         android:label="PhoneNumberFragment"
         tools:layout="@layout/fr_phone_number">
-
         <action
             android:id="@+id/action_phoneNumberFragment_to_validateCodeFragment"
             app:destination="@id/validateCodeFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/validateCodeFragment"
-        android:name="com.wolfpackdigital.cashli.presentation.auth.validateCode.ValidateCodeFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeFragment"
         android:label="ValidateCodeFragment"
         tools:layout="@layout/fr_validate_code">
         <argument
@@ -55,10 +52,22 @@
         <action
             android:id="@+id/action_validateCodeFragment_to_choosePasswordFragment"
             app:destination="@id/choosePasswordFragment" />
+        <action
+            android:id="@+id/action_validateCodeFragment_to_createProfileFragment"
+            app:destination="@id/createProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfileFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileFragment"
+        android:label="CreateProfileFragment"
+        tools:layout="@layout/fr_create_profile">
+        <action
+            android:id="@+id/action_createProfileFragment_to_validateCodeFragment"
+            app:destination="@id/validateCodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/choosePasswordFragment"
-        android:name="com.wolfpackdigital.cashli.presentation.auth.choosePassword.ChoosePasswordFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword.ChoosePasswordFragment"
         android:label="ChoosePasswordFragment"
         tools:layout="@layout/fr_choose_password" />
 </navigation>

@@ -16,9 +16,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_PREFIX_LABEL
 import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
+import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
 
 fun Fragment.snackBar(message: String, action: ((View) -> Unit)? = {}, actionText: String? = null) {
     this.view?.let {
@@ -66,6 +68,16 @@ fun Fragment.showDialog(
     return null
 }
 
+@Suppress("ComplexMethod", "SpreadOperator")
+fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
+    context?.let { ctx ->
+        val popupDialog = PopupDialog(ctx, popupConfig)
+        popupDialog.show()
+        return popupDialog
+    }
+    return null
+}
+
 @SuppressWarnings("LongParameterList")
 fun Activity.showDialog(
     title: String = EMPTY_STRING,
@@ -98,10 +110,11 @@ inline fun <reified T : Parcelable> Fragment.extra(key: String, default: T? = nu
     if (value is T) value else default
 }
 
-inline fun <reified T : Parcelable> Fragment.extraNotNull(key: String, default: T? = null) = lazy {
-    val value = arguments?.parcelable<T>(key)
-    requireNotNull(if (value is T) value else default) { key }
-}
+inline fun <reified T : Parcelable> Fragment.extraNotNull(key: String, default: T? = null) =
+    lazy {
+        val value = arguments?.parcelable<T>(key)
+        requireNotNull(if (value is T) value else default) { key }
+    }
 
 val Fragment.navController: NavController?
     get() = runCatching { findNavController() }.getOrNull()

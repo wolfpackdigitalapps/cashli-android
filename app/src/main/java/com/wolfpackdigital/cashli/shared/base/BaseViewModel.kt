@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.minusAssign
 import com.wolfpackdigital.cashli.shared.utils.extensions.plusAssign
@@ -78,6 +79,8 @@ sealed class BaseCommand {
     class ShowToast(val message: String) : BaseCommand()
     class ShowSnackbarById(val stringId: Int) : BaseCommand()
     class ShowSnackbar(val message: String) : BaseCommand()
+    data class ShowPopupById(val popupConfig: PopupConfig) : BaseCommand()
+
     class PerformNavAction(
         val direction: NavDirections,
         @IdRes val popUpTo: Int? = null,

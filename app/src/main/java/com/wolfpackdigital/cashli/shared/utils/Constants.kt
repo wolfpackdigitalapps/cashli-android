@@ -20,4 +20,8 @@ object Constants {
 
     const val PHONE_NUMBER_LENGTH = 10
     const val PASSWORD_MIN_LENGTH = 8
+    const val MAX_CHARS_50 = 50
+    const val ZIP_CODE_LENGTH = 5
+    const val MIN_CHARS_2 = 2
+    const val COUNT_DOWN_TIME_6s = 6000L
 }

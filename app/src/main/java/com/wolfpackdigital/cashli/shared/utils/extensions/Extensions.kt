@@ -7,9 +7,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -32,6 +34,12 @@ private const val PARSING_SERVER_ERROR = "The response could not be parsed"
 private const val SYNTAX_SERVER_ERROR = "The response doesn't have a valid format"
 private const val KEYBOARD_HIDDEN_FLAG = 0
 private const val PASSWORD_COMPLEXITY_REGEXP = "^(?=.*\\d)(?=.*[A-Za-z])(?=.*\\W).{8,}\$"
+private const val EMAIL_PATTERN = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
+    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
+    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+private const val DIGITS_PATTERN = "^[0-9]*$"
+private const val LETTERS_COMMA_PATTERN = "[a-zA-Z\\s]{0,64}" + "\\," + "[a-zA-Z\\s]{0,64}"
+private const val NAME_PATTERN = "[a-zA-Z\\-\\'\\s]{0,64}"
 
 fun Throwable.getParsedError(): String = try {
     val response = (this as? HttpException)?.response()?.errorBody()
@@ -53,16 +61,28 @@ fun String.hasPasswordPattern(): Boolean {
 
 fun String.hasEmailPattern(): Boolean {
     val pattern = Pattern.compile(
-        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
-            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
-            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+        EMAIL_PATTERN
     )
     return pattern.matcher(this).matches()
 }
 
-fun String.hasPhoneNumberPattern(): Boolean {
+fun String.containOnlyDigits(): Boolean {
     val pattern = Pattern.compile(
-        "^[0-9]*$"
+        DIGITS_PATTERN
+    )
+    return pattern.matcher(this).matches()
+}
+
+fun String.containOnlyLettersAndComma(): Boolean {
+    val pattern = Pattern.compile(
+        LETTERS_COMMA_PATTERN
+    )
+    return pattern.matcher(this).matches()
+}
+
+fun String.hasNamePattern(): Boolean {
+    val pattern = Pattern.compile(
+        NAME_PATTERN
     )
     return pattern.matcher(this).matches()
 }
@@ -130,4 +150,23 @@ fun initTimer(totalSeconds: Int): Flow<Int> =
 fun hideSoftKeyboard(view: View) {
     val imm = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     imm?.hideSoftInputFromWindow(view.applicationWindowToken, KEYBOARD_HIDDEN_FLAG)
+}
+
+fun Context.stringFromResource(@StringRes id: Int, vararg formatArgs: Any?): String {
+    return resources.getString(id, *formatArgs)
+}
+
+fun startCounter(
+    millisInFuture: Long,
+    countDownIntervalInMillis: Long = DEBOUNCE_INTERVAL_MILLIS_1000,
+    onTickCallback: (Long) -> Unit = {},
+    onFinishCallback: () -> Unit = {}
+) = object : CountDownTimer(millisInFuture, countDownIntervalInMillis) {
+    override fun onTick(millisUntilFinished: Long) {
+        onTickCallback.invoke(millisUntilFinished)
+    }
+
+    override fun onFinish() {
+        onFinishCallback.invoke()
+    }
 }

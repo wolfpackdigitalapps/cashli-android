@@ -16,6 +16,7 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.utils.extensions.hideSoftKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.openUrl
+import com.wolfpackdigital.cashli.shared.utils.extensions.showPopupById
 import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
 
@@ -81,6 +82,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                     it.options,
                     it.extras
                 )
+                is BaseCommand.ShowPopupById -> showPopupById(it.popupConfig)
                 is BaseCommand.GoBack -> navController?.popBackStack()
                 is BaseCommand.ForceCloseKeyboard ->
                     binding?.root?.findFocus()?.let { viewWithFocus ->

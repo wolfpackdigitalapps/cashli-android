@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.presentation.auth.choosePassword
+package com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
@@ -6,11 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BasePasswordValidatorViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.COUNT_DOWN_TIME_6s
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
@@ -78,6 +80,17 @@ class ChoosePasswordViewModel : BasePasswordValidatorViewModel() {
         validatePasswords {
             // TODO add call to BE and nav to success dialog
             delay(2000)
+            _baseCmd.value = BaseCommand.ShowPopupById(
+                PopupConfig(
+                    titleId = R.string.bravo_text,
+                    contentIdOrString = R.string.account_created_successfully,
+                    imageId = R.drawable.ic_profile_check,
+                    timerCount = COUNT_DOWN_TIME_6s,
+                    buttonCloseClick = {
+                        // TODO add redirect to sign in screen
+                    }
+                )
+            )
         }
     }
 

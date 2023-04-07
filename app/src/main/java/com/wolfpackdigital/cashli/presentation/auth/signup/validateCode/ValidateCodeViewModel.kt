@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.presentation.auth.validateCode
+package com.wolfpackdigital.cashli.presentation.auth.signup.validateCode
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,21 +8,24 @@ import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseValidateCodeViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_1
+import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_2
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import kotlinx.coroutines.delay
 
 class ValidateCodeViewModel(
-    codeReceivedViaType: CodeReceivedViaType
+    private val codeReceivedViaType: CodeReceivedViaType
 ) : BaseValidateCodeViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command>
         get() = _cmd
-
     private val _toolbar = MutableLiveData(
         Toolbar(
             titleLogoId = R.drawable.ic_logo_toolbar,
-            currentStep = STEP_1,
+            currentStep = when (codeReceivedViaType) {
+                CodeReceivedViaType.SMS -> STEP_1
+                CodeReceivedViaType.EMAIL -> STEP_2
+            },
             isStepCounterVisible = true,
             onBack = ::back
         )
@@ -54,9 +57,14 @@ class ValidateCodeViewModel(
             else if (verificationCode.value != "1234")
                 _invalidCodeErrorVisible.value = R.string.invalid_code
             else
-                _baseCmd.value = BaseCommand.PerformNavAction(
-                    ValidateCodeFragmentDirections.actionValidateCodeFragmentToChoosePasswordFragment()
-                )
+                _baseCmd.value = when (codeReceivedViaType) {
+                    CodeReceivedViaType.SMS -> BaseCommand.PerformNavAction(
+                        ValidateCodeFragmentDirections.actionValidateCodeFragmentToCreateProfileFragment()
+                    )
+                    CodeReceivedViaType.EMAIL -> BaseCommand.PerformNavAction(
+                        ValidateCodeFragmentDirections.actionValidateCodeFragmentToChoosePasswordFragment()
+                    )
+                }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.presentation.auth.signup
+package com.wolfpackdigital.cashli.presentation.auth.signup.informative
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

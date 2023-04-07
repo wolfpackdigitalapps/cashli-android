@@ -12,11 +12,14 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
+import com.google.android.material.button.MaterialButton
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_300
 import com.wolfpackdigital.cashli.shared.utils.CustomClickSpan
 import com.wolfpackdigital.cashli.shared.utils.DebouncingOnClickListener
+import com.wolfpackdigital.cashli.shared.utils.extensions.stringFromResource
 
 private const val KEY_SPAN_ACTION = "action"
 
@@ -45,6 +48,25 @@ fun View.setOnClickDebounced(
 fun TextView.textRes(@StringRes textRes: Int?) {
     textRes ?: return
     setText(textRes)
+}
+
+@BindingAdapter("textRes")
+fun MaterialButton.textRes(@StringRes textRes: Int?) {
+    textRes ?: return
+    setText(textRes)
+}
+
+@Suppress("SpreadOperator")
+@BindingAdapter(value = ["textIdOrString", "textArgs"], requireAll = false)
+fun TextView.setTextIdOrString(textIdOrString: Any?, textArgs: Array<Any>?) {
+    textIdOrString?.let {
+        text = when (it) {
+            is String -> it
+            is Int -> textArgs?.let { args -> context.stringFromResource(it, *args) }
+                ?: context.stringFromResource(it)
+            else -> Constants.EMPTY_STRING
+        }
+    }
 }
 
 @BindingAdapter("drawableRes")

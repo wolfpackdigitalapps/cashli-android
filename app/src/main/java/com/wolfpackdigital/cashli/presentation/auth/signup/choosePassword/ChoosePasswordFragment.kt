@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.presentation.auth.choosePassword
+package com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword
 
 import androidx.activity.addCallback
 import com.wolfpackdigital.cashli.ChoosePasswordBinding

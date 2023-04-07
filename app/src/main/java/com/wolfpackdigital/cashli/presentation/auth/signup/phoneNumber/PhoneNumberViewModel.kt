@@ -10,7 +10,7 @@ import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.extensions.hasPhoneNumberPattern
+import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
 
 class PhoneNumberViewModel : BaseViewModel() {
 
@@ -43,7 +43,7 @@ class PhoneNumberViewModel : BaseViewModel() {
 
     fun onContinueClicked() {
         phoneNumber.value?.let { number ->
-            if (!number.hasPhoneNumberPattern()) {
+            if (!number.containOnlyDigits()) {
                 onContinueError.value = R.string.phone_number_digits_error
                 return
             }
