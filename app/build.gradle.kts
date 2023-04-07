@@ -146,4 +146,7 @@ dependencies {
 
     // DotIndicator
     implementation(Libs.DOT_INDICATOR)
+
+    // CustomTabs
+    implementation(Libs.ANDROIDX_BROWSER)
 }

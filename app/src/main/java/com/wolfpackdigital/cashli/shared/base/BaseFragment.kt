@@ -15,6 +15,7 @@ import com.wolfpackdigital.cashli.BR
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.utils.extensions.hideSoftKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
+import com.wolfpackdigital.cashli.shared.utils.extensions.openUrl
 import com.wolfpackdigital.cashli.shared.utils.extensions.showPopupById
 import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
@@ -65,6 +66,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
     private fun observeBaseCommands() {
         viewModel.baseCmd.observe(viewLifecycleOwner) {
             when (it) {
+                is BaseCommand.OpenUrl -> context?.openUrl(it.urlResource)
                 is BaseCommand.ShowToastById ->
                     Toast.makeText(context ?: return@observe, it.stringId, Toast.LENGTH_SHORT)
                         .show()

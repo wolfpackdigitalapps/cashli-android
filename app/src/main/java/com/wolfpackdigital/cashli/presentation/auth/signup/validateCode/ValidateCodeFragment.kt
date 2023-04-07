@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.presentation.auth.validateCode
+package com.wolfpackdigital.cashli.presentation.auth.signup.validateCode
 
 import androidx.navigation.fragment.navArgs
 import com.wolfpackdigital.cashli.R

@@ -19,6 +19,7 @@ import androidx.databinding.InverseBindingListener
 import androidx.lifecycle.LiveData
 import com.wolfpackdigital.cashli.BaseEditTextBinding
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
+import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.visibility
 
 class BaseEditText @JvmOverloads constructor(
@@ -40,7 +41,7 @@ class BaseEditText @JvmOverloads constructor(
 @BindingAdapter("cliText")
 fun BaseEditText.setCliText(content: LiveData<String>?) {
     if (text != content?.value) {
-        text = content?.value ?: ""
+        text = content?.value ?: EMPTY_STRING
     }
 }
 
@@ -113,17 +114,30 @@ fun BaseEditText.cliImeOptions(options: Int?) {
 }
 
 @BindingAdapter("cliError")
-fun BaseEditText.cliError(riError: Int?) {
-    val error = riError?.let(context::getString) ?: ""
+fun BaseEditText.cliError(cliError: Int?) {
+    val error = cliError?.let(context::getString) ?: EMPTY_STRING
     binding.tvError.text = error
     binding.tvError.visibility(error.isNotEmpty())
     binding.tietContent.setError(error.isNotEmpty())
 }
 
+@BindingAdapter("cliErrorNoText")
+fun BaseEditText.cliErrorNoText(cliError: Boolean?) {
+    val error = cliError ?: false
+    binding.tietContent.setError(error)
+}
+
 @BindingAdapter("cliDrawableEnd")
-fun BaseEditText.cliDrawable(end: Drawable?) {
+fun BaseEditText.cliDrawableEnd(end: Drawable?) {
     end?.let {
         binding.ivDrawableEnd.visibility = View.VISIBLE
         binding.ivDrawableEnd.setImageDrawable(it)
+    }
+}
+
+@BindingAdapter("cliDrawableEndClick")
+fun BaseEditText.cliDrawableEndClick(callback: () -> Unit?) {
+    binding.ivDrawableEnd.setOnClickDebounced {
+        callback()
     }
 }

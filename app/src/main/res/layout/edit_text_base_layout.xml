@@ -39,10 +39,12 @@
             android:padding="@dimen/dimen_8dp"
             android:paddingEnd="@dimen/dimen_16dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription,RtlSymmetry" />
+            app:layout_constraintBottom_toBottomOf="@id/tiet_content"
+            app:layout_constraintEnd_toEndOf="@id/tiet_content"
+            app:layout_constraintTop_toTopOf="@id/tiet_content"
+            tools:ignore="ContentDescription,RtlSymmetry"
+            tools:src="@drawable/ic_eye"
+            tools:visibility="visible" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_error"
@@ -50,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_4dp"
+            android:textAlignment="viewStart"
             android:textColor="@color/colorRed62"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"

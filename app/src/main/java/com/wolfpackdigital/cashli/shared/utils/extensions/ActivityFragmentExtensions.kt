@@ -2,10 +2,14 @@ package com.wolfpackdigital.cashli.shared.utils.extensions
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
 import android.view.View
+import androidx.browser.customtabs.CustomTabColorSchemeParams
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -13,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
+import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_PREFIX_LABEL
 import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
@@ -33,6 +38,36 @@ fun Activity.snackBar(message: String, action: ((View) -> Unit)? = {}, actionTex
     }
 }
 
+@SuppressWarnings("LongParameterList")
+fun Fragment.showDialog(
+    title: String = EMPTY_STRING,
+    message: String = EMPTY_STRING,
+    isCancelable: Boolean = true,
+    positiveButtonText: String? = null,
+    negativeButtonText: String? = null,
+    positiveButtonClick: () -> Unit = {},
+    negativeButtonClick: () -> Unit = {}
+): AlertDialog? {
+    this.context?.let {
+        val builder = AlertDialog.Builder(it)
+        builder.setTitle(title).setMessage(message).setCancelable(isCancelable)
+        positiveButtonText?.let { text ->
+            builder.setPositiveButton(text) { dialog, _ ->
+                dialog.dismiss()
+                positiveButtonClick()
+            }
+        }
+        negativeButtonText?.let { text ->
+            builder.setNegativeButton(text) { dialog, _ ->
+                dialog.dismiss()
+                negativeButtonClick()
+            }
+        }
+        return builder.show()
+    }
+    return null
+}
+
 @Suppress("ComplexMethod", "SpreadOperator")
 fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
     context?.let { ctx ->
@@ -45,8 +80,8 @@ fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
 
 @SuppressWarnings("LongParameterList")
 fun Activity.showDialog(
-    title: String = "",
-    message: String = "",
+    title: String = EMPTY_STRING,
+    message: String = EMPTY_STRING,
     isCancelable: Boolean = true,
     positiveButtonText: String? = null,
     negativeButtonText: String? = null,
@@ -75,10 +110,11 @@ inline fun <reified T : Parcelable> Fragment.extra(key: String, default: T? = nu
     if (value is T) value else default
 }
 
-inline fun <reified T : Parcelable> Fragment.extraNotNull(key: String, default: T? = null) = lazy {
-    val value = arguments?.parcelable<T>(key)
-    requireNotNull(if (value is T) value else default) { key }
-}
+inline fun <reified T : Parcelable> Fragment.extraNotNull(key: String, default: T? = null) =
+    lazy {
+        val value = arguments?.parcelable<T>(key)
+        requireNotNull(if (value is T) value else default) { key }
+    }
 
 val Fragment.navController: NavController?
     get() = runCatching { findNavController() }.getOrNull()
@@ -91,4 +127,15 @@ fun Activity.showDialer(phoneNumber: String = SUPPORT_PHONE_NUMBER) {
         data = Uri.parse("$PHONE_NUMBER_PREFIX_LABEL$phoneNumber")
         startActivity(this)
     }
+}
+
+fun Context.openUrl(urlResource: Int) {
+    val builder = CustomTabsIntent.Builder().apply {
+        val darkParams = CustomTabColorSchemeParams.Builder()
+            .setToolbarColor(ContextCompat.getColor(this@openUrl, R.color.colorPrimary))
+            .build()
+        setDefaultColorSchemeParams(darkParams)
+    }
+    val customTabsIntent = builder.build()
+    customTabsIntent.launchUrl(this@openUrl, Uri.parse(getString(urlResource)))
 }

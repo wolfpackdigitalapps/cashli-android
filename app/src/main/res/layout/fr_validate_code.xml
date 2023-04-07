@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.wolfpackdigital.cashli.presentation.auth.validateCode.ValidateCodeViewModel" />
+            type="com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel" />
 
         <import type="android.text.InputType" />
 
@@ -24,6 +24,9 @@
             layout="@layout/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:viewModel="@{viewModel.toolbar}" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -54,7 +57,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_code_title"
-            app:onCliImeDoneAction="@{() -> viewModel.closeKeyboardAndClearFocus()}" />
+            app:onCliImeDoneAction="@{viewModel::closeKeyboardAndClearFocus}" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_resend_code"

@@ -47,7 +47,7 @@
             app:error="@{viewModel.error}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_question"
-            app:onCloseKeyboard="@{() -> viewModel.closeKeyboardAndClearFocus()}"
+            app:onCloseKeyboard="@{viewModel::closeKeyboardAndClearFocus}"
             app:phoneNumber="@{viewModel.phoneNumber}" />
 
         <com.google.android.material.button.MaterialButton

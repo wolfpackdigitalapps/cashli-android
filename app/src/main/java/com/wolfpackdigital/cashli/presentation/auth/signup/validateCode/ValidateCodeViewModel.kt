@@ -1,14 +1,12 @@
-package com.wolfpackdigital.cashli.presentation.auth.validateCode
+package com.wolfpackdigital.cashli.presentation.auth.signup.validateCode
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
-import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseValidateCodeViewModel
-import com.wolfpackdigital.cashli.shared.utils.Constants.COUNT_DOWN_TIME_6s
 import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_1
 import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_2
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
@@ -58,25 +56,15 @@ class ValidateCodeViewModel(
                 _invalidCodeErrorVisible.value = R.string.invalid_code_too_many_attempts
             else if (verificationCode.value != "1234")
                 _invalidCodeErrorVisible.value = R.string.invalid_code
-            else {
+            else
                 _baseCmd.value = when (codeReceivedViaType) {
                     CodeReceivedViaType.SMS -> BaseCommand.PerformNavAction(
                         ValidateCodeFragmentDirections.actionValidateCodeFragmentToCreateProfileFragment()
                     )
-                    CodeReceivedViaType.EMAIL -> BaseCommand.ShowPopupById(
-                        PopupConfig(
-                            titleId = R.string.bravo_text,
-                            contentIdOrString = R.string.account_created_successfully,
-                            imageId = R.drawable.ic_profile_check,
-                            timerCount = COUNT_DOWN_TIME_6s,
-                            buttonCloseClick = {
-                                // TODO add redirect to sign in screen
-                            }
-                        )
+                    CodeReceivedViaType.EMAIL -> BaseCommand.PerformNavAction(
+                        ValidateCodeFragmentDirections.actionValidateCodeFragmentToChoosePasswordFragment()
                     )
                 }
-            }
-
         }
     }
 

@@ -3,6 +3,7 @@ package com.wolfpackdigital.cashli.shared.base
 import android.app.Application
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -73,6 +74,7 @@ abstract class BaseAndroidViewModel(application: Application) : AndroidViewModel
 }
 
 sealed class BaseCommand {
+    class OpenUrl(@StringRes val urlResource: Int) : BaseCommand()
     class ShowToastById(val stringId: Int) : BaseCommand()
     class ShowToast(val message: String) : BaseCommand()
     class ShowSnackbarById(val stringId: Int) : BaseCommand()
