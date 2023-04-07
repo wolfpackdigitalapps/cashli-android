@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,6 +9,18 @@
         <import type="kotlin.jvm.functions.Function0" />
 
         <import type="kotlin.Unit" />
+
+        <variable
+            name="showTextError"
+            type="Boolean" />
+
+        <variable
+            name="fadeVisibility"
+            type="Boolean" />
+
+        <variable
+            name="imeOption"
+            type="Integer" />
 
         <variable
             name="error"
@@ -28,7 +39,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+        app:fadeVisibility="@{fadeVisibility}">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_label"
@@ -47,7 +58,7 @@
             style="@style/Widget.Cashli.Button.Primary.CountryCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_4dp"
+            android:layout_marginTop="@dimen/dimen_2dp"
             android:clickable="false"
             android:padding="@dimen/dimen_16dp"
             android:text="@string/country_code_US"
@@ -62,11 +73,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16dp"
             android:layout_marginTop="@dimen/dimen_6dp"
-            android:layout_marginEnd="@dimen/dimen_32dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
             android:textColor="@color/colorWhite"
             app:cliError="@{error}"
             app:cliHint="@{@string/phone_number_hint}"
+            app:cliImeOptions="@{imeOption}"
             app:cliInputType="@{InputType.TYPE_CLASS_NUMBER}"
+            app:cliShowTextError="@{showTextError}"
             app:cliText="@={phoneNumber}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_country"

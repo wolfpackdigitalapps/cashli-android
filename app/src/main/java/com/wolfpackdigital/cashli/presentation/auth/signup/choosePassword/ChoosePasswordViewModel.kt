@@ -94,5 +94,9 @@ class ChoosePasswordViewModel : BasePasswordValidatorViewModel() {
         }
     }
 
+    fun clearFieldsError() {
+        _passwordError.value = null
+    }
+
     sealed class Command
 }

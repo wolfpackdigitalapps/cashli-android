@@ -13,8 +13,13 @@ class ChoosePasswordFragment :
 
     override fun setupViews() {
         handleOnBackPressed()
+        setupObservers()
     }
 
+    private fun setupObservers() {
+        viewModel.password.observe(viewLifecycleOwner) { viewModel.clearFieldsError() }
+        viewModel.confirmPassword.observe(viewLifecycleOwner) { viewModel.clearFieldsError() }
+    }
     private fun handleOnBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {}
     }

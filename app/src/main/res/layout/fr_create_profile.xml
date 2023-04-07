@@ -157,7 +157,7 @@
                     app:cliError="@{viewModel.emailError}"
                     app:cliHint="@{@string/et_hint}"
                     app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
-                    app:cliInputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:cliInputType="@{InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
                     app:cliLabel="@{@string/et_email}"
                     app:cliMaxChars="@{Constants.MAX_CHARS_50}"
                     app:cliText="@={viewModel.email}"

@@ -8,6 +8,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword.ChoosePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
@@ -29,6 +30,7 @@ object AppModules {
         viewModel { InformativeViewModel() }
         viewModel { PhoneNumberViewModel() }
         viewModel { ChoosePasswordViewModel() }
+        viewModel { SignInViewModel() }
         viewModel { (codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 codeReceivedViaType

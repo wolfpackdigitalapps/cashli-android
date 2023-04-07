@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.shared.utils.extensions
 
 import android.app.Activity
@@ -11,6 +13,7 @@ import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -138,4 +141,23 @@ fun Context.openUrl(urlResource: Int) {
     }
     val customTabsIntent = builder.build()
     customTabsIntent.launchUrl(this@openUrl, Uri.parse(getString(urlResource)))
+}
+
+fun <T> NavController.setBackStackData(key: String, data: T?) =
+    previousBackStackEntry?.savedStateHandle?.set(key, data)
+
+fun <T> NavController.getBackStackData(
+    key: String,
+    owner: LifecycleOwner,
+    removeValue: Boolean = false,
+    removeObserver: Boolean = false,
+    result: (T?) -> (Unit)
+) {
+    val savedState = currentBackStackEntry?.savedStateHandle
+    savedState?.getLiveData<T?>(key)
+        ?.observe(owner) {
+            if (!removeObserver && removeValue && it != null) savedState.set(key, null)
+            if (removeObserver) savedState.remove<T>(key)
+            result(it)
+        }
 }

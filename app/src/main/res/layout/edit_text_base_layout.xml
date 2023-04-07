@@ -19,7 +19,8 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Label" />
+            tools:text="Label"
+            tools:visibility="visible" />
 
         <com.wolfpackdigital.cashli.shared.utils.views.CustomTextInputEditText
             android:id="@+id/tiet_content"
