@@ -7,8 +7,11 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
+import com.google.android.material.button.MaterialButton
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_300
 import com.wolfpackdigital.cashli.shared.utils.DebouncingOnClickListener
+import com.wolfpackdigital.cashli.shared.utils.extensions.stringFromResource
 
 @BindingAdapter("visibility")
 fun View.visibility(visible: Boolean?) {
@@ -21,9 +24,9 @@ fun View.hide(invisible: Boolean?) {
 }
 
 @BindingAdapter(value = ["android:onClick", "debounceInterval"], requireAll = false)
-fun View.setOnClickBindingAdapter(
-    onClickListener: View.OnClickListener,
-    debounceInterval: Long?
+fun View.setOnClickDebounced(
+    debounceInterval: Long? = DEBOUNCE_INTERVAL_MILLIS_300,
+    onClickListener: View.OnClickListener
 ) = setOnClickListener(
     DebouncingOnClickListener(
         debounceInterval ?: DEBOUNCE_INTERVAL_MILLIS_300,
@@ -36,7 +39,23 @@ fun TextView.textRes(@StringRes textRes: Int?) {
     textRes ?: return
     setText(textRes)
 }
+@BindingAdapter("textRes")
+fun MaterialButton.textRes(@StringRes textRes: Int?) {
+    textRes ?: return
+    setText(textRes)
+}
 
+@Suppress("SpreadOperator")
+@BindingAdapter(value = ["textIdOrString", "textArgs"], requireAll = false)
+fun TextView.setTextIdOrString(textIdOrString: Any?, textArgs: Array<Any>?) {
+    textIdOrString?.let {
+        text = when (it) {
+            is String -> it
+            is Int -> textArgs?.let { args -> context.stringFromResource(it, *args) } ?: context.stringFromResource(it)
+            else -> Constants.EMPTY_STRING
+        }
+    }
+}
 @BindingAdapter("drawableRes")
 fun ImageView.drawableRes(@DrawableRes drawableRes: Int?) {
     drawableRes ?: return
