@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".RequestCodeBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.requestCode.RequestCodeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_forgot_password" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextView.SemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_28dp"
+            android:layout_marginEnd="@dimen/dimen_68dp"
+            android:lineSpacingExtra="@dimen/dimen_4dp"
+            android:text="@string/forgot_password_screen_message"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/size_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_top" />
+
+        <!-- TODO insert choose email/password when ready in sign up -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_continue"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
+            android:onClick="@{()-> viewModel.onContinueClicked()}"
+            android:text="@string/continue_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

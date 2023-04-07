@@ -8,6 +8,9 @@ import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.confirmOneTimePassword.ConfirmOneTimePasswordViewModel
+import com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.requestCode.RequestCodeViewModel
+import com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.resetPassword.ResetPasswordViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword.ChoosePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
@@ -35,6 +38,9 @@ object AppModules {
             )
         }
         viewModel { CreateProfileViewModel() }
+        viewModel { ResetPasswordViewModel() }
+        viewModel { RequestCodeViewModel() }
+        viewModel { ConfirmOneTimePasswordViewModel() }
     }
 
     private val apiModule = module {
