@@ -33,6 +33,12 @@ private const val GENERIC_SERVER_ERROR = "Something went wrong, please try again
 private const val PARSING_SERVER_ERROR = "The response could not be parsed"
 private const val SYNTAX_SERVER_ERROR = "The response doesn't have a valid format"
 private const val KEYBOARD_HIDDEN_FLAG = 0
+private const val EMAIL_PATTERN = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
+    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
+    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+private const val DIGITS_PATTERN = "^[0-9]*$"
+private const val LETTERS_COMMA_PATTERN = "[a-zA-Z\\s]{0,64}" + "\\," + "[a-zA-Z\\s]{0,64}"
+private const val NAME_PATTERN = "[a-zA-Z\\-\\'\\s]{0,64}"
 
 fun Throwable.getParsedError(): String = try {
     val response = (this as? HttpException)?.response()?.errorBody()
@@ -49,16 +55,28 @@ val appVersion: String
 
 fun String.hasEmailPattern(): Boolean {
     val pattern = Pattern.compile(
-        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
-            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
-            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+        EMAIL_PATTERN
     )
     return pattern.matcher(this).matches()
 }
 
-fun String.hasPhoneNumberPattern(): Boolean {
+fun String.containOnlyDigits(): Boolean {
     val pattern = Pattern.compile(
-        "^[0-9]*$"
+        DIGITS_PATTERN
+    )
+    return pattern.matcher(this).matches()
+}
+
+fun String.containOnlyLettersAndComma(): Boolean {
+    val pattern = Pattern.compile(
+        LETTERS_COMMA_PATTERN
+    )
+    return pattern.matcher(this).matches()
+}
+
+fun String.hasNamePattern(): Boolean {
+    val pattern = Pattern.compile(
+        NAME_PATTERN
     )
     return pattern.matcher(this).matches()
 }

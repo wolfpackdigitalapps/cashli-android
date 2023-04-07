@@ -9,6 +9,7 @@ import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.presentation.auth.signup.InformativeViewModel
+import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.auth.validateCode.ValidateCodeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
@@ -31,6 +32,7 @@ object AppModules {
                 codeReceivedViaType
             )
         }
+        viewModel { CreateProfileViewModel() }
     }
 
     private val apiModule = module {
