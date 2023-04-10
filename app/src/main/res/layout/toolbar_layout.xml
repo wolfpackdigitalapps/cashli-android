@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_top"
+            android:id="@+id/iv_top_toolbar"
             visibility="@{viewModel.titleLogoId != null}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
