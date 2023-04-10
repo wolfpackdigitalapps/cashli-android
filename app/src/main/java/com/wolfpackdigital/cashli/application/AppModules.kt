@@ -40,7 +40,10 @@ object AppModules {
         viewModel { CreateProfileViewModel() }
         viewModel { ResetPasswordViewModel() }
         viewModel { RequestCodeViewModel() }
-        viewModel { ConfirmOneTimePasswordViewModel() }
+        viewModel { (phoneNumberOrEmail: String ) ->
+            ConfirmOneTimePasswordViewModel(
+                phoneNumberOrEmail
+            ) }
     }
 
     private val apiModule = module {

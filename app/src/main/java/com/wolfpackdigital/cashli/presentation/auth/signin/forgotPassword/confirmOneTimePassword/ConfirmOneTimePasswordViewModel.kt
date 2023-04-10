@@ -6,7 +6,9 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseValidateCodeViewModel
 
-class ConfirmOneTimePasswordViewModel : BaseValidateCodeViewModel() {
+class ConfirmOneTimePasswordViewModel(
+    val phoneNumberOrEmail: String
+) : BaseValidateCodeViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(
