@@ -138,7 +138,7 @@
                 app:cliHint="@{@string/et_hint}"
                 app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
                 app:cliInputType="@{viewModel.isPasswordVisible ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD}"
-                app:cliLabel="@{@string/password_label}"
+                app:cliLabel="@{@string/password_label_caps}"
                 app:cliText="@={viewModel.password}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
