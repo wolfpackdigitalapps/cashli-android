@@ -17,5 +17,11 @@ class ConfirmOneTimePasswordFragment :
         parametersOf(navArgs.phoneNumberOrEmail)
     }
 
-    override fun setupViews() {}
+    override fun setupViews() {
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        viewModel.verificationCode.observe(viewLifecycleOwner) { viewModel.clearInvalidCodeError() }
+    }
 }

@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseValidateCodeViewModel
+import kotlinx.coroutines.delay
 
 class ConfirmOneTimePasswordViewModel(
     val phoneNumberOrEmail: String
@@ -18,5 +20,33 @@ class ConfirmOneTimePasswordViewModel(
     )
     val toolbar: LiveData<Toolbar> = _toolbar
 
-    fun onContinueClicked() {}
+    init {
+        initResendCode()
+    }
+
+    fun onContinueClicked() {
+        //TODO Add api call and remove mock data
+        performApiCall {
+            delay(200)
+            if (verificationCode.value == "4321")
+                _invalidCodeErrorVisible.value = R.string.invalid_code_too_many_attempts
+            else if (verificationCode.value != "1234")
+                _invalidCodeErrorVisible.value = R.string.invalid_code
+            else
+                _baseCmd.value = BaseCommand.PerformNavAction(
+                    ConfirmOneTimePasswordFragmentDirections.actionConfirmOneTimePasswordFragmentToResetPasswordFragment()
+                )
+        }
+    }
+
+    @Suppress("MagicNumber")
+    fun resendConfirmationCodeAndStartTimer() {
+        // TODO add api call and replace mock behavior
+        performApiCall {
+            clearInvalidCodeError()
+            clearVerificationCode()
+            delay(200)
+            initResendCode()
+        }
+    }
 }

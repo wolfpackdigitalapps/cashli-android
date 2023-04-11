@@ -4,6 +4,7 @@ import androidx.activity.addCallback
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.ResetPasswordBinding
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
+import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ResetPasswordFragment :
