@@ -4,19 +4,6 @@ object Constants {
     // Millis
     const val DEBOUNCE_INTERVAL_MILLIS_1000 = 1000L
     const val DEBOUNCE_INTERVAL_MILLIS_300 = 350L
-    const val COUNT_DOWN_TIME_6s = 6000L
-    const val FADE_ANIM_DURATION_200 = 200L
-    const val FADE_ANIM_DURATION_100 = 100L
-
-    // Support
-    const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"
-    const val PHONE_NUMBER_PREFIX_LABEL = "tel:"
-
-    // Span actions
-    const val VALUE_SPAN_OPEN_PP = "openPP"
-    const val VALUE_SPAN_OPEN_TS = "openTS"
-    const val VALUE_SPAN_OPEN_DPP = "openDPP"
-    const val VALUE_SPAN_OPEN_DTS = "openDTS"
 
     // MISC
     const val FIRST_INDEX = 0

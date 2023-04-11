@@ -15,8 +15,8 @@
             type="Boolean" />
 
         <variable
-            name="fadeVisibility"
-            type="Boolean" />
+            name="viewState"
+            type="Integer" />
 
         <variable
             name="imeOption"
@@ -39,7 +39,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fadeVisibility="@{fadeVisibility}">
+        app:viewState="@{viewState}">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_label"

@@ -11,11 +11,19 @@ import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BasePasswordValidatorViewModel
-import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.Constants.COUNT_DOWN_TIME_6s
+import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_3
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
+
+// Span actions
+private const val VALUE_SPAN_OPEN_PP = "openPP"
+private const val VALUE_SPAN_OPEN_TS = "openTS"
+private const val VALUE_SPAN_OPEN_DPP = "openDPP"
+private const val VALUE_SPAN_OPEN_DTS = "openDTS"
+
+// Millis
+private const val COUNT_DOWN_TIME_6s = 6000L
 
 class ChoosePasswordViewModel : BasePasswordValidatorViewModel() {
 
@@ -26,7 +34,7 @@ class ChoosePasswordViewModel : BasePasswordValidatorViewModel() {
     private val _toolbar = MutableLiveData(
         Toolbar(
             titleLogoId = R.drawable.ic_logo_toolbar,
-            currentStep = Constants.STEP_3,
+            currentStep = STEP_3,
             isStepCounterVisible = true,
             isBackVisible = false
         )
@@ -34,28 +42,28 @@ class ChoosePasswordViewModel : BasePasswordValidatorViewModel() {
     val toolbar: LiveData<Toolbar> = _toolbar
     val termsAndConditionsSpanActions: List<TextSpanAction> = listOf(
         TextSpanAction(
-            actionKey = Constants.VALUE_SPAN_OPEN_TS,
+            actionKey = VALUE_SPAN_OPEN_TS,
             action = {
                 _baseCmd.value = BaseCommand.OpenUrl(R.string.terms_of_service_url)
             },
             spanTextColor = R.color.colorWhiteF5
         ),
         TextSpanAction(
-            actionKey = Constants.VALUE_SPAN_OPEN_PP,
+            actionKey = VALUE_SPAN_OPEN_PP,
             action = {
                 _baseCmd.value = BaseCommand.OpenUrl(R.string.privacy_policy_url)
             },
             spanTextColor = R.color.colorWhiteF5
         ),
         TextSpanAction(
-            actionKey = Constants.VALUE_SPAN_OPEN_DTS,
+            actionKey = VALUE_SPAN_OPEN_DTS,
             action = {
                 _baseCmd.value = BaseCommand.OpenUrl(R.string.dwolla_terms_of_service_url)
             },
             spanTextColor = R.color.colorWhiteF5
         ),
         TextSpanAction(
-            actionKey = Constants.VALUE_SPAN_OPEN_DPP,
+            actionKey = VALUE_SPAN_OPEN_DPP,
             action = {
                 _baseCmd.value = BaseCommand.OpenUrl(R.string.dwolla_privacy_policy_url)
             },

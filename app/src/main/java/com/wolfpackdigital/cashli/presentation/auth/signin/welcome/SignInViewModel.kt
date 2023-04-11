@@ -49,15 +49,19 @@ class SignInViewModel : BasePasswordValidatorViewModel() {
     @StringRes
     private val _credentialsInUseTextId = MutableLiveData<Int>()
     val credentialsInUseTextId: LiveData<Int> = _credentialsInUseTextId
+
     private val _isEmailCredentialsInUse = MutableLiveData(false)
     val isEmailCredentialsInUse: LiveData<Boolean> = _isEmailCredentialsInUse
+
     val togglePhoneEmailCredentialsText = isEmailCredentialsInUse.map {
         _cmd.value = Command.ToggleTextVisibilityAnimated(alphaAnimationConfig)
         clearFieldsError()
         closeKeyboardAndClearFocus()
     }
+
     val email = MutableLiveData<String>()
     val phoneNumber = MutableLiveData<String>()
+
     private val _error = MutableLiveData<Int?>()
     val error: LiveData<Int?> = _error
 

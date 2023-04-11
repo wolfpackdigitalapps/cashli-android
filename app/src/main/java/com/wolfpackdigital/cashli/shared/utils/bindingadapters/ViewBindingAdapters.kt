@@ -21,12 +21,12 @@ import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.ALPHA_0
 import com.wolfpackdigital.cashli.shared.utils.Constants.ALPHA_1
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_300
-import com.wolfpackdigital.cashli.shared.utils.Constants.FADE_ANIM_DURATION_200
 import com.wolfpackdigital.cashli.shared.utils.CustomClickSpan
 import com.wolfpackdigital.cashli.shared.utils.DebouncingOnClickListener
 import com.wolfpackdigital.cashli.shared.utils.extensions.stringFromResource
 
 private const val KEY_SPAN_ACTION = "action"
+private const val FADE_ANIM_DURATION_200 = 200L
 
 @BindingAdapter("visibility")
 fun View.visibility(visible: Boolean?) {
@@ -116,22 +116,22 @@ fun TextView.setTextSpanByAction(actions: List<TextSpanAction>, @StringRes textW
     highlightColor = Color.TRANSPARENT
 }
 
-@BindingAdapter(value = ["fadeVisibility", "viewState"], requireAll = false)
-fun View.setFadeVisibility(visible: Boolean?, viewState: Int?) {
-    visible ?: return
-    val state = viewState ?: View.GONE
+@BindingAdapter("viewState")
+fun View.setFadeVisibility(viewState: Int?) {
+    viewState ?: return
     val endListener = object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator) {
             alpha = ALPHA_1
-            if (!visible)
-                visibility = state
+            visibility = viewState
         }
     }
-    if (visible && visibility == state) {
-        visibility = View.VISIBLE
-        alpha = ALPHA_0
-        animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_1).setListener(endListener)
-    } else if (!visible && visibility == View.VISIBLE) {
-        animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_0).setListener(endListener)
+    when (viewState) {
+        View.VISIBLE -> {
+            visibility = View.VISIBLE
+            alpha = ALPHA_0
+            animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_1).setListener(endListener)        }
+        View.INVISIBLE, View.GONE -> {
+            animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_0).setListener(endListener)
+        }
     }
 }
