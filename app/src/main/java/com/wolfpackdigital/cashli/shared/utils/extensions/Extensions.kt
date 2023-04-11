@@ -38,10 +38,10 @@ private const val EMAIL_PATTERN = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@"
     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
 private const val DIGITS_PATTERN = "^[0-9]*$"
-private const val LETTERS_COMMA_PATTERN = "[a-zA-Z]{1,50}[\\s]{0,50}\\,[\\s]{0,50}[a-zA-Z]{2}\$"
-private const val ONLY_CITY_OR_STATE_PATTERN = "([\\s]{0,50}[\\,][\\s]{0,50})|" +
-    "([a-zA-Z]{0,50}[\\s]{0,50}[\\,][\\s]{0,50})|([\\s]{0,64}[\\,][\\s]{0,50}[a-zA-Z]{0,50})"
-private const val NAME_PATTERN = "[a-zA-Z]{1,50}[\\-\\'\\s]{0,50}[a-zA-Z]{1,50}"
+private const val LETTERS_COMMA_PATTERN = "[a-zA-Z]+[\\s]*\\,[\\s]*[a-zA-Z]{2}\$"
+private const val ONLY_CITY_OR_STATE_PATTERN = "([\\s]*[\\,][\\s]*)|" +
+    "([a-zA-Z]*[\\s]*[\\,][\\s]*)|([\\s]*[\\,][\\s]*[a-zA-Z]*)"
+private const val NAME_PATTERN = "^[\\p{L}]+(?:[-'\\s][\\p{L}]+)*\$"
 
 fun Throwable.getParsedError(): String = try {
     val response = (this as? HttpException)?.response()?.errorBody()

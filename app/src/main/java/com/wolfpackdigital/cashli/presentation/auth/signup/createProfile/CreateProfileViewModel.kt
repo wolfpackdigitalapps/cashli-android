@@ -116,24 +116,24 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateFirstName() = firstName.value?.let { name ->
-        if (!name.hasNamePattern()) {
-            _firstNameError.value = R.string.name_error
-            return@let false
-        }
         if (name.length < Constants.MIN_CHARS_2) {
             _firstNameError.value = R.string.first_name_length_error
+            return@let false
+        }
+        if (!name.hasNamePattern()) {
+            _firstNameError.value = R.string.name_error
             return@let false
         }
         return@let true
     }
 
     private fun validateLastName() = lastName.value?.let { name ->
-        if (!name.hasNamePattern()) {
-            _lastNameError.value = R.string.name_error
-            return@let false
-        }
         if (name.length < Constants.MIN_CHARS_2) {
             _lastNameError.value = R.string.last_name_length_error
+            return@let false
+        }
+        if (!name.hasNamePattern()) {
+            _lastNameError.value = R.string.name_error
             return@let false
         }
         return@let true
