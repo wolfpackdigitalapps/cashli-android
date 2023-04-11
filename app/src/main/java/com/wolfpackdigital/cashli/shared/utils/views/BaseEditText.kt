@@ -68,8 +68,12 @@ fun BaseEditText.setOnImeDoneActionListener(callback: () -> Unit) {
 
 @BindingAdapter("cliInputType")
 fun BaseEditText.cliInputType(type: Int?) {
-    binding.tietContent.inputType = type ?: InputType.TYPE_CLASS_TEXT
-    binding.tietContent.text?.length?.let { binding.tietContent.setSelection(it) }
+    binding.tietContent.apply {
+        val typeface = binding.tietContent.typeface
+        inputType = type ?: InputType.TYPE_CLASS_TEXT
+        setTypeface(typeface)
+        text?.length?.let { setSelection(it) }
+    }
 }
 
 @BindingAdapter("cliHint")
