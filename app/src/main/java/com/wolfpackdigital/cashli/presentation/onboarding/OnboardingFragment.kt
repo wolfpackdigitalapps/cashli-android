@@ -10,7 +10,7 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.FIRST_INDEX
 import com.wolfpackdigital.cashli.shared.utils.Constants.RESTART_ONBOARDING_STEPS
 import com.wolfpackdigital.cashli.shared.utils.extensions.getBackStackData
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
-import com.wolfpackdigital.cashli.shared.utils.extensions.showDialer
+import com.wolfpackdigital.cashli.shared.utils.extensions.showSMSApp
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnboardingFragment :
@@ -34,7 +34,7 @@ class OnboardingFragment :
             when (it) {
                 OnboardingViewModel.Command.OnNext ->
                     binding?.viewPager?.currentItem = currentItem.inc()
-                OnboardingViewModel.Command.GetSupport -> activity?.showDialer()
+                OnboardingViewModel.Command.GetSupport -> activity?.showSMSApp()
             }
         }
         viewModel.onboardingSteps.observe(viewLifecycleOwner) {
