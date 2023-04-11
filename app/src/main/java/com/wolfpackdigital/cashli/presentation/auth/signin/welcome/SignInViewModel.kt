@@ -6,20 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
-import com.wolfpackdigital.cashli.shared.base.BasePasswordValidatorViewModel
-import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_LENGTH
+import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants.REPEAT_ANIM_ONE_TIME
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
-import com.wolfpackdigital.cashli.shared.utils.extensions.hasEmailPattern
-import com.wolfpackdigital.cashli.shared.utils.extensions.hasPasswordPattern
 import kotlinx.coroutines.delay
 
-class SignInViewModel : BasePasswordValidatorViewModel() {
+class SignInViewModel(
+    private val validateSignInFormUseCase: ValidateSignInFormUseCase
+) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command>
@@ -60,63 +58,32 @@ class SignInViewModel : BasePasswordValidatorViewModel() {
     }
 
     val email = MutableLiveData<String>()
+    val password = MutableLiveData<String?>()
     val phoneNumber = MutableLiveData<String>()
+
+    val isPasswordVisible = MutableLiveData(false)
 
     private val _error = MutableLiveData<Int?>()
     val error: LiveData<Int?> = _error
 
     private fun validateFields(onValidInput: suspend () -> Unit) {
         isEmailCredentialsInUse.value?.let { emailInUse ->
-            var error = false
-            _error.value = when {
-                (emailInUse && email.value.isNullOrBlank()) ||
-                    (!emailInUse && phoneNumber.value.isNullOrBlank()) -> {
-                    error = true
-                    R.string.email_or_phone_can_not_be_empty
-                }
-                password.value.isNullOrBlank() -> {
-                    error = true
-                    R.string.password_can_not_be_empty
-                }
-                emailInUse -> {
-                    if (!validateEmail() || !validatePassword()) {
-                        error = true
-                        R.string.incorrect_credentials_with_email
-                    } else {
-                        null
-                    }
-                }
-                !validatePhoneNumber() || !validatePassword() -> {
-                    error = true
-                    R.string.incorrect_credentials_with_phone
-                }
-                else -> null
-            }
-            if (!error)
+            val signInFormValidationResult = validateSignInFormUseCase(
+                email = email.value,
+                password = password.value,
+                phoneNumber = phoneNumber.value,
+                emailInUse
+            )
+            if (!signInFormValidationResult.successful)
+                _error.value = signInFormValidationResult.errorMessageId
+            else
                 performApiCall { onValidInput() }
         }
     }
 
-    private fun validatePassword() = password.value?.let { password ->
-        when {
-            password.length < Constants.PASSWORD_MIN_LENGTH || !password.hasPasswordPattern() -> false
-            else -> true
-        }
-    } ?: false
-
-    private fun validateEmail() = email.value?.let { email ->
-        when {
-            !email.hasEmailPattern() -> false
-            else -> true
-        }
-    } ?: false
-
-    private fun validatePhoneNumber() = phoneNumber.value?.let { phoneNumber ->
-        when {
-            !phoneNumber.containOnlyDigits() || phoneNumber.length != PHONE_NUMBER_LENGTH -> false
-            else -> true
-        }
-    } ?: false
+    fun onPasswordVisibilityChange() {
+        isPasswordVisible.value = isPasswordVisible.value?.not() ?: false
+    }
 
     @Suppress("MagicNumber")
     fun signUserIn() {

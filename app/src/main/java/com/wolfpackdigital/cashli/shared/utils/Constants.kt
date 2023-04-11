@@ -17,10 +17,7 @@ object Constants {
 
     // Input text constraints
     const val PHONE_NUMBER_LENGTH = 10
-    const val PASSWORD_MIN_LENGTH = 8
     const val MAX_CHARS_50 = 50
-    const val ZIP_CODE_LENGTH = 5
-    const val MIN_CHARS_2 = 2
 
     // Back stack keys
     const val RESTART_ONBOARDING_STEPS = "restart_onboarding_steps"

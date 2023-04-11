@@ -129,7 +129,8 @@ fun View.setFadeVisibility(viewState: Int?) {
         View.VISIBLE -> {
             visibility = View.VISIBLE
             alpha = ALPHA_0
-            animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_1).setListener(endListener)        }
+            animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_1).setListener(endListener)
+        }
         View.INVISIBLE, View.GONE -> {
             animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_0).setListener(endListener)
         }
