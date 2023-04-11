@@ -12,6 +12,7 @@ import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyCityOrStatePattern
 import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
 import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyLettersAndComma
 import com.wolfpackdigital.cashli.shared.utils.extensions.hasEmailPattern
@@ -93,12 +94,16 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateCityAndState() = cityAndState.value?.let { input ->
-        if (input.containOnlyLettersAndComma()) {
-            true
-        } else {
-            _cityAndStateError.value = R.string.city_and_state_error
-            false
+        if (!input.containOnlyLettersAndComma()) {
+            if (input.containOnlyCityOrStatePattern()) {
+                _cityAndStateError.value = R.string.city_state_both_error
+                return@let false
+            } else {
+                _cityAndStateError.value = R.string.city_and_state_error
+                return@let false
+            }
         }
+        return@let true
     }
 
     private fun validateStreet() = street.value?.let { street ->
@@ -111,21 +116,27 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateFirstName() = firstName.value?.let { name ->
-        if (name.hasNamePattern() && name.length >= Constants.MIN_CHARS_2) {
-            true
-        } else {
-            _firstNameError.value = R.string.name_error
-            false
+        if (name.length < Constants.MIN_CHARS_2) {
+            _firstNameError.value = R.string.first_name_length_error
+            return@let false
         }
+        if (!name.hasNamePattern()) {
+            _firstNameError.value = R.string.name_error
+            return@let false
+        }
+        return@let true
     }
 
     private fun validateLastName() = lastName.value?.let { name ->
-        if (name.hasNamePattern() && name.length >= Constants.MIN_CHARS_2) {
-            true
-        } else {
-            _lastNameError.value = R.string.name_error
-            false
+        if (name.length < Constants.MIN_CHARS_2) {
+            _lastNameError.value = R.string.last_name_length_error
+            return@let false
         }
+        if (!name.hasNamePattern()) {
+            _lastNameError.value = R.string.name_error
+            return@let false
+        }
+        return@let true
     }
 
     fun clearZipCodeError() {

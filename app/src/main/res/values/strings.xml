@@ -58,8 +58,11 @@
     <string name="zip_code_error">ZIP codes must be 5-digit numbers.</string>
     <string name="email_error">Invalid email address.</string>
     <string name="city_and_state_error">For city and state, enter only letters separated by a comma.</string>
-    <string name="street_error">Address should have at least 2 characters long.</string>
+    <string name="street_error">Address should be at least 2 characters long.</string>
     <string name="name_error">Enter only letters or special characters for your name.</string>
+    <string name="first_name_length_error">First name should be at least 2 characters long</string>
+    <string name="last_name_length_error">Last name should be at least 2 characters long.</string>
+    <string name="city_state_both_error">Please enter both the City and State separated by a comma.</string>
 
     <!--Generic -->
     <string name="generic_continue">Continue</string>
