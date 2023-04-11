@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
+import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
@@ -87,7 +88,11 @@ class ChoosePasswordViewModel : BasePasswordValidatorViewModel() {
                     imageId = R.drawable.ic_profile_check,
                     timerCount = COUNT_DOWN_TIME_6s,
                     buttonCloseClick = {
-                        // TODO add redirect to sign in screen
+                        _baseCmd.value = BaseCommand.PerformNavAction(
+                            NavigationDirections.actionGlobalHomeGraph(),
+                            popUpTo = R.id.navigation,
+                            inclusive = true
+                        )
                     }
                 )
             )

@@ -69,4 +69,13 @@
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>
     <string name="account_created_successfully">Your account has been\nsuccessfully created.</string>
+
+    <!--Home -->
+    <string name="home">Home</string>
+
+    <!--Account -->
+    <string name="account">Account</string>
+
+    <!--More -->
+    <string name="more">More</string>
 </resources>

@@ -8,6 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- BottomNavBar -->
+    <style name="BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavigationView.Text</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavigationView.Text.Active</item>
+        <item name="itemTextColor">@color/nav_text_color_selector</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/colorWhiteF5</item>
+    </style>
+
+    <style name="BottomNavigationView.Text" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/size_14sp</item>
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="BottomNavigationView.Text.Active">
+        <item name="android:textColor">@color/colorGrayB6</item>
+    </style>
+
     <!-- Buttons -->
     <style name="Widget.Cashli.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="fontFamily">@font/lato_bold</item>
@@ -76,6 +98,7 @@
         <item name="android:backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>
 
+    <!-- TextView -->
     <style name="TextView">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textAlignment">center</item>
@@ -98,6 +121,7 @@
         <item name="android:textSize">@dimen/size_12sp</item>
     </style>
 
+    <!-- TextInputEditText -->
     <style name="BaseTextInputEditText">
         <item name="android:background">@drawable/text_input_edit_text_background_selector</item>
         <item name="android:fontFamily">@font/lato</item>
@@ -110,6 +134,7 @@
         <item name="hintTextColor">@color/colorGrayB6</item>
     </style>
 
+    <!-- ScrollView -->
     <style name="ScrollView">
         <item name="android:fillViewport">true</item>
     </style>
