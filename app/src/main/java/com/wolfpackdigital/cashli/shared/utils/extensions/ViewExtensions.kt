@@ -1,3 +1,34 @@
 package com.wolfpackdigital.cashli.shared.utils.extensions
 
+import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
+
 // Extensions related to views (Views, TextViews, etc...)
+
+fun View.setAlphaAnimationVisibility(alphaAnimationConfig: AlphaAnimationConfig) {
+    val animationListener = object : Animation.AnimationListener {
+        override fun onAnimationEnd(animation: Animation?) {
+            alphaAnimationConfig.actionOnStart.invoke()
+        }
+
+        override fun onAnimationStart(animation: Animation?) {
+            alphaAnimationConfig.actionOnEnd.invoke()
+        }
+
+        override fun onAnimationRepeat(animation: Animation?) {
+            alphaAnimationConfig.actionOnRepeat.invoke()
+        }
+    }
+    val anim = AlphaAnimation(
+        alphaAnimationConfig.startAlpha,
+        alphaAnimationConfig.endAlpha
+    ).apply {
+        duration = alphaAnimationConfig.duration
+        alphaAnimationConfig.repeatCountValue?.let { repeatCount = it }
+        alphaAnimationConfig.repeatModeValue?.let { repeatMode = it }
+        setAnimationListener(animationListener)
+    }
+    startAnimation(anim)
+}

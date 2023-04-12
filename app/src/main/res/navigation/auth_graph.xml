@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_onboardingFragment_to_informativeFragment"
             app:destination="@id/informativeFragment" />
+        <action
+            android:id="@+id/action_onboardingFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/informativeFragment"
@@ -31,6 +34,9 @@
         <action
             android:id="@+id/action_informativeFragment_to_phoneNumberFragment"
             app:destination="@id/phoneNumberFragment" />
+        <action
+            android:id="@+id/action_informativeFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/phoneNumberFragment"
@@ -70,6 +76,15 @@
         android:name="com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword.ChoosePasswordFragment"
         android:label="ChoosePasswordFragment"
         tools:layout="@layout/fr_choose_password" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fr_signin" >
+        <action
+            android:id="@+id/action_signInFragment_to_informativeFragment"
+            app:destination="@id/informativeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/requestCodeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.requestCode.RequestCodeFragment"

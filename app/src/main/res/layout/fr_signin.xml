@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".SignInBinding">
+
+        <import type="android.text.InputType" />
+
+        <import type="android.view.View" />
+
+        <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        style="@style/ScrollView.VerticalDarkScrollBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@color/colorPrimaryDark">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewModel="@{viewModel.toolbar}" />
+
+            <ImageView
+                android:id="@+id/iv_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_top_ballon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/layout_phone_number"
+                layout="@layout/phone_number_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_negative_48dp"
+                app:error="@{viewModel.error}"
+                app:imeOption="@{EditorInfo.IME_ACTION_NEXT}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_top"
+                app:onCloseKeyboard="@{viewModel::closeKeyboardAndClearFocus}"
+                app:phoneNumber="@{viewModel.phoneNumber}"
+                app:showTextError="@{false}"
+                app:viewState="@{viewModel.isEmailCredentialsInUse ? View.GONE : View.VISIBLE}" />
+
+            <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+                android:id="@+id/et_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_negative_48dp"
+                android:paddingBottom="@dimen/dimen_4dp"
+                android:visibility="gone"
+                app:cliError="@{viewModel.error}"
+                app:cliHint="@{@string/et_hint}"
+                app:cliImeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:cliInputType="@{InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
+                app:cliLabel="@{@string/email_label_caps}"
+                app:cliMaxChars="@{Constants.MAX_CHARS_50}"
+                app:cliShowTextError="@{false}"
+                app:cliText="@={viewModel.email}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_top"
+                app:viewState="@{viewModel.isEmailCredentialsInUse ? View.VISIBLE : View.GONE}" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_phone_email_credentials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="layout_phone_number, et_email" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_toggle_phone_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:onClick="@{() -> viewModel.togglePhoneEmailCredentials()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier_phone_email_credentials">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_toggle_phone_email"
+                    style="@style/TextView.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrayDC"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:textRes="@{viewModel.credentialsInUseTextId}"
+                    tools:text="@string/use_your_email" />
+
+                <ImageView
+                    android:id="@+id/iv_toggle_phone_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_toggle_phone_email"
+                    app:layout_constraintStart_toEndOf="@id/tv_toggle_phone_email"
+                    app:layout_constraintTop_toTopOf="@id/tv_toggle_phone_email"
+                    app:srcCompat="@drawable/ic_arrow_forward" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+                android:id="@+id/et_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_28dp"
+                app:cliDrawableEnd="@{viewModel.isPasswordVisible ? @drawable/ic_eye_off : @drawable/ic_eye}"
+                app:cliDrawableEndClick="@{viewModel::onPasswordVisibilityChange}"
+                app:cliError="@{viewModel.error}"
+                app:cliHint="@{@string/et_hint}"
+                app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:cliInputType="@{viewModel.isPasswordVisible ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD}"
+                app:cliLabel="@{@string/password_label_caps}"
+                app:cliText="@={viewModel.password}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_toggle_phone_email"
+                app:onCliImeDoneAction="@{viewModel::closeKeyboardAndClearFocus}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_forgot_password"
+                style="@style/TextView.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_56dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
+                android:onClick="@{() -> viewModel.forgotPassword()}"
+                android:text="@string/forgot_your_password"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorGrayDC"
+                app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
+                app:layout_constraintStart_toStartOf="@id/btn_sign_in"
+                app:layout_constraintTop_toBottomOf="@id/et_password"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sign_in"
+                style="@style/Widget.Cashli.Button.Accent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_28dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
+                android:onClick="@{() -> viewModel.signUserIn()}"
+                android:text="@string/sign_in"
+                app:layout_constraintBottom_toTopOf="@id/tv_do_not_have_account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_do_not_have_account"
+                style="@style/TextView.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_32dp"
+                android:text="@string/do_not_have_account"
+                android:textColor="@color/colorGrayB6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_register_now"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_register_now"
+                style="@style/TextView.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_4dp"
+                android:onClick="@{() -> viewModel.goToSignUp()}"
+                android:text="@string/register_now"
+                android:textColor="@color/colorGrayDC"
+                app:layout_constraintBottom_toBottomOf="@id/tv_do_not_have_account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_do_not_have_account"
+                app:layout_constraintTop_toTopOf="@id/tv_do_not_have_account" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

@@ -85,7 +85,9 @@ class OnboardingViewModel(
     }
 
     fun signIn() {
-        // TODO
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            OnboardingFragmentDirections.actionOnboardingFragmentToSignInFragment()
+        )
     }
 
     fun createAccount() {

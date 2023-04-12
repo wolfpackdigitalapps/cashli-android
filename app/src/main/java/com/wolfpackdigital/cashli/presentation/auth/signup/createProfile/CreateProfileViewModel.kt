@@ -19,6 +19,8 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.hasEmailPattern
 import com.wolfpackdigital.cashli.shared.utils.extensions.hasNamePattern
 import kotlinx.coroutines.flow.combine
 
+private const val MIN_CHARS_2 = 2
+
 class CreateProfileViewModel : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
@@ -76,7 +78,7 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateZipCode() = zipCode.value?.let { code ->
-        if (code.containOnlyDigits() && code.length == Constants.ZIP_CODE_LENGTH) {
+        if (code.containOnlyDigits() && code.length == ZIP_CODE_LENGTH) {
             true
         } else {
             _zipCodeError.value = R.string.zip_code_error
@@ -107,7 +109,7 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateStreet() = street.value?.let { street ->
-        if (street.length >= Constants.MIN_CHARS_2) {
+        if (street.length >= MIN_CHARS_2) {
             true
         } else {
             _streetError.value = R.string.street_error
@@ -116,7 +118,7 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateFirstName() = firstName.value?.let { name ->
-        if (name.length < Constants.MIN_CHARS_2) {
+        if (name.length < MIN_CHARS_2) {
             _firstNameError.value = R.string.first_name_length_error
             return@let false
         }
@@ -128,7 +130,7 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateLastName() = lastName.value?.let { name ->
-        if (name.length < Constants.MIN_CHARS_2) {
+        if (name.length < MIN_CHARS_2) {
             _lastNameError.value = R.string.last_name_length_error
             return@let false
         }
@@ -161,5 +163,9 @@ class CreateProfileViewModel : BaseViewModel() {
 
     fun clearLastNameError() {
         _lastNameError.value = null
+    }
+
+    companion object {
+        const val ZIP_CODE_LENGTH = 5
     }
 }
