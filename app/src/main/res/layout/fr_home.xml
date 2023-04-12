@@ -14,12 +14,15 @@
         android:layout_height="match_parent"
         android:background="@color/colorWhiteF9">
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextView.Bold"
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Cashli.Button.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/home"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:onClick="@{() -> viewModel.goToLinkBankAccount()}"
+            android:text="@string/link_my_bank_account"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

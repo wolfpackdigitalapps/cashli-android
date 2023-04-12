@@ -126,7 +126,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_toggle_phone_email"
                     app:layout_constraintStart_toEndOf="@id/tv_toggle_phone_email"
                     app:layout_constraintTop_toTopOf="@id/tv_toggle_phone_email"
-                    app:srcCompat="@drawable/ic_arrow_forward" />
+                    app:srcCompat="@drawable/ic_arrow_forward_gray" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText

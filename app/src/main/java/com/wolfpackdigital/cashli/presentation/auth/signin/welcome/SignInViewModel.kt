@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
@@ -90,6 +91,11 @@ class SignInViewModel(
         validateFields {
             // TODO add call to BE and nav to success dialog
             delay(2000)
+            _baseCmd.value = BaseCommand.PerformNavAction(
+                NavigationDirections.actionGlobalHomeGraph(),
+                popUpTo = R.id.navigation,
+                inclusive = true
+            )
         }
     }
 
