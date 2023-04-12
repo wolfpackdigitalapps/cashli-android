@@ -117,18 +117,16 @@ fun BaseEditText.cliImeOptions(options: Int?) {
     binding.tietContent.imeOptions = options ?: EditorInfo.IME_ACTION_DONE
 }
 
-@BindingAdapter("cliError")
-fun BaseEditText.cliError(cliError: Int?) {
+@BindingAdapter(value = ["cliError", "cliShowTextError"], requireAll = false)
+fun BaseEditText.cliError(cliError: Int?, cliShowTextError: Boolean?) {
     val error = cliError?.let(context::getString) ?: EMPTY_STRING
-    binding.tvError.text = error
-    binding.tvError.visibility(error.isNotEmpty())
+    val showTextError = cliShowTextError ?: true
+    if (showTextError)
+        binding.tvError.apply {
+            text = error
+            visibility(error.isNotEmpty())
+        }
     binding.tietContent.setError(error.isNotEmpty())
-}
-
-@BindingAdapter("cliErrorNoText")
-fun BaseEditText.cliErrorNoText(cliError: Boolean?) {
-    val error = cliError ?: false
-    binding.tietContent.setError(error)
 }
 
 @BindingAdapter("cliDrawableEnd")

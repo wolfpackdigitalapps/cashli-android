@@ -1,7 +1,10 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.shared.utils.extensions
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +14,7 @@ import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -18,9 +22,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
-import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_NUMBER_PREFIX_LABEL
-import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
+
+// Support
+private const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"
+private const val PHONE_NUMBER_PREFIX_LABEL = "tel:"
+private const val SMS_PHONE_NUMBER_PREFIX_LABEL = "smsto:"
 
 fun Fragment.snackBar(message: String, action: ((View) -> Unit)? = {}, actionText: String? = null) {
     this.view?.let {
@@ -123,9 +130,24 @@ val Activity.navController: NavController?
     get() = runCatching { findNavController(R.id.main_host_fragment) }.getOrNull()
 
 fun Activity.showDialer(phoneNumber: String = SUPPORT_PHONE_NUMBER) {
-    Intent(Intent.ACTION_DIAL).apply {
-        data = Uri.parse("$PHONE_NUMBER_PREFIX_LABEL$phoneNumber")
-        startActivity(this)
+    try {
+        Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("$PHONE_NUMBER_PREFIX_LABEL$phoneNumber")
+            startActivity(this)
+        }
+    } catch (exception: ActivityNotFoundException) {
+        snackBar(getString(R.string.no_messaging_app_found))
+    }
+}
+
+fun Activity.showSMSApp(phoneNumber: String = SUPPORT_PHONE_NUMBER) {
+    try {
+        Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("$SMS_PHONE_NUMBER_PREFIX_LABEL$phoneNumber")
+            startActivity(this)
+        }
+    } catch (exception: ActivityNotFoundException) {
+        snackBar(getString(R.string.no_messaging_app_found))
     }
 }
 
@@ -138,4 +160,23 @@ fun Context.openUrl(urlResource: Int) {
     }
     val customTabsIntent = builder.build()
     customTabsIntent.launchUrl(this@openUrl, Uri.parse(getString(urlResource)))
+}
+
+fun <T> NavController.setBackStackData(key: String, data: T?) =
+    previousBackStackEntry?.savedStateHandle?.set(key, data)
+
+fun <T> NavController.getBackStackData(
+    key: String,
+    owner: LifecycleOwner,
+    removeValue: Boolean = false,
+    removeObserver: Boolean = false,
+    result: (T?) -> (Unit)
+) {
+    val savedState = currentBackStackEntry?.savedStateHandle
+    savedState?.getLiveData<T?>(key)
+        ?.observe(owner) {
+            if (!removeObserver && removeValue && it != null) savedState.set(key, null)
+            if (removeObserver) savedState.remove<T>(key)
+            result(it)
+        }
 }

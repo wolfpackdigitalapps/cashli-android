@@ -18,7 +18,10 @@ class InformativeViewModel : BaseViewModel() {
     val toolbar: LiveData<Toolbar> = _toolbar
 
     fun signIn() {
-        // TODO
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            InformativeFragmentDirections.actionInformativeFragmentToSignInFragment(),
+            popUpTo = R.id.onboardingFragment
+        )
     }
 
     fun signUp() {
