@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_signInFragment_to_informativeFragment"
             app:destination="@id/informativeFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_requestCodeFragment"
+            app:destination="@id/requestCodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/requestCodeFragment"

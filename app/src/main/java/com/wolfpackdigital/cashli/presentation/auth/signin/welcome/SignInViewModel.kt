@@ -94,7 +94,9 @@ class SignInViewModel(
     }
 
     fun forgotPassword() {
-        // TODO go to next screen
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            SignInFragmentDirections.actionSignInFragmentToRequestCodeFragment()
+        )
     }
 
     fun goToSignUp() {

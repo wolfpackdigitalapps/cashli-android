@@ -7,12 +7,11 @@ import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
-import com.wolfpackdigital.cashli.shared.base.BasePasswordValidatorViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import kotlinx.coroutines.flow.combine
 
 
-class ResetPasswordViewModel : BasePasswordValidatorViewModel() {
+class ResetPasswordViewModel : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -23,10 +22,10 @@ class ResetPasswordViewModel : BasePasswordValidatorViewModel() {
     )
     val toolbar: LiveData<Toolbar> = _toolbar
 
-    val isConfirmEnabled =
-        combine(password.asFlow(), confirmPassword.asFlow()) { password, confirmPassword ->
-            !password.isNullOrBlank() && !confirmPassword.isNullOrBlank()
-        }.asLiveData()
+//    val isConfirmEnabled =
+//        combine(password.asFlow(), confirmPassword.asFlow()) { password, confirmPassword ->
+//            !password.isNullOrBlank() && !confirmPassword.isNullOrBlank()
+//        }.asLiveData()
 
     fun onConfirmClicked() {
 
