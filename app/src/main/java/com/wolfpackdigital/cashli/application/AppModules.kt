@@ -21,13 +21,16 @@ import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePasswordUs
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
 import com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel
+import com.wolfpackdigital.cashli.presentation.account.AccountViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword.ChoosePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
+import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
+import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -48,6 +51,9 @@ object AppModules {
         viewModel { PhoneNumberViewModel() }
         viewModel { ChoosePasswordViewModel(get()) }
         viewModel { SignInViewModel(get()) }
+        viewModel { HomeViewModel() }
+        viewModel { AccountViewModel() }
+        viewModel { MoreViewModel() }
         viewModel { (codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 codeReceivedViaType

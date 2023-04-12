@@ -25,8 +25,7 @@ class OnboardingViewModel(
 ) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
-    val cmd: LiveData<Command>
-        get() = _cmd
+    val cmd: LiveData<Command> = _cmd
 
     private val _onboardingSteps = MutableLiveData<List<OnboardingStep>>()
     val onboardingSteps: LiveData<List<OnboardingStep>> = _onboardingSteps
