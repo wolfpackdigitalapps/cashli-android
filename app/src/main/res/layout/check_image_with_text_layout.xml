@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,11 +13,16 @@
             name="hidden"
             type="Boolean" />
 
+        <variable
+            name="startIcon"
+            type="android.graphics.drawable.Drawable" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:background="@color/colorPrimaryDark">
 
         <ImageView
             android:id="@+id/iv_check_one"
@@ -25,12 +31,13 @@
             android:layout_marginEnd="@dimen/dimen_16dp"
             android:contentDescription="@null"
             android:paddingTop="@dimen/dimen_4dp"
+            android:src="@{startIcon != null ? startIcon : @drawable/ic_check}"
             app:hidden="@{hidden}"
             app:layout_constraintEnd_toStartOf="@id/tv_first_sign_up_screen_message_one"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_first_sign_up_screen_message_one"
-            app:srcCompat="@drawable/ic_check" />
+            tools:src="@drawable/ic_check" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_first_sign_up_screen_message_one"
@@ -41,10 +48,12 @@
             android:text="@{message}"
             android:textAlignment="viewStart"
             android:textSize="@dimen/size_16sp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_check_one"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/first_sign_up_screen_message_one" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

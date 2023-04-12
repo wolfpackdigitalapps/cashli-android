@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".LinkBankAccountInformativeBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_top_link_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_link_account_title"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:lineSpacingExtra="@dimen/dimen_4dp"
+            android:text="@string/link_my_bank_account_title"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/size_20sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_top"
+            app:layout_constraintVertical_bias="0.75" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/benefits_nsv"
+            style="@style/ScrollView.VerticalDarkScrollBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:layout_marginBottom="@dimen/dimen_40dp"
+            android:background="@android:color/transparent"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/btn_link_my_bank_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_link_account_title"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:background="@color/colorPrimaryDark">
+
+                <include
+                    android:id="@+id/layout_message_one"
+                    layout="@layout/check_image_with_text_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:hidden="@{false}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:message="@{@string/link_my_bank_account_message_one}"
+                    app:startIcon="@{@drawable/ic_arrow_forward}" />
+
+                <include
+                    android:id="@+id/layout_message_two"
+                    layout="@layout/check_image_with_text_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_28dp"
+                    app:hidden="@{false}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_message_one"
+                    app:message="@{@string/link_my_bank_account_message_two}"
+                    app:startIcon="@{@drawable/ic_arrow_forward}" />
+
+                <include
+                    android:id="@+id/layout_message_three"
+                    layout="@layout/check_image_with_text_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_28dp"
+                    app:hidden="@{false}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_message_two"
+                    app:message="@{@string/link_my_bank_account_message_three}"
+                    app:startIcon="@{@drawable/ic_arrow_forward}" />
+
+                <ImageView
+                    android:id="@+id/iv_lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_6dp"
+                    android:layout_marginTop="@dimen/dimen_28dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="@id/layout_message_three"
+                    app:layout_constraintTop_toBottomOf="@id/layout_message_three"
+                    app:srcCompat="@drawable/ic_lock" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_message_four"
+                    style="@style/TextView.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_4dp"
+                    android:lineSpacingExtra="@dimen/dimen_4dp"
+                    android:text="@string/link_my_bank_account_message_four"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrayB6"
+                    android:textSize="@dimen/size_14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_lock"
+                    app:layout_constraintTop_toTopOf="@id/iv_lock" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_link_my_bank_account"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
+            android:onClick="@{() -> viewModel.linkMyBankAccount()}"
+            android:text="@string/link_my_bank_account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -14,6 +14,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.informative.Informati
 import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
+import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
@@ -24,6 +25,7 @@ object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
+        viewModel { LinkBankAccountInformativeViewModel() }
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
