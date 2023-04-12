@@ -24,7 +24,7 @@
             app:viewModel="@{viewModel.toolbar}" />
 
         <ImageView
-            android:id="@+id/iv_top"
+            android:id="@+id/iv_link_account_top"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
