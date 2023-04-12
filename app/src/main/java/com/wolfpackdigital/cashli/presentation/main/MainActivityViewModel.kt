@@ -17,8 +17,7 @@ class MainActivityViewModel : ViewModel() {
     val keepShowingSplash: LiveData<Boolean> = _keepShowingSplash
 
     private val _cmd = LiveEvent<Command>()
-    val cmd: LiveData<Command>
-        get() = _cmd
+    val cmd: LiveData<Command> = _cmd
 
     private val _isBottomBarVisible = MutableLiveData(true)
     val isBottomBarVisible: LiveData<Boolean> = _isBottomBarVisible
@@ -41,7 +40,6 @@ class MainActivityViewModel : ViewModel() {
     }
 
     private fun setBottomBarVisibility(visible: Boolean) {
-        if (visible == _isBottomBarVisible.value) return
         _isBottomBarVisible.value = visible
     }
 

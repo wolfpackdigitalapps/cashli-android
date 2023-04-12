@@ -21,8 +21,7 @@ import kotlinx.coroutines.flow.combine
 class ChoosePasswordViewModel : BasePasswordValidatorViewModel() {
 
     private val _cmd = LiveEvent<Command>()
-    val cmd: LiveData<Command>
-        get() = _cmd
+    val cmd: LiveData<Command> = _cmd
 
     private val _toolbar = MutableLiveData(
         Toolbar(

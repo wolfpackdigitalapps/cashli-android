@@ -7,8 +7,7 @@ import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 class HomeViewModel : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
-    val cmd: LiveData<Command>
-        get() = _cmd
+    val cmd: LiveData<Command> = _cmd
 
     sealed class Command
 }

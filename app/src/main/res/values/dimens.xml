@@ -33,7 +33,4 @@
     <dimen name="size_28sp">28sp</dimen>
     <dimen name="size_34sp">34sp</dimen>
 
-    <dimen name="design_bottom_navigation_height" tools:ignore="UnusedResources" tools:override="true">
-        64dp
-    </dimen>
 </resources>
