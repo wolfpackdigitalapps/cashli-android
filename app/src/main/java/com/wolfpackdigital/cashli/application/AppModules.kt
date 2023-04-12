@@ -20,8 +20,8 @@ import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePasswordLe
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
-import com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel
 import com.wolfpackdigital.cashli.presentation.account.AccountViewModel
+import com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword.ChoosePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
