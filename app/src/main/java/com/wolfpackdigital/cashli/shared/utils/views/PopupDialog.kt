@@ -47,6 +47,7 @@ class PopupDialog(
         }
         binding.btnClose.setOnClickDebounced {
             popupConfig.buttonCloseClick.invoke()
+            countDownTimerObj?.cancel()
             dialog.dismiss()
         }
         binding.clTimer.apply {
