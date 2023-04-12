@@ -34,6 +34,7 @@
             android:src="@{startIcon != null ? startIcon : @drawable/ic_check}"
             app:hidden="@{hidden}"
             app:layout_constraintEnd_toStartOf="@id/tv_first_sign_up_screen_message_one"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_first_sign_up_screen_message_one"

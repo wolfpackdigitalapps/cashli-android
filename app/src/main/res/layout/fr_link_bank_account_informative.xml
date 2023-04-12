@@ -45,10 +45,10 @@
             android:text="@string/link_my_bank_account_title"
             android:textAlignment="viewStart"
             android:textSize="@dimen/size_20sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_top"
+            app:layout_constraintBottom_toBottomOf="@id/iv_link_account_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_top"
+            app:layout_constraintTop_toTopOf="@id/iv_link_account_top"
             app:layout_constraintVertical_bias="0.75" />
 
         <androidx.core.widget.NestedScrollView
@@ -127,6 +127,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_4dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
                     android:lineSpacingExtra="@dimen/dimen_4dp"
                     android:text="@string/link_my_bank_account_message_four"
                     android:textAlignment="viewStart"
