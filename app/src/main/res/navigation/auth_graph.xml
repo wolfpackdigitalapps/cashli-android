@@ -5,6 +5,15 @@
     android:id="@+id/navigation"
     app:startDestination="@id/chooseLanguageFragment">
 
+    <include app:graph="@navigation/home_graph" />
+    <include app:graph="@navigation/account_graph" />
+    <include app:graph="@navigation/more_graph" />
+
+    <action
+        android:id="@+id/action_global_homeGraph"
+        app:destination="@id/home_graph"
+        app:popUpToInclusive="false" />
+
     <fragment
         android:id="@+id/chooseLanguageFragment"
         android:name="com.wolfpackdigital.cashli.presentation.language.ChooseLanguageFragment"
