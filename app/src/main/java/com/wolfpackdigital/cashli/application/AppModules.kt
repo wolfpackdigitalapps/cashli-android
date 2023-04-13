@@ -19,6 +19,7 @@ import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateEqualField
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePasswordLengthUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateRequestCodeFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
 import com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.confirmOneTimePassword.ConfirmOneTimePasswordViewModel
@@ -57,8 +58,8 @@ object AppModules {
             )
         }
         viewModel { CreateProfileViewModel() }
-        viewModel { ResetPasswordViewModel() }
-        viewModel { RequestCodeViewModel() }
+        viewModel { ResetPasswordViewModel(get()) }
+        viewModel { RequestCodeViewModel(get()) }
         viewModel { (phoneNumberOrEmail: String ) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail
@@ -94,6 +95,7 @@ object AppModules {
         single { ValidatePhoneNumberUseCase(get(named(PHONE_NUMBER_PATTERN_MATCHER))) }
         single { ValidateSignInFormUseCase(get(), get(), get(), get(), get()) }
         single { ValidateChoosePasswordFormUseCase(get(), get(), get()) }
+        single { ValidateRequestCodeFormUseCase(get(), get(), get()) }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)
