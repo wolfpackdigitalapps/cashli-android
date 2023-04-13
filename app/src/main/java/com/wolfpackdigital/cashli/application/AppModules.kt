@@ -1,17 +1,18 @@
 package com.wolfpackdigital.cashli.application
 
-import com.wolfpackdigital.cashli.data.mappers.MockItemDtoToMockItemMapper
-import com.wolfpackdigital.cashli.data.mappers.MockItemToMockItemDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.PasswordPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.PhoneNumberPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.remote.api.common.ApiProvider
-import com.wolfpackdigital.cashli.data.repositories.MockRepositoryImpl
-import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
+import com.wolfpackdigital.cashli.data.repositories.AuthRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.PatternMatcher
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateEmailUseCase
@@ -65,11 +66,11 @@ object AppModules {
     }
 
     private val apiModule = module {
-        single { ApiProvider.provideMockAPI() }
+        single { ApiProvider.provideAuthApi() }
     }
 
     private val repoModule = module {
-        single<MockRepository> { MockRepositoryImpl(get(), get()) }
+        single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     }
 
     private val patternsModule = module {
@@ -79,11 +80,12 @@ object AppModules {
     }
 
     private val mappersModule = module {
-        factory { MockItemDtoToMockItemMapper() }
-        factory { MockItemToMockItemDtoMapper() }
+        factory { TokenDtoToTokenMapper() }
+        factory { TokenToTokenDtoMapper() }
     }
 
     private val useCases = module {
+        single { RefreshTokenUseCase(get()) }
         single { GetOnboardingStepsUseCase() }
         single { ValidateBlankFieldUseCase() }
         single { ValidateEqualFieldsUseCase() }
