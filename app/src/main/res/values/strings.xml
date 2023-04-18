@@ -15,9 +15,9 @@
 
     <!--Signup -->
     <string name="sign_up">Sign up</string>
-    <string name="first_sign_up_screen_message_one">You\'ll be alerted on your phone when your \nbank balance is running too low.</string>
-    <string name="first_sign_up_screen_message_two">You\'ll be able to request a cash advance to \nkeep up with bills &amp; unexpected expenses.</string>
-    <string name="first_sign_up_screen_message_three">Do you often send money to loved ones \noverseas? You could save hundreds of $ in \ntransfer fees (work in progress).</string>
+    <string name="first_sign_up_screen_message_one">You\'ll be alerted on your phone when your bank balance is running too low.</string>
+    <string name="first_sign_up_screen_message_two">You\'ll be able to request a cash advance to keep up with bills &amp; unexpected expenses.</string>
+    <string name="first_sign_up_screen_message_three">Do you often send money to loved ones overseas? You could save hundreds of $ in transfer fees (work in progress).</string>
     <string name="continue_name">Continue</string>
     <string name="phone_number_question">What is your phone \nnumber?</string>
     <string name="phone_number">Phone number</string>
@@ -78,6 +78,14 @@
     <string name="last_name_length_error">Last name should be at least 2 characters long.</string>
     <string name="city_state_both_error">Please enter both the City and State separated by a comma.</string>
 
+    <!--Link account informative -->
+    <string name="link_my_bank_account">Link my bank account</string>
+    <string name="link_my_bank_account_title">Link your bank account where paychecks are deposited into.</string>
+    <string name="link_my_bank_account_message_one">The bank account must be at least 2 months old.</string>
+    <string name="link_my_bank_account_message_two">For a joint account, only one of the account holders will be able to link it to the app.</string>
+    <string name="link_my_bank_account_message_three">Cash advances will be transferred to the same bank account.</string>
+    <string name="link_my_bank_account_message_four">We use bank-level and military-grade encryption tools to protect your data.</string>
+
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
     <string name="confirm_one_time_password">Confirm One Time Password</string>
@@ -100,5 +108,13 @@
     <string name="bravo_text">Bravo!</string>
     <string name="account_created_successfully">Your account has been\nsuccessfully created.</string>
 
+    <!--Home -->
+    <string name="home">Home</string>
+
+    <!--Account -->
+    <string name="account">Account</string>
+
+    <!--More -->
+    <string name="more">More</string>
 
 </resources>

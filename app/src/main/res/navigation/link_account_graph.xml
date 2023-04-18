@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/link_account_graph"
+    app:startDestination="@id/linkBankAccountInformativeFragment">
+
+    <fragment
+        android:id="@+id/linkBankAccountInformativeFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeFragment"
+        android:label="LinkBankAccountInformativeFragment"
+        tools:layout="@layout/fr_link_bank_account_informative" />
+
+</navigation>
