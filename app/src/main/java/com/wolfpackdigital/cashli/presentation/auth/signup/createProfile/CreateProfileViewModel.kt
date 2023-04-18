@@ -8,6 +8,12 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateEmailUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateFirstNameFormUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateLastNameFormUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateStreetFieldUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateZipCodeUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
@@ -19,9 +25,15 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.hasEmailPattern
 import com.wolfpackdigital.cashli.shared.utils.extensions.hasNamePattern
 import kotlinx.coroutines.flow.combine
 
-private const val MIN_CHARS_2 = 2
 
-class CreateProfileViewModel : BaseViewModel() {
+class CreateProfileViewModel(
+    private val validateEmailUseCase: ValidateEmailUseCase,
+    private val validateStreetFieldUseCase: ValidateStreetFieldUseCase,
+    private val validateZipCodeUseCase: ValidateZipCodeUseCase,
+    private val validateFirstNameFormUseCase: ValidateFirstNameFormUseCase,
+    private val validateLastNameFormUseCase: ValidateLastNameFormUseCase,
+    private val validateCityAndStateFormUseCase: ValidateCityAndStateFormUseCase
+) : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -78,7 +90,7 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateZipCode() = zipCode.value?.let { code ->
-        if (code.containOnlyDigits() && code.length == ZIP_CODE_LENGTH) {
+        if (validateZipCodeUseCase(code)) {
             true
         } else {
             _zipCodeError.value = R.string.zip_code_error
@@ -87,7 +99,7 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateEmail() = email.value?.let { email ->
-        if (email.hasEmailPattern()) {
+        if (validateEmailUseCase(email)) {
             true
         } else {
             _emailError.value = R.string.email_error
@@ -96,20 +108,16 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateCityAndState() = cityAndState.value?.let { input ->
-        if (!input.containOnlyLettersAndComma()) {
-            if (input.containOnlyCityOrStatePattern()) {
-                _cityAndStateError.value = R.string.city_state_both_error
-                return@let false
-            } else {
-                _cityAndStateError.value = R.string.city_and_state_error
-                return@let false
-            }
+        val validateCityStateResult = validateCityAndStateFormUseCase(input)
+        if (!validateCityStateResult.successful) {
+            _cityAndStateError.value = validateCityStateResult.errorMessageId
+            return@let false
         }
         return@let true
     }
 
     private fun validateStreet() = street.value?.let { street ->
-        if (street.length >= MIN_CHARS_2) {
+        if (validateStreetFieldUseCase(street)) {
             true
         } else {
             _streetError.value = R.string.street_error
@@ -118,24 +126,18 @@ class CreateProfileViewModel : BaseViewModel() {
     }
 
     private fun validateFirstName() = firstName.value?.let { name ->
-        if (name.length < MIN_CHARS_2) {
-            _firstNameError.value = R.string.first_name_length_error
-            return@let false
-        }
-        if (!name.hasNamePattern()) {
-            _firstNameError.value = R.string.name_error
+        val validateFirstNameResult = validateFirstNameFormUseCase(name)
+        if (!validateFirstNameResult.successful) {
+            _firstNameError.value = validateFirstNameResult.errorMessageId
             return@let false
         }
         return@let true
     }
 
     private fun validateLastName() = lastName.value?.let { name ->
-        if (name.length < MIN_CHARS_2) {
-            _lastNameError.value = R.string.last_name_length_error
-            return@let false
-        }
-        if (!name.hasNamePattern()) {
-            _lastNameError.value = R.string.name_error
+        val validateLastNameResult = validateLastNameFormUseCase(name)
+        if (!validateLastNameResult.successful) {
+            _lastNameError.value = validateLastNameResult.errorMessageId
             return@let false
         }
         return@let true

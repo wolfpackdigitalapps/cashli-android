@@ -1,11 +1,11 @@
 package com.wolfpackdigital.cashli.domain.usecases.validations
 
 import com.wolfpackdigital.cashli.domain.abstractions.PatternMatcher
-import com.wolfpackdigital.cashli.shared.utils.Constants
 
-class ValidatePhoneNumberUseCase(
+class ValidateNameUseCase(
     private val patternMatcher: PatternMatcher
 ) {
+
     operator fun invoke(params: String?): Boolean {
         return params?.let {
             when {

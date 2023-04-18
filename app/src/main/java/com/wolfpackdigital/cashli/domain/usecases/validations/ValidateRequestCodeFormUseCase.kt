@@ -6,7 +6,8 @@ import com.wolfpackdigital.cashli.domain.entities.ValidationResult
 class ValidateRequestCodeFormUseCase(
     private val validateBlankFieldUseCase: ValidateBlankFieldUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
-    private val validatePhoneNumberUseCase: ValidatePhoneNumberUseCase
+    private val validatePhoneNumberUseCase: ValidatePhoneNumberUseCase,
+    private val validatePhoneNumberLengthUseCase: ValidatePhoneNumberLengthUseCase
 ) {
 
     operator fun invoke(
@@ -35,7 +36,9 @@ class ValidateRequestCodeFormUseCase(
                         successful = false,
                         errorMessageId = R.string.email_or_phone_can_not_be_empty
                     )
-                else if (!validatePhoneNumberUseCase(phoneNumber))
+                else if (!validatePhoneNumberUseCase(phoneNumber) ||
+                    !validatePhoneNumberLengthUseCase(phoneNumber)
+                )
                     ValidationResult(
                         successful = false,
                         errorMessageId = R.string.wrong_phone_error

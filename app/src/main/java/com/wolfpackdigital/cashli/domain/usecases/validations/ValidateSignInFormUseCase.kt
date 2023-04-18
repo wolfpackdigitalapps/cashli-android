@@ -8,6 +8,7 @@ class ValidateSignInFormUseCase(
     private val validateBlankFieldUseCase: ValidateBlankFieldUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePhoneNumberUseCase: ValidatePhoneNumberUseCase,
+    private val validatePhoneNumberLengthUseCase: ValidatePhoneNumberLengthUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase
 ) {
     operator fun invoke(
@@ -46,6 +47,7 @@ class ValidateSignInFormUseCase(
                         errorMessageId = R.string.email_or_phone_can_not_be_empty
                     )
                 else if (!validatePhoneNumberUseCase(phoneNumber) ||
+                    !validatePhoneNumberLengthUseCase(phoneNumber) ||
                     !validatePasswordUseCase(password) ||
                     !validatePasswordLengthUseCase(password)
                 ) {
