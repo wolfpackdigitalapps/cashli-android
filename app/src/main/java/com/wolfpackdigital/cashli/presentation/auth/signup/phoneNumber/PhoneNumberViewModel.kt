@@ -11,7 +11,6 @@ import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
 
 class PhoneNumberViewModel(
     private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase
@@ -47,9 +46,9 @@ class PhoneNumberViewModel(
     fun onContinueClicked() {
         phoneNumber.value?.let { number ->
             val validatePhoneNumberResult = validatePhoneNumberFormUseCase(number)
-            if(!validatePhoneNumberResult.successful){
+            if (!validatePhoneNumberResult.successful) {
                 onContinueError.value = validatePhoneNumberResult.errorMessageId
-            }else{
+            } else {
                 _baseCmd.value = BaseCommand.PerformNavAction(
                     PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
                         CodeReceivedViaType.SMS

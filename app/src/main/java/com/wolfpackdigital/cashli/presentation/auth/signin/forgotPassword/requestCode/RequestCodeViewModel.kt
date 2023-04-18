@@ -55,10 +55,9 @@ class RequestCodeViewModel(
                 if (isEmailResetInUse.value == false) {
                     _credentialsInUseTextId.value = R.string.use_your_email
                     _usePhoneOrEmailTextId.value = R.string.forgot_password_screen_message_phone
-                }
-                else {
+                } else {
                     _credentialsInUseTextId.value = R.string.use_your_phone
-                    _usePhoneOrEmailTextId.value= R.string.forgot_password_screen_message_email
+                    _usePhoneOrEmailTextId.value = R.string.forgot_password_screen_message_email
                 }
             }
         )
@@ -69,32 +68,32 @@ class RequestCodeViewModel(
         clearFieldsError()
         closeKeyboardAndClearFocus()
     }
-    fun togglePhoneEmailCredentials(){
+    fun togglePhoneEmailCredentials() {
         _isEmailResetInUse.value = _isEmailResetInUse.value?.not()
-       isEmailResetInUse.value?.let { inUse ->
-           when (inUse){
-               true -> {
-                   _credentialsInUseTextId.value = R.string.use_your_phone
-                   _usePhoneOrEmailTextId.value= R.string.forgot_password_screen_message_email
-               }
-               false -> {
-                   _credentialsInUseTextId.value = R.string.use_your_email
-                   _usePhoneOrEmailTextId.value = R.string.forgot_password_screen_message_phone
-               }
-           }
-       }
+        isEmailResetInUse.value?.let { inUse ->
+            when (inUse) {
+                true -> {
+                    _credentialsInUseTextId.value = R.string.use_your_phone
+                    _usePhoneOrEmailTextId.value = R.string.forgot_password_screen_message_email
+                }
+                false -> {
+                    _credentialsInUseTextId.value = R.string.use_your_email
+                    _usePhoneOrEmailTextId.value = R.string.forgot_password_screen_message_phone
+                }
+            }
+        }
     }
 
-    private fun validateFields(onValidInput: suspend () -> Unit){
+    private fun validateFields(onValidInput: suspend () -> Unit) {
         isEmailResetInUse.value?.let { emailInUse ->
             val phoneOrEmailValidationResult = validateRequestCodeFormUseCase(
                 email = email.value,
                 phoneNumber = phoneNumber.value,
                 emailInUse
             )
-            if(!phoneOrEmailValidationResult.successful){
+            if (!phoneOrEmailValidationResult.successful) {
                 _error.value = phoneOrEmailValidationResult.errorMessageId
-            }else{
+            } else {
                 performApiCall {
                     onValidInput()
                 }
@@ -102,7 +101,7 @@ class RequestCodeViewModel(
         }
     }
 
-    private fun navigateToConfirmOneTimePasswordScreen(){
+    private fun navigateToConfirmOneTimePasswordScreen() {
         _baseCmd.value = isEmailResetInUse.value?.let { emailInUse ->
             when (emailInUse) {
                 true -> email.value
@@ -118,6 +117,7 @@ class RequestCodeViewModel(
             )
         }
     }
+    @Suppress("MagicNumber")
 
     fun onContinueClicked() {
         validateFields {

@@ -15,10 +15,10 @@ class RequestCodeFragment :
     }
 
     private fun setupObservers() {
-        viewModel.togglePhoneEmailCredentialsText.observe(viewLifecycleOwner){}
+        viewModel.togglePhoneEmailCredentialsText.observe(viewLifecycleOwner) {}
         viewModel.email.observe(viewLifecycleOwner) { viewModel.clearFieldsError() }
         viewModel.phoneNumber.observe(viewLifecycleOwner) { viewModel.clearFieldsError() }
-        viewModel.cmd.observe(viewLifecycleOwner){ cmd ->
+        viewModel.cmd.observe(viewLifecycleOwner) { cmd ->
             when (cmd) {
                 is RequestCodeViewModel.Command.ToggleTextVisibilityAnimated ->
                     binding?.clTogglePhoneEmail?.setAlphaAnimationVisibility(cmd.alphaAnimationConfig)

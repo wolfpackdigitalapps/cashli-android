@@ -18,13 +18,7 @@ import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyCityOrStatePattern
-import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
-import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyLettersAndComma
-import com.wolfpackdigital.cashli.shared.utils.extensions.hasEmailPattern
-import com.wolfpackdigital.cashli.shared.utils.extensions.hasNamePattern
 import kotlinx.coroutines.flow.combine
-
 
 class CreateProfileViewModel(
     private val validateEmailUseCase: ValidateEmailUseCase,

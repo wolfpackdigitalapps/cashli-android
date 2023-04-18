@@ -24,8 +24,9 @@ class ConfirmOneTimePasswordViewModel(
         initResendCode()
     }
 
+    @Suppress("MaxLineLength", "MagicNumber")
     fun onContinueClicked() {
-        //TODO Add api call and remove mock data
+        // TODO Add api call and remove mock data
         performApiCall {
             delay(200)
             if (verificationCode.value == "4321")

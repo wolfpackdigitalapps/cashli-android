@@ -2,7 +2,6 @@ package com.wolfpackdigital.cashli.domain.usecases.validations
 
 import com.wolfpackdigital.cashli.shared.utils.Constants
 
-
 class ValidateStreetFieldUseCase {
 
     operator fun invoke(params: String?): Boolean {

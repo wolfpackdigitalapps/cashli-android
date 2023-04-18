@@ -98,8 +98,8 @@ sealed class BaseCommand {
     object GoBack : BaseCommand()
 
     class GoBackTo(
-      @IdRes val destinationId: Int,
-      val inclusive: Boolean = false
+        @IdRes val destinationId: Int,
+        val inclusive: Boolean = false
     ) : BaseCommand()
     object ForceCloseKeyboard : BaseCommand()
 }

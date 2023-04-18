@@ -15,7 +15,6 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 
-
 class ResetPasswordViewModel(
     private val choosePasswordFormUseCase: ValidateChoosePasswordFormUseCase
 ) : BaseViewModel() {
@@ -70,6 +69,7 @@ class ResetPasswordViewModel(
         }
     }
 
+    @Suppress("MagicNumber")
     fun onConfirmClicked() {
         validatePasswords {
             delay(200)
@@ -89,7 +89,6 @@ class ResetPasswordViewModel(
 
     private fun navigateToSignIn() {
         _baseCmd.value = BaseCommand.GoBackTo(R.id.signInFragment)
-
     }
 
     fun clearPasswordError() {

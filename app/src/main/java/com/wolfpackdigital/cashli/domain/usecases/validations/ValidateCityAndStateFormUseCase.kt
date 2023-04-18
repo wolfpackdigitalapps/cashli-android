@@ -11,7 +11,7 @@ class ValidateCityAndStateFormUseCase(
     operator fun invoke(cityAndState: String?): ValidationResult {
         return when {
             !validateLettersAndCommaUseCase(cityAndState) &&
-                    validateCityAndStateUseCase(cityAndState) ->
+                validateCityAndStateUseCase(cityAndState) ->
                 ValidationResult(
                     successful = false,
                     errorMessageId = R.string.city_state_both_error

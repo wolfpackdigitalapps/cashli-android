@@ -26,7 +26,6 @@ private const val VALUE_SPAN_OPEN_TS = "openTS"
 private const val VALUE_SPAN_OPEN_DPP = "openDPP"
 private const val VALUE_SPAN_OPEN_DTS = "openDTS"
 
-
 class ChoosePasswordViewModel(
     private val validateChoosePasswordFormUseCase: ValidateChoosePasswordFormUseCase
 ) : BaseViewModel() {

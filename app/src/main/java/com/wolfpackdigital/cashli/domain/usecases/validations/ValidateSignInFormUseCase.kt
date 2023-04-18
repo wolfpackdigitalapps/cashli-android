@@ -11,6 +11,7 @@ class ValidateSignInFormUseCase(
     private val validatePhoneNumberLengthUseCase: ValidatePhoneNumberLengthUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase
 ) {
+    @Suppress("ComplexCondition")
     operator fun invoke(
         email: String?,
         password: String?,

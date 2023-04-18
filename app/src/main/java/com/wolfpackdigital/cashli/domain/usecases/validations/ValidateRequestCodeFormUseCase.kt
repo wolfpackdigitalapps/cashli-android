@@ -47,6 +47,5 @@ class ValidateRequestCodeFormUseCase(
                     ValidationResult(true)
             }
         }
-
     }
 }

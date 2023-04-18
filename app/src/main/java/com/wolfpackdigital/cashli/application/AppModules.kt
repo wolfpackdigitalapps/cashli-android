@@ -34,13 +34,13 @@ import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumbe
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateRequestCodeFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
-import com.wolfpackdigital.cashli.presentation.account.AccountViewModel
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateStreetFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateZipCodeUseCase
-import com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel
+import com.wolfpackdigital.cashli.presentation.account.AccountViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.confirmOneTimePassword.ConfirmOneTimePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.requestCode.RequestCodeViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.resetPassword.ResetPasswordViewModel
+import com.wolfpackdigital.cashli.presentation.auth.signin.welcome.SignInViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.choosePassword.ChoosePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateProfileViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
@@ -84,13 +84,14 @@ object AppModules {
                 codeReceivedViaType
             )
         }
-        viewModel { CreateProfileViewModel(get(),get(), get(), get(), get(), get()) }
+        viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get()) }
         viewModel { ResetPasswordViewModel(get()) }
         viewModel { RequestCodeViewModel(get()) }
-        viewModel { (phoneNumberOrEmail: String ) ->
+        viewModel { (phoneNumberOrEmail: String) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail
-            ) }
+            )
+        }
     }
 
     private val apiModule = module {
