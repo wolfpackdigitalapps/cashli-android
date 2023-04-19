@@ -32,13 +32,13 @@ fun <T> Result<T>.successOr(fallback: T): T {
     return (this as? Result.Success<T>)?.data ?: fallback
 }
 
-inline fun <reified T> Result<T>.doIfError(callback: (exception: ApiError) -> Unit) {
+inline fun <reified T> Result<T>.onError(callback: (exception: ApiError) -> Unit) {
     if (this is Result.Error) {
         callback(exception)
     }
 }
 
-inline fun <reified T> Result<T>.doIfSuccess(callback: (data: T) -> Unit) {
+inline fun <reified T> Result<T>.onSuccess(callback: (data: T) -> Unit) {
     if (this is Result.Success) {
         callback(data)
     }

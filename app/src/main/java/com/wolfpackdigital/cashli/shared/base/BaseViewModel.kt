@@ -13,7 +13,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
+import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
+import com.wolfpackdigital.cashli.shared.exceptions.RefreshTokenExpiredException
+import com.wolfpackdigital.cashli.shared.utils.Constants.SIGN_IN_SCREEN_DL
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.minusAssign
 import com.wolfpackdigital.cashli.shared.utils.extensions.plusAssign
@@ -35,13 +38,29 @@ abstract class BaseViewModel : ViewModel() {
         showLoading: Boolean = true,
         block: suspend CoroutineScope.() -> Unit
     ) {
-        if (showLoading) {
-            _apiCallsCount += 1
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
+                if (showLoading) _apiCallsCount += 1
                 block()
-                _apiCallsCount -= 1
+            } catch (ex: RefreshTokenExpiredException) {
+                displaySessionExpiredMessage()
+                openLogin()
+            } finally {
+                if (showLoading) _apiCallsCount -= 1
             }
-        } else viewModelScope.launch { block() }
+        }
+    }
+
+    private fun displaySessionExpiredMessage() {
+        _baseCmd.value = BaseCommand.ShowToast(R.string.generic_session_expired)
+    }
+
+    private fun openLogin() {
+        _baseCmd.value = BaseCommand.PerformNavDeepLink(
+            deepLink = SIGN_IN_SCREEN_DL,
+            popUpToRoot = true,
+            inclusive = true
+        )
     }
 
     open fun back() {
@@ -79,9 +98,17 @@ sealed class BaseCommand {
     class ShowSnackbar(val message: Any) : BaseCommand()
     data class ShowPopupById(val popupConfig: PopupConfig) : BaseCommand()
 
+    class PerformNavDeepLink(
+        val deepLink: String,
+        @IdRes val popUpTo: Int? = null,
+        val popUpToRoot: Boolean = false,
+        val inclusive: Boolean = false
+    ) : BaseCommand()
+
     class PerformNavAction(
         val direction: NavDirections,
         @IdRes val popUpTo: Int? = null,
+        val popUpToRoot: Boolean = false,
         val inclusive: Boolean = false
     ) : BaseCommand()
 
@@ -99,5 +126,6 @@ sealed class BaseCommand {
         @IdRes val destinationId: Int,
         val inclusive: Boolean = false
     ) : BaseCommand()
+
     object ForceCloseKeyboard : BaseCommand()
 }

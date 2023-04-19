@@ -2,8 +2,8 @@ package com.wolfpackdigital.cashli.data.remote.api.common
 
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
-import com.wolfpackdigital.cashli.shared.base.doIfError
-import com.wolfpackdigital.cashli.shared.base.doIfSuccess
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.exceptions.RefreshTokenExpiredException
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.runBlocking
@@ -34,11 +34,11 @@ class RefreshTokenInterceptor : Authenticator, KoinComponent, PersistenceService
     private fun refreshToken(refreshToken: String) {
         return runBlocking {
             val result = refreshTokenUseCase(refreshToken)
-            result.doIfSuccess {
+            result.onSuccess {
                 token = it
             }
-            result.doIfError {
-                if (it?.errorCode == HttpURLConnection.HTTP_FORBIDDEN) {
+            result.onError {
+                if (it.errorCode == HttpURLConnection.HTTP_FORBIDDEN) {
                     //  logoutUseCase.invoke(Unit)
                     throw RefreshTokenExpiredException()
                 }

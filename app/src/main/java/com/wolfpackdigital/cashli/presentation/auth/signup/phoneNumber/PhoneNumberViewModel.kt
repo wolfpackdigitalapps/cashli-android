@@ -14,8 +14,8 @@ import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumbe
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
-import com.wolfpackdigital.cashli.shared.base.doIfError
-import com.wolfpackdigital.cashli.shared.base.doIfSuccess
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
@@ -70,14 +70,14 @@ class PhoneNumberViewModel(
                         identifier = "$identifierPrefix$number"
                     )
                     val result = submitRegistrationIdentifiersUseCase(request)
-                    result.doIfSuccess {
+                    result.onSuccess {
                         _baseCmd.value = BaseCommand.PerformNavAction(
                             PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
                                 CodeReceivedViaType.SMS
                             )
                         )
                     }
-                    result.doIfError {
+                    result.onError {
                         val error =
                             it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
                         if (it.errorCode == ERROR_CODE_422)

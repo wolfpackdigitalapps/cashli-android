@@ -29,4 +29,7 @@ object Constants {
 
     // API ERROR CODES
     const val ERROR_CODE_422 = 422
+
+    // DeepLinks
+    const val SIGN_IN_SCREEN_DL = "android-app://com.wolfpackdigital.cashli/signIn"
 }
