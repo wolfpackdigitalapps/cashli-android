@@ -10,6 +10,7 @@ import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.RegistrationIdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
@@ -19,10 +20,10 @@ import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_US
 import com.wolfpackdigital.cashli.shared.utils.Constants.VARIANT_DEVELOP
-import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
 
 class PhoneNumberViewModel(
-    private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase
+    private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase,
+    private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase
 ) : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
@@ -54,34 +55,32 @@ class PhoneNumberViewModel(
 
     fun onContinueClicked() {
         phoneNumber.value?.let { number ->
-            if (!number.containOnlyDigits()) {
-                onContinueError.value = R.string.phone_number_digits_error
-                return
-            }
-            if (number.length != Constants.PHONE_NUMBER_LENGTH) {
-                onContinueError.value = R.string.phone_number_length_error
-                return
-            }
-            val identifierPrefix = if (BuildConfig.FLAVOR == VARIANT_DEVELOP)
-                PHONE_PREFIX_RO
-            else
-                PHONE_PREFIX_US
-            performApiCall {
-                val request = RegistrationIdentifiersRequest(
-                    channel = RegistrationIdentifierChannel.SMS,
-                    identifier = "$identifierPrefix$number"
-                )
-                val result = submitRegistrationIdentifiersUseCase(request)
-                result.doIfSuccess {
-                    _baseCmd.value = BaseCommand.PerformNavAction(
-                        PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
-                            CodeReceivedViaType.SMS
-                        )
+            val validatePhoneNumberResult = validatePhoneNumberFormUseCase(number)
+            if (!validatePhoneNumberResult.successful) {
+                onContinueError.value = validatePhoneNumberResult.errorMessageId
+            } else {
+                val identifierPrefix = if (BuildConfig.FLAVOR == VARIANT_DEVELOP)
+                    PHONE_PREFIX_RO
+                else
+                    PHONE_PREFIX_US
+                performApiCall {
+                    val request = RegistrationIdentifiersRequest(
+                        channel = RegistrationIdentifierChannel.SMS,
+                        identifier = "$identifierPrefix$number"
                     )
-                }
-                result.doIfError {
-                    val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                    _baseCmd.value = BaseCommand.ShowToast(error)
+                    val result = submitRegistrationIdentifiersUseCase(request)
+                    result.doIfSuccess {
+                        _baseCmd.value = BaseCommand.PerformNavAction(
+                            PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
+                                CodeReceivedViaType.SMS
+                            )
+                        )
+                    }
+                    result.doIfError {
+                        val error =
+                            it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                        _baseCmd.value = BaseCommand.ShowToast(error)
+                    }
                 }
             }
         }

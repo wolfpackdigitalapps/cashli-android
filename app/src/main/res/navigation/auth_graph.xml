@@ -93,5 +93,34 @@
         <action
             android:id="@+id/action_signInFragment_to_informativeFragment"
             app:destination="@id/informativeFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_requestCodeFragment"
+            app:destination="@id/requestCodeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/requestCodeFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.requestCode.RequestCodeFragment"
+        android:label="RequestCodeFragment"
+        tools:layout="@layout/fr_request_code">
+        <action
+            android:id="@+id/action_requestCodeFragment_to_confirmOneTimePasswordFragment"
+            app:destination="@id/confirmOneTimePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmOneTimePasswordFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.confirmOneTimePassword.ConfirmOneTimePasswordFragment"
+        android:label="ConfirmOneTimePasswordFragment"
+        tools:layout="@layout/fr_confirm_one_time_password">
+        <action
+            android:id="@+id/action_confirmOneTimePasswordFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
+        <argument
+            android:name="phoneNumberOrEmail"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.auth.signin.forgotPassword.resetPassword.ResetPasswordFragment"
+        android:label="ResetPasswordFragment"
+        tools:layout="@layout/fr_reset_password"/>
 </navigation>

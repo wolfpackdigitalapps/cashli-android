@@ -13,6 +13,7 @@ import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_3
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
@@ -24,9 +25,6 @@ private const val VALUE_SPAN_OPEN_PP = "openPP"
 private const val VALUE_SPAN_OPEN_TS = "openTS"
 private const val VALUE_SPAN_OPEN_DPP = "openDPP"
 private const val VALUE_SPAN_OPEN_DTS = "openDTS"
-
-// Millis
-private const val COUNT_DOWN_TIME_6_SEC = 6000L
 
 class ChoosePasswordViewModel(
     private val validateChoosePasswordFormUseCase: ValidateChoosePasswordFormUseCase
@@ -128,7 +126,7 @@ class ChoosePasswordViewModel(
                     titleId = R.string.bravo_text,
                     contentIdOrString = R.string.account_created_successfully,
                     imageId = R.drawable.ic_profile_check,
-                    timerCount = COUNT_DOWN_TIME_6_SEC,
+                    timerCount = Constants.COUNT_DOWN_TIME_6_SEC,
                     buttonCloseClick = {
                         _baseCmd.value = BaseCommand.PerformNavAction(
                             NavigationDirections.actionGlobalHomeGraph(),
