@@ -4,6 +4,7 @@ object Constants {
     // Millis
     const val DEBOUNCE_INTERVAL_MILLIS_1000 = 1000L
     const val DEBOUNCE_INTERVAL_MILLIS_300 = 350L
+    const val COUNT_DOWN_TIME_6_SEC = 6000L
 
     // MISC
     const val FIRST_INDEX = 0
@@ -18,6 +19,7 @@ object Constants {
     // Input text constraints
     const val PHONE_NUMBER_LENGTH = 10
     const val MAX_CHARS_50 = 50
+    const val MIN_CHARS_2 = 2
 
     // Back stack keys
     const val RESTART_ONBOARDING_STEPS = "restart_onboarding_steps"

@@ -6,13 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.extensions.containOnlyDigits
 
-class PhoneNumberViewModel : BaseViewModel() {
+class PhoneNumberViewModel(
+    private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase
+) : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -43,19 +45,16 @@ class PhoneNumberViewModel : BaseViewModel() {
 
     fun onContinueClicked() {
         phoneNumber.value?.let { number ->
-            if (!number.containOnlyDigits()) {
-                onContinueError.value = R.string.phone_number_digits_error
-                return
-            }
-            if (number.length != Constants.PHONE_NUMBER_LENGTH) {
-                onContinueError.value = R.string.phone_number_length_error
-                return
-            }
-            _baseCmd.value = BaseCommand.PerformNavAction(
-                PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
-                    CodeReceivedViaType.SMS
+            val validatePhoneNumberResult = validatePhoneNumberFormUseCase(number)
+            if (!validatePhoneNumberResult.successful) {
+                onContinueError.value = validatePhoneNumberResult.errorMessageId
+            } else {
+                _baseCmd.value = BaseCommand.PerformNavAction(
+                    PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
+                        CodeReceivedViaType.SMS
+                    )
                 )
-            )
+            }
         }
     }
 }

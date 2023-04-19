@@ -84,6 +84,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                 )
                 is BaseCommand.ShowPopupById -> showPopupById(it.popupConfig)
                 is BaseCommand.GoBack -> navController?.popBackStack()
+                is BaseCommand.GoBackTo -> navController?.popBackStack(it.destinationId, it.inclusive)
                 is BaseCommand.ForceCloseKeyboard ->
                     binding?.root?.findFocus()?.let { viewWithFocus ->
                         hideSoftKeyboard(viewWithFocus)
