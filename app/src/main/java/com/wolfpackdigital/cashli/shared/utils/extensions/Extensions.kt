@@ -18,6 +18,7 @@ import com.google.gson.JsonParseException
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.ApiError
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_1000
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -162,6 +163,19 @@ fun hideSoftKeyboard(view: View) {
 
 fun Context.stringFromResource(@StringRes id: Int, vararg formatArgs: Any?): String {
     return resources.getString(id, *formatArgs)
+}
+@Suppress("SpreadOperator")
+fun getStringFromResourceOrText(
+    context: Context,
+    textIdOrString: Any?,
+    textArgs: Array<Any>? = null
+): String {
+    return when (textIdOrString) {
+        is String -> textIdOrString
+        is Int -> textArgs?.let { args -> context.stringFromResource(textIdOrString, *args) }
+            ?: context.stringFromResource(textIdOrString)
+        else -> Constants.EMPTY_STRING
+    }
 }
 
 fun startCounter(

@@ -17,13 +17,12 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.button.MaterialButton
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
-import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.ALPHA_0
 import com.wolfpackdigital.cashli.shared.utils.Constants.ALPHA_1
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_300
 import com.wolfpackdigital.cashli.shared.utils.CustomClickSpan
 import com.wolfpackdigital.cashli.shared.utils.DebouncingOnClickListener
-import com.wolfpackdigital.cashli.shared.utils.extensions.stringFromResource
+import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
 
 private const val KEY_SPAN_ACTION = "action"
 private const val FADE_ANIM_DURATION_200 = 200L
@@ -65,12 +64,7 @@ fun MaterialButton.textRes(@StringRes textRes: Int?) {
 @BindingAdapter(value = ["textIdOrString", "textArgs"], requireAll = false)
 fun TextView.setTextIdOrString(textIdOrString: Any?, textArgs: Array<Any>?) {
     textIdOrString?.let {
-        text = when (it) {
-            is String -> it
-            is Int -> textArgs?.let { args -> context.stringFromResource(it, *args) }
-                ?: context.stringFromResource(it)
-            else -> Constants.EMPTY_STRING
-        }
+        text = getStringFromResourceOrText(context, it, textArgs)
     }
 }
 

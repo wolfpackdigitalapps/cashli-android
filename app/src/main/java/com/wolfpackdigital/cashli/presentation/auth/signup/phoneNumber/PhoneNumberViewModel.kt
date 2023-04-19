@@ -17,6 +17,7 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.doIfError
 import com.wolfpackdigital.cashli.shared.base.doIfSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_US
 import com.wolfpackdigital.cashli.shared.utils.Constants.VARIANT_DEVELOP
@@ -46,9 +47,9 @@ class PhoneNumberViewModel(
         if (disabled) R.string.phone_number_length_error else null
     }
 
-    private val onContinueError = MutableLiveData<Int?>(null)
+    private val onContinueError = MutableLiveData<Any?>(null)
 
-    val error: MediatorLiveData<Int?> = MediatorLiveData<Int?>().apply {
+    val error: MediatorLiveData<Any?> = MediatorLiveData<Any?>().apply {
         addSource(tooLong) { error -> value = error }
         addSource(onContinueError) { error -> value = error }
     }
@@ -79,7 +80,10 @@ class PhoneNumberViewModel(
                     result.doIfError {
                         val error =
                             it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                        _baseCmd.value = BaseCommand.ShowToast(error)
+                        if (it.errorCode == ERROR_CODE_422)
+                            onContinueError.value = error
+                        else
+                            _baseCmd.value = BaseCommand.ShowToast(error)
                     }
                 }
             }

@@ -26,4 +26,7 @@ object Constants {
 
     // Back stack keys
     const val RESTART_ONBOARDING_STEPS = "restart_onboarding_steps"
+
+    // API ERROR CODES
+    const val ERROR_CODE_422 = 422
 }
