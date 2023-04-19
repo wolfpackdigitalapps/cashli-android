@@ -14,8 +14,11 @@ object Constants {
     const val ALPHA_1 = 1f
     const val ALPHA_0 = 0f
     const val EMPTY_STRING = ""
+    const val VARIANT_DEVELOP = "develop"
 
     // Input text constraints
+    const val PHONE_PREFIX_US = "+1"
+    const val PHONE_PREFIX_RO = "+40"
     const val PHONE_NUMBER_LENGTH = 10
     const val MAX_CHARS_50 = 50
 

@@ -1,5 +1,11 @@
 package com.wolfpackdigital.cashli.application
 
+import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestDtoToRefreshTokenRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
@@ -13,6 +19,7 @@ import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateEmailUseCase
@@ -51,7 +58,7 @@ object AppModules {
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
-        viewModel { PhoneNumberViewModel() }
+        viewModel { PhoneNumberViewModel(get()) }
         viewModel { ChoosePasswordViewModel(get()) }
         viewModel { SignInViewModel(get()) }
         viewModel { HomeViewModel() }
@@ -70,7 +77,7 @@ object AppModules {
     }
 
     private val repoModule = module {
-        single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+        single<AuthRepository> { AuthRepositoryImpl(get(), get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -82,9 +89,16 @@ object AppModules {
     private val mappersModule = module {
         factory { TokenDtoToTokenMapper() }
         factory { TokenToTokenDtoMapper() }
+        factory { RefreshTokenRequestToRefreshTokenRequestDtoMapper() }
+        factory { RefreshTokenRequestDtoToRefreshTokenRequestMapper() }
+        factory { RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper() }
+        factory { RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper() }
+        factory { RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper(get()) }
+        factory { RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper(get()) }
     }
 
     private val useCases = module {
+        single { SubmitRegistrationIdentifiersUseCase(get()) }
         single { RefreshTokenUseCase(get()) }
         single { GetOnboardingStepsUseCase() }
         single { ValidateBlankFieldUseCase() }

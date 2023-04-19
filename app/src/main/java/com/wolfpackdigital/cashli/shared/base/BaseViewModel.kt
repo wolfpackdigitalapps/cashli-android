@@ -75,10 +75,8 @@ abstract class BaseAndroidViewModel(application: Application) : AndroidViewModel
 
 sealed class BaseCommand {
     class OpenUrl(@StringRes val urlResource: Int) : BaseCommand()
-    class ShowToastById(val stringId: Int) : BaseCommand()
-    class ShowToast(val message: String) : BaseCommand()
-    class ShowSnackbarById(val stringId: Int) : BaseCommand()
-    class ShowSnackbar(val message: String) : BaseCommand()
+    class ShowToast(val message: Any) : BaseCommand()
+    class ShowSnackbar(val message: Any) : BaseCommand()
     data class ShowPopupById(val popupConfig: PopupConfig) : BaseCommand()
 
     class PerformNavAction(

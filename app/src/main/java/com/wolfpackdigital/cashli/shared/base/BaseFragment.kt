@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
@@ -16,8 +15,8 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.utils.extensions.hideSoftKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.openUrl
+import com.wolfpackdigital.cashli.shared.utils.extensions.showMessage
 import com.wolfpackdigital.cashli.shared.utils.extensions.showPopupById
-import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
 
 abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewModel>(
@@ -67,14 +66,11 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
         viewModel.baseCmd.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseCommand.OpenUrl -> context?.openUrl(it.urlResource)
-                is BaseCommand.ShowToastById ->
-                    Toast.makeText(context ?: return@observe, it.stringId, Toast.LENGTH_SHORT)
-                        .show()
-                is BaseCommand.ShowToast ->
-                    Toast.makeText(context ?: return@observe, it.message, Toast.LENGTH_SHORT)
-                        .show()
-                is BaseCommand.ShowSnackbarById -> snackBar(getString(it.stringId))
-                is BaseCommand.ShowSnackbar -> snackBar(it.message)
+                is BaseCommand.ShowToast -> showMessage(it.message)
+                is BaseCommand.ShowSnackbar -> showMessage(
+                    it.message,
+                    isToast = false
+                )
                 is BaseCommand.PerformNavAction -> navigate(it)
                 is BaseCommand.PerformNavById -> navController?.navigate(
                     it.destinationId,

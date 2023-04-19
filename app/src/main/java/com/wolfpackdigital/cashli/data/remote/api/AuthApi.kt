@@ -1,19 +1,20 @@
 package com.wolfpackdigital.cashli.data.remote.api
 
+import com.wolfpackdigital.cashli.data.remote.dto.requests.RefreshTokenRequestDto
+import com.wolfpackdigital.cashli.data.remote.dto.requests.RegistrationIdentifiersRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.TokenDto
-import com.wolfpackdigital.cashli.domain.entities.requests.RefreshTokenRequest
 import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthApi {
-//    @POST("auth/login")
-//    suspend fun login(
-//        @Query("emailAddress") emailAddress: String? = "",
-//        @Query("password") password: String? = ""
-//    ): Response<LoginResponse>
+
+    @POST("v1/registration/submit_identifiers")
+    suspend fun submitRegistrationIdentifiers(
+        @Body channel: RegistrationIdentifiersRequestDto
+    )
 
     @POST("v1/sessions/token")
     suspend fun refreshAuthToken(
-        @Body refreshToken: RefreshTokenRequest
+        @Body refreshToken: RefreshTokenRequestDto
     ): TokenDto
 }

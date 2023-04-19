@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 sealed class Result<out R> {
 
     data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: ApiError? = null) : Result<Nothing>()
+    data class Error(val exception: ApiError) : Result<Nothing>()
     object Loading : Result<Nothing>()
 
     override fun toString(): String {
@@ -32,7 +32,7 @@ fun <T> Result<T>.successOr(fallback: T): T {
     return (this as? Result.Success<T>)?.data ?: fallback
 }
 
-inline fun <reified T> Result<T>.doIfError(callback: (exception: ApiError?) -> Unit) {
+inline fun <reified T> Result<T>.doIfError(callback: (exception: ApiError) -> Unit) {
     if (this is Result.Error) {
         callback(exception)
     }
