@@ -7,7 +7,7 @@
         android:bottom="-100dp"
         android:left="-200dp"
         android:right="-200dp"
-        android:top="170dp">
+        android:top="250dp">
         <rotate
             android:fromDegrees="-0"
             android:pivotX="0%"

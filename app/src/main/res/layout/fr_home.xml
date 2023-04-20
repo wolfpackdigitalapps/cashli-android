@@ -10,108 +10,205 @@
             type="com.wolfpackdigital.cashli.presentation.home.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/home_background_custom_shape">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:viewModel="@{viewModel.toolbar}" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_name"
-            style="@style/TextView.Bold"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_20dp"
-            android:layout_marginTop="@dimen/dimen_24dp"
-            android:layout_marginEnd="@dimen/dimen_68dp"
-            android:textAlignment="viewStart"
-            android:textSize="@dimen/size_28sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:text="Hi, Mike!" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_home_blue_dots" />
-
+        <!-- TODO Adjust scroll -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_link_account"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_20dp"
-            android:layout_marginTop="@dimen/dimen_20dp"
-            android:background="@drawable/rounded_layout_20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_name">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_background_custom_shape">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_24dp"
-                android:layout_marginBottom="@dimen/dimen_16dp"
-                android:contentDescription="@null"
-                app:layout_constraintBottom_toTopOf="@id/btn_link_account"
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_exclamation_mark" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_link_account"
-                style="@style/Widget.Cashli.Button.PrimaryDark"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_24dp"
-                android:layout_marginBottom="@dimen/dimen_24dp"
-                android:onClick="@{() -> viewModel.goToLinkBankAccount()}"
-                android:text="@string/link_your_bank_account"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_20dp"
-            android:background="@drawable/rounded_layout_20dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_link_account">
+                app:viewModel="@{viewModel.toolbar}" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name"
                 style="@style/TextView.Bold"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/request_a_cash_advance"
-                android:textSize="@dimen/size_20sp"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_68dp"
+                android:textAlignment="viewStart"
+                android:textSize="@dimen/size_28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                tools:text="Hi, Mike!" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_home_blue_dots" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_link_account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:background="@drawable/rounded_layout_20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name">
+
+                <ImageView
+                    android:id="@+id/iv_exclamation_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_24dp"
+                    android:layout_marginBottom="@dimen/dimen_16dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toTopOf="@id/tv_message_one"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_exclamation_mark" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_message_one"
+                    style="@style/TextView.Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_40dp"
+                    android:text="@string/link_account_message_one"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/size_20sp"
+                    app:layout_constraintBottom_toTopOf="@id/iv_lock"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_exclamation_mark" />
+
+                <ImageView
+                    android:id="@+id/iv_lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_6dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="@id/tv_message_one"
+                    app:layout_constraintTop_toBottomOf="@id/tv_message_one"
+                    app:srcCompat="@drawable/ic_lock_primary_dark" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_message_two"
+                    style="@style/TextView.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_4dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:layout_marginEnd="@dimen/dimen_40dp"
+                    android:layout_marginBottom="@dimen/dimen_24dp"
+                    android:lineSpacingExtra="@dimen/dimen_4dp"
+                    android:text="@string/link_my_bank_account_message_four"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintBottom_toTopOf="@id/btn_link_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_lock"
+                    app:layout_constraintTop_toTopOf="@id/iv_lock" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_link_account"
+                    style="@style/Widget.Cashli.Button.PrimaryDark"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_24dp"
+                    android:layout_marginBottom="@dimen/dimen_24dp"
+                    android:onClick="@{() -> viewModel.goToLinkBankAccount()}"
+                    android:text="@string/link_your_bank_account"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:background="@drawable/rounded_layout_20dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
+                app:layout_constraintTop_toBottomOf="@id/layout_link_account"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:id="@+id/iv_request_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_44dp"
+                    android:layout_marginBottom="@dimen/dimen_16dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toTopOf="@id/tv_message_three"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_request_cash" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_message_three"
+                    style="@style/TextView.Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_28dp"
+                    android:text="@string/request_a_cash_advance"
+                    android:textSize="@dimen/size_20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_message_four"
+                    style="@style/TextView.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_28dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:text="@string/cash_delivered_time"
+                    android:textColor="@color/colorGrayB6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_message_three" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextView.Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_28dp"
+                    android:layout_marginTop="@dimen/dimen_36dp"
+                    android:layout_marginBottom="@dimen/dimen_44dp"
+                    android:text="@string/up_to_150"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/size_28sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_message_four" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
