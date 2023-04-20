@@ -11,8 +11,7 @@
 
     <action
         android:id="@+id/action_global_homeGraph"
-        app:destination="@id/home_graph"
-        app:popUpToInclusive="false" />
+        app:destination="@id/home_graph" />
 
     <fragment
         android:id="@+id/chooseLanguageFragment"
@@ -96,6 +95,7 @@
         <action
             android:id="@+id/action_signInFragment_to_requestCodeFragment"
             app:destination="@id/requestCodeFragment" />
+        <deepLink app:uri="android-app://com.wolfpackdigital.cashli/signIn" />
     </fragment>
     <fragment
         android:id="@+id/requestCodeFragment"

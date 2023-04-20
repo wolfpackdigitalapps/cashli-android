@@ -2,6 +2,8 @@ package com.wolfpackdigital.cashli.shared.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.wolfpackdigital.cashli.shared.exceptions.RefreshTokenExpiredException
+import com.wolfpackdigital.cashli.shared.utils.extensions.getParsedError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,6 +13,26 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseUseCase<in P, R> where P : Any {
 
     abstract suspend fun run(params: P): Result<R>
+
+    open suspend operator fun invoke(
+        params: P,
+        dispatcher: CoroutineContext = Dispatchers.Main,
+    ): Result<R> {
+        return withContext(dispatcher) {
+            try {
+                run(params)
+            } catch (throwable: Throwable) {
+                when (throwable) {
+                    is RefreshTokenExpiredException -> {
+                        throw throwable
+                    }
+                    else -> {
+                        Result.Error(throwable.getParsedError())
+                    }
+                }
+            }
+        }
+    }
 
     open operator fun invoke(
         scope: CoroutineScope,

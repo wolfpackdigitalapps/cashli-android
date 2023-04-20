@@ -21,6 +21,7 @@ import com.wolfpackdigital.cashli.BaseEditTextBinding
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.visibility
+import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
 
 class BaseEditText @JvmOverloads constructor(
     context: Context,
@@ -118,8 +119,8 @@ fun BaseEditText.cliImeOptions(options: Int?) {
 }
 
 @BindingAdapter(value = ["cliError", "cliShowTextError"], requireAll = false)
-fun BaseEditText.cliError(cliError: Int?, cliShowTextError: Boolean?) {
-    val error = cliError?.let(context::getString) ?: EMPTY_STRING
+fun BaseEditText.cliError(cliError: Any?, cliShowTextError: Boolean?) {
+    val error = getStringFromResourceOrText(context, cliError)
     val showTextError = cliShowTextError ?: true
     if (showTextError)
         binding.tvError.apply {

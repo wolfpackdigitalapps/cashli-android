@@ -10,13 +10,13 @@ import kotlinx.parcelize.Parcelize
 sealed class Result<out R> {
 
     data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val error: String) : Result<Nothing>()
+    data class Error(val exception: ApiError) : Result<Nothing>()
     object Loading : Result<Nothing>()
 
     override fun toString(): String {
         return when (this) {
             is Success<*> -> "Success[data=$data]"
-            is Error -> "Error[exception=$error]"
+            is Error -> "Error[exception=$exception]"
             Loading -> "Loading"
         }
     }
@@ -32,9 +32,23 @@ fun <T> Result<T>.successOr(fallback: T): T {
     return (this as? Result.Success<T>)?.data ?: fallback
 }
 
+inline fun <reified T> Result<T>.onError(callback: (exception: ApiError) -> Unit) {
+    if (this is Result.Error) {
+        callback(exception)
+    }
+}
+
+inline fun <reified T> Result<T>.onSuccess(callback: (data: T) -> Unit) {
+    if (this is Result.Success) {
+        callback(data)
+    }
+}
+
 @Parcelize
 data class ApiError(
-    val message: String = "",
-    val code: String = "",
-    val errors: List<String>?
+    val message: String? = null,
+    val messageId: Int? = null,
+    val code: String? = null,
+    val errorCode: Int? = null,
+    val errors: List<String>? = null
 ) : Parcelable

@@ -21,7 +21,7 @@ android {
         buildConfigField(
             "String",
             "BASE_URL",
-            "\"https://example.com\""
+            "\"https://api-dev.cashli.io/api/\""
         )
         vectorDrawables.useSupportLibrary = true
     }

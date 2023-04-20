@@ -1,7 +1,13 @@
 package com.wolfpackdigital.cashli.application
 
-import com.wolfpackdigital.cashli.data.mappers.MockItemDtoToMockItemMapper
-import com.wolfpackdigital.cashli.data.mappers.MockItemToMockItemDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestDtoToRefreshTokenRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
 import com.wolfpackdigital.cashli.data.patternMatchers.CityAndStatePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.LettersAndCommaPatternMatcherImpl
@@ -10,12 +16,14 @@ import com.wolfpackdigital.cashli.data.patternMatchers.PasswordPatternMatcherImp
 import com.wolfpackdigital.cashli.data.patternMatchers.PhoneNumberPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.ZipCodePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.remote.api.common.ApiProvider
-import com.wolfpackdigital.cashli.data.repositories.MockRepositoryImpl
-import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
+import com.wolfpackdigital.cashli.data.repositories.AuthRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.PatternMatcher
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
@@ -73,7 +81,7 @@ object AppModules {
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
-        viewModel { PhoneNumberViewModel(get()) }
+        viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get()) }
         viewModel { SignInViewModel(get()) }
         viewModel { HomeViewModel() }
@@ -95,11 +103,11 @@ object AppModules {
     }
 
     private val apiModule = module {
-        single { ApiProvider.provideMockAPI() }
+        single { ApiProvider.provideAuthApi() }
     }
 
     private val repoModule = module {
-        single<MockRepository> { MockRepositoryImpl(get(), get()) }
+        single<AuthRepository> { AuthRepositoryImpl(get(), get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -113,11 +121,19 @@ object AppModules {
     }
 
     private val mappersModule = module {
-        factory { MockItemDtoToMockItemMapper() }
-        factory { MockItemToMockItemDtoMapper() }
+        factory { TokenDtoToTokenMapper() }
+        factory { TokenToTokenDtoMapper() }
+        factory { RefreshTokenRequestToRefreshTokenRequestDtoMapper() }
+        factory { RefreshTokenRequestDtoToRefreshTokenRequestMapper() }
+        factory { RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper() }
+        factory { RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper() }
+        factory { RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper(get()) }
+        factory { RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper(get()) }
     }
 
     private val useCases = module {
+        single { SubmitRegistrationIdentifiersUseCase(get()) }
+        single { RefreshTokenUseCase(get()) }
         single { GetOnboardingStepsUseCase() }
         single { ValidateBlankFieldUseCase() }
         single { ValidateEqualFieldsUseCase() }

@@ -103,7 +103,9 @@
     <string name="generic_continue">Continue</string>
     <string name="generic_seconds_abbreviation">sec</string>
     <string name="no_messaging_app_found">No messaging app found.</string>
+    <string name="generic_error">Something went wrong, please try again.</string>
     <string name="generic_confirm">Confirm</string>
+    <string name="generic_session_expired">Session expired, please login again.</string>
 
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>
