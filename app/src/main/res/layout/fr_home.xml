@@ -11,10 +11,10 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        style="@style/ScrollView.VerticalDarkScrollBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- TODO Adjust scroll -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -65,6 +65,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_link_background" />
 
                 <ImageView
                     android:id="@+id/iv_exclamation_mark"
@@ -143,14 +151,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
                 android:background="@drawable/rounded_layout_20dp"
                 android:backgroundTint="@color/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-
                 app:layout_constraintTop_toBottomOf="@id/layout_link_account"
                 app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_request_background" />
 
                 <ImageView
                     android:id="@+id/iv_request_cash"
