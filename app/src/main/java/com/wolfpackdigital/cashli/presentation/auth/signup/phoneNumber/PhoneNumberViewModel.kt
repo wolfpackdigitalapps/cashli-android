@@ -18,6 +18,7 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_US
 import com.wolfpackdigital.cashli.shared.utils.Constants.VARIANT_DEVELOP
@@ -85,10 +86,10 @@ class PhoneNumberViewModel(
                     result.onError {
                         val error =
                             it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                        if (it.errorCode == ERROR_CODE_422)
-                            onContinueError.value = error
-                        else
-                            _baseCmd.value = BaseCommand.ShowToast(error)
+                        when (it.errorCode) {
+                            ERROR_CODE_422, ERROR_CODE_429 -> onContinueError.value = error
+                            else -> _baseCmd.value = BaseCommand.ShowToast(error)
+                        }
                     }
                 }
             }

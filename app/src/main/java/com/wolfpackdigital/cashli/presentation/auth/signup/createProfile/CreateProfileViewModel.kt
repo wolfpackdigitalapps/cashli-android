@@ -26,6 +26,7 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.COMMA
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
@@ -122,10 +123,10 @@ class CreateProfileViewModel(
                 result.onError {
                     val error =
                         it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                    if (it.errorCode == Constants.ERROR_CODE_422)
-                        _emailError.value = error
-                    else
-                        _baseCmd.value = BaseCommand.ShowToast(error)
+                    when (it.errorCode) {
+                        Constants.ERROR_CODE_422, ERROR_CODE_429 -> _emailError.value = error
+                        else -> _baseCmd.value = BaseCommand.ShowToast(error)
+                    }
                 }
             }
         }

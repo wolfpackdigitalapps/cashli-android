@@ -13,7 +13,6 @@ import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifie
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
-import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
@@ -100,7 +99,7 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
                 result.onError {
                     val error =
                         it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                    if (it.errorCode == Constants.ERROR_CODE_422)
+                    if (it.errorCode == ERROR_CODE_422)
                         _invalidCodeErrorVisible.value = error
                     else
                         _baseCmd.value = BaseCommand.ShowToast(error)
