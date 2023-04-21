@@ -164,6 +164,7 @@ fun hideSoftKeyboard(view: View) {
 fun Context.stringFromResource(@StringRes id: Int, vararg formatArgs: Any?): String {
     return resources.getString(id, *formatArgs)
 }
+
 @Suppress("SpreadOperator")
 fun getStringFromResourceOrText(
     context: Context,

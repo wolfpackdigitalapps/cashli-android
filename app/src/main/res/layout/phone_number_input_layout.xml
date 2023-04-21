@@ -24,7 +24,7 @@
 
         <variable
             name="error"
-            type="Integer" />
+            type="Object" />
 
         <variable
             name="phoneNumber"

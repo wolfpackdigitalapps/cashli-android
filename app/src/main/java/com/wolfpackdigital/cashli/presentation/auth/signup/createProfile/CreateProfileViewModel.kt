@@ -8,6 +8,11 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.entities.enums.Languages
+import com.wolfpackdigital.cashli.domain.entities.enums.RegistrationIdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.UserProfileRequest
+import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateEmailUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateFirstNameFormUseCase
@@ -17,17 +22,28 @@ import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateZipCodeUse
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.COMMA
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
+import com.wolfpackdigital.cashli.shared.utils.LiveEvent
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 
+@Suppress("LongParameterList")
 class CreateProfileViewModel(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validateStreetFieldUseCase: ValidateStreetFieldUseCase,
     private val validateZipCodeUseCase: ValidateZipCodeUseCase,
     private val validateFirstNameFormUseCase: ValidateFirstNameFormUseCase,
     private val validateLastNameFormUseCase: ValidateLastNameFormUseCase,
-    private val validateCityAndStateFormUseCase: ValidateCityAndStateFormUseCase
-) : BaseViewModel() {
+    private val validateCityAndStateFormUseCase: ValidateCityAndStateFormUseCase,
+    private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase
+) : BaseViewModel(), PersistenceService {
+
+    private val _cmd = LiveEvent<Command>()
+    val cmd: LiveData<Command> = _cmd
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -56,8 +72,8 @@ class CreateProfileViewModel(
     private val _zipCodeError = MutableLiveData<Int?>(null)
     val zipCodeError: LiveData<Int?> = _zipCodeError
 
-    private val _emailError = MutableLiveData<Int?>(null)
-    val emailError: LiveData<Int?> = _emailError
+    private val _emailError = MutableLiveData<Any?>(null)
+    val emailError: LiveData<Any?> = _emailError
 
     private val _cityAndStateError = MutableLiveData<Int?>(null)
     val cityAndStateError: LiveData<Int?> = _cityAndStateError
@@ -75,11 +91,44 @@ class CreateProfileViewModel(
         if ((validateZipCode() == true) and (validateEmail() == true) and (validateCityAndState() == true) and
             (validateStreet() == true) and (validateFirstName() == true) and (validateLastName() == true)
         ) {
-            _baseCmd.value = BaseCommand.PerformNavAction(
-                CreateProfileFragmentDirections.actionCreateProfileFragmentToValidateCodeFragment(
-                    CodeReceivedViaType.EMAIL
+            performApiCall {
+                val request = RegistrationIdentifiersRequest(
+                    channel = RegistrationIdentifierChannel.EMAIL,
+                    identifier = email.value.orEmpty()
                 )
-            )
+                val result = submitRegistrationIdentifiersUseCase(request)
+                result.onSuccess {
+                    val cityAndStateArray = cityAndState.value?.let { cityAndState ->
+                        cityAndState.filterNot {
+                            it.isWhitespace()
+                        }
+                    }?.split(COMMA)
+                    val temporaryUserProfileRequest = UserProfileRequest(
+                        firstName = firstName.value.orEmpty(),
+                        lastName = lastName.value.orEmpty(),
+                        email = email.value.orEmpty(),
+                        street = street.value.orEmpty(),
+                        zipCode = zipCode.value.orEmpty(),
+                        city = cityAndStateArray?.firstOrNull().orEmpty(),
+                        state = cityAndStateArray?.lastOrNull().orEmpty(),
+                        language = language ?: Languages.ENGLISH
+                    )
+                    _cmd.value = Command.SaveUserProfile(temporaryUserProfileRequest)
+                    _baseCmd.value = BaseCommand.PerformNavAction(
+                        CreateProfileFragmentDirections.actionCreateProfileFragmentToValidateCodeFragment(
+                            CodeReceivedViaType.EMAIL
+                        )
+                    )
+                }
+                result.onError {
+                    val error =
+                        it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                    when (it.errorCode) {
+                        Constants.ERROR_CODE_422, ERROR_CODE_429 -> _emailError.value = error
+                        else -> _baseCmd.value = BaseCommand.ShowToast(error)
+                    }
+                }
+            }
         }
     }
 
@@ -159,6 +208,10 @@ class CreateProfileViewModel(
 
     fun clearLastNameError() {
         _lastNameError.value = null
+    }
+
+    sealed class Command {
+        data class SaveUserProfile(val temporaryUserProfileRequest: UserProfileRequest) : Command()
     }
 
     companion object {

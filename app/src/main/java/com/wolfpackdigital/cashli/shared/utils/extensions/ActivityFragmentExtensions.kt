@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
@@ -275,8 +276,14 @@ fun <T> NavController.getBackStackData(
 ) {
     val savedState = currentBackStackEntry?.savedStateHandle
     savedState?.getLiveData<T?>(key)?.observe(owner) {
-        if (!removeObserver && removeValue && it != null) savedState.set(key, null)
+        if (!removeObserver && removeValue && it != null) savedState[key] = null
         if (removeObserver) savedState.remove<T>(key)
         result(it)
     }
+}
+
+fun NavHostFragment.inflateNewGraph(graphId: Int, startDestinationId: Int) {
+    val inflater = this.navController.navInflater
+    val graph = inflater.inflate(graphId).apply { setStartDestination(startDestinationId) }
+    this.navController.graph = graph
 }

@@ -7,8 +7,7 @@ import com.wolfpackdigital.cashli.shared.base.Mapper
 @Suppress("MaxLineLength")
 class RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper(
     private val registrationIdentifierChannelMapper: RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper
-) :
-    Mapper<RegistrationIdentifiersRequestDto, RegistrationIdentifiersRequest> {
+) : Mapper<RegistrationIdentifiersRequestDto, RegistrationIdentifiersRequest> {
     override fun map(input: RegistrationIdentifiersRequestDto): RegistrationIdentifiersRequest {
         return RegistrationIdentifiersRequest(
             channel = registrationIdentifierChannelMapper.map(input.channel),
@@ -20,8 +19,7 @@ class RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper(
 @Suppress("MaxLineLength")
 class RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper(
     private val registrationIdentifierChannelMapper: RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper
-) :
-    Mapper<RegistrationIdentifiersRequest, RegistrationIdentifiersRequestDto> {
+) : Mapper<RegistrationIdentifiersRequest, RegistrationIdentifiersRequestDto> {
     override fun map(input: RegistrationIdentifiersRequest): RegistrationIdentifiersRequestDto {
         return RegistrationIdentifiersRequestDto(
             channel = registrationIdentifierChannelMapper.map(input.channel),

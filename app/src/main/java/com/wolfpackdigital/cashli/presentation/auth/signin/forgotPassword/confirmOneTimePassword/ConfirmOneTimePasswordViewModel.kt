@@ -29,14 +29,9 @@ class ConfirmOneTimePasswordViewModel(
         // TODO Add api call and remove mock data
         performApiCall {
             delay(200)
-            if (verificationCode.value == "4321")
-                _invalidCodeErrorVisible.value = R.string.invalid_code_too_many_attempts
-            else if (verificationCode.value != "1234")
-                _invalidCodeErrorVisible.value = R.string.invalid_code
-            else
-                _baseCmd.value = BaseCommand.PerformNavAction(
-                    ConfirmOneTimePasswordFragmentDirections.actionConfirmOneTimePasswordFragmentToResetPasswordFragment()
-                )
+            _baseCmd.value = BaseCommand.PerformNavAction(
+                ConfirmOneTimePasswordFragmentDirections.actionConfirmOneTimePasswordFragmentToResetPasswordFragment()
+            )
         }
     }
 
@@ -49,5 +44,9 @@ class ConfirmOneTimePasswordViewModel(
             delay(200)
             initResendCode()
         }
+    }
+
+    fun onResendConfirmationCodeClicked() {
+        resendConfirmationCodeAndStartTimer()
     }
 }
