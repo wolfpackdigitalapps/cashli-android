@@ -1,5 +1,15 @@
 package com.wolfpackdigital.cashli.application
 
+import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenToIdentifierTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguagesToLanguagesDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestDtoToRefreshTokenRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper
@@ -8,6 +18,10 @@ import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestDto
 import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
 import com.wolfpackdigital.cashli.data.patternMatchers.CityAndStatePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.LettersAndCommaPatternMatcherImpl
@@ -23,7 +37,9 @@ import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
@@ -82,17 +98,20 @@ object AppModules {
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
         viewModel { PhoneNumberViewModel(get(), get()) }
-        viewModel { ChoosePasswordViewModel(get()) }
+        viewModel { ChoosePasswordViewModel(get(), get()) }
         viewModel { SignInViewModel(get()) }
         viewModel { HomeViewModel() }
         viewModel { AccountViewModel() }
         viewModel { MoreViewModel() }
-        viewModel { (codeReceivedViaType: CodeReceivedViaType) ->
+        viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
-                codeReceivedViaType
+                identifier,
+                codeReceivedViaType,
+                get(),
+                get()
             )
         }
-        viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get()) }
+        viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get(), get()) }
         viewModel { ResetPasswordViewModel(get()) }
         viewModel { RequestCodeViewModel(get()) }
         viewModel { (phoneNumberOrEmail: String) ->
@@ -107,7 +126,18 @@ object AppModules {
     }
 
     private val repoModule = module {
-        single<AuthRepository> { AuthRepositoryImpl(get(), get(), get(), get()) }
+        single<AuthRepository> {
+            AuthRepositoryImpl(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
     }
 
     private val patternsModule = module {
@@ -129,6 +159,20 @@ object AppModules {
         factory { RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper() }
         factory { RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper(get()) }
         factory { RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper(get()) }
+        factory { IdentifierTokenDtoToIdentifierTokenMapper() }
+        factory { IdentifierTokenToIdentifierTokenDtoMapper() }
+        factory { CreateUserProfileRequestToCreateUserProfileRequestDtoMapper(get(), get()) }
+        factory { CreateUserProfileRequestDtoToCreateUserProfileRequestMapper(get(), get()) }
+        factory { UserProfileRequestDtoToUserProfileRequestMapper(get()) }
+        factory { UserProfileRequestToUserProfileRequestDtoMapper(get()) }
+        factory { IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper() }
+        factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
+        factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
+        factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
+        factory { UserProfileToUserProfileDtoMapper(get()) }
+        factory { UserProfileDtoToUserProfileMapper(get()) }
+        factory { LanguagesToLanguagesDtoMapper() }
+        factory { LanguagesDtoToLanguagesMapper() }
     }
 
     private val useCases = module {
@@ -155,6 +199,8 @@ object AppModules {
         single { ValidateLettersAndCommaUseCase(get(named(LETTERS_AND_COMMA_PATTERN_MATCHER))) }
         single { ValidateCityAndStateUseCase(get(named(CITY_AND_STATE_PATTERN_MATCHER))) }
         single { ValidateCityAndStateFormUseCase(get(), get()) }
+        single { ValidateCodeByIdentifierUseCase(get()) }
+        single { RegisterNewUserUseCase(get()) }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)

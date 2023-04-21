@@ -21,11 +21,15 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_US
 import com.wolfpackdigital.cashli.shared.utils.Constants.VARIANT_DEVELOP
+import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 
 class PhoneNumberViewModel(
     private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase,
     private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase
 ) : BaseViewModel() {
+
+    private val _cmd = LiveEvent<Command>()
+    val cmd: LiveData<Command> = _cmd
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -71,6 +75,7 @@ class PhoneNumberViewModel(
                     )
                     val result = submitRegistrationIdentifiersUseCase(request)
                     result.onSuccess {
+                        _cmd.value = Command.SavePhoneNumber(request.identifier)
                         _baseCmd.value = BaseCommand.PerformNavAction(
                             PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
                                 CodeReceivedViaType.SMS
@@ -88,5 +93,9 @@ class PhoneNumberViewModel(
                 }
             }
         }
+    }
+
+    sealed class Command {
+        data class SavePhoneNumber(val phoneNumber: String) : Command()
     }
 }

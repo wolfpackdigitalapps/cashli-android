@@ -43,8 +43,6 @@
     <!--Validate Code -->
     <string name="code_from_sms">Enter the code received via SMS</string>
     <string name="code_from_email">Enter the code received via email</string>
-    <string name="invalid_code">Wrong code. Please try again</string>
-    <string name="invalid_code_too_many_attempts">You have entered a wrong code 5 times. Please re-start the process.</string>
     <string name="resend_code">Resend code</string>
     <string name="resend_code_counter">Resend code in %d s</string>
 

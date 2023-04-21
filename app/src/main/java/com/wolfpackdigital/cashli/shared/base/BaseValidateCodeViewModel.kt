@@ -5,6 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.entities.enums.RegistrationIdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
+import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
+import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.combine
@@ -25,8 +36,12 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
     val timerResendEnabled: LiveData<Boolean> = _timerResendEnabled
 
     @Suppress("PropertyName", "VariableNaming")
-    protected val _invalidCodeErrorVisible = MutableLiveData<Int?>()
-    val invalidCodeErrorVisible: LiveData<Int?> = _invalidCodeErrorVisible
+    protected val _invalidCodeErrorVisible = MutableLiveData<Any?>()
+    val invalidCodeErrorVisible: LiveData<Any?> = _invalidCodeErrorVisible
+
+    @Suppress("PropertyName", "VariableNaming")
+    protected val _buttonsEnabled = MutableLiveData(true)
+    val buttonsEnabled: LiveData<Boolean> = _buttonsEnabled
 
     val codeValidateButtonEnabled =
         combine(verificationCode.asFlow(), invalidCodeErrorVisible.asFlow()) { code, error ->
@@ -61,5 +76,69 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
 
     fun clearVerificationCode() {
         verificationCode.value = null
+    }
+
+    open fun resendConfirmationCodeAndStartTimer(
+        identifier: String?,
+        codeReceivedViaType: CodeReceivedViaType,
+        submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase
+    ) {
+        clearInvalidCodeError()
+        clearVerificationCode()
+        initResendCode()
+        performApiCall {
+            identifier?.let { identifier ->
+                val channel = when (codeReceivedViaType) {
+                    CodeReceivedViaType.SMS -> RegistrationIdentifierChannel.SMS
+                    CodeReceivedViaType.EMAIL -> RegistrationIdentifierChannel.EMAIL
+                }
+                val request = RegistrationIdentifiersRequest(
+                    channel = channel,
+                    identifier = identifier
+                )
+                val result = submitRegistrationIdentifiersUseCase(request)
+                result.onError {
+                    val error =
+                        it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                    if (it.errorCode == Constants.ERROR_CODE_422)
+                        _invalidCodeErrorVisible.value = error
+                    else
+                        _baseCmd.value = BaseCommand.ShowToast(error)
+                }
+            }
+        }
+    }
+
+    open fun validateCode(
+        request: IdentifiersCodeValidationRequest,
+        validateCodeByIdentifierUseCase: ValidateCodeByIdentifierUseCase,
+        onSuccessAction: (IdentifierToken) -> Unit = {},
+        onErrorAction: (ApiError) -> Unit = { onValidateCodeError(it) }
+    ) {
+        performApiCall {
+            val result = validateCodeByIdentifierUseCase(request)
+            result.onSuccess {
+                onSuccessAction(it)
+            }
+            result.onError {
+                onErrorAction(it)
+            }
+        }
+    }
+
+    private fun onValidateCodeError(it: ApiError) {
+        val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+        when (it.errorCode) {
+            ERROR_CODE_422 ->
+                _invalidCodeErrorVisible.value = error
+            ERROR_CODE_429 -> {
+                _buttonsEnabled.value = false
+                updateCounterVariables()
+                cancelStepSwipeJob()
+                _invalidCodeErrorVisible.value = error
+            }
+            else ->
+                _baseCmd.value = BaseCommand.ShowToast(error)
+        }
     }
 }
