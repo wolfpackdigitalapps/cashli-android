@@ -16,12 +16,16 @@ import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelDtoT
 import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.SignInRequestDtoToSignInRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.SignInRequestToSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.patternMatchers.CityAndStatePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.LettersAndCommaPatternMatcherImpl
@@ -38,6 +42,7 @@ import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
@@ -99,7 +104,7 @@ object AppModules {
         viewModel { InformativeViewModel() }
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get()) }
-        viewModel { SignInViewModel(get()) }
+        viewModel { SignInViewModel(get(), get()) }
         viewModel { HomeViewModel() }
         viewModel { AccountViewModel() }
         viewModel { MoreViewModel() }
@@ -128,6 +133,7 @@ object AppModules {
     private val repoModule = module {
         single<AuthRepository> {
             AuthRepositoryImpl(
+                get(),
                 get(),
                 get(),
                 get(),
@@ -173,6 +179,10 @@ object AppModules {
         factory { UserProfileDtoToUserProfileMapper(get()) }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
+        factory { SignInRequestToSignInRequestDtoMapper(get()) }
+        factory { SignInRequestDtoToSignInRequestMapper(get()) }
+        factory { UserSignInRequestToUserSignInRequestDtoMapper() }
+        factory { UserSignInRequestDtoToUserSignInRequestMapper() }
     }
 
     private val useCases = module {
@@ -201,6 +211,7 @@ object AppModules {
         single { ValidateCityAndStateFormUseCase(get(), get()) }
         single { ValidateCodeByIdentifierUseCase(get()) }
         single { RegisterNewUserUseCase(get()) }
+        single { SignInUserUseCase(get()) }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)

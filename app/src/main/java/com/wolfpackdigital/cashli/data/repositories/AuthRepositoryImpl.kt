@@ -5,6 +5,7 @@ import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTok
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.SignInRequestToSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.remote.api.AuthApi
@@ -13,6 +14,7 @@ import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequ
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RefreshTokenRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
@@ -26,7 +28,8 @@ class AuthRepositoryImpl(
     private val identifiersCodeValidationRequestMapper: IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper,
     private val identifierTokenMapper: IdentifierTokenDtoToIdentifierTokenMapper,
     private val createUserProfileRequestMapper: CreateUserProfileRequestToCreateUserProfileRequestDtoMapper,
-    private val userProfileMapper: UserProfileDtoToUserProfileMapper
+    private val userProfileMapper: UserProfileDtoToUserProfileMapper,
+    private val signInRequestMapper: SignInRequestToSignInRequestDtoMapper
 ) : AuthRepository {
     override suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token {
         val requestDto = refreshTokenMapper.map(refreshTokenRequest)
@@ -52,5 +55,13 @@ class AuthRepositoryImpl(
         val request = createUserProfileRequestMapper.map(createUserProfileRequest)
         val result = authApi.registerNewUser(request)
         return userProfileMapper.map(result)
+    }
+
+    override suspend fun signInUser(signInRequest: SignInRequest) {
+        authApi.signInUser(
+            signInRequestMapper.map(
+                signInRequest
+            )
+        )
     }
 }

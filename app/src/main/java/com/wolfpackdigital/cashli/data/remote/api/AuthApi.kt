@@ -4,6 +4,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.requests.CreateUserProfileRequ
 import com.wolfpackdigital.cashli.data.remote.dto.requests.IdentifiersCodeValidationRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.RefreshTokenRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.RegistrationIdentifiersRequestDto
+import com.wolfpackdigital.cashli.data.remote.dto.requests.SignInRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.IdentifierTokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.TokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.UserProfileDto
@@ -31,4 +32,9 @@ interface AuthApi {
     suspend fun registerNewUser(
         @Body createUserProfileRequest: CreateUserProfileRequestDto
     ): UserProfileDto
+
+    @POST("v1/sessions")
+    suspend fun signInUser(
+        @Body signInRequest: SignInRequestDto
+    )
 }
