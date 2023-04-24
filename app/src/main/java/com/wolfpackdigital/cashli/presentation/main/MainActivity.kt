@@ -9,6 +9,7 @@ import com.wolfpackdigital.cashli.ActMainBinding
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.BaseActivity
 import com.wolfpackdigital.cashli.shared.notifications.NotificationModel
+import com.wolfpackdigital.cashli.shared.utils.extensions.inflateNewGraph
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActMainBinding, MainActivityViewModel>(R.layout.activity_main) {
@@ -35,6 +36,13 @@ class MainActivity : BaseActivity<ActMainBinding, MainActivityViewModel>(R.layou
     }
 
     private fun setupObservers() {
+        viewModel.isUserLogged.observe(this) {
+            if (it == true)
+                navHostFragment.inflateNewGraph(
+                    graphId = R.navigation.auth_graph,
+                    startDestinationId = R.id.home_graph
+                )
+        }
         viewModel.keepShowingSplash.observe(this) {
             keepSplash = it
         }

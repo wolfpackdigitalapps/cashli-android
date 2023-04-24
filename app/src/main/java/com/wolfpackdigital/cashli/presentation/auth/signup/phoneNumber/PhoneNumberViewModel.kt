@@ -18,14 +18,19 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_US
 import com.wolfpackdigital.cashli.shared.utils.Constants.VARIANT_DEVELOP
+import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 
 class PhoneNumberViewModel(
     private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase,
     private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase
 ) : BaseViewModel() {
+
+    private val _cmd = LiveEvent<Command>()
+    val cmd: LiveData<Command> = _cmd
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -71,6 +76,7 @@ class PhoneNumberViewModel(
                     )
                     val result = submitRegistrationIdentifiersUseCase(request)
                     result.onSuccess {
+                        _cmd.value = Command.SavePhoneNumber(request.identifier)
                         _baseCmd.value = BaseCommand.PerformNavAction(
                             PhoneNumberFragmentDirections.actionPhoneNumberFragmentToValidateCodeFragment(
                                 CodeReceivedViaType.SMS
@@ -80,13 +86,17 @@ class PhoneNumberViewModel(
                     result.onError {
                         val error =
                             it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                        if (it.errorCode == ERROR_CODE_422)
-                            onContinueError.value = error
-                        else
-                            _baseCmd.value = BaseCommand.ShowToast(error)
+                        when (it.errorCode) {
+                            ERROR_CODE_422, ERROR_CODE_429 -> onContinueError.value = error
+                            else -> _baseCmd.value = BaseCommand.ShowToast(error)
+                        }
                     }
                 }
             }
         }
+    }
+
+    sealed class Command {
+        data class SavePhoneNumber(val phoneNumber: String) : Command()
     }
 }
