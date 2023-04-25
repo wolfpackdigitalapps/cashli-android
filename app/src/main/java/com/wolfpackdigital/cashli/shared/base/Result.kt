@@ -1,6 +1,7 @@
 package com.wolfpackdigital.cashli.shared.base
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -44,6 +45,7 @@ inline fun <reified T> Result<T>.onSuccess(callback: (data: T) -> Unit) {
     }
 }
 
+@Keep
 @Parcelize
 data class ApiError(
     val message: String? = null,
