@@ -21,6 +21,7 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.REPEAT_ANIM_ONE_TIME
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.delay
 
 const val API_ERROR = "Invalid credentials"
@@ -28,7 +29,7 @@ const val API_ERROR = "Invalid credentials"
 class SignInViewModel(
     private val validateSignInFormUseCase: ValidateSignInFormUseCase,
     private val signInUserUseCase: SignInUserUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command>
@@ -103,7 +104,8 @@ class SignInViewModel(
             val request = createUserSignInRequest()
             request ?: return@validateFields
             val result = signInUserUseCase(request)
-            result.onSuccess {
+            result.onSuccess { newProfile ->
+                userProfile = newProfile
                 _baseCmd.value = BaseCommand.PerformNavAction(
                     NavigationDirections.actionGlobalHomeGraph(),
                     popUpTo = R.id.navigation,

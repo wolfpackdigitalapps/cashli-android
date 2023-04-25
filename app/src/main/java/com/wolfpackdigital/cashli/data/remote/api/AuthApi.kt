@@ -36,5 +36,5 @@ interface AuthApi {
     @POST("v1/sessions")
     suspend fun signInUser(
         @Body signInRequest: SignInRequestDto
-    )
+    ): UserProfileDto
 }

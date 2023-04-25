@@ -57,11 +57,9 @@ class AuthRepositoryImpl(
         return userProfileMapper.map(result)
     }
 
-    override suspend fun signInUser(signInRequest: SignInRequest) {
-        authApi.signInUser(
-            signInRequestMapper.map(
-                signInRequest
-            )
-        )
+    override suspend fun signInUser(signInRequest: SignInRequest): UserProfile {
+        val request = signInRequestMapper.map(signInRequest)
+        val result = authApi.signInUser(request)
+        return userProfileMapper.map(result)
     }
 }

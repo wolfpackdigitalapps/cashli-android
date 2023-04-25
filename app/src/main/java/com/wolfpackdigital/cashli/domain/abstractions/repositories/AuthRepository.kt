@@ -25,5 +25,5 @@ interface AuthRepository {
 
     suspend fun signInUser(
         signInRequest: SignInRequest
-    )
+    ): UserProfile
 }
