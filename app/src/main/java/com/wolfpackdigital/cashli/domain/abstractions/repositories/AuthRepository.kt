@@ -2,10 +2,13 @@ package com.wolfpackdigital.cashli.domain.abstractions.repositories
 
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersCodeValidationRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RefreshTokenRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
+import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierToken
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
@@ -26,4 +29,12 @@ interface AuthRepository {
     suspend fun signInUser(
         signInRequest: SignInRequest
     ): UserProfile
+
+    suspend fun submitPasswordIdentifiers(
+        passwordIdentifiersRequest: PasswordIdentifiersRequest
+    )
+
+    suspend fun validateCodeByPasswordIdentifier(
+        passwordIdentifiersCodeValidationRequest: PasswordIdentifiersCodeValidationRequest
+    ): PasswordIdentifierToken
 }

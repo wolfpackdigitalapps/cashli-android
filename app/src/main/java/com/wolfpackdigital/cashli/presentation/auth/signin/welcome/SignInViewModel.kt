@@ -100,7 +100,6 @@ class SignInViewModel(
     @Suppress("MagicNumber")
     fun signUserIn() {
         validateFields {
-            // TODO add call to BE and nav to success dialog
             val request = createUserSignInRequest()
             request ?: return@validateFields
             val result = signInUserUseCase(request)

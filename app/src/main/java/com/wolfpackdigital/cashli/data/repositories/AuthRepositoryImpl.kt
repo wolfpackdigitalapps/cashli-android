@@ -3,6 +3,9 @@ package com.wolfpackdigital.cashli.data.repositories
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersCodeValidationRequestToPasswordIdentifiersCodeValidationRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersRequestToPasswordIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.SignInRequestToSignInRequestDtoMapper
@@ -12,10 +15,13 @@ import com.wolfpackdigital.cashli.data.remote.api.AuthApi
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersCodeValidationRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RefreshTokenRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
+import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierToken
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
@@ -29,7 +35,10 @@ class AuthRepositoryImpl(
     private val identifierTokenMapper: IdentifierTokenDtoToIdentifierTokenMapper,
     private val createUserProfileRequestMapper: CreateUserProfileRequestToCreateUserProfileRequestDtoMapper,
     private val userProfileMapper: UserProfileDtoToUserProfileMapper,
-    private val signInRequestMapper: SignInRequestToSignInRequestDtoMapper
+    private val signInRequestMapper: SignInRequestToSignInRequestDtoMapper,
+    private val passwordIdentifiersRequestMapper: PasswordIdentifiersRequestToPasswordIdentifiersRequestDtoMapper,
+    private val passwordIdentifiersCodeValidationRequestMapper: PasswordIdentifiersCodeValidationRequestToPasswordIdentifiersCodeValidationRequestDtoMapper,
+    private val passwordIdentifierTokenMapper: PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
 ) : AuthRepository {
     override suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token {
         val requestDto = refreshTokenMapper.map(refreshTokenRequest)
@@ -61,5 +70,21 @@ class AuthRepositoryImpl(
         val request = signInRequestMapper.map(signInRequest)
         val result = authApi.signInUser(request)
         return userProfileMapper.map(result)
+    }
+
+    override suspend fun submitPasswordIdentifiers(passwordIdentifiersRequest: PasswordIdentifiersRequest) {
+        authApi.submitPasswordIdentifiers(
+            passwordIdentifiersRequestMapper.map(
+                passwordIdentifiersRequest
+            )
+        )
+    }
+
+    override suspend fun validateCodeByPasswordIdentifier(passwordIdentifiersCodeValidationRequest: PasswordIdentifiersCodeValidationRequest): PasswordIdentifierToken {
+        val request = passwordIdentifiersCodeValidationRequestMapper.map(
+            passwordIdentifiersCodeValidationRequest
+        )
+        val result = authApi.validateCodeByPasswordIdentifier(request)
+        return passwordIdentifierTokenMapper.map(result)
     }
 }
