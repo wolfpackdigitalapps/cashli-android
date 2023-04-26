@@ -5,8 +5,8 @@ import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.shared.base.BaseUseCase
 import com.wolfpackdigital.cashli.shared.base.Result
 
-class SubmitRegistrationIdentifiersUseCase(private val repo: AuthRepository) :
+class SubmitPasswordIdentifiersUseCase(private val repo: AuthRepository) :
     BaseUseCase<IdentifiersRequest, Unit>() {
     override suspend fun run(params: IdentifiersRequest): Result<Unit> =
-        Result.Success(repo.submitRegistrationIdentifiers(params))
+        Result.Success(repo.submitPasswordIdentifiers(params))
 }

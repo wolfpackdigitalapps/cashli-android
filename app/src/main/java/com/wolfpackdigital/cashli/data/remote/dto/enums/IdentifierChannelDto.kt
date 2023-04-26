@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-enum class RegistrationIdentifierChannelDto : Parcelable {
+enum class IdentifierChannelDto : Parcelable {
     @SerializedName("sms")
     SMS,
 

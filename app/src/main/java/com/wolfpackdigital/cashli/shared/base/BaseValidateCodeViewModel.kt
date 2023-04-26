@@ -7,12 +7,14 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
-import com.wolfpackdigital.cashli.domain.entities.enums.RegistrationIdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
+import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierToken
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
@@ -88,10 +90,10 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
         performApiCall {
             identifier?.let { identifier ->
                 val channel = when (codeReceivedViaType) {
-                    CodeReceivedViaType.SMS -> RegistrationIdentifierChannel.SMS
-                    CodeReceivedViaType.EMAIL -> RegistrationIdentifierChannel.EMAIL
+                    CodeReceivedViaType.SMS -> IdentifierChannel.SMS
+                    CodeReceivedViaType.EMAIL -> IdentifierChannel.EMAIL
                 }
-                val request = RegistrationIdentifiersRequest(
+                val request = IdentifiersRequest(
                     channel = channel,
                     identifier = identifier
                 )
@@ -116,6 +118,23 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
     ) {
         performApiCall {
             val result = validateCodeByIdentifierUseCase(request)
+            result.onSuccess {
+                onSuccessAction(it)
+            }
+            result.onError {
+                onErrorAction(it)
+            }
+        }
+    }
+
+    open fun validatePasswordCode(
+        request: IdentifiersCodeValidationRequest,
+        validateCodeByPasswordIdentifierUseCase: ValidateCodeByPasswordIdentifierUseCase,
+        onSuccessAction: (PasswordIdentifierToken) -> Unit = {},
+        onErrorAction: (ApiError) -> Unit = { onValidateCodeError(it) }
+    ) {
+        performApiCall {
+            val result = validateCodeByPasswordIdentifierUseCase(request)
             result.onSuccess {
                 onSuccessAction(it)
             }

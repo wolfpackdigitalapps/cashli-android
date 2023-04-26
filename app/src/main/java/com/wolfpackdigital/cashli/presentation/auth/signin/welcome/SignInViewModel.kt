@@ -5,20 +5,31 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.UserSignInRequest
+import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.REPEAT_ANIM_ONE_TIME
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import kotlinx.coroutines.delay
+import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
+
+const val API_ERROR = "Invalid credentials"
 
 class SignInViewModel(
-    private val validateSignInFormUseCase: ValidateSignInFormUseCase
-) : BaseViewModel() {
+    private val validateSignInFormUseCase: ValidateSignInFormUseCase,
+    private val signInUserUseCase: SignInUserUseCase
+) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command>
@@ -86,18 +97,56 @@ class SignInViewModel(
         isPasswordVisible.value = isPasswordVisible.value?.not() ?: false
     }
 
-    @Suppress("MagicNumber")
     fun signUserIn() {
         validateFields {
-            // TODO add call to BE and nav to success dialog
-            delay(2000)
-            _baseCmd.value = BaseCommand.PerformNavAction(
-                NavigationDirections.actionGlobalHomeGraph(),
-                popUpTo = R.id.navigation,
-                inclusive = true
-            )
+            val request = createUserSignInRequest()
+            request ?: return@validateFields
+            val result = signInUserUseCase(request)
+            result.onSuccess { newProfile ->
+                userProfile = newProfile
+                token = newProfile.tokens
+                _baseCmd.value = BaseCommand.PerformNavAction(
+                    NavigationDirections.actionGlobalHomeGraph(),
+                    popUpTo = R.id.navigation,
+                    inclusive = true
+                )
+            }
+            result.onError {
+                val error =
+                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                if (error == API_ERROR) {
+                    _error.value = R.string.incorrect_credentials_with_email
+                } else {
+                    _baseCmd.value = BaseCommand.ShowToast(error)
+                }
+            }
         }
     }
+
+    private fun createUserSignInRequest() =
+        if (isEmailCredentialsInUse.value == true) {
+            safeLet(email.value, password.value) { email, password ->
+                return@safeLet SignInRequest(
+                    userSignInRequest = UserSignInRequest(
+                        identifier = email,
+                        password = password
+                    )
+                )
+            }
+        } else {
+            safeLet(phoneNumber.value, password.value) { phoneNumber, password ->
+                val identifierPrefix = if (BuildConfig.FLAVOR == Constants.VARIANT_DEVELOP)
+                    Constants.PHONE_PREFIX_RO
+                else
+                    Constants.PHONE_PREFIX_US
+                return@safeLet SignInRequest(
+                    userSignInRequest = UserSignInRequest(
+                        identifier = "$identifierPrefix$phoneNumber",
+                        password = password
+                    )
+                )
+            }
+        }
 
     fun forgotPassword() {
         _baseCmd.value = BaseCommand.PerformNavAction(

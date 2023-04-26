@@ -14,7 +14,10 @@ class ConfirmOneTimePasswordFragment :
 
     private val navArgs by navArgs<ConfirmOneTimePasswordFragmentArgs>()
     override val viewModel by viewModel<ConfirmOneTimePasswordViewModel> {
-        parametersOf(navArgs.phoneNumberOrEmail)
+        parametersOf(
+            navArgs.phoneNumberOrEmail,
+            navArgs.codeReceivedViaType
+        )
     }
 
     override fun setupViews() {
