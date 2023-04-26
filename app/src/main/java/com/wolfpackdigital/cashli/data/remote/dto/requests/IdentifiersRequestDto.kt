@@ -6,7 +6,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.enums.RegistrationIdentifierCh
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RegistrationIdentifiersRequestDto(
+data class IdentifiersRequestDto(
     @SerializedName("channel") val channel: RegistrationIdentifierChannelDto,
     @SerializedName("identifier") val identifier: String
 ) : Parcelable

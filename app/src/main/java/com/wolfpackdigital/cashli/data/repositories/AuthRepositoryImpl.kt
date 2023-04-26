@@ -4,10 +4,9 @@ import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateU
 import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
-import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersCodeValidationRequestToPasswordIdentifiersCodeValidationRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersRequestToPasswordIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestToIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestToResetPasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.SignInRequestToSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
@@ -15,10 +14,9 @@ import com.wolfpackdigital.cashli.data.remote.api.AuthApi
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersCodeValidationRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RefreshTokenRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.ResetPasswordRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
 import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierToken
@@ -30,15 +28,14 @@ class AuthRepositoryImpl(
     private val authApi: AuthApi,
     private val tokenMapper: TokenDtoToTokenMapper,
     private val refreshTokenMapper: RefreshTokenRequestToRefreshTokenRequestDtoMapper,
-    private val registrationIdentifiersRequestMapper: RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper,
+    private val identifiersRequestMapper: IdentifiersRequestToIdentifiersRequestDtoMapper,
     private val identifiersCodeValidationRequestMapper: IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper,
     private val identifierTokenMapper: IdentifierTokenDtoToIdentifierTokenMapper,
     private val createUserProfileRequestMapper: CreateUserProfileRequestToCreateUserProfileRequestDtoMapper,
     private val userProfileMapper: UserProfileDtoToUserProfileMapper,
     private val signInRequestMapper: SignInRequestToSignInRequestDtoMapper,
-    private val passwordIdentifiersRequestMapper: PasswordIdentifiersRequestToPasswordIdentifiersRequestDtoMapper,
-    private val passwordIdentifiersCodeValidationRequestMapper: PasswordIdentifiersCodeValidationRequestToPasswordIdentifiersCodeValidationRequestDtoMapper,
-    private val passwordIdentifierTokenMapper: PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
+    private val passwordIdentifierTokenMapper: PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper,
+    private val resetPasswordRequestDtoToResetPasswordRequestMapper: ResetPasswordRequestToResetPasswordRequestDtoMapper
 ) : AuthRepository {
     override suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token {
         val requestDto = refreshTokenMapper.map(refreshTokenRequest)
@@ -46,10 +43,10 @@ class AuthRepositoryImpl(
         return tokenMapper.map(result)
     }
 
-    override suspend fun submitRegistrationIdentifiers(registrationIdentifiersRequest: RegistrationIdentifiersRequest) {
+    override suspend fun submitRegistrationIdentifiers(identifiersRequest: IdentifiersRequest) {
         authApi.submitRegistrationIdentifiers(
-            registrationIdentifiersRequestMapper.map(
-                registrationIdentifiersRequest
+            identifiersRequestMapper.map(
+                identifiersRequest
             )
         )
     }
@@ -72,19 +69,25 @@ class AuthRepositoryImpl(
         return userProfileMapper.map(result)
     }
 
-    override suspend fun submitPasswordIdentifiers(passwordIdentifiersRequest: PasswordIdentifiersRequest) {
+    override suspend fun submitPasswordIdentifiers(passwordIdentifiersRequest: IdentifiersRequest) {
         authApi.submitPasswordIdentifiers(
-            passwordIdentifiersRequestMapper.map(
+            identifiersRequestMapper.map(
                 passwordIdentifiersRequest
             )
         )
     }
 
-    override suspend fun validateCodeByPasswordIdentifier(passwordIdentifiersCodeValidationRequest: PasswordIdentifiersCodeValidationRequest): PasswordIdentifierToken {
-        val request = passwordIdentifiersCodeValidationRequestMapper.map(
+    override suspend fun validateCodeByPasswordIdentifier(passwordIdentifiersCodeValidationRequest: IdentifiersCodeValidationRequest): PasswordIdentifierToken {
+        val request = identifiersCodeValidationRequestMapper.map(
             passwordIdentifiersCodeValidationRequest
         )
         val result = authApi.validateCodeByPasswordIdentifier(request)
         return passwordIdentifierTokenMapper.map(result)
+    }
+
+    override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest) {
+        authApi.resetPassword(
+            resetPasswordRequestDtoToResetPasswordRequestMapper.map(resetPasswordRequest)
+        )
     }
 }

@@ -12,16 +12,14 @@ import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
 import com.wolfpackdigital.cashli.data.mappers.LanguagesToLanguagesDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersCodeValidationRequestDtoToPasswordIdentifiersCodeValidationRequestMapper
-import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersCodeValidationRequestToPasswordIdentifiersCodeValidationRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersRequestDtoToPasswordIdentifiersRequestMapper
-import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifiersRequestToPasswordIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestDtoToRefreshTokenRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper
-import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper
-import com.wolfpackdigital.cashli.data.mappers.RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelToIdentifierChannelDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestDtoToIdentifiersRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestToIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestDtoToResetPasswordRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestToResetPasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.SignInRequestDtoToSignInRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.SignInRequestToSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
@@ -149,7 +147,6 @@ object AppModules {
                 get(),
                 get(),
                 get(),
-                get(),
                 get()
             )
         }
@@ -170,10 +167,10 @@ object AppModules {
         factory { TokenToTokenDtoMapper() }
         factory { RefreshTokenRequestToRefreshTokenRequestDtoMapper() }
         factory { RefreshTokenRequestDtoToRefreshTokenRequestMapper() }
-        factory { RegistrationIdentifierChannelToRegistrationIdentifierChannelDtoMapper() }
-        factory { RegistrationIdentifierChannelDtoToRegistrationIdentifierChannelMapper() }
-        factory { RegistrationIdentifiersRequestDtoToRegistrationIdentifiersRequestMapper(get()) }
-        factory { RegistrationIdentifiersRequestToRegistrationIdentifiersRequestDtoMapper(get()) }
+        factory { IdentifierChannelToIdentifierChannelDtoMapper() }
+        factory { IdentifierChannelDtoToIdentifierChannelMapper() }
+        factory { IdentifiersRequestDtoToIdentifiersRequestMapper(get()) }
+        factory { IdentifiersRequestToIdentifiersRequestDtoMapper(get()) }
         factory { IdentifierTokenDtoToIdentifierTokenMapper() }
         factory { IdentifierTokenToIdentifierTokenDtoMapper() }
         factory { CreateUserProfileRequestToCreateUserProfileRequestDtoMapper(get(), get()) }
@@ -192,12 +189,10 @@ object AppModules {
         factory { SignInRequestDtoToSignInRequestMapper(get()) }
         factory { UserSignInRequestToUserSignInRequestDtoMapper() }
         factory { UserSignInRequestDtoToUserSignInRequestMapper() }
-        factory { PasswordIdentifiersRequestToPasswordIdentifiersRequestDtoMapper(get()) }
-        factory { PasswordIdentifiersRequestDtoToPasswordIdentifiersRequestMapper(get()) }
-        factory { PasswordIdentifiersCodeValidationRequestToPasswordIdentifiersCodeValidationRequestDtoMapper() }
-        factory { PasswordIdentifiersCodeValidationRequestDtoToPasswordIdentifiersCodeValidationRequestMapper() }
         factory { PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper() }
         factory { PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper() }
+        factory { ResetPasswordRequestDtoToResetPasswordRequestMapper() }
+        factory { ResetPasswordRequestToResetPasswordRequestDtoMapper() }
     }
 
     private val useCases = module {

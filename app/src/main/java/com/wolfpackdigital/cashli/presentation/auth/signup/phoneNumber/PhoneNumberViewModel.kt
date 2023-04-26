@@ -7,8 +7,8 @@ import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
-import com.wolfpackdigital.cashli.domain.entities.enums.RegistrationIdentifierChannel
-import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
@@ -70,8 +70,8 @@ class PhoneNumberViewModel(
                 else
                     PHONE_PREFIX_US
                 performApiCall {
-                    val request = RegistrationIdentifiersRequest(
-                        channel = RegistrationIdentifierChannel.SMS,
+                    val request = IdentifiersRequest(
+                        channel = IdentifierChannel.SMS,
                         identifier = "$identifierPrefix$number"
                     )
                     val result = submitRegistrationIdentifiersUseCase(request)

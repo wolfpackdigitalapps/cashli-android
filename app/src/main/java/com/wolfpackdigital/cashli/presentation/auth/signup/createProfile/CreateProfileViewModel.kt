@@ -9,8 +9,8 @@ import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.Languages
-import com.wolfpackdigital.cashli.domain.entities.enums.RegistrationIdentifierChannel
-import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UserProfileRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
@@ -92,8 +92,8 @@ class CreateProfileViewModel(
             (validateStreet() == true) and (validateFirstName() == true) and (validateLastName() == true)
         ) {
             performApiCall {
-                val request = RegistrationIdentifiersRequest(
-                    channel = RegistrationIdentifierChannel.EMAIL,
+                val request = IdentifiersRequest(
+                    channel = IdentifierChannel.EMAIL,
                     identifier = email.value.orEmpty()
                 )
                 val result = submitRegistrationIdentifiersUseCase(request)

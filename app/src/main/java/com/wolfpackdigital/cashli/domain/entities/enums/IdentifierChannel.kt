@@ -1,5 +1,5 @@
 package com.wolfpackdigital.cashli.domain.entities.enums
 
-enum class RegistrationIdentifierChannel {
+enum class IdentifierChannel {
     SMS, EMAIL
 }

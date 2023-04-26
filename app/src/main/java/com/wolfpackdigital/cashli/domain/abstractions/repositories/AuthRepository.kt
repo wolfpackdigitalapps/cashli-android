@@ -2,10 +2,9 @@ package com.wolfpackdigital.cashli.domain.abstractions.repositories
 
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersCodeValidationRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.PasswordIdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RefreshTokenRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.ResetPasswordRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
 import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierToken
@@ -15,7 +14,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 interface AuthRepository {
     suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token
     suspend fun submitRegistrationIdentifiers(
-        registrationIdentifiersRequest: RegistrationIdentifiersRequest
+        identifiersRequest: IdentifiersRequest
     )
 
     suspend fun validateCodeByIdentifier(
@@ -31,10 +30,14 @@ interface AuthRepository {
     ): UserProfile
 
     suspend fun submitPasswordIdentifiers(
-        passwordIdentifiersRequest: PasswordIdentifiersRequest
+        passwordIdentifiersRequest: IdentifiersRequest
     )
 
     suspend fun validateCodeByPasswordIdentifier(
-        passwordIdentifiersCodeValidationRequest: PasswordIdentifiersCodeValidationRequest
+        passwordIdentifiersCodeValidationRequest: IdentifiersCodeValidationRequest
     ): PasswordIdentifierToken
+
+    suspend fun resetPassword(
+        resetPasswordRequest: ResetPasswordRequest
+    )
 }

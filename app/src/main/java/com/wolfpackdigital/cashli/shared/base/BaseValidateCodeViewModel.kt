@@ -7,9 +7,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
-import com.wolfpackdigital.cashli.domain.entities.enums.RegistrationIdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.RegistrationIdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
@@ -88,10 +88,10 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
         performApiCall {
             identifier?.let { identifier ->
                 val channel = when (codeReceivedViaType) {
-                    CodeReceivedViaType.SMS -> RegistrationIdentifierChannel.SMS
-                    CodeReceivedViaType.EMAIL -> RegistrationIdentifierChannel.EMAIL
+                    CodeReceivedViaType.SMS -> IdentifierChannel.SMS
+                    CodeReceivedViaType.EMAIL -> IdentifierChannel.EMAIL
                 }
-                val request = RegistrationIdentifiersRequest(
+                val request = IdentifiersRequest(
                     channel = channel,
                     identifier = identifier
                 )
