@@ -5,18 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.requests.ResetPasswordRequest
+import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 
 class ResetPasswordViewModel(
-    private val choosePasswordFormUseCase: ValidateChoosePasswordFormUseCase
+    private val resetToken: String,
+    private val choosePasswordFormUseCase: ValidateChoosePasswordFormUseCase,
+    private val resetPasswordUseCase: ResetPasswordUseCase
 ) : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
@@ -53,7 +58,7 @@ class ResetPasswordViewModel(
         _isConfirmPasswordVisible.value = _isConfirmPasswordVisible.value?.not()
     }
 
-    private fun validatePasswords(onValidInput: suspend () -> Unit) {
+    private fun validatePasswords(onValidInput: suspend (String, String) -> Unit) {
         safeLet(password.value, confirmPassword.value) { password, confirmPassword ->
             val validatePasswordsResult = choosePasswordFormUseCase(
                 password = password,
@@ -63,7 +68,7 @@ class ResetPasswordViewModel(
                 _passwordError.value = validatePasswordsResult.errorMessageId
             } else {
                 performApiCall {
-                    onValidInput()
+                    onValidInput(password, confirmPassword)
                 }
             }
         }
@@ -71,19 +76,31 @@ class ResetPasswordViewModel(
 
     @Suppress("MagicNumber")
     fun onConfirmClicked() {
-        validatePasswords {
-            delay(200)
-            _baseCmd.value = BaseCommand.ShowPopupById(
-                PopupConfig(
-                    titleId = R.string.bravo_text,
-                    imageId = R.drawable.ic_guard_check,
-                    contentIdOrString = R.string.password_reset_success,
-                    timerCount = Constants.COUNT_DOWN_TIME_6_SEC,
-                    buttonCloseClick = {
-                        navigateToSignIn()
-                    }
-                )
+        validatePasswords { password, confirmPassword ->
+            val request = ResetPasswordRequest(
+                token = resetToken,
+                password = password,
+                confirmPassword = confirmPassword
             )
+            val result = resetPasswordUseCase(request)
+            result.onSuccess {
+                _baseCmd.value = BaseCommand.ShowPopupById(
+                    PopupConfig(
+                        titleId = R.string.bravo_text,
+                        imageId = R.drawable.ic_guard_check,
+                        contentIdOrString = R.string.password_reset_success,
+                        timerCount = Constants.COUNT_DOWN_TIME_6_SEC,
+                        buttonCloseClick = {
+                            navigateToSignIn()
+                        }
+                    )
+                )
+            }
+            result.onError {
+                val error =
+                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                _baseCmd.value = BaseCommand.ShowToast(error)
+            }
         }
     }
 

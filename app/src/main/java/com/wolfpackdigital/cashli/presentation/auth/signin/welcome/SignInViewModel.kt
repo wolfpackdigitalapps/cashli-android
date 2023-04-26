@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
@@ -17,12 +18,11 @@ import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.REPEAT_ANIM_ONE_TIME
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
-import kotlinx.coroutines.delay
 
 const val API_ERROR = "Invalid credentials"
 
@@ -97,7 +97,6 @@ class SignInViewModel(
         isPasswordVisible.value = isPasswordVisible.value?.not() ?: false
     }
 
-    @Suppress("MagicNumber")
     fun signUserIn() {
         validateFields {
             val request = createUserSignInRequest()
@@ -114,9 +113,9 @@ class SignInViewModel(
             result.onError {
                 val error =
                     it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                if(error ==  API_ERROR){
+                if (error == API_ERROR) {
                     _error.value = R.string.incorrect_credentials_with_email
-                }else {
+                } else {
                     _baseCmd.value = BaseCommand.ShowToast(error)
                 }
             }
@@ -135,15 +134,18 @@ class SignInViewModel(
             }
         } else {
             safeLet(phoneNumber.value, password.value) { phoneNumber, password ->
+                val identifierPrefix = if (BuildConfig.FLAVOR == Constants.VARIANT_DEVELOP)
+                    Constants.PHONE_PREFIX_RO
+                else
+                    Constants.PHONE_PREFIX_US
                 return@safeLet SignInRequest(
                     userSignInRequest = UserSignInRequest(
-                        identifier = phoneNumber,
+                        identifier = "$identifierPrefix$phoneNumber",
                         password = password
                     )
                 )
             }
         }
-
 
     fun forgotPassword() {
         _baseCmd.value = BaseCommand.PerformNavAction(

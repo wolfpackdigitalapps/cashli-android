@@ -2,10 +2,14 @@ package com.wolfpackdigital.cashli.application
 
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelToIdentifierChannelDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenToIdentifierTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestDtoToIdentifiersRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestToIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
@@ -14,10 +18,6 @@ import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPassw
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestDtoToRefreshTokenRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
-import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelToIdentifierChannelDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestDtoToIdentifiersRequestMapper
-import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestToIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestDtoToResetPasswordRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestToResetPasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.SignInRequestDtoToSignInRequestMapper
@@ -46,9 +46,12 @@ import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
@@ -121,11 +124,14 @@ object AppModules {
             )
         }
         viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get(), get()) }
-        viewModel { ResetPasswordViewModel(get()) }
-        viewModel { RequestCodeViewModel(get()) }
-        viewModel { (phoneNumberOrEmail: String) ->
+        viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
+        viewModel { RequestCodeViewModel(get(), get()) }
+        viewModel { (phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType) ->
             ConfirmOneTimePasswordViewModel(
-                phoneNumberOrEmail
+                phoneNumberOrEmail,
+                codeReceivedViaType,
+                get(),
+                get()
             )
         }
     }
@@ -222,6 +228,9 @@ object AppModules {
         single { ValidateCodeByIdentifierUseCase(get()) }
         single { RegisterNewUserUseCase(get()) }
         single { SignInUserUseCase(get()) }
+        single { SubmitPasswordIdentifiersUseCase(get()) }
+        single { ValidateCodeByPasswordIdentifierUseCase(get()) }
+        single { ResetPasswordUseCase(get()) }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)

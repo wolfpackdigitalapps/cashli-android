@@ -24,5 +24,4 @@ class ResetPasswordRequestDtoToResetPasswordRequestMapper :
             confirmPassword = input.passwordConfirmation
         )
     }
-
 }
