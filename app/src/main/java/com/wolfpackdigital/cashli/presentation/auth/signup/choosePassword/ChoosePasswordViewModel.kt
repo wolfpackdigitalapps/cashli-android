@@ -134,6 +134,7 @@ class ChoosePasswordViewModel(
             val result = registerNewUserUseCase(profileRequest)
             result.onSuccess { newUserProfile ->
                 userProfile = newUserProfile
+                token = newUserProfile.tokens
                 _cmd.value = Command.ClearSignUpData
                 _baseCmd.value = BaseCommand.ShowPopupById(
                     PopupConfig(
