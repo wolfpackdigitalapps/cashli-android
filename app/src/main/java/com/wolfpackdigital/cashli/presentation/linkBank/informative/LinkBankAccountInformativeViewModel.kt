@@ -8,6 +8,14 @@ import com.plaid.link.result.LinkExit
 import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.requests.CompleteLinkBankAccountRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountBalanceRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountInfoRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountLocalizedBalanceRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountMetadataRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountSubtypeRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountTypeRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountVerificationStatusRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkInstitutionRequest
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
@@ -50,10 +58,7 @@ class LinkBankAccountInformativeViewModel(
 
     fun onSuccessLinkingBankAccount(linkSuccess: LinkSuccess) {
         performApiCall {
-            val request = CompleteLinkBankAccountRequest(
-                publicToken = linkSuccess.publicToken,
-                metadata = linkSuccess.metadata
-            )
+            val request = createLinkBankAccountRequest(linkSuccess)
             val result = completeLinkingBankAccountUseCase(request)
             result.onSuccess {
                 // TODO Show success message
@@ -63,6 +68,44 @@ class LinkBankAccountInformativeViewModel(
             }
         }
     }
+
+    private fun createLinkBankAccountRequest(linkSuccess: LinkSuccess) =
+        CompleteLinkBankAccountRequest(
+            publicToken = linkSuccess.publicToken,
+            metadata = LinkAccountMetadataRequest(
+                accounts = linkSuccess.metadata.accounts.map { linkAccount ->
+                    LinkAccountInfoRequest(
+                        id = linkAccount.id,
+                        name = linkAccount.name,
+                        mask = linkAccount.mask,
+                        subtype = LinkAccountSubtypeRequest(
+                            name = linkAccount.subtype.json,
+                            type = LinkAccountTypeRequest(
+                                name = linkAccount.subtype.accountType.json
+                            )
+                        ),
+                        verificationStatus = LinkAccountVerificationStatusRequest(
+                            name = linkAccount.verificationStatus?.json
+                        ),
+                        balance = LinkAccountBalanceRequest(
+                            available = linkAccount.balance?.available,
+                            currency = linkAccount.balance?.currency,
+                            current = linkAccount.balance?.current,
+                            localized = LinkAccountLocalizedBalanceRequest(
+                                available = linkAccount.balance?.localized?.available,
+                                current = linkAccount.balance?.localized?.current
+                            )
+                        )
+                    )
+                },
+                institution = LinkInstitutionRequest(
+                    id = linkSuccess.metadata.institution?.id,
+                    name = linkSuccess.metadata.institution?.name
+                ),
+                linkSessionId = linkSuccess.metadata.linkSessionId,
+                metadataJson = linkSuccess.metadata.metadataJson
+            )
+        )
 
     fun onFailLinkingBankAccount(linkFail: LinkExit) {
         linkFail.error?.let {
