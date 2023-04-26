@@ -5,7 +5,8 @@ import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
 class UserProfileDtoToUserProfileMapper(
-    private val languagesMapper: LanguagesDtoToLanguagesMapper
+    private val languagesMapper: LanguagesDtoToLanguagesMapper,
+    private val tokenMapper: TokenDtoToTokenMapper
 ) : Mapper<UserProfileDto, UserProfile> {
     override fun map(input: UserProfileDto): UserProfile {
         return UserProfile(
@@ -18,13 +19,15 @@ class UserProfileDtoToUserProfileMapper(
             zipCode = input.zipCode,
             city = input.city,
             state = input.state,
-            language = languagesMapper.map(input.language)
+            language = languagesMapper.map(input.language),
+            tokens = tokenMapper.map(input.tokens)
         )
     }
 }
 
 class UserProfileToUserProfileDtoMapper(
-    private val languagesMapper: LanguagesToLanguagesDtoMapper
+    private val languagesMapper: LanguagesToLanguagesDtoMapper,
+    private val tokenMapper: TokenToTokenDtoMapper
 ) : Mapper<UserProfile, UserProfileDto> {
     override fun map(input: UserProfile): UserProfileDto {
         return UserProfileDto(
@@ -37,7 +40,8 @@ class UserProfileToUserProfileDtoMapper(
             zipCode = input.zipCode,
             city = input.city,
             state = input.state,
-            language = languagesMapper.map(input.language)
+            language = languagesMapper.map(input.language),
+            tokens = tokenMapper.map(input.tokens)
         )
     }
 }

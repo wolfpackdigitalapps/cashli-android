@@ -16,5 +16,6 @@ data class UserProfileDto(
     @SerializedName("zip_code") val zipCode: String,
     @SerializedName("city") val city: String,
     @SerializedName("state") val state: String,
-    @SerializedName("language") val language: LanguagesDto = LanguagesDto.ENGLISH
+    @SerializedName("language") val language: LanguagesDto = LanguagesDto.ENGLISH,
+    @SerializedName("tokens") val tokens: TokenDto
 ) : Parcelable

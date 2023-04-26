@@ -1,5 +1,8 @@
 package com.wolfpackdigital.cashli.presentation.linkBank.informative
 
+import com.plaid.link.OpenPlaidLink
+import com.plaid.link.result.LinkExit
+import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.LinkBankAccountInformativeBinding
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
@@ -12,6 +15,25 @@ class LinkBankAccountInformativeFragment :
 
     override val viewModel by viewModel<LinkBankAccountInformativeViewModel>()
 
+    private val linkAccountToPlaidLauncher =
+        registerForActivityResult(OpenPlaidLink()) { linkResult ->
+            when (linkResult) {
+                is LinkSuccess -> viewModel.onSuccessLinkingBankAccount(linkResult)
+                is LinkExit -> viewModel.onFailLinkingBankAccount(linkResult)
+            }
+        }
+
     override fun setupViews() {
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        viewModel.cmd.observe(viewLifecycleOwner) {
+            when (it) {
+                is LinkBankAccountInformativeViewModel.Command.StartLinkingBackAccount -> {
+                    linkAccountToPlaidLauncher.launch(it.linkTokenConfiguration)
+                }
+            }
+        }
     }
 }

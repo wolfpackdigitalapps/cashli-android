@@ -1,0 +1,25 @@
+package com.wolfpackdigital.cashli.data.repositories
+
+import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
+import com.wolfpackdigital.cashli.data.remote.api.BankApi
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepository
+import com.wolfpackdigital.cashli.domain.entities.requests.CompleteLinkBankAccountRequest
+import com.wolfpackdigital.cashli.domain.entities.response.BankToken
+
+@Suppress("MaxLineLength")
+class BankRepositoryImpl(
+    private val bankApi: BankApi,
+    private val bankTokenMapper: BankTokenDtoToBankTokenMapper,
+    private val bankAccountRequestMapper: CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
+) : BankRepository {
+    override suspend fun generateLinkToken(): BankToken {
+        val result = bankApi.generateLinkToken()
+        return bankTokenMapper.map(result)
+    }
+
+    override suspend fun completeLinkingBankAccount(linkBankAccountDtoRequest: CompleteLinkBankAccountRequest) {
+        val dtoRequest = bankAccountRequestMapper.map(linkBankAccountDtoRequest)
+        bankApi.completeLinkingBankAccount(dtoRequest)
+    }
+}

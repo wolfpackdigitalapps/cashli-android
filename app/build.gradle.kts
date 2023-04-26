@@ -70,6 +70,7 @@ android {
         abortOnError = true
         warningsAsErrors = true
         lintConfig = file("lint.xml")
+        baseline = file("lint-baseline.xml")
     }
 
     compileOptions {
@@ -149,4 +150,7 @@ dependencies {
 
     // CustomTabs
     implementation(Libs.ANDROIDX_BROWSER)
+
+    // PlaidLink
+    implementation(Libs.PLAID_LINK)
 }

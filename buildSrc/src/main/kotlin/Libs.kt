@@ -43,4 +43,5 @@ object Libs {
     const val VIEW_PAGER2 = "androidx.viewpager2:viewpager2"
     const val DOT_INDICATOR = "com.tbuonomo:dotsindicator"
     const val ANDROIDX_BROWSER = "androidx.browser:browser"
+    const val PLAID_LINK = "com.plaid.link:sdk-core"
 }

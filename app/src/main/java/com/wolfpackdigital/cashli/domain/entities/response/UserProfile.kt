@@ -12,5 +12,6 @@ data class UserProfile(
     val zipCode: String,
     val city: String,
     val state: String,
-    val language: Languages = Languages.ENGLISH
+    val language: Languages = Languages.ENGLISH,
+    val tokens: Token
 )
