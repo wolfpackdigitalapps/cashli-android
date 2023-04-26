@@ -14,3 +14,14 @@ class CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper(
         )
     }
 }
+
+class CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper(
+    private val linkAccountMetadataRequestMapper: LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper
+) : Mapper<CompleteLinkBankAccountRequestDto, CompleteLinkBankAccountRequest> {
+    override fun map(input: CompleteLinkBankAccountRequestDto): CompleteLinkBankAccountRequest {
+        return CompleteLinkBankAccountRequest(
+            publicToken = input.publicToken,
+            metadata = linkAccountMetadataRequestMapper.map(input.metadata)
+        )
+    }
+}

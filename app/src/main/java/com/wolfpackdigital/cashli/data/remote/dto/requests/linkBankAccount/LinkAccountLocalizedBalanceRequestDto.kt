@@ -7,4 +7,4 @@ import kotlinx.parcelize.Parcelize
 data class LinkAccountLocalizedBalanceRequestDto(
     val available: String? = null,
     val current: String? = null,
-): Parcelable
+) : Parcelable

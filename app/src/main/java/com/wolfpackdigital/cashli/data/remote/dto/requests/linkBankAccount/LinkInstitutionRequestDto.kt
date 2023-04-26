@@ -8,4 +8,4 @@ import kotlinx.parcelize.Parcelize
 data class LinkInstitutionRequestDto(
     @SerializedName("institution_id") val id: String? = null,
     @SerializedName("institution_name") val name: String? = null
-): Parcelable
+) : Parcelable

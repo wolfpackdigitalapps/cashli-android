@@ -7,4 +7,4 @@ import kotlinx.parcelize.Parcelize
 data class LinkAccountSubtypeRequestDto(
     val name: String? = null,
     val type: LinkAccountTypeRequestDto? = null
-): Parcelable
+) : Parcelable

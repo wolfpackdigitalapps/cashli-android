@@ -12,4 +12,4 @@ data class LinkAccountInfoRequestDto(
     val subtype: LinkAccountSubtypeRequestDto? = null,
     @SerializedName("verification_status") val verificationStatus: LinkAccountVerificationStatusRequestDto? = null,
     val balance: LinkAccountBalanceRequestDto? = null
-): Parcelable
+) : Parcelable

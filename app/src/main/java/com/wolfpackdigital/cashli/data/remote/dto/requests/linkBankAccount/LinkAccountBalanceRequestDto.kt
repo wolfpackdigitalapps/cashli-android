@@ -9,4 +9,4 @@ data class LinkAccountBalanceRequestDto(
     val currency: String? = null,
     val current: Double? = null,
     val localized: LinkAccountLocalizedBalanceRequestDto? = null
-): Parcelable
+) : Parcelable
