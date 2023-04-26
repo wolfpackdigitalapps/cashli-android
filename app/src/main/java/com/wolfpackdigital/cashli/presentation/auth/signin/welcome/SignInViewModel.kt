@@ -104,6 +104,7 @@ class SignInViewModel(
             val result = signInUserUseCase(request)
             result.onSuccess { newProfile ->
                 userProfile = newProfile
+                token = newProfile.tokens
                 _baseCmd.value = BaseCommand.PerformNavAction(
                     NavigationDirections.actionGlobalHomeGraph(),
                     popUpTo = R.id.navigation,
