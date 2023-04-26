@@ -70,6 +70,7 @@ android {
         abortOnError = true
         warningsAsErrors = true
         lintConfig = file("lint.xml")
+        baseline = file("lint-baseline.xml")
     }
 
     compileOptions {
