@@ -1,25 +1,25 @@
 package com.wolfpackdigital.cashli.data.mappers
 
-import com.wolfpackdigital.cashli.data.remote.dto.enums.RegistrationIdentifierChannelDto
+import com.wolfpackdigital.cashli.data.remote.dto.enums.IdentifierChannelDto
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
 class IdentifierChannelDtoToIdentifierChannelMapper :
-    Mapper<RegistrationIdentifierChannelDto, IdentifierChannel> {
-    override fun map(input: RegistrationIdentifierChannelDto): IdentifierChannel {
+    Mapper<IdentifierChannelDto, IdentifierChannel> {
+    override fun map(input: IdentifierChannelDto): IdentifierChannel {
         return when (input) {
-            RegistrationIdentifierChannelDto.SMS -> IdentifierChannel.SMS
-            RegistrationIdentifierChannelDto.EMAIL -> IdentifierChannel.EMAIL
+            IdentifierChannelDto.SMS -> IdentifierChannel.SMS
+            IdentifierChannelDto.EMAIL -> IdentifierChannel.EMAIL
         }
     }
 }
 
 class IdentifierChannelToIdentifierChannelDtoMapper :
-    Mapper<IdentifierChannel, RegistrationIdentifierChannelDto> {
-    override fun map(input: IdentifierChannel): RegistrationIdentifierChannelDto {
+    Mapper<IdentifierChannel, IdentifierChannelDto> {
+    override fun map(input: IdentifierChannel): IdentifierChannelDto {
         return when (input) {
-            IdentifierChannel.SMS -> RegistrationIdentifierChannelDto.SMS
-            IdentifierChannel.EMAIL -> RegistrationIdentifierChannelDto.EMAIL
+            IdentifierChannel.SMS -> IdentifierChannelDto.SMS
+            IdentifierChannel.EMAIL -> IdentifierChannelDto.EMAIL
         }
     }
 }
