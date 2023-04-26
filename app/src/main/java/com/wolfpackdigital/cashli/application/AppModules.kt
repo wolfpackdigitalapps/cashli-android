@@ -1,5 +1,9 @@
 package com.wolfpackdigital.cashli.application
 
+import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
@@ -31,10 +35,14 @@ import com.wolfpackdigital.cashli.data.patternMatchers.PhoneNumberPatternMatcher
 import com.wolfpackdigital.cashli.data.patternMatchers.ZipCodePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.remote.api.common.ApiProvider
 import com.wolfpackdigital.cashli.data.repositories.AuthRepositoryImpl
+import com.wolfpackdigital.cashli.data.repositories.BankRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.PatternMatcher
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
@@ -93,7 +101,7 @@ object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
-        viewModel { LinkBankAccountInformativeViewModel() }
+        viewModel { LinkBankAccountInformativeViewModel(get(), get()) }
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
@@ -123,6 +131,7 @@ object AppModules {
 
     private val apiModule = module {
         single { ApiProvider.provideAuthApi() }
+        single { ApiProvider.provideBankApi() }
     }
 
     private val repoModule = module {
@@ -138,6 +147,7 @@ object AppModules {
                 get()
             )
         }
+        single<BankRepository> { BankRepositoryImpl(get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -151,6 +161,8 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { BankTokenToBankTokenDtoMapper() }
+        factory { BankTokenDtoToBankTokenMapper() }
         factory { TokenDtoToTokenMapper() }
         factory { TokenToTokenDtoMapper() }
         factory { RefreshTokenRequestToRefreshTokenRequestDtoMapper() }
@@ -169,13 +181,17 @@ object AppModules {
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
         factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
         factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileToUserProfileDtoMapper(get()) }
-        factory { UserProfileDtoToUserProfileMapper(get()) }
+        factory { UserProfileToUserProfileDtoMapper(get(), get()) }
+        factory { UserProfileDtoToUserProfileMapper(get(), get()) }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
+        factory { CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper() }
+        factory { CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper() }
     }
 
     private val useCases = module {
+        single { CompleteLinkingBankAccountUseCase(get()) }
+        single { GenerateLinkTokenUseCase(get()) }
         single { SubmitRegistrationIdentifiersUseCase(get()) }
         single { RefreshTokenUseCase(get()) }
         single { GetOnboardingStepsUseCase() }

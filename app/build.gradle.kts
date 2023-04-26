@@ -149,4 +149,7 @@ dependencies {
 
     // CustomTabs
     implementation(Libs.ANDROIDX_BROWSER)
+
+    // PlaidLink
+    implementation(Libs.PLAID_LINK)
 }
