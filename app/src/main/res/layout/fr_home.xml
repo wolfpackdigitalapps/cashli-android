@@ -36,6 +36,7 @@
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_marginEnd="@dimen/dimen_68dp"
+                android:text="@{@string/hello_user(viewModel.name)}"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/size_28sp"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -83,6 +83,7 @@
     <string name="link_account_message_one">In order to get cash advances,\n you must link your bank\n account to Cashli.</string>
     <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
     <string name="up_to_150">Up to $150!</string>
+    <string name="hello_user">Hi, %s!</string>
 
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>

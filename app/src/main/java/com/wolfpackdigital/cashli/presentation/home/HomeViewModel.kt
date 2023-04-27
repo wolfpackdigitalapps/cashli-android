@@ -7,8 +7,9 @@ import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
-class HomeViewModel : BaseViewModel() {
+class HomeViewModel : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
@@ -20,6 +21,7 @@ class HomeViewModel : BaseViewModel() {
         )
     )
     val toolbar: LiveData<Toolbar> = _toolbar
+    val name = userProfile?.firstName
 
     fun goToLinkBankAccount() {
         _baseCmd.value = BaseCommand.PerformNavAction(
