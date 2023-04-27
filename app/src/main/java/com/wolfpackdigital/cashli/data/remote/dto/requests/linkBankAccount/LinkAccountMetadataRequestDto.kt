@@ -6,8 +6,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LinkAccountMetadataRequestDto(
-    val accounts: List<LinkAccountInfoRequestDto>? = null,
-    val institution: LinkInstitutionRequestDto? = null,
+    @SerializedName("accounts") val accounts: List<LinkAccountInfoRequestDto>? = null,
+    @SerializedName("institution") val institution: LinkInstitutionRequestDto? = null,
     @SerializedName("link_session_id") val linkSessionId: String? = null,
     @SerializedName("metadata_json") val metadataJson: String? = null
 ) : Parcelable
