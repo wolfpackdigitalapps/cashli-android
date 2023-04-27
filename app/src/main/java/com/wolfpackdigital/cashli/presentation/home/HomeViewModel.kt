@@ -29,5 +29,9 @@ class HomeViewModel : BaseViewModel(), PersistenceService {
         )
     }
 
+    companion object {
+        const val SUM_150 = "150"
+    }
+
     sealed class Command
 }

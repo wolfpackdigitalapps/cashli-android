@@ -80,9 +80,9 @@
     <!--Home screen-->
     <string name="link_your_bank_account">Link your bank account</string>
     <string name="request_a_cash_advance">Request a cash advance</string>
-    <string name="link_account_message_one">In order to get cash advances,\n you must link your bank\n account to Cashli.</string>
+    <string name="link_account_message_one">In order to get cash advances, you must link your bank account to Cashli.</string>
     <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
-    <string name="up_to_150">Up to $150!</string>
+    <string name="up_to_sum">Up to $%s!</string>
     <string name="hello_user">Hi, %s!</string>
 
     <!--Link account informative -->
