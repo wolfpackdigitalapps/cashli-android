@@ -115,7 +115,11 @@ class SignInViewModel(
                 val error =
                     it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
                 if (error == API_ERROR) {
-                    _error.value = R.string.incorrect_credentials_with_email
+                    isEmailCredentialsInUse.value?.let { emailInUse ->
+                        _error.value =
+                            if (emailInUse) R.string.incorrect_credentials_with_email else
+                                R.string.incorrect_credentials_with_phone
+                    }
                 } else {
                     _baseCmd.value = BaseCommand.ShowToast(error)
                 }
