@@ -1,7 +1,41 @@
 package com.wolfpackdigital.cashli.application
 
-import com.wolfpackdigital.cashli.data.mappers.MockItemDtoToMockItemMapper
-import com.wolfpackdigital.cashli.data.mappers.MockItemToMockItemDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelToIdentifierChannelDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenToIdentifierTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestDtoToIdentifiersRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestToIdentifiersRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguagesToLanguagesDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestDtoToRefreshTokenRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestDtoToResetPasswordRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestToResetPasswordRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.SignInRequestDtoToSignInRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.SignInRequestToSignInRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
+import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.patternMatchers.CityAndStatePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.LettersAndCommaPatternMatcherImpl
@@ -10,12 +44,24 @@ import com.wolfpackdigital.cashli.data.patternMatchers.PasswordPatternMatcherImp
 import com.wolfpackdigital.cashli.data.patternMatchers.PhoneNumberPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.ZipCodePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.remote.api.common.ApiProvider
-import com.wolfpackdigital.cashli.data.repositories.MockRepositoryImpl
-import com.wolfpackdigital.cashli.domain.abstractions.MockRepository
+import com.wolfpackdigital.cashli.data.repositories.AuthRepositoryImpl
+import com.wolfpackdigital.cashli.data.repositories.BankRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.PatternMatcher
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
@@ -69,37 +115,59 @@ object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
-        viewModel { LinkBankAccountInformativeViewModel() }
+        viewModel { LinkBankAccountInformativeViewModel(get(), get()) }
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
-        viewModel { PhoneNumberViewModel(get()) }
-        viewModel { ChoosePasswordViewModel(get()) }
-        viewModel { SignInViewModel(get()) }
+        viewModel { PhoneNumberViewModel(get(), get()) }
+        viewModel { ChoosePasswordViewModel(get(), get()) }
+        viewModel { SignInViewModel(get(), get()) }
         viewModel { HomeViewModel() }
         viewModel { AccountViewModel() }
         viewModel { MoreViewModel() }
-        viewModel { (codeReceivedViaType: CodeReceivedViaType) ->
+        viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
-                codeReceivedViaType
+                identifier,
+                codeReceivedViaType,
+                get(),
+                get()
             )
         }
-        viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get()) }
-        viewModel { ResetPasswordViewModel(get()) }
-        viewModel { RequestCodeViewModel(get()) }
-        viewModel { (phoneNumberOrEmail: String) ->
+        viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get(), get()) }
+        viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
+        viewModel { RequestCodeViewModel(get(), get()) }
+        viewModel { (phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType) ->
             ConfirmOneTimePasswordViewModel(
-                phoneNumberOrEmail
+                phoneNumberOrEmail,
+                codeReceivedViaType,
+                get(),
+                get()
             )
         }
     }
 
     private val apiModule = module {
-        single { ApiProvider.provideMockAPI() }
+        single { ApiProvider.provideAuthApi() }
+        single { ApiProvider.provideBankApi() }
     }
 
     private val repoModule = module {
-        single<MockRepository> { MockRepositoryImpl(get(), get()) }
+        single<AuthRepository> {
+            AuthRepositoryImpl(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
+        single<BankRepository> { BankRepositoryImpl(get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -113,11 +181,49 @@ object AppModules {
     }
 
     private val mappersModule = module {
-        factory { MockItemDtoToMockItemMapper() }
-        factory { MockItemToMockItemDtoMapper() }
+        factory { BankTokenToBankTokenDtoMapper() }
+        factory { BankTokenDtoToBankTokenMapper() }
+        factory { TokenDtoToTokenMapper() }
+        factory { TokenToTokenDtoMapper() }
+        factory { RefreshTokenRequestToRefreshTokenRequestDtoMapper() }
+        factory { RefreshTokenRequestDtoToRefreshTokenRequestMapper() }
+        factory { IdentifierChannelToIdentifierChannelDtoMapper() }
+        factory { IdentifierChannelDtoToIdentifierChannelMapper() }
+        factory { IdentifiersRequestDtoToIdentifiersRequestMapper(get()) }
+        factory { IdentifiersRequestToIdentifiersRequestDtoMapper(get()) }
+        factory { IdentifierTokenDtoToIdentifierTokenMapper() }
+        factory { IdentifierTokenToIdentifierTokenDtoMapper() }
+        factory { CreateUserProfileRequestToCreateUserProfileRequestDtoMapper(get(), get()) }
+        factory { CreateUserProfileRequestDtoToCreateUserProfileRequestMapper(get(), get()) }
+        factory { UserProfileRequestDtoToUserProfileRequestMapper(get()) }
+        factory { UserProfileRequestToUserProfileRequestDtoMapper(get()) }
+        factory { IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper() }
+        factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
+        factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
+        factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
+        factory { UserProfileToUserProfileDtoMapper(get(), get()) }
+        factory { UserProfileDtoToUserProfileMapper(get(), get()) }
+        factory { LanguagesToLanguagesDtoMapper() }
+        factory { LanguagesDtoToLanguagesMapper() }
+        factory { SignInRequestToSignInRequestDtoMapper(get()) }
+        factory { SignInRequestDtoToSignInRequestMapper(get()) }
+        factory { UserSignInRequestToUserSignInRequestDtoMapper() }
+        factory { UserSignInRequestDtoToUserSignInRequestMapper() }
+        factory { PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper() }
+        factory { PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper() }
+        factory { ResetPasswordRequestDtoToResetPasswordRequestMapper() }
+        factory { ResetPasswordRequestToResetPasswordRequestDtoMapper() }
+        factory { CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper(get()) }
+        factory { CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper(get()) }
+        factory { LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper() }
+        factory { LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper() }
     }
 
     private val useCases = module {
+        single { CompleteLinkingBankAccountUseCase(get()) }
+        single { GenerateLinkTokenUseCase(get()) }
+        single { SubmitRegistrationIdentifiersUseCase(get()) }
+        single { RefreshTokenUseCase(get()) }
         single { GetOnboardingStepsUseCase() }
         single { ValidateBlankFieldUseCase() }
         single { ValidateEqualFieldsUseCase() }
@@ -139,6 +245,12 @@ object AppModules {
         single { ValidateLettersAndCommaUseCase(get(named(LETTERS_AND_COMMA_PATTERN_MATCHER))) }
         single { ValidateCityAndStateUseCase(get(named(CITY_AND_STATE_PATTERN_MATCHER))) }
         single { ValidateCityAndStateFormUseCase(get(), get()) }
+        single { ValidateCodeByIdentifierUseCase(get()) }
+        single { RegisterNewUserUseCase(get()) }
+        single { SignInUserUseCase(get()) }
+        single { SubmitPasswordIdentifiersUseCase(get()) }
+        single { ValidateCodeByPasswordIdentifierUseCase(get()) }
+        single { ResetPasswordUseCase(get()) }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)

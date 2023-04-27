@@ -20,13 +20,14 @@ class ValidateRequestCodeFormUseCase(
                 if (!validateBlankFieldUseCase(email))
                     ValidationResult(
                         successful = false,
-                        errorMessageId = R.string.email_or_phone_can_not_be_empty
+                        errorMessageId = R.string.email_can_not_be_empty
                     )
                 else if (!validateEmailUseCase(email))
                     ValidationResult(
                         successful = false,
-                        errorMessageId = R.string.wrong_email_error
+                        errorMessageId = R.string.email_error
                     )
+                // TODO add validation for existing account after integration with backend
                 else
                     ValidationResult(true)
             }
@@ -34,15 +35,19 @@ class ValidateRequestCodeFormUseCase(
                 if (!validateBlankFieldUseCase(phoneNumber))
                     ValidationResult(
                         successful = false,
-                        errorMessageId = R.string.email_or_phone_can_not_be_empty
+                        errorMessageId = R.string.phone_can_not_be_empty
                     )
-                else if (!validatePhoneNumberUseCase(phoneNumber) ||
-                    !validatePhoneNumberLengthUseCase(phoneNumber)
-                )
+                else if (!validatePhoneNumberLengthUseCase(phoneNumber))
                     ValidationResult(
                         successful = false,
-                        errorMessageId = R.string.wrong_phone_error
+                        errorMessageId = R.string.phone_number_length_error
                     )
+                else if (!validatePhoneNumberUseCase(phoneNumber))
+                    ValidationResult(
+                        successful = false,
+                        errorMessageId = R.string.phone_number_digits_error
+                    )
+                // TODO add validation for existing account after integration with backend
                 else
                     ValidationResult(true)
             }

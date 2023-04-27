@@ -15,12 +15,23 @@ object Constants {
     const val ALPHA_1 = 1f
     const val ALPHA_0 = 0f
     const val EMPTY_STRING = ""
+    const val COMMA = ","
+    const val VARIANT_DEVELOP = "develop"
 
     // Input text constraints
+    const val PHONE_PREFIX_US = "+1"
+    const val PHONE_PREFIX_RO = "+40"
     const val PHONE_NUMBER_LENGTH = 10
     const val MAX_CHARS_50 = 50
     const val MIN_CHARS_2 = 2
 
     // Back stack keys
     const val RESTART_ONBOARDING_STEPS = "restart_onboarding_steps"
+
+    // API ERROR CODES
+    const val ERROR_CODE_422 = 422
+    const val ERROR_CODE_429 = 429
+
+    // DeepLinks
+    const val SIGN_IN_SCREEN_DL = "android-app://com.wolfpackdigital.cashli/signIn"
 }

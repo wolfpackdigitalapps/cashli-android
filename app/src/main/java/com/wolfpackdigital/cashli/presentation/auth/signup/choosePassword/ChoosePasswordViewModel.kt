@@ -7,17 +7,21 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
+import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_3
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import kotlinx.coroutines.delay
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 
 // Span actions
@@ -27,8 +31,9 @@ private const val VALUE_SPAN_OPEN_DPP = "openDPP"
 private const val VALUE_SPAN_OPEN_DTS = "openDTS"
 
 class ChoosePasswordViewModel(
-    private val validateChoosePasswordFormUseCase: ValidateChoosePasswordFormUseCase
-) : BaseViewModel() {
+    private val validateChoosePasswordFormUseCase: ValidateChoosePasswordFormUseCase,
+    private val registerNewUserUseCase: RegisterNewUserUseCase
+) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
@@ -103,7 +108,7 @@ class ChoosePasswordViewModel(
         isConfirmPasswordVisible.value = isConfirmPasswordVisible.value?.not() ?: false
     }
 
-    private fun validatePasswords(onValidInput: suspend () -> Unit) {
+    private fun validatePasswords(onValidInput: suspend (String) -> Unit) {
         safeLet(password.value, confirmPassword.value) { password, confirmPassword ->
             val choosePasswordFormValidationResult = validateChoosePasswordFormUseCase(
                 password = password,
@@ -112,30 +117,46 @@ class ChoosePasswordViewModel(
             if (!choosePasswordFormValidationResult.successful)
                 _passwordError.value = choosePasswordFormValidationResult.errorMessageId
             else
-                performApiCall { onValidInput() }
+                performApiCall { onValidInput(password) }
         }
     }
 
-    @Suppress("MagicNumber")
     fun onFinishSignUpClicked() {
-        validatePasswords {
-            // TODO add call to BE and nav to success dialog
-            delay(2000)
-            _baseCmd.value = BaseCommand.ShowPopupById(
-                PopupConfig(
-                    titleId = R.string.bravo_text,
-                    contentIdOrString = R.string.account_created_successfully,
-                    imageId = R.drawable.ic_profile_check,
-                    timerCount = Constants.COUNT_DOWN_TIME_6_SEC,
-                    buttonCloseClick = {
-                        _baseCmd.value = BaseCommand.PerformNavAction(
-                            NavigationDirections.actionGlobalHomeGraph(),
-                            popUpTo = R.id.navigation,
-                            inclusive = true
-                        )
-                    }
+        validatePasswords { password ->
+            _cmd.value = Command.SavePassword(password)
+            _cmd.value = Command.CreateUserProfileRequest
+        }
+    }
+
+    fun registerNewUser(profileRequest: CreateUserProfileRequest?) {
+        profileRequest ?: return
+        performApiCall {
+            val result = registerNewUserUseCase(profileRequest)
+            result.onSuccess { newUserProfile ->
+                userProfile = newUserProfile
+                token = newUserProfile.tokens
+                _cmd.value = Command.ClearSignUpData
+                _baseCmd.value = BaseCommand.ShowPopupById(
+                    PopupConfig(
+                        titleId = R.string.bravo_text,
+                        contentIdOrString = R.string.account_created_successfully,
+                        imageId = R.drawable.ic_profile_check,
+                        timerCount = Constants.COUNT_DOWN_TIME_6_SEC,
+                        buttonCloseClick = {
+                            _baseCmd.value = BaseCommand.PerformNavAction(
+                                NavigationDirections.actionGlobalHomeGraph(),
+                                popUpTo = R.id.navigation,
+                                inclusive = true
+                            )
+                        }
+                    )
                 )
-            )
+            }
+            result.onError {
+                val error =
+                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                _baseCmd.value = BaseCommand.ShowToast(error)
+            }
         }
     }
 
@@ -143,5 +164,9 @@ class ChoosePasswordViewModel(
         _passwordError.value = null
     }
 
-    sealed class Command
+    sealed class Command {
+        data class SavePassword(val password: String) : Command()
+        object CreateUserProfileRequest : Command()
+        object ClearSignUpData : Command()
+    }
 }

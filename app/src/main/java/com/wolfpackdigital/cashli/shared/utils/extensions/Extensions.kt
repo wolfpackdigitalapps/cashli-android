@@ -15,9 +15,10 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
-import com.google.gson.JsonSyntaxException
 import com.wolfpackdigital.cashli.BuildConfig
+import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.ApiError
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_1000
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -29,9 +30,6 @@ import kotlinx.coroutines.flow.transform
 import retrofit2.HttpException
 import java.util.regex.Pattern
 
-private const val GENERIC_SERVER_ERROR = "Something went wrong, please try again."
-private const val PARSING_SERVER_ERROR = "The response could not be parsed"
-private const val SYNTAX_SERVER_ERROR = "The response doesn't have a valid format"
 private const val KEYBOARD_HIDDEN_FLAG = 0
 private const val PASSWORD_COMPLEXITY_REGEXP = "^(?=.*\\d)(?=.*[A-Za-z])(?=.*\\W).{8,}\$"
 private const val EMAIL_PATTERN = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
@@ -43,14 +41,16 @@ private const val ONLY_CITY_OR_STATE_PATTERN = "([\\s]*[\\,][\\s]*)|" +
     "([a-zA-Z]*[\\s]*[\\,][\\s]*)|([\\s]*[\\,][\\s]*[a-zA-Z]*)"
 private const val NAME_PATTERN = "^[\\p{L}]+(?:[-'\\s][\\p{L}]+)*\$"
 
-fun Throwable.getParsedError(): String = try {
-    val response = (this as? HttpException)?.response()?.errorBody()
-    val model = Gson().fromJson(response?.string(), ApiError::class.java)
-    model?.errors?.firstOrNull() ?: model?.message ?: GENERIC_SERVER_ERROR
+fun Throwable.getParsedError(): ApiError = try {
+    val response = (this as? HttpException)?.response()
+    val body = response?.errorBody()
+    val code = response?.code()
+    val model = Gson().fromJson(body?.string(), ApiError::class.java)
+    model?.copy(errorCode = code) ?: ApiError(messageId = R.string.generic_error)
 } catch (ex: JsonParseException) {
-    ex.localizedMessage ?: PARSING_SERVER_ERROR
-} catch (ex: JsonSyntaxException) {
-    ex.localizedMessage ?: SYNTAX_SERVER_ERROR
+    ex.localizedMessage?.let {
+        ApiError(it)
+    } ?: ApiError(messageId = R.string.generic_error)
 }
 
 val appVersion: String
@@ -163,6 +163,20 @@ fun hideSoftKeyboard(view: View) {
 
 fun Context.stringFromResource(@StringRes id: Int, vararg formatArgs: Any?): String {
     return resources.getString(id, *formatArgs)
+}
+
+@Suppress("SpreadOperator")
+fun getStringFromResourceOrText(
+    context: Context,
+    textIdOrString: Any?,
+    textArgs: Array<Any>? = null
+): String {
+    return when (textIdOrString) {
+        is String -> textIdOrString
+        is Int -> textArgs?.let { args -> context.stringFromResource(textIdOrString, *args) }
+            ?: context.stringFromResource(textIdOrString)
+        else -> Constants.EMPTY_STRING
+    }
 }
 
 fun startCounter(

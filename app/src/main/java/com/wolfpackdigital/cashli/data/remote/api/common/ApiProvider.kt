@@ -2,7 +2,8 @@ package com.wolfpackdigital.cashli.data.remote.api.common
 
 import com.google.gson.GsonBuilder
 import com.wolfpackdigital.cashli.BuildConfig
-import com.wolfpackdigital.cashli.data.remote.api.MockAPI
+import com.wolfpackdigital.cashli.data.remote.api.AuthApi
+import com.wolfpackdigital.cashli.data.remote.api.BankApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,10 +14,12 @@ private const val TIMEOUT = 30L
 
 object ApiProvider {
 
-    fun provideMockAPI(): MockAPI = retrofit.create(MockAPI::class.java)
-
     private val authInterceptor: AuthenticationInterceptor by lazy {
         AuthenticationInterceptor()
+    }
+
+    private val refreshInterceptor: RefreshTokenInterceptor by lazy {
+        RefreshTokenInterceptor()
     }
 
     private val gsonConverterFactory: GsonConverterFactory = let {
@@ -29,6 +32,7 @@ object ApiProvider {
     private val okHttpClient: OkHttpClient = let {
         val client = OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
+            .authenticator(refreshInterceptor)
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -43,4 +47,7 @@ object ApiProvider {
         .addConverterFactory(gsonConverterFactory)
         .client(okHttpClient)
         .build()
+
+    fun provideAuthApi(): AuthApi = retrofit.create(AuthApi::class.java)
+    fun provideBankApi(): BankApi = retrofit.create(BankApi::class.java)
 }

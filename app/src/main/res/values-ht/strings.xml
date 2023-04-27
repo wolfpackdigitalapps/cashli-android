@@ -44,8 +44,6 @@
     <!--Validate Code -->
     <string name="code_from_sms">Enter the code received via SMS</string>
     <string name="code_from_email">Enter the code received via email</string>
-    <string name="invalid_code">Wrong code. Please try again</string>
-    <string name="invalid_code_too_many_attempts">You have entered a wrong code 5 times. Please re-start the process.</string>
     <string name="resend_code">Resend code</string>
     <string name="resend_code_counter">Resend code in %d s</string>
 
@@ -98,19 +96,23 @@
     <string name="forgot_password">Forgot password</string>
     <string name="confirm_one_time_password">Confirm One Time Password</string>
     <string name="reset_password">Reset your password</string>
-    <string name="forgot_password_screen_message_email">Please enter the email address you used \nto create your Cashli account.</string>
-    <string name="forgot_password_screen_message_phone">Please enter the phone number you used \nto create your Cashli account.</string>
+    <string name="forgot_password_screen_message_email">Please enter the email address you used to create your Cashli account.</string>
+    <string name="forgot_password_screen_message_phone">Please enter the phone number you used to create your Cashli account.</string>
     <string name="type_new_password">Type a new password</string>
     <string name="confirm_one_time_password_message">Code has been sent to %s</string>
     <string name="wrong_email_error">There is no existing account with this email.</string>
     <string name="wrong_phone_error">There is no existing account with this phone number.</string>
     <string name="password_reset_success">Your password has been successfully reset.</string>
+    <string name="email_can_not_be_empty">Email cannot be empty.</string>
+    <string name="phone_can_not_be_empty">Phone cannot be empty.</string>
 
     <!--Generic -->
     <string name="generic_continue">Continue</string>
     <string name="generic_seconds_abbreviation">sec</string>
     <string name="no_messaging_app_found">No messaging app found.</string>
+    <string name="generic_error">Something went wrong, please try again.</string>
     <string name="generic_confirm">Confirm</string>
+    <string name="generic_session_expired">Session expired, please login again.</string>
 
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>
