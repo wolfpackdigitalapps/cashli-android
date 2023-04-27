@@ -77,6 +77,14 @@
     <string name="last_name_length_error">Last name should be at least 2 characters long.</string>
     <string name="city_state_both_error">Please enter both the City and State separated by a comma.</string>
 
+    <!--Home screen-->
+    <string name="link_your_bank_account">Link your bank account</string>
+    <string name="request_a_cash_advance">Request a cash advance</string>
+    <string name="link_account_message_one">In order to get cash advances, you must link your bank account to Cashli.</string>
+    <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
+    <string name="up_to_sum">Up to $%s!</string>
+    <string name="hello_user">Hi, %s!</string>
+
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>
     <string name="link_my_bank_account_title">Link your bank account where paychecks are deposited into.</string>
@@ -119,5 +127,6 @@
 
     <!--More -->
     <string name="more">More</string>
+
 
 </resources>
