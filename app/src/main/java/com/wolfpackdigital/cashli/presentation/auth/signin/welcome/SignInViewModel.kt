@@ -117,8 +117,8 @@ class SignInViewModel(
                 if (error == API_ERROR) {
                     isEmailCredentialsInUse.value?.let { emailInUse ->
                         _error.value =
-                            if (emailInUse) R.string.incorrect_credentials_with_email else
-                                R.string.incorrect_credentials_with_phone
+                            if (emailInUse) R.string.incorrect_credentials_with_email
+                            else R.string.incorrect_credentials_with_phone
                     }
                 } else {
                     _baseCmd.value = BaseCommand.ShowToast(error)
