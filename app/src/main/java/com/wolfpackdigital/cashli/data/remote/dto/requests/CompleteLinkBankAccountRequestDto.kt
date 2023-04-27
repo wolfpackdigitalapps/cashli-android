@@ -8,5 +8,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CompleteLinkBankAccountRequestDto(
     @SerializedName("public_token") val publicToken: String,
-    val metadata: LinkAccountMetadataRequestDto
+    @SerializedName("metadata") val metadata: LinkAccountMetadataRequestDto
 ) : Parcelable

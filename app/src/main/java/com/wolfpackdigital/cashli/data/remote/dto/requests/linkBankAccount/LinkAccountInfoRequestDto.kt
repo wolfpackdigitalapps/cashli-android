@@ -6,10 +6,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LinkAccountInfoRequestDto(
-    val id: String? = null,
-    val name: String? = null,
-    val mask: String? = null,
-    val subtype: LinkAccountSubtypeRequestDto? = null,
+    @SerializedName("id") val id: String? = null,
+    @SerializedName("name") val name: String? = null,
+    @SerializedName("mask") val mask: String? = null,
+    @SerializedName("subtype") val subtype: LinkAccountSubtypeRequestDto? = null,
     @SerializedName("verification_status") val verificationStatus: LinkAccountVerificationStatusRequestDto? = null,
-    val balance: LinkAccountBalanceRequestDto? = null
+    @SerializedName("balance") val balance: LinkAccountBalanceRequestDto? = null
 ) : Parcelable
