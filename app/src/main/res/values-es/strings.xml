@@ -93,6 +93,9 @@
     <string name="link_my_bank_account_message_three">Cash advances will be transferred to the same bank account.</string>
     <string name="link_my_bank_account_message_four">We use bank-level and military-grade encryption tools to protect your data.</string>
 
+    <!--Ineligible bank account -->
+    <string name="can_not_get_cash_advance">Unfortunately, you can\'t get a cash advance at this time.</string>
+
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
     <string name="confirm_one_time_password">Confirm One Time Password</string>
