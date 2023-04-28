@@ -20,6 +20,17 @@
             android:layout_height="match_parent"
             android:background="@drawable/home_background_custom_shape">
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_home_blue_dots" />
+
             <include
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar_layout"
@@ -43,18 +54,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
                 tools:text="Hi, Mike!" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_home_blue_dots" />
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_link_account"
