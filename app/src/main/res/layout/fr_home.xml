@@ -49,11 +49,10 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_home_blue_dots" />
+                app:srcCompat="@drawable/ic_dots" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
