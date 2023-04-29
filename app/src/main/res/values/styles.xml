@@ -147,4 +147,24 @@
         <item name="android:scrollbars">vertical</item>
     </style>
 
+    <style name="TextView.H1" parent="TextView">
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/size_34sp</item>
+    </style>
+
+    <style name="TextView.H6" parent="TextView">
+        <item name="fontFamily">@font/lato_semi_bold</item>
+        <item name="android:textSize">@dimen/size_16sp</item>
+    </style>
+
+    <style name="TextView.S2" parent="TextView">
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/size_14sp</item>
+    </style>
+
+    <style name="TextView.C2" parent="TextView">
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/size_12sp</item>
+    </style>
+
 </resources>

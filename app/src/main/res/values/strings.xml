@@ -1,5 +1,4 @@
-<resources
-    xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Onboarding -->
     <string name="create_account">Create account</string>
     <string name="get_support">Get support</string>
@@ -107,6 +106,12 @@
     <string name="email_can_not_be_empty">Email cannot be empty.</string>
     <string name="phone_can_not_be_empty">Phone cannot be empty.</string>
 
+    <!--    Claim Cash-->
+    <string name="claim_cash_title">Claim cash now!</string>
+    <string name="claim_cash_cash_amount">Cash amount</string>
+    <string name="dollar_amount" translatable="false">$%d</string>
+    <string name="dollar_amount_float" translatable="false">$%.2f</string>
+
     <!--Generic -->
     <string name="generic_continue">Continue</string>
     <string name="generic_seconds_abbreviation">sec</string>
@@ -114,6 +119,7 @@
     <string name="no_messaging_app_found">No messaging app found.</string>
     <string name="generic_error">Something went wrong, please try again.</string>
     <string name="generic_session_expired">Session expired, please login again.</string>
+    <string name="save">Save</string>
 
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>

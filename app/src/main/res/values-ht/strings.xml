@@ -107,6 +107,10 @@
     <string name="email_can_not_be_empty">Email cannot be empty.</string>
     <string name="phone_can_not_be_empty">Phone cannot be empty.</string>
 
+    <!--    Claim Cash-->
+    <string name="claim_cash_title">Claim cash now!</string>
+    <string name="claim_cash_cash_amount">Cash amount</string>
+
     <!--Generic -->
     <string name="generic_continue">Continue</string>
     <string name="generic_seconds_abbreviation">sec</string>
@@ -114,6 +118,7 @@
     <string name="generic_error">Something went wrong, please try again.</string>
     <string name="generic_confirm">Confirm</string>
     <string name="generic_session_expired">Session expired, please login again.</string>
+    <string name="save">Save</string>
 
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>

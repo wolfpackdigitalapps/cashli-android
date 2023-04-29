@@ -155,6 +155,7 @@
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:background="@drawable/rounded_layout_20dp"
                 android:backgroundTint="@color/colorPrimaryDark"
+                android:onClick="@{() -> viewModel.goToClaimCash()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
