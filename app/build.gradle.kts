@@ -1,3 +1,4 @@
+@file:Suppress("UnstableApiUsage")
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -79,6 +80,7 @@ android {
     }
 
     kotlinOptions.jvmTarget = "11"
+    namespace = "com.wolfpackdigital.cashli"
     kotlin {
         jvmToolchain(11)
     }
