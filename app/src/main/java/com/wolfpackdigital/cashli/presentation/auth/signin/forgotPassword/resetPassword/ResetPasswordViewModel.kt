@@ -74,7 +74,6 @@ class ResetPasswordViewModel(
         }
     }
 
-    @Suppress("MagicNumber")
     fun onConfirmClicked() {
         validatePasswords { password, confirmPassword ->
             val request = ResetPasswordRequest(

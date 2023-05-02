@@ -116,6 +116,8 @@
     <string name="take_me_to_home">Take me to homepage</string>
     <string name="connection_failed">Connection failed</string>
     <string name="bank_account_connection_fail">Connection to your bank account has failed.</string>
+    <string name="duplicate_account">Duplicate account</string>
+    <string name="bank_account_already_in_use">Your bank account has already been used.</string>
     <string name="go_back_to_home">Go back to Homepage</string>
 
     <!--Generic -->

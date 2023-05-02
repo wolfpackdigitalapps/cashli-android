@@ -1,6 +1,6 @@
 package com.wolfpackdigital.cashli.presentation.entities
 
-import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
+import android.app.AlertDialog
 
 data class PopupConfig(
     var titleId: Int,
@@ -13,6 +13,7 @@ data class PopupConfig(
     var buttonPrimaryClick: () -> Unit = {},
     var buttonSecondaryClick: () -> Unit = {},
     var buttonCloseClick: () -> Unit = {},
-    var otherAction: (PopupDialog) -> Unit = {},
+    var otherAction: (AlertDialog) -> Unit = {},
+    var isOtherActionInstant: Boolean = false,
     var contentFormatArgs: Array<Any>? = null
 )
