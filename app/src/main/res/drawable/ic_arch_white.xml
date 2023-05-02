@@ -13,7 +13,7 @@
             android:pivotX="0%"
             android:pivotY="100%">
             <shape android:shape="oval">
-                <solid android:color="@color/colorWhite" />
+                <solid android:color="@color/colorWhiteF9" />
             </shape>
         </rotate>
     </item>

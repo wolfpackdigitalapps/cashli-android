@@ -14,9 +14,19 @@
         android:layout_height="match_parent"
         android:background="@drawable/ineligible_informative_background_custom_shape">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
+
         <ImageView
+            android:id="@+id/iv_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_negative_28dp"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:scaleType="fitXY"
@@ -25,49 +35,148 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/cash_advance_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.26" />
-
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextView.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_52dp"
+            android:layout_marginTop="@dimen/dimen_160dp"
             android:layout_marginEnd="@dimen/dimen_52dp"
             android:text="@string/can_not_get_cash_advance"
             android:textSize="@dimen/size_20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cash_advance_guideline" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/top_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.37" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/white_arch_background"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="240dp"
             android:contentDescription="@null"
-            android:src="@drawable/ic_arch_white"
-            app:layout_constraintBottom_toTopOf="@id/bottom_guideline"
+            android:src="@drawable/ic_arch_white" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_message_one"
+            style="@style/TextView.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginTop="@dimen/dimen_52dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:text="@string/ineligible_message_one"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorGray76"
+            android:textSize="@dimen/size_16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_guideline" />
+            app:layout_constraintTop_toTopOf="@id/white_arch_background" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bottom_guideline"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_message_two"
+            style="@style/TextView.Regular"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.53" />
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:text="@string/ineligible_message_two"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorGray76"
+            android:textSize="@dimen/size_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_message_one" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_requirements"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:text="@string/ineligible_requirements"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/size_18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_message_two" />
+
+        <include
+            android:id="@+id/layout_salary"
+            layout="@layout/ineligible_requirement_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_36dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_transaction_history"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_requirements"
+            app:requirement="@{@string/salary}" />
+
+        <include
+            android:id="@+id/layout_transaction_history"
+            layout="@layout/ineligible_requirement_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_36dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_spending_habits"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_salary"
+            app:requirement="@{@string/transaction_history}" />
+
+        <include
+            android:id="@+id/layout_spending_habits"
+            layout="@layout/ineligible_requirement_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_36dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_creation_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_history"
+            app:requirement="@{@string/spending_habits}" />
+
+        <include
+            android:id="@+id/layout_creation_date"
+            layout="@layout/ineligible_requirement_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_36dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_try_again"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_spending_habits"
+            app:requirement="@{@string/creation_date}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_try_again"
+            style="@style/TextView.SemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_32dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:text="@string/ineligible_try_again"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/size_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

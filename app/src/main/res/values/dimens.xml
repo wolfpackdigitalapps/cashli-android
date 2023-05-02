@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--  NEGATIVE DP -->
+    <dimen name="dimen_negative_28dp">-28dp</dimen>
     <dimen name="dimen_negative_48dp">-48dp</dimen>
 
     <!--  DP -->
@@ -26,6 +27,7 @@
     <dimen name="dimen_60dp">60dp</dimen>
     <dimen name="dimen_64dp">64dp</dimen>
     <dimen name="dimen_68dp">68dp</dimen>
+    <dimen name="dimen_160dp">160dp</dimen>
 
     <!--  SP -->
     <dimen name="size_12sp">12sp</dimen>
