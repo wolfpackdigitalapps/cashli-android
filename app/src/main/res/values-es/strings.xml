@@ -99,6 +99,17 @@
     <string name="email_can_not_be_empty">Email cannot be empty.</string>
     <string name="phone_can_not_be_empty">Phone cannot be empty.</string>
 
+    <!--Link Bank Account -->
+    <string name="pending">Pending</string>
+    <string name="pending_content">Your bank account will be connected soon.</string>
+    <string name="congrats">Congrats!</string>
+    <string name="bank_account_connection_success">Connection to your bank account has been successful.\n\n<b>You are approved for $%s.</b></string>
+    <string name="cash_out">Cash out</string>
+    <string name="take_me_to_home">Take me to homepage</string>
+    <string name="connection_failed">Connection failed</string>
+    <string name="bank_account_connection_fail">Connection to your bank account has failed.</string>
+    <string name="go_back_to_home">Go back to Homepage</string>
+
     <!--Generic -->
     <string name="generic_continue">Continue</string>
     <string name="generic_seconds_abbreviation">sec</string>

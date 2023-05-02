@@ -6,6 +6,7 @@ import com.plaid.link.configuration.LinkTokenConfiguration
 import com.plaid.link.linkTokenConfiguration
 import com.plaid.link.result.LinkExit
 import com.plaid.link.result.LinkSuccess
+import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.requests.CompleteLinkBankAccountRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountBalanceRequest
@@ -18,6 +19,7 @@ import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkA
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkInstitutionRequest
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
@@ -61,10 +63,33 @@ class LinkBankAccountInformativeViewModel(
             val request = createLinkBankAccountRequest(linkSuccess)
             val result = completeLinkingBankAccountUseCase(request)
             result.onSuccess {
-                // TODO Show success message
+//                _baseCmd.value = BaseCommand.ShowPopupById(
+//                    PopupConfig(
+//                        titleId = R.string.pending,
+//                        contentIdOrString = R.string.pending_content,
+//                        imageId = R.drawable.ic_pending
+//                    )
+//                )
+                // TODO replace magic number after BE
+                _baseCmd.value = BaseCommand.ShowPopupById(
+                    PopupConfig(
+                        titleId = R.string.congrats,
+                        contentIdOrString = R.string.bank_account_connection_success,
+                        contentFormatArgs = arrayOf(123),
+                        imageId = R.drawable.ic_congrats,
+                        buttonPrimaryId = R.string.cash_out,
+                        buttonSecondaryId = R.string.take_me_to_home,
+                        buttonSecondaryClick = {
+                            _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
+                        },
+                        buttonPrimaryClick = {
+                            // TODO add redirect to cash out
+                        }
+                    )
+                )
             }
             result.onError {
-                // TODO Show error message
+                // TODO Show different error message TBD
             }
         }
     }
@@ -109,7 +134,21 @@ class LinkBankAccountInformativeViewModel(
 
     fun onFailLinkingBankAccount(linkFail: LinkExit) {
         linkFail.error?.let {
-            // TODO Show error message
+            _baseCmd.value = BaseCommand.ShowPopupById(
+                PopupConfig(
+                    titleId = R.string.connection_failed,
+                    contentIdOrString = R.string.bank_account_connection_fail,
+                    imageId = R.drawable.ic_warning,
+                    buttonPrimaryId = R.string.go_back_to_home,
+                    buttonSecondaryId = R.string.get_support,
+                    buttonSecondaryClick = {
+                        _baseCmd.value = BaseCommand.ShowSMSApp()
+                    },
+                    buttonPrimaryClick = {
+                        _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
+                    }
+                )
+            )
         }
     }
 
