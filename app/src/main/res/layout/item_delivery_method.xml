@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="DeliveryMethodItemBinding">
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethodItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_30"
+        android:backgroundTint="@android:color/transparent"
+        android:clipToPadding="false"
+        android:outlineProvider="background">
+
+        <ImageView
+            android:id="@+id/background_iv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:contentDescription="@null"
+            android:src="@drawable/bg_round_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/background_overlay_iv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:contentDescription="@null"
+            app:drawableRes="@{viewModel.deliveryMethod.background}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/bg_express_item" />
+
+        <ImageView
+            android:id="@+id/border_iv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:src="@drawable/bg_border_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@{ContextCompat.getColor(context, viewModel.deliveryMethod.tint)}"
+            app:visibility="@{viewModel.selected}" />
+
+        <ImageView
+            android:id="@+id/icon_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:contentDescription="@null"
+            app:drawableRes="@{viewModel.deliveryMethod.icon}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_express_delivery" />
+
+        <TextView
+            android:id="@+id/delivery_method_name_tv"
+            style="@style/TextView.H6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:text="@{viewModel.deliveryMethod.methodName}"
+            android:textColor="@{ContextCompat.getColor(context, viewModel.deliveryMethod.tint)}"
+            app:layout_constraintStart_toStartOf="@id/icon_iv"
+            app:layout_constraintTop_toBottomOf="@id/icon_iv"
+            tools:text="Regular"
+            tools:textColor="@color/green71" />
+
+        <ImageView
+            android:id="@+id/arrow_iv"
+            android:layout_width="@dimen/dimen_16dp"
+            android:layout_height="@dimen/dimen_16dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_arrow_forward"
+            app:layout_constraintBottom_toBottomOf="@id/delivery_method_name_tv"
+            app:layout_constraintStart_toEndOf="@id/delivery_method_name_tv"
+            app:layout_constraintTop_toTopOf="@id/delivery_method_name_tv"
+            app:tint="@{ContextCompat.getColor(context, viewModel.deliveryMethod.tint)}"
+            tools:tint="@color/green71" />
+
+        <TextView
+            android:id="@+id/delivery_method_value_tv"
+            style="@style/TextView.H6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:text="@{viewModel.cost}"
+            android:textColor="@{ContextCompat.getColor(context, viewModel.deliveryMethod.tint)}"
+            app:layout_constraintBaseline_toBaselineOf="@id/delivery_method_name_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/arrow_iv"
+            tools:text="Free"
+            tools:textColor="@color/green71" />
+
+        <TextView
+            android:id="@+id/delivery_method_description_tv"
+            style="@style/TextView.C1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:text="@{viewModel.deliveryMethod.description}"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorGrayDC"
+            app:layout_constraintEnd_toEndOf="@id/delivery_method_value_tv"
+            app:layout_constraintStart_toStartOf="@id/delivery_method_name_tv"
+            app:layout_constraintTop_toBottomOf="@id/delivery_method_name_tv"
+            tools:text="1-3 working days" />
+
+        <TextView
+            android:id="@+id/delivery_method_secondary_description_tv"
+            style="@style/TextView.C1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:textAlignment="textStart"
+            android:textColor="@{ContextCompat.getColor(context, viewModel.deliveryMethod.tint)}"
+            app:hidden="@{viewModel.deliveryMethod.secondaryDescription == null}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/delivery_method_value_tv"
+            app:layout_constraintStart_toStartOf="@id/delivery_method_name_tv"
+            app:layout_constraintTop_toBottomOf="@id/delivery_method_description_tv"
+            app:layout_constraintVertical_bias="0"
+            app:textRes="@{viewModel.deliveryMethod.secondaryDescription}"
+            tools:text="Leapfrogged"
+            tools:textColor="@color/green71" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
