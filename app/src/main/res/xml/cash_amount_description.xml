@@ -12,15 +12,6 @@
             app:targetId="@id/edit_cash_amount_ib" />
     </Transition>
 
-<!--    <Transition-->
-<!--        app:constraintSetEnd="@id/start"-->
-<!--        app:constraintSetStart="@id/end"-->
-<!--        app:duration="200">-->
-<!--&lt;!&ndash;        <OnClick&ndash;&gt;-->
-<!--&lt;!&ndash;            app:clickAction="transitionToEnd"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:targetId="@id/save_tv" />&ndash;&gt;-->
-<!--    </Transition>-->
-
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/edit_cash_amount_ib"
