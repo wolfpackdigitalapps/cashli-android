@@ -9,43 +9,43 @@
 
         <OnClick
             app:clickAction="transitionToEnd"
-            app:targetId="@id/edit_cash_amount_ib" />
+            app:targetId="@id/ib_edit_cash_amount" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/edit_cash_amount_ib"
+            android:id="@+id/ib_edit_cash_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_20dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/cash_amount_start_iv"
+            app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cash_amount_start_iv" />
+            app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
         <Constraint
-            android:id="@+id/save_tv"
+            android:id="@+id/tv_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_20dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/cash_amount_start_iv"
+            app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cash_amount_start_iv" />
+            app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
         <Constraint
-            android:id="@+id/cash_amount_sb"
+            android:id="@+id/sb_cash_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_4dp"
             android:layout_marginTop="@dimen/dimen_32dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cash_amount_start_iv"
+            app:layout_constraintTop_toBottomOf="@id/iv_cash_amount_start"
             app:layout_constraintVertical_bias="0" />
 
         <Constraint
-            android:id="@+id/cash_amount_label_tv"
+            android:id="@+id/tv_cash_amount_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_12dp"
@@ -55,43 +55,43 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cash_amount_sb" />
+            app:layout_constraintTop_toBottomOf="@id/sb_cash_amount" />
 
     </ConstraintSet>
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/edit_cash_amount_ib"
+            android:id="@+id/ib_edit_cash_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_20dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/cash_amount_start_iv"
+            app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cash_amount_start_iv" />
+            app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
         <Constraint
-            android:id="@+id/save_tv"
+            android:id="@+id/tv_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_20dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/cash_amount_start_iv"
+            app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cash_amount_start_iv" />
+            app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
         <Constraint
-            android:id="@+id/cash_amount_sb"
+            android:id="@+id/sb_cash_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_4dp"
             android:layout_marginTop="@dimen/dimen_32dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cash_amount_start_iv"
+            app:layout_constraintTop_toBottomOf="@id/iv_cash_amount_start"
             app:layout_constraintVertical_bias="0" />
 
         <Constraint
-            android:id="@+id/cash_amount_label_tv"
+            android:id="@+id/tv_cash_amount_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_12dp"
@@ -101,6 +101,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cash_amount_sb" />
+            app:layout_constraintTop_toBottomOf="@id/sb_cash_amount" />
     </ConstraintSet>
 </MotionScene>

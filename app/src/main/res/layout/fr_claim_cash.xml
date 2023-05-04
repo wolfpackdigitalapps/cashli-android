@@ -16,14 +16,14 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/root_cl"
+            android:id="@+id/cl_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_claim_cash"
             android:clipToPadding="false">
 
             <ImageView
-                android:id="@+id/background_iv"
+                android:id="@+id/iv_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
@@ -32,7 +32,7 @@
                 app:tint="@color/claimCashBgDotsTint" />
 
             <ImageButton
-                android:id="@+id/back_ib"
+                android:id="@+id/ib_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -44,30 +44,30 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/title_tv"
+                android:id="@+id/tv_title"
                 style="@style/TextView.H1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:text="@string/claim_cash_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/back_ib" />
+                app:layout_constraintTop_toBottomOf="@id/ib_back" />
 
             <ImageView
-                android:id="@+id/title_end_iv"
+                android:id="@+id/iv_title_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_16dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_smiley_face"
-                app:layout_constraintBottom_toBottomOf="@id/title_tv"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toEndOf="@id/title_tv"
-                app:layout_constraintTop_toTopOf="@id/title_tv" />
+                app:layout_constraintStart_toEndOf="@id/tv_title"
+                app:layout_constraintTop_toTopOf="@id/tv_title" />
 
             <androidx.constraintlayout.motion.widget.MotionLayout
-                android:id="@+id/cash_amount_ml"
+                android:id="@+id/ml_cash_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
@@ -75,11 +75,11 @@
                 android:background="@drawable/rounded_layout_20dp"
                 android:backgroundTint="@color/colorPrimaryDark"
                 app:layoutDescription="@xml/cash_amount_description"
-                app:layout_constraintTop_toBottomOf="@id/title_tv"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
                 tools:showPaths="true">
 
                 <ImageView
-                    android:id="@+id/cash_amount_start_iv"
+                    android:id="@+id/iv_cash_amount_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/dimen_32dp"
@@ -92,29 +92,29 @@
                     app:layout_constraintVertical_bias="0" />
 
                 <TextView
-                    android:id="@+id/cash_amount_tv"
+                    android:id="@+id/tv_cash_amount"
                     style="@style/TextView.H6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_12dp"
                     android:text="@string/claim_cash_cash_amount"
-                    app:layout_constraintBottom_toBottomOf="@id/cash_amount_start_iv"
-                    app:layout_constraintStart_toEndOf="@id/cash_amount_start_iv"
-                    app:layout_constraintTop_toTopOf="@id/cash_amount_start_iv" />
+                    app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
+                    app:layout_constraintStart_toEndOf="@id/iv_cash_amount_start"
+                    app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
                 <ImageView
-                    android:id="@+id/cash_amount_arrow_iv"
+                    android:id="@+id/iv_cash_amount_arrow"
                     android:layout_width="@dimen/dimen_16dp"
                     android:layout_height="@dimen/dimen_16dp"
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_arrow_forward"
-                    app:layout_constraintBottom_toBottomOf="@id/cash_amount_tv"
-                    app:layout_constraintStart_toEndOf="@id/cash_amount_tv"
-                    app:layout_constraintTop_toTopOf="@id/cash_amount_tv" />
+                    app:layout_constraintBottom_toBottomOf="@id/tv_cash_amount"
+                    app:layout_constraintStart_toEndOf="@id/tv_cash_amount"
+                    app:layout_constraintTop_toTopOf="@id/tv_cash_amount" />
 
                 <TextView
-                    android:id="@+id/cash_amount_value_tv"
+                    android:id="@+id/tv_cash_amount_value"
                     style="@style/TextView.S2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -123,20 +123,20 @@
                     android:text="@{@string/dollar_amount_float(viewModel.amount)}"
                     android:textAlignment="textStart"
                     android:textColor="@color/green71"
-                    app:layout_constraintBottom_toBottomOf="@id/cash_amount_tv"
-                    app:layout_constraintEnd_toStartOf="@id/save_edit_barrier"
-                    app:layout_constraintStart_toEndOf="@id/cash_amount_arrow_iv"
-                    app:layout_constraintTop_toTopOf="@id/cash_amount_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_cash_amount"
+                    app:layout_constraintEnd_toStartOf="@id/barrier_save_edit"
+                    app:layout_constraintStart_toEndOf="@id/iv_cash_amount_arrow"
+                    app:layout_constraintTop_toTopOf="@id/tv_cash_amount"
                     tools:text="$1200.00" />
 
                 <androidx.constraintlayout.widget.Barrier
-                    android:id="@+id/save_edit_barrier"
+                    android:id="@+id/barrier_save_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:constraint_referenced_ids="edit_cash_amount_ib, save_tv" />
+                    app:constraint_referenced_ids="ib_edit_cash_amount, tv_save" />
 
                 <ImageButton
-                    android:id="@+id/edit_cash_amount_ib"
+                    android:id="@+id/ib_edit_cash_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_20dp"
@@ -144,12 +144,12 @@
                     android:contentDescription="@null"
                     android:src="@drawable/ic_edit"
                     android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@id/cash_amount_start_iv"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/cash_amount_start_iv" />
+                    app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
                 <TextView
-                    android:id="@+id/save_tv"
+                    android:id="@+id/tv_save"
                     style="@style/TextView.S2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,13 +157,13 @@
                     android:onClick="@{() -> viewModel.saveAmount()}"
                     android:text="@string/save"
                     android:textColor="@color/green71"
-                    app:layout_constraintBottom_toBottomOf="@id/cash_amount_start_iv"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/cash_amount_start_iv" />
+                    app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
 
                 <androidx.appcompat.widget.AppCompatSeekBar
-                    android:id="@+id/cash_amount_sb"
+                    android:id="@+id/sb_cash_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_4dp"
@@ -178,12 +178,12 @@
                     android:thumb="@drawable/bg_seekbar_thumb"
                     android:thumbOffset="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cash_amount_start_iv"
+                    app:layout_constraintTop_toBottomOf="@id/iv_cash_amount_start"
                     app:layout_constraintVertical_bias="0"
                     tools:progress="100" />
 
                 <TextView
-                    android:id="@+id/cash_amount_label_tv"
+                    android:id="@+id/tv_cash_amount_label"
                     style="@style/TextView.C2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -195,49 +195,49 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cash_amount_sb"
+                    app:layout_constraintTop_toBottomOf="@id/sb_cash_amount"
                     tools:text="$10" />
 
             </androidx.constraintlayout.motion.widget.MotionLayout>
 
             <ImageView
-                android:id="@+id/alert_iv"
+                android:id="@+id/iv_alert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_12dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_alert"
-                app:layout_constraintStart_toStartOf="@id/cash_amount_ml"
-                app:layout_constraintTop_toBottomOf="@id/cash_amount_ml" />
+                app:layout_constraintStart_toStartOf="@id/ml_cash_amount"
+                app:layout_constraintTop_toBottomOf="@id/ml_cash_amount" />
 
             <TextView
-                android:id="@+id/due_date_label_tv"
+                android:id="@+id/tv_due_date_label"
                 style="@style/TextView.H6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10dp"
                 android:text="@string/claim_cash_due_date"
-                app:layout_constraintBottom_toBottomOf="@id/alert_iv"
-                app:layout_constraintStart_toEndOf="@id/alert_iv"
-                app:layout_constraintTop_toTopOf="@id/alert_iv" />
+                app:layout_constraintBottom_toBottomOf="@id/iv_alert"
+                app:layout_constraintStart_toEndOf="@id/iv_alert"
+                app:layout_constraintTop_toTopOf="@id/iv_alert" />
 
             <TextView
-                android:id="@+id/due_date_tv"
+                android:id="@+id/tv_due_date"
                 style="@style/TextView.S1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:text="@{viewModel.dueDate}"
                 android:textAlignment="textEnd"
-                app:layout_constraintBottom_toBottomOf="@id/due_date_label_tv"
-                app:layout_constraintEnd_toEndOf="@id/cash_amount_ml"
-                app:layout_constraintStart_toEndOf="@id/due_date_label_tv"
-                app:layout_constraintTop_toTopOf="@id/due_date_label_tv"
+                app:layout_constraintBottom_toBottomOf="@id/tv_due_date_label"
+                app:layout_constraintEnd_toEndOf="@id/ml_cash_amount"
+                app:layout_constraintStart_toEndOf="@id/tv_due_date_label"
+                app:layout_constraintTop_toTopOf="@id/tv_due_date_label"
                 tools:text="February 15th, 2023" />
 
             <TextView
-                android:id="@+id/delivery_method_title_tv"
+                android:id="@+id/tv_delivery_method_title"
                 style="@style/TextView.H4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -245,22 +245,22 @@
                 android:layout_marginTop="@dimen/dimen_48dp"
                 android:text="@string/claim_cash_delivery_method_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/alert_iv" />
+                app:layout_constraintTop_toBottomOf="@id/iv_alert" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/delivery_method_rv"
+                android:id="@+id/rv_delivery_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/dimen_8dp"
-                app:layout_constraintTop_toBottomOf="@id/delivery_method_title_tv"
+                app:layout_constraintTop_toBottomOf="@id/tv_delivery_method_title"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_delivery_method" />
 
             <TextView
-                android:id="@+id/delivery_method_disclaimer"
+                android:id="@+id/tv_delivery_method_disclaimer"
                 style="@style/TextView.S1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
                 android:layout_marginTop="@dimen/dimen_4dp"
                 android:text="@{viewModel.selectedDeliveryMethod.deliveryMethod.disclaimer}"
                 android:textAlignment="textStart"
-                app:layout_constraintTop_toBottomOf="@id/delivery_method_rv"
+                app:layout_constraintTop_toBottomOf="@id/rv_delivery_method"
                 tools:text="@string/delivery_method_express_disclaimer" />
 
             <com.google.android.material.button.MaterialButton
@@ -282,7 +282,7 @@
                 android:text="@string/continue_name"
                 app:contentPadding="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/delivery_method_disclaimer"
+                app:layout_constraintTop_toBottomOf="@id/tv_delivery_method_disclaimer"
                 app:layout_constraintVertical_bias="1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

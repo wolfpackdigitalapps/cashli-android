@@ -36,7 +36,7 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
     }
 
     private fun setupRv() {
-        binding?.deliveryMethodRv?.apply {
+        binding?.rvDeliveryMethod?.apply {
             adapter = this@ClaimCashFragment.adapter
             itemAnimator = null
             layoutManager = GridLayoutManager(this.context, COLUMN_COUNT).apply {
@@ -53,19 +53,19 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
     }
 
     private fun transitionToStart() {
-        binding?.cashAmountMl?.transitionToStart()
+        binding?.mlCashAmount?.transitionToStart()
     }
 
     private fun moveLabel(perc: Int) {
-        binding?.cashAmountMl?.getConstraintSet(R.id.end)?.let {
-            binding?.cashAmountSb?.thumb?.bounds?.centerX()
-            val seekBar = binding?.cashAmountSb ?: return
+        binding?.mlCashAmount?.getConstraintSet(R.id.end)?.let {
+            binding?.sbCashAmount?.thumb?.bounds?.centerX()
+            val seekBar = binding?.sbCashAmount ?: return
             val progressValue = perc * (seekBar.width - 2 * seekBar.thumbOffset) / seekBar.max
             it.setHorizontalBias(
-                R.id.cash_amount_label_tv,
+                R.id.tv_cash_amount_label,
                 (progressValue / PROGRESS_DIVISION_FACTOR).coerceIn(MIN_BIAS, MAX_BIAS)
             )
-            binding?.cashAmountLabelTv?.apply {
+            binding?.tvCashAmountLabel?.apply {
                 this.layoutParams = layoutParams
                 text = getString(R.string.dollar_amount, perc)
             }
