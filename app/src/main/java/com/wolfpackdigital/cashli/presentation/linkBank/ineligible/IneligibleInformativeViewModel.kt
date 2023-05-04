@@ -1,6 +1,5 @@
 package com.wolfpackdigital.cashli.presentation.linkBank.ineligible
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
@@ -18,5 +17,4 @@ class IneligibleInformativeViewModel : BaseViewModel() {
     private fun onBackPressed() {
         _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
     }
-
 }

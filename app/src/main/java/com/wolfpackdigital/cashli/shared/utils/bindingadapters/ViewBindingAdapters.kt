@@ -1,3 +1,4 @@
+@file:Suppress("TooManyFunctions")
 package com.wolfpackdigital.cashli.shared.utils.bindingadapters
 
 import android.animation.Animator

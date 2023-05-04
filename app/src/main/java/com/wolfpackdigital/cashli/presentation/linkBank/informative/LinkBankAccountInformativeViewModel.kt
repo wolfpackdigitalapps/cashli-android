@@ -164,7 +164,8 @@ class LinkBankAccountInformativeViewModel(
                     false -> {
                         alertDialog.dismiss()
                         _baseCmd.value = BaseCommand.PerformNavAction(
-                            LinkBankAccountInformativeFragmentDirections.actionLinkBankAccountInformativeFragmentToIneligibleInformativeFragment()
+                            LinkBankAccountInformativeFragmentDirections
+                                .actionLinkBankAccountInformativeFragmentToIneligibleInformativeFragment()
                         )
                     }
                     null -> {
