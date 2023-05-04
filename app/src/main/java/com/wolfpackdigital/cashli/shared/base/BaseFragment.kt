@@ -23,6 +23,7 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.openUrl
 import com.wolfpackdigital.cashli.shared.utils.extensions.showMessage
 import com.wolfpackdigital.cashli.shared.utils.extensions.showPopupById
+import com.wolfpackdigital.cashli.shared.utils.extensions.showSMSApp
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
 
 abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewModel>(
@@ -86,6 +87,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                     it.extras
                 )
                 is BaseCommand.ShowPopupById -> showPopupById(it.popupConfig)
+                is BaseCommand.ShowSMSApp -> activity?.showSMSApp(it.phoneNumber)
                 is BaseCommand.GoBack ->
                     if (navController?.popBackStack() == false) {
                         activity?.finish()

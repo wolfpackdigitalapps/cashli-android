@@ -60,6 +60,8 @@ class PopupDialog(
                 ).start()
             }
         }
+        if (popupConfig.isOtherActionInstant)
+            popupConfig.otherAction.invoke(dialog)
         dialog.window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
     }
 

@@ -6,6 +6,8 @@ import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDto
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusDtoToEligibilityStatusMapper
+import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusToEligibilityStatusDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelToIdentifierChannelDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
@@ -53,6 +55,7 @@ import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
@@ -116,7 +119,7 @@ object AppModules {
     private val viewModels = module {
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
-        viewModel { LinkBankAccountInformativeViewModel(get(), get()) }
+        viewModel { LinkBankAccountInformativeViewModel(get(), get(), get()) }
         viewModel { ChooseLanguageViewModel() }
         viewModel { (model: OnboardingStep) -> OnboardingStepViewModel(model) }
         viewModel { InformativeViewModel() }
@@ -169,7 +172,7 @@ object AppModules {
                 get()
             )
         }
-        single<BankRepository> { BankRepositoryImpl(get(), get(), get()) }
+        single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -183,6 +186,8 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { EligibilityStatusDtoToEligibilityStatusMapper() }
+        factory { EligibilityStatusToEligibilityStatusDtoMapper() }
         factory { BankTokenToBankTokenDtoMapper() }
         factory { BankTokenDtoToBankTokenMapper() }
         factory { TokenDtoToTokenMapper() }
@@ -222,6 +227,7 @@ object AppModules {
     }
 
     private val useCases = module {
+        single { GetEligibilityStatusUseCase(get()) }
         single { CompleteLinkingBankAccountUseCase(get()) }
         single { GenerateLinkTokenUseCase(get()) }
         single { SubmitRegistrationIdentifiersUseCase(get()) }
