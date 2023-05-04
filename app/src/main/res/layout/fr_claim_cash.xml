@@ -161,42 +161,45 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />
 
-
-                <androidx.appcompat.widget.AppCompatSeekBar
-                    android:id="@+id/sb_cash_amount"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/ll_select_cash"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_4dp"
                     android:layout_marginTop="@dimen/dimen_32dp"
-                    android:max="100"
-                    android:maxHeight="@dimen/dimen_10dp"
-                    android:min="0"
-                    android:minHeight="@dimen/dimen_10dp"
-                    android:progress="@={viewModel.amountPerc}"
-                    android:progressDrawable="@drawable/bg_seekbar_progress"
-                    android:splitTrack="false"
-                    android:thumb="@drawable/bg_seekbar_thumb"
-                    android:thumbOffset="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_cash_amount_start"
-                    app:layout_constraintVertical_bias="0"
-                    tools:progress="100" />
-
-                <TextView
-                    android:id="@+id/tv_cash_amount_label"
-                    style="@style/TextView.C2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dimen_12dp"
-                    android:layout_marginTop="@dimen/dimen_12dp"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
-                    android:textColor="@color/colorGrayB6"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/sb_cash_amount"
-                    tools:text="$10" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_cash_amount_start">
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/sb_cash_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:maxHeight="@dimen/dimen_10dp"
+                        android:min="0"
+                        android:minHeight="@dimen/dimen_10dp"
+                        android:progress="@={viewModel.amountPerc}"
+                        android:progressDrawable="@drawable/bg_seekbar_progress"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/bg_seekbar_thumb"
+                        android:thumbOffset="0dp"
+                        tools:progress="100" />
+
+                    <TextView
+                        android:id="@+id/tv_cash_amount_label"
+                        style="@style/TextView.C2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_12dp"
+                        android:layout_marginTop="@dimen/dimen_12dp"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorGrayB6"
+                        tools:text="$10" />
+                </LinearLayout>
 
             </androidx.constraintlayout.motion.widget.MotionLayout>
 

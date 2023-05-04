@@ -26,7 +26,7 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
     }
 
     private fun setupObservers() {
-        viewModel.amountPerc.observe(viewLifecycleOwner, ::moveLabel)
+        viewModel.amountPerc.observe(viewLifecycleOwner, ::moveValueText)
         viewModel.deliveryMethods.observe(viewLifecycleOwner, adapter::submitList)
         viewModel.cmd.observe(viewLifecycleOwner) { command ->
             when (command) {
@@ -56,25 +56,12 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
         binding?.mlCashAmount?.transitionToStart()
     }
 
-    private fun moveLabel(perc: Int) {
-        binding?.mlCashAmount?.getConstraintSet(R.id.end)?.let {
-            binding?.sbCashAmount?.thumb?.bounds?.centerX()
-            val seekBar = binding?.sbCashAmount ?: return
-            val progressValue = perc * (seekBar.width - 2 * seekBar.thumbOffset) / seekBar.max
-            it.setHorizontalBias(
-                R.id.tv_cash_amount_label,
-                (progressValue / PROGRESS_DIVISION_FACTOR).coerceIn(MIN_BIAS, MAX_BIAS)
-            )
+    private fun moveValueText(perc: Int) {
+        binding?.sbCashAmount?.let { sb ->
             binding?.tvCashAmountLabel?.apply {
-                this.layoutParams = layoutParams
                 text = getString(R.string.dollar_amount, perc)
+                x = sb.thumb.bounds.exactCenterX() - sb.thumbOffset
             }
         }
-    }
-
-    private companion object {
-        const val PROGRESS_DIVISION_FACTOR = 1000f
-        const val MIN_BIAS = 0.05f
-        const val MAX_BIAS = 0.95f
     }
 }

@@ -20,7 +20,7 @@ enum class DeliveryMethod(
         description = R.string.delivery_method_regular_description,
         secondaryDescription = null,
         disclaimer = R.string.delivery_method_regular_disclaimer,
-        //TODO Replace this with appropriate drawable after discussing with Alexandra
+        // TODO Replace this with appropriate drawable after discussing with Alexandra
         background = R.drawable.bg_express_item,
         icon = R.drawable.ic_regular_delivery,
         tint = R.color.green71

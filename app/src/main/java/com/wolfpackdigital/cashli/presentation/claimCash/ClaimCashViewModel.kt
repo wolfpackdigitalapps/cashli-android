@@ -18,7 +18,7 @@ class ClaimCashViewModel : BaseViewModel() {
     private val _amount = MutableLiveData(amountPerc.value?.toFloat() ?: 0f)
     val amount: LiveData<Float> = _amount
 
-    private val _dueDate = MutableLiveData<String>()
+    private val _dueDate = MutableLiveData("February 15th, 2023")
     val dueDate: LiveData<String> = _dueDate
 
     private val _deliveryMethods = MutableLiveData<List<DeliveryMethodItem>>(listOf())
@@ -28,7 +28,7 @@ class ClaimCashViewModel : BaseViewModel() {
     }
 
     init {
-        //TODO Replace this with appropriate data after clearing with BE
+        // TODO Replace this with appropriate data after clearing with BE
         _deliveryMethods.value = DeliveryMethod.values().map {
             DeliveryMethodItem(
                 deliveryMethod = it,
