@@ -6,15 +6,19 @@
     <data>
 
         <variable
-            name="requirement"
+            name="requirementText"
             type="String" />
 
         <variable
-            name="startIcon"
-            type="android.graphics.drawable.Drawable" />
+            name="tooltipText"
+            type="String" />
 
         <variable
-            name="endIcon"
+            name="requirementIcon"
+            type="Integer" />
+
+        <variable
+            name="startIcon"
             type="android.graphics.drawable.Drawable" />
 
     </data>
@@ -28,14 +32,14 @@
             android:id="@+id/iv_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:contentDescription="@null"
             android:src="@{startIcon != null ? startIcon : @drawable/ic_check}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_requirement"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_requirement"
             tools:src="@drawable/ic_check" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -43,30 +47,19 @@
             style="@style/TextView.Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_10dp"
-            android:drawableEnd="@{endIcon != null ? endIcon : @drawable/ic_info}"
-            android:text="@{requirement}"
+            android:layout_marginStart="@dimen/dimen_16dp"
             android:textAlignment="viewStart"
             android:textColor="@color/colorGray76"
             android:textSize="@dimen/size_16sp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_check"
             app:layout_constraintTop_toTopOf="parent"
+            app:requirement_image="@{requirementIcon}"
+            app:requirement_text="@{requirementText}"
+            app:tooltip_text="@{tooltipText}"
             tools:text="@string/salary" />
-
-        <!--        <ImageView-->
-        <!--            android:id="@+id/iv_info"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:contentDescription="@null"-->
-        <!--            android:src="@{endIcon != null ? endIcon : @drawable/ic_info}"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            android:layout_marginStart="@dimen/dimen_4dp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toEndOf="@id/tv_requirement"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            tools:src="@drawable/ic_info" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
