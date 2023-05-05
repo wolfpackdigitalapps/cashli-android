@@ -26,11 +26,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
+import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
 import java.security.InvalidParameterException
 
 // Support
-private const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"
 private const val PHONE_NUMBER_PREFIX_LABEL = "tel:"
 private const val SMS_PHONE_NUMBER_PREFIX_LABEL = "smsto:"
 

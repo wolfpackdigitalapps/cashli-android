@@ -17,6 +17,7 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.exceptions.RefreshTokenExpiredException
 import com.wolfpackdigital.cashli.shared.utils.Constants.SIGN_IN_SCREEN_DL
+import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.minusAssign
 import com.wolfpackdigital.cashli.shared.utils.extensions.plusAssign
@@ -120,6 +121,7 @@ sealed class BaseCommand {
         val extras: Navigator.Extras? = null
     ) : BaseCommand()
 
+    data class ShowSMSApp(val phoneNumber: String = SUPPORT_PHONE_NUMBER) : BaseCommand()
     object GoBack : BaseCommand()
 
     class GoBackTo(
