@@ -25,11 +25,10 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_home_blue_dots" />
+                app:srcCompat="@drawable/ic_dots" />
 
             <include
                 android:id="@+id/toolbar"
@@ -227,8 +226,6 @@
                     tools:text="Up to $150!" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
 </layout>
