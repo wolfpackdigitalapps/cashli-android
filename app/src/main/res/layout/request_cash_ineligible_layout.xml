@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".RequestCashIneligibleBinding">
+
+        <variable
+            name="requestCashAdvanceInfo"
+            type="com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo" />
+
+        <variable
+            name="inflatedVisibility"
+            type="Boolean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_layout_20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:visibility="@{inflatedVisibility}">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_request_background" />
+
+        <ImageView
+            android:id="@+id/iv_request_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_request_cash" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_message_three"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:text="@string/request_cash_ineligible"
+            android:textSize="@dimen/size_20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_request_cash" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_see_more"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_36dp"
+            android:layout_marginBottom="@dimen/dimen_56dp"
+            android:onClick="@{() -> requestCashAdvanceInfo.seeMoreAction.invoke()}"
+            android:text="@string/generic_see_more"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_message_three" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

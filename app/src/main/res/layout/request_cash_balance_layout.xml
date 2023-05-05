@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".RequestCashBalanceBinding">
+
+        <variable
+            name="requestCashAdvanceInfo"
+            type="com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo" />
+
+        <variable
+            name="inflatedVisibility"
+            type="Boolean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_layout_20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:visibility="@{inflatedVisibility}">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_background_libra_dark" />
+
+        <ImageView
+            android:id="@+id/iv_cash_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_libra_light" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_cash_balance"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:text="@string/request_cash_balance_label"
+            android:textSize="@dimen/size_20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_cash_balance" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_balance_value"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:text="@{@string/request_cash_balance_value(requestCashAdvanceInfo.cashAdvanceBalance)}"
+            android:textSize="@dimen/size_28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cash_balance"
+            tools:text="-$100" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_balance_details"
+            style="@style/TextView.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="@string/request_cash_balance_details"
+            android:textColor="@color/colorGrayB6"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_balance_value" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_repayment_date"
+            style="@style/TextView.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
+            android:text="@{@string/scheduled_repayment_date(requestCashAdvanceInfo.repaymentDate)}"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_balance_details"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Scheduled repayment date: February 3, 2023" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

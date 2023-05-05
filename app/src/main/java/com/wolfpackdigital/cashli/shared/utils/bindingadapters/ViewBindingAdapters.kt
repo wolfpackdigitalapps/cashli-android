@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.shared.utils.bindingadapters
 
 import android.animation.Animator
@@ -14,6 +16,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import com.google.android.material.button.MaterialButton
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
@@ -26,6 +29,11 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceO
 
 private const val KEY_SPAN_ACTION = "action"
 private const val FADE_ANIM_DURATION_200 = 200L
+
+@BindingConversion
+fun convertBooleanToVisibility(isVisible: Boolean?): Int {
+    return if (isVisible == true) View.VISIBLE else View.GONE
+}
 
 @BindingAdapter("visibility")
 fun View.visibility(visible: Boolean?) {
