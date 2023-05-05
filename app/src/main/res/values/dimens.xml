@@ -28,6 +28,7 @@
     <dimen name="dimen_60dp">60dp</dimen>
     <dimen name="dimen_64dp">64dp</dimen>
     <dimen name="dimen_68dp">68dp</dimen>
+    <dimen name="dimen_80dp">80dp</dimen>
 
     <!--  SP -->
     <dimen name="size_12sp">12sp</dimen>
