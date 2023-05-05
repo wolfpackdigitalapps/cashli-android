@@ -163,7 +163,10 @@ class LinkBankAccountInformativeViewModel(
                     }
                     false -> {
                         alertDialog.dismiss()
-                        // TODO add redirect to ineligible screen
+                        _baseCmd.value = BaseCommand.PerformNavAction(
+                            LinkBankAccountInformativeFragmentDirections
+                                .actionLinkBankAccountInformativeFragmentToIneligibleInformativeFragment()
+                        )
                     }
                     null -> {
                         toggleEligibilityStatusJob(alertDialog)

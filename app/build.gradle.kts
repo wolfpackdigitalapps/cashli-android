@@ -153,4 +153,7 @@ dependencies {
 
     // PlaidLink
     implementation(Libs.PLAID_LINK)
+
+    //Tooltips
+    implementation(Libs.TOOLTIP_BALLOON)
 }

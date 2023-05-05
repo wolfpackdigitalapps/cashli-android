@@ -93,6 +93,21 @@
     <string name="link_my_bank_account_message_three">Cash advances will be transferred to the same bank account.</string>
     <string name="link_my_bank_account_message_four">We use bank-level and military-grade encryption tools to protect your data.</string>
 
+    <!--Ineligible bank account -->
+    <string name="can_not_get_cash_advance">Unfortunately, you can\'t get a cash advance at this time.</string>
+    <string name="ineligible_message_one">Since Cashli does not check your credit history, it has to rely on your bank account transaction history to determine your eligibility for a cash advance.</string>
+    <string name="ineligible_message_two">If you have another bank account where paychecks are deposited into, you may connect it to the app instead and try again.</string>
+    <string name="ineligible_requirements">Make sure the following requirements have been met:</string>
+    <string name="salary">Salary</string>
+    <string name="transaction_history">Transaction history on your connected bank account</string>
+    <string name="spending_habits">Spending habits around paydays</string>
+    <string name="creation_date">Creation date of your bank account</string>
+    <string name="salary_tooltip">Salary text pending..</string>
+    <string name="transaction_history_tooltip">Transaction history on your connected bank account pending..</string>
+    <string name="spending_habits_tooltip">Spending habits around paydays pending..</string>
+    <string name="creation_date_tooltip">Creation date of your bank account pending..</string>
+    <string name="ineligible_try_again">You may try again after your next paycheck.</string>
+
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
     <string name="confirm_one_time_password">Confirm One Time Password</string>
