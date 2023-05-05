@@ -14,6 +14,7 @@ import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDateTime
@@ -60,6 +61,7 @@ class HomeViewModel(
         when {
             rand < 25 -> {
                 _requestCashAdvanceInfo.value = RequestCashAdvanceInfo(
+                    eligible = null,
                     upToSum = SUM_150
                 )
             }
@@ -77,9 +79,16 @@ class HomeViewModel(
                 )
             }
             else -> {
-                _requestCashAdvanceInfo.value = RequestCashAdvanceInfo()
+                _requestCashAdvanceInfo.value = RequestCashAdvanceInfo(
+                    seeMoreAction = {
+                        _baseCmd.value = BaseCommand.PerformNavDeepLink(
+                            deepLink = Constants.INELIGIBLE_INFORMATIVE_SCREEN_DL
+                        )
+                    }
+                )
             }
         }
+        Log.d("AAAA", (_requestCashAdvanceInfo.value?.eligible == null).toString())
         Log.d("AAAA", rand.toString())
         Log.d("AAAA - v", _requestCashAdvanceInfo.value.toString())
     }

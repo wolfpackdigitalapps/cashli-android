@@ -36,6 +36,7 @@ object Constants {
 
     // DeepLinks
     const val SIGN_IN_SCREEN_DL = "android-app://com.wolfpackdigital.cashli/signIn"
+    const val INELIGIBLE_INFORMATIVE_SCREEN_DL = "android-app://com.wolfpackdigital.cashli/ineligibleInformative"
 
     // Support
     const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"

@@ -14,20 +14,11 @@
         style="@style/ScrollView.VerticalPinkScrollBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhiteF9">
+        android:background="@color/colorPrimaryDark">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/home_background_custom_shape"
-                app:layout_constraintBottom_toBottomOf="@id/guideline_half"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_half"
@@ -71,6 +62,26 @@
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
                 tools:text="Hi, Mike!" />
 
+            <View
+                android:id="@+id/view_arch"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dimen_100dp"
+                android:background="@drawable/ic_arch_white"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/colorWhiteF9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_arch" />
+
             <ViewStub
                 android:id="@+id/stub_link_bank_account"
                 android:layout_width="0dp"
@@ -101,8 +112,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name"
-                app:linkBankAccountInfo="@{viewModel.linkBankAccountInfo}"
-                tools:ignore="UnknownId" />
+                app:linkBankAccountInfo="@{viewModel.linkBankAccountInfo}" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier_bank_account"
@@ -121,8 +131,8 @@
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:inflatedId="@+id/request_cash_advance"
                 android:layout="@layout/request_cash_advance_layout"
-                android:visibility="@{viewModel.requestCashAdvanceInfo.upToSum != null}"
-                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.upToSum != null}"
+                android:visibility="@{viewModel.requestCashAdvanceInfo.upToSum != null &amp;&amp; viewModel.requestCashAdvanceInfo.eligible == null}"
+                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.upToSum != null &amp;&amp; viewModel.requestCashAdvanceInfo.eligible == null}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
@@ -137,13 +147,12 @@
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:inflatedId="@+id/cash_ineligible"
                 android:layout="@layout/request_cash_ineligible_layout"
-                android:visibility="@{viewModel.requestCashAdvanceInfo.eligible == false}"
-                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible == false}"
+                android:visibility="@{viewModel.requestCashAdvanceInfo.eligible == false &amp;&amp; viewModel.requestCashAdvanceInfo.upToSum == null}"
+                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible == false &amp;&amp; viewModel.requestCashAdvanceInfo.upToSum == null}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}"
-                tools:ignore="UnknownId" />
+                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
 
             <ViewStub
                 android:id="@+id/stub_cash_approved"
@@ -154,13 +163,12 @@
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:inflatedId="@+id/cash_approved"
                 android:layout="@layout/request_cash_approved_layout"
-                android:visibility="@{viewModel.requestCashAdvanceInfo.eligible &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
-                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
+                android:visibility="@{viewModel.requestCashAdvanceInfo.eligible == true &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
+                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible == true &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}"
-                tools:ignore="UnknownId" />
+                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
 
             <ViewStub
                 android:id="@+id/stub_cash_balance"
@@ -176,8 +184,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}"
-                tools:ignore="UnknownId" />
+                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

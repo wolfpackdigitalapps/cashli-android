@@ -5,7 +5,7 @@ data class RequestCashAdvanceInfo(
     var cashAdvanceBalance: Float? = null,
     var upToSum: String? = null,
     var repaymentDate: String? = null,
-    var eligible: Boolean = false,
+    var eligible: Boolean? = false,
     var seeMoreAction: () -> Unit = {},
     var claimCashNowAction: () -> Unit = {}
 )
