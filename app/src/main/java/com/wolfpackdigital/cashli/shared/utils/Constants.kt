@@ -17,6 +17,7 @@ object Constants {
     const val EMPTY_STRING = ""
     const val COMMA = ","
     const val VARIANT_DEVELOP = "develop"
+    const val DOUBLE_SPACE = "  "
 
     // Input text constraints
     const val PHONE_PREFIX_US = "+1"
