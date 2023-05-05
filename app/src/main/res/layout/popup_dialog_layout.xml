@@ -28,7 +28,7 @@
             app:iconTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibility="@{viewModel.isBackVisible}" />
+            app:visibility="@{viewModel.isCloseVisible}" />
 
         <ImageView
             android:id="@+id/iv_top"
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="top"
-            app:constraint_referenced_ids="btn_primary, cl_timer" />
+            app:constraint_referenced_ids="btn_primary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_primary"
@@ -126,6 +126,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content_barrier"
+            app:layout_constraintVertical_bias="0.0"
             app:visibility="@{viewModel.timerCount != null}">
 
             <ImageView
