@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".IneligibleInformativeBinding">
 
@@ -20,7 +21,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ineligible_informative_background_custom_shape">
+            android:background="@color/colorWhiteF9">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@id/iv_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/toolbar"
@@ -48,24 +58,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_52dp"
-                android:layout_marginTop="@dimen/dimen_160dp"
                 android:layout_marginEnd="@dimen/dimen_52dp"
                 android:text="@string/can_not_get_cash_advance"
                 android:textSize="@dimen/size_20sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_top"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/iv_top"
+                app:layout_constraintVertical_bias="0.6" />
 
             <ImageView
                 android:id="@+id/white_arch_background"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="240dp"
+                android:layout_marginTop="@dimen/dimen_negative_100dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_arch_white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@id/layout_salary"
+                app:layout_constraintTop_toBottomOf="@id/iv_top" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_message_one"
