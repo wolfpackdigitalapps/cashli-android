@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_top_link_background"
+            android:src="@drawable/ic_top_link"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

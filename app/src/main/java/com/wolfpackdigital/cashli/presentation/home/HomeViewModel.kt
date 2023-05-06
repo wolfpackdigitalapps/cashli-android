@@ -29,6 +29,12 @@ class HomeViewModel : BaseViewModel(), PersistenceService {
         )
     }
 
+    fun goToClaimCash() {
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            HomeFragmentDirections.actionHomeFragmentToClaimCashFragment()
+        )
+    }
+
     companion object {
         const val SUM_150 = "150"
     }
