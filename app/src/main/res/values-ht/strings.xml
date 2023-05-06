@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Onboarding -->
     <string name="create_account">Create account</string>
     <string name="get_support">Get support</string>
@@ -136,7 +136,7 @@
     <string name="delivery_method_express_secondary_description">Leapfrogged</string>
     <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
 
-    <string name="delivery_method_free">Free</string>
+    <string name="delivery_method_free" tools:ignore="UnusedResource">Free</string>
 
     <!--Generic -->
     <string name="generic_continue">Continue</string>
