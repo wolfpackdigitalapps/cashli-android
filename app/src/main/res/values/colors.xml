@@ -26,4 +26,10 @@
     <color name="claimCashSeekbarGradientStart">#545482</color>
     <color name="claimCashSeekbarGradientCenter">#7E7EA8</color>
     <color name="claimCashSeekbarGradientEnd">#C0C0F2</color>
+
+    <color name="claimCashSeekbarAltGradientStart">#BBBBE0</color>
+    <color name="claimCashSeekbarAltGradientCenter">#7E7EA8</color>
+    <color name="claimCashSeekbarAltGradientEnd">#545482</color>
+
+    <color name="divider">#E2E2F3</color>
 </resources>
