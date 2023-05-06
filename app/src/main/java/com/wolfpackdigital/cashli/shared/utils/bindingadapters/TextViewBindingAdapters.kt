@@ -71,7 +71,6 @@ fun TextView.setTextSpanByAction(actions: List<TextSpanAction>, @StringRes textW
     highlightColor = Color.TRANSPARENT
 }
 
-
 @BindingAdapter(
     value = ["requirement_text", "tooltip_text", "requirement_image"],
     requireAll = true
