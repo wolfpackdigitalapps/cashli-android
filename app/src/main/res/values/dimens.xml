@@ -2,7 +2,9 @@
 <resources>
 
     <!--  NEGATIVE DP -->
+    <dimen name="dimen_negative_28dp">-28dp</dimen>
     <dimen name="dimen_negative_48dp">-48dp</dimen>
+    <dimen name="dimen_negative_100dp">-100dp</dimen>
 
     <!--  DP -->
     <dimen name="dimen_1dp">1dp</dimen>
@@ -22,6 +24,7 @@
     <dimen name="dimen_40dp">40dp</dimen>
     <dimen name="dimen_44dp">44dp</dimen>
     <dimen name="dimen_48dp">48dp</dimen>
+    <dimen name="dimen_52dp">52dp</dimen>
     <dimen name="dimen_56dp">56dp</dimen>
     <dimen name="dimen_60dp">60dp</dimen>
     <dimen name="dimen_64dp">64dp</dimen>

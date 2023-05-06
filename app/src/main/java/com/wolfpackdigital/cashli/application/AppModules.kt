@@ -98,6 +98,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.Validate
 import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
+import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
@@ -148,6 +149,7 @@ object AppModules {
                 get()
             )
         }
+        viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel() }
     }
 
