@@ -5,7 +5,7 @@ import com.wolfpackdigital.cashli.databinding.QuizFragmentBinding
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class QuizFragment: BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.fr_quiz) {
+class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.fr_quiz) {
 
     override val viewModel by viewModel<QuizViewModel>()
 

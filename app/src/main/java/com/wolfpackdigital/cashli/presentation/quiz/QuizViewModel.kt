@@ -12,6 +12,6 @@ class QuizViewModel : BaseViewModel() {
     val displayAltSecondQuestion: LiveData<Boolean> = _displayAltSecondQuestion
 
     fun onContinueClicked() {
-
+        return
     }
 }
