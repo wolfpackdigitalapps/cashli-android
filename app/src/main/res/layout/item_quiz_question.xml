@@ -36,35 +36,18 @@
 
             <RadioButton
                 android:id="@+id/rb_yes"
+                style="@style/CashliRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@drawable/selector_radio_button"
-                android:buttonTint="@color/btn_radio_tint_selector"
-                android:checked="true"
-                android:maxHeight="@dimen/dimen_40dp"
-                android:minHeight="@dimen/dimen_40dp"
-                android:paddingStart="@dimen/dimen_8dp"
-                android:text="@string/yes"
-                android:textAppearance="@style/TextView.H6"
-                android:textColor="@color/btn_radio_tint_selector"
-                tools:ignore="RtlSymmetry" />
+                android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/rb_no"
+                style="@style/CashliRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@drawable/selector_radio_button"
-                android:buttonTint="@color/btn_radio_tint_selector"
-                android:checked="true"
-                android:maxHeight="@dimen/dimen_40dp"
-                android:minHeight="@dimen/dimen_40dp"
-                android:paddingStart="@dimen/dimen_8dp"
-                android:text="@string/no"
-                android:textAppearance="@style/TextView.H6"
-                android:textColor="@color/btn_radio_tint_selector"
-                tools:ignore="RtlSymmetry" />
+                android:text="@string/no" />
 
         </RadioGroup>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethodItem
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 
@@ -52,6 +53,14 @@ class ClaimCashViewModel : BaseViewModel() {
                 deliveryMethods.forEach { add(it.copy(isSelected = it == item)) }
             }
             _deliveryMethods.value = newList
+        }
+    }
+
+    fun continueToQuiz() {
+        _amount.value?.let {
+            _baseCmd.value = BaseCommand.PerformNavAction(
+                ClaimCashFragmentDirections.actionClaimCashFragmentToQuizFragment(it)
+            )
         }
     }
 
