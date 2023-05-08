@@ -44,7 +44,8 @@ class HomeViewModel(
     val linkBankAccountInfo: LiveData<LinkBankAccountInfo> = currentUserProfile.map { userProfile ->
         LinkBankAccountInfo(
             bankAccount = userProfile?.bankAccount?.copy(
-                timestamp = userProfile.bankAccount.timestamp.toFormattedLocalDateTime() ?: EMPTY_STRING
+                timestamp = userProfile.bankAccount.timestamp.toFormattedLocalDateTime()
+                    ?: EMPTY_STRING
             ),
             linkBankAccountAction = { goToLinkBankAccount() }
         )
@@ -64,19 +65,24 @@ class HomeViewModel(
                     upToSum = SUM_150
                 )
             }
+
             rand in 25..50 -> {
                 _requestCashAdvanceInfo.value = RequestCashAdvanceInfo(
                     eligible = true,
-                    cashApproved = 123f
+                    cashApproved = 123f,
+                    claimCashNowAction = { goToClaimCash() }
                 )
             }
+
             rand in 51..75 -> {
                 _requestCashAdvanceInfo.value = RequestCashAdvanceInfo(
                     eligible = true,
                     cashAdvanceBalance = 123f,
-                    repaymentDate = LocalDateTime.now().toString().toFormattedLocalDateTime() ?: EMPTY_STRING
+                    repaymentDate = LocalDateTime.now().toString().toFormattedLocalDateTime()
+                        ?: EMPTY_STRING
                 )
             }
+
             else -> {
                 _requestCashAdvanceInfo.value = RequestCashAdvanceInfo(
                     seeMoreAction = {
@@ -108,7 +114,7 @@ class HomeViewModel(
         )
     }
 
-    fun goToClaimCash() {
+    private fun goToClaimCash() {
         _baseCmd.value = BaseCommand.PerformNavAction(
             HomeFragmentDirections.actionHomeFragmentToClaimCashFragment()
         )
