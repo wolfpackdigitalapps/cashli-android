@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".RequestCashAdvanceBinding">
+
+        <variable
+            name="requestCashAdvanceInfo"
+            type="com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo" />
+
+        <variable
+            name="inflatedVisibility"
+            type="Boolean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_request_cash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_layout_20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:visibility="@{inflatedVisibility}">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_request_background" />
+
+        <ImageView
+            android:id="@+id/iv_request_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toTopOf="@id/tv_message_three"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_request_cash" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_message_three"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:text="@string/request_a_cash_advance"
+            android:textSize="@dimen/size_20sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_message_four"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_request_cash" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_message_four"
+            style="@style/TextView.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:text="@string/cash_delivered_time"
+            android:textColor="@color/colorGrayB6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_message_three" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_36dp"
+            android:layout_marginBottom="@dimen/dimen_44dp"
+            android:text="@{@string/up_to_sum(requestCashAdvanceInfo.upToSum)}"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/size_28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_message_four"
+            tools:text="Up to $150!" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

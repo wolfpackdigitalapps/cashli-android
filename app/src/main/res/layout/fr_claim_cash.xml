@@ -122,7 +122,7 @@
                     android:maxLines="1"
                     android:text="@{@string/dollar_amount_float(viewModel.amount)}"
                     android:textAlignment="textStart"
-                    android:textColor="@color/green71"
+                    android:textColor="@color/colorGreen71"
                     app:layout_constraintBottom_toBottomOf="@id/tv_cash_amount"
                     app:layout_constraintEnd_toStartOf="@id/barrier_save_edit"
                     app:layout_constraintStart_toEndOf="@id/iv_cash_amount_arrow"
@@ -156,7 +156,7 @@
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:onClick="@{() -> viewModel.saveAmount()}"
                     android:text="@string/save"
-                    android:textColor="@color/green71"
+                    android:textColor="@color/colorGreen71"
                     app:layout_constraintBottom_toBottomOf="@id/iv_cash_amount_start"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/iv_cash_amount_start" />

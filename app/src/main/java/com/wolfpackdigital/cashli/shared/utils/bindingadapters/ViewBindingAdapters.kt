@@ -1,15 +1,23 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.shared.utils.bindingadapters
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.view.View
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import com.wolfpackdigital.cashli.shared.utils.Constants.ALPHA_0
 import com.wolfpackdigital.cashli.shared.utils.Constants.ALPHA_1
 import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLIS_300
 import com.wolfpackdigital.cashli.shared.utils.DebouncingOnClickListener
 
 private const val FADE_ANIM_DURATION_200 = 200L
+
+@BindingConversion
+fun convertBooleanToVisibility(isVisible: Boolean?): Int {
+    return if (isVisible == true) View.VISIBLE else View.GONE
+}
 
 @BindingAdapter("visibility")
 fun View.visibility(visible: Boolean?) {
