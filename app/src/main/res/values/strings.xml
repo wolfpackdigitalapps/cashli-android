@@ -118,8 +118,6 @@
     <string name="creation_date_tooltip">Creation date of your bank account pending..</string>
     <string name="ineligible_try_again">You may try again after your next paycheck.</string>
 
-
-
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
     <string name="confirm_one_time_password">Confirm One Time Password</string>
@@ -147,6 +145,26 @@
     <string name="bank_account_already_in_use">Your bank account has already been used.</string>
     <string name="go_back_to_home">Go back to Homepage</string>
 
+    <!--    Claim Cash-->
+    <string name="claim_cash_title">Claim cash now!</string>
+    <string name="claim_cash_cash_amount">Cash amount</string>
+    <string name="dollar_amount" translatable="false">$%d</string>
+    <string name="dollar_amount_float" translatable="false">$%.2f</string>
+
+    <string name="claim_cash_due_date">Due date</string>
+    <string name="claim_cash_delivery_method_title">Pick a delivery method</string>
+
+    <string name="delivery_method_regular">Regular</string>
+    <string name="delivery_method_regular_description">1–3 working days</string>
+    <string name="delivery_method_regular_disclaimer">This advance will be deposited into your Bank Of America account ending in 3091. Same bank account will be used for repayment.</string>
+
+    <string name="delivery_method_express">Express</string>
+    <string name="delivery_method_express_description">Within minutes</string>
+    <string name="delivery_method_express_secondary_description">Leapfrogged</string>
+    <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
+
+    <string name="delivery_method_free" tools:ignore="UnusedResources">Free</string>
+
     <!--Generic -->
     <string name="generic_continue">Continue</string>
     <string name="generic_seconds_abbreviation">sec</string>
@@ -155,6 +173,7 @@
     <string name="generic_error">Something went wrong, please try again.</string>
     <string name="generic_session_expired">Session expired, please login again.</string>
     <string name="generic_see_more">See more</string>
+    <string name="save">Save</string>
 
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>

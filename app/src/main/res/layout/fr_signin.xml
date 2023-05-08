@@ -43,8 +43,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_top_ballon"
+                android:src="@drawable/ic_top_balloon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

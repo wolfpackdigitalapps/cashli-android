@@ -32,11 +32,10 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_home_blue_dots" />
+                app:srcCompat="@drawable/ic_dots" />
 
             <include
                 android:id="@+id/toolbar"
@@ -133,9 +132,11 @@
                 android:layout="@layout/request_cash_advance_layout"
                 android:visibility="@{viewModel.requestCashAdvanceInfo.upToSum != null &amp;&amp; viewModel.requestCashAdvanceInfo.eligible == null}"
                 app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.upToSum != null &amp;&amp; viewModel.requestCashAdvanceInfo.eligible == null}"
+                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
+                app:layout_constraintVertical_bias="0.0"
                 app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
 
             <ViewStub
@@ -149,9 +150,11 @@
                 android:layout="@layout/request_cash_ineligible_layout"
                 android:visibility="@{viewModel.requestCashAdvanceInfo.eligible == false &amp;&amp; viewModel.requestCashAdvanceInfo.upToSum == null}"
                 app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible == false &amp;&amp; viewModel.requestCashAdvanceInfo.upToSum == null}"
+                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
+                app:layout_constraintVertical_bias="0.0"
                 app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
 
             <ViewStub
@@ -165,9 +168,11 @@
                 android:layout="@layout/request_cash_approved_layout"
                 android:visibility="@{viewModel.requestCashAdvanceInfo.eligible == true &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
                 app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible == true &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
+                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
+                app:layout_constraintVertical_bias="0.0"
                 app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
 
             <ViewStub
@@ -181,12 +186,21 @@
                 android:layout="@layout/request_cash_balance_layout"
                 android:visibility="@{viewModel.requestCashAdvanceInfo.cashAdvanceBalance != null}"
                 app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.cashAdvanceBalance != null}"
+                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
+                app:layout_constraintVertical_bias="0.0"
                 app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_cash_advance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="cash_balance, cash_approved, cash_ineligible, request_cash_advance"
+                tools:ignore="UnknownId" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

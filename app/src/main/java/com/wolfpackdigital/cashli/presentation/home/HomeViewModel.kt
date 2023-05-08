@@ -1,6 +1,5 @@
 package com.wolfpackdigital.cashli.presentation.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -88,9 +87,6 @@ class HomeViewModel(
                 )
             }
         }
-        Log.d("AAAA", (_requestCashAdvanceInfo.value?.eligible == null).toString())
-        Log.d("AAAA", rand.toString())
-        Log.d("AAAA - v", _requestCashAdvanceInfo.value.toString())
     }
 
     fun getUserProfile() {
@@ -109,6 +105,12 @@ class HomeViewModel(
     private fun goToLinkBankAccount() {
         _baseCmd.value = BaseCommand.PerformNavAction(
             HomeFragmentDirections.actionGlobalLinkAccountGraph()
+        )
+    }
+
+    fun goToClaimCash() {
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            HomeFragmentDirections.actionHomeFragmentToClaimCashFragment()
         )
     }
 
