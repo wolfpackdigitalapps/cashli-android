@@ -26,6 +26,8 @@
 -keep class com.wolfpackdigital.cashli.presentation.entities.* {
     public protected private *;
 }
+-keepclassmembers enum com.wolfpackdigital.cashli.domain.entities.enums.* { *; }
+
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.
 -keepattributes SourceFile, LineNumberTable, Signature, InnerClasses, EnclosingMethod, *Annotation*
