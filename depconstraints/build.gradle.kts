@@ -34,6 +34,7 @@ val viewPager2 = "1.0.0"
 val dotIndicator = "4.3"
 val androidxBrowser = "1.5.0"
 val plaidLink = "3.11.0"
+val okHttp = "4.11.0"
 
 dependencies {
     constraints {
@@ -67,9 +68,8 @@ dependencies {
         api("${Libs.RETROFIT}:$retrofit")
         api("${Libs.RETROFIT_GSON_CONVERTER}:$converters")
 
-        api("${Libs.OKHTTP_BOM}:${Versions.OKHTTP_BOM}")
-        api(Libs.OKHTTP_LOGGING_INTERCEPTOR)
-        api(Libs.OKHTTP)
+        api("${Libs.OKHTTP_LOGGING_INTERCEPTOR}:$okHttp")
+        api("${Libs.OKHTTP}:$okHttp")
 
         api("${Libs.RX_PERMISSIONS}:$rxPermissions")
         api("${Libs.RX_JAVA2_ANDROID}:$rxAndroid")

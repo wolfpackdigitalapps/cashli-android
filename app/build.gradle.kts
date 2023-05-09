@@ -131,7 +131,6 @@ dependencies {
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON_CONVERTER)
     implementation(Libs.GOOGLE_GSON)
-    implementation(platform("${Libs.OKHTTP_BOM}:${Versions.OKHTTP_BOM}"))
     implementation(Libs.OKHTTP)
     implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
 

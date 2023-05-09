@@ -29,7 +29,6 @@ object Libs {
     const val RETROFIT = "com.squareup.retrofit2:retrofit"
     const val RETROFIT_GSON_CONVERTER = "com.squareup.retrofit2:converter-gson"
 
-    const val OKHTTP_BOM = "com.squareup.okhttp3:okhttp-bom"
     const val OKHTTP = "com.squareup.okhttp3:okhttp"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor"
 
