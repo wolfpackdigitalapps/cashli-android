@@ -131,7 +131,6 @@ dependencies {
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON_CONVERTER)
     implementation(Libs.GOOGLE_GSON)
-    implementation(Libs.OKHTTP)
     implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
 
     // Permissions

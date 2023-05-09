@@ -69,7 +69,6 @@ dependencies {
         api("${Libs.RETROFIT_GSON_CONVERTER}:$converters")
 
         api("${Libs.OKHTTP_LOGGING_INTERCEPTOR}:$okHttp")
-        api("${Libs.OKHTTP}:$okHttp")
 
         api("${Libs.RX_PERMISSIONS}:$rxPermissions")
         api("${Libs.RX_JAVA2_ANDROID}:$rxAndroid")
