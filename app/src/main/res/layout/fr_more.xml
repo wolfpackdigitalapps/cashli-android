@@ -31,7 +31,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_background_blue_dots"
+            android:src="@drawable/ic_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
             android:id="@+id/white_arch_background"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dimen_56dp"
+            android:layout_marginTop="@dimen/dimen_60dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_arch_white"
             app:layout_constraintBottom_toBottomOf="parent"
