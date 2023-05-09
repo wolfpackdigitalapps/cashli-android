@@ -12,4 +12,11 @@ class HomeFragment :
 
     override fun setupViews() {
     }
+
+    override fun onResume() {
+        super.onResume()
+        // TODO remove mock data
+        viewModel.mockRequestCashAdvance()
+        viewModel.getUserProfile()
+    }
 }

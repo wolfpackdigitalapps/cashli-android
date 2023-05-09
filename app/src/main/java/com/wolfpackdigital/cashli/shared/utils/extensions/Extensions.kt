@@ -46,11 +46,11 @@ fun Throwable.getParsedError(): ApiError = try {
     val body = response?.errorBody()
     val code = response?.code()
     val model = Gson().fromJson(body?.string(), ApiError::class.java)
-    model?.copy(errorCode = code) ?: ApiError(messageId = R.string.generic_error)
+    model?.copy(errorCode = code) ?: ApiError(message = this.toString())
 } catch (ex: JsonParseException) {
     ex.localizedMessage?.let {
         ApiError(it)
-    } ?: ApiError(messageId = R.string.generic_error)
+    } ?: ApiError(message = ex.toString())
 }
 
 val appVersion: String

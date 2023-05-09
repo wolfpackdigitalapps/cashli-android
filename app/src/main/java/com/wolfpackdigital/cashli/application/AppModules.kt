@@ -1,5 +1,9 @@
 package com.wolfpackdigital.cashli.application
 
+import com.wolfpackdigital.cashli.data.mappers.BankAccountDtoToBankAccountMapper
+import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeDtoToBankAccountSubtypeMapper
+import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSubtypeDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.BankAccountToBankAccountDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
@@ -48,15 +52,18 @@ import com.wolfpackdigital.cashli.data.patternMatchers.ZipCodePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.remote.api.common.ApiProvider
 import com.wolfpackdigital.cashli.data.repositories.AuthRepositoryImpl
 import com.wolfpackdigital.cashli.data.repositories.BankRepositoryImpl
+import com.wolfpackdigital.cashli.data.repositories.UserRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.PatternMatcher
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepository
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
@@ -95,6 +102,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateP
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
+import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeViewModel
@@ -126,15 +134,12 @@ object AppModules {
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get()) }
         viewModel { SignInViewModel(get(), get()) }
-        viewModel { HomeViewModel() }
+        viewModel { HomeViewModel(get()) }
         viewModel { AccountViewModel() }
         viewModel { MoreViewModel() }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
-                identifier,
-                codeReceivedViaType,
-                get(),
-                get()
+                identifier, codeReceivedViaType, get(), get()
             )
         }
         viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get(), get()) }
@@ -142,37 +147,27 @@ object AppModules {
         viewModel { RequestCodeViewModel(get(), get()) }
         viewModel { (phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType) ->
             ConfirmOneTimePasswordViewModel(
-                phoneNumberOrEmail,
-                codeReceivedViaType,
-                get(),
-                get()
+                phoneNumberOrEmail, codeReceivedViaType, get(), get()
             )
         }
         viewModel { IneligibleInformativeViewModel() }
+        viewModel { ClaimCashViewModel() }
     }
 
     private val apiModule = module {
         single { ApiProvider.provideAuthApi() }
         single { ApiProvider.provideBankApi() }
+        single { ApiProvider.provideUserApi() }
     }
 
     private val repoModule = module {
         single<AuthRepository> {
             AuthRepositoryImpl(
-                get(),
-                get(),
-                get(),
-                get(),
-                get(),
-                get(),
-                get(),
-                get(),
-                get(),
-                get(),
-                get()
+                get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()
             )
         }
         single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
+        single<UserRepository> { UserRepositoryImpl(get(), get()) }
     }
 
     private val patternsModule = module {
@@ -186,6 +181,10 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { BankAccountSubtypeDtoToBankAccountSubtypeMapper() }
+        factory { BankAccountSubtypeToBankAccountSubtypeDtoMapper() }
+        factory { BankAccountToBankAccountDtoMapper(get()) }
+        factory { BankAccountDtoToBankAccountMapper(get()) }
         factory { EligibilityStatusDtoToEligibilityStatusMapper() }
         factory { EligibilityStatusToEligibilityStatusDtoMapper() }
         factory { BankTokenToBankTokenDtoMapper() }
@@ -208,8 +207,8 @@ object AppModules {
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
         factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
         factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileToUserProfileDtoMapper(get(), get()) }
-        factory { UserProfileDtoToUserProfileMapper(get(), get()) }
+        factory { UserProfileToUserProfileDtoMapper(get(), get(), get()) }
+        factory { UserProfileDtoToUserProfileMapper(get(), get(), get()) }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
         factory { SignInRequestToSignInRequestDtoMapper(get()) }
@@ -227,6 +226,7 @@ object AppModules {
     }
 
     private val useCases = module {
+        single { GetUserProfileUseCase(get()) }
         single { GetEligibilityStatusUseCase(get()) }
         single { CompleteLinkingBankAccountUseCase(get()) }
         single { GenerateLinkTokenUseCase(get()) }

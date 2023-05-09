@@ -1,3 +1,4 @@
+@file:Suppress("UnstableApiUsage")
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -74,13 +75,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "17"
+    namespace = "com.wolfpackdigital.cashli"
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 }
 
@@ -128,8 +130,11 @@ dependencies {
     // Networking
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON_CONVERTER)
-    implementation(Libs.RETROFIT_LOGGING_INTERCEPTOR)
     implementation(Libs.GOOGLE_GSON)
+
+    implementation(platform("${Libs.OKHTTP_BOM}:${Versions.OKHTTP_BOM}"))
+    implementation(Libs.OKHTTP)
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
 
     // Permissions
     implementation(Libs.RX_PERMISSIONS)

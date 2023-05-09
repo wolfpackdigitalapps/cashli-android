@@ -9,7 +9,7 @@
         android:id="@+id/linkBankAccountInformativeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeFragment"
         android:label="LinkBankAccountInformativeFragment"
-        tools:layout="@layout/fr_link_bank_account_informative" >
+        tools:layout="@layout/fr_link_bank_account_informative">
         <action
             android:id="@+id/action_linkBankAccountInformativeFragment_to_ineligibleInformativeFragment"
             app:destination="@id/ineligibleInformativeFragment" />
@@ -18,6 +18,8 @@
         android:id="@+id/ineligibleInformativeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeFragment"
         android:label="IneligibleInformativeFragment"
-        tools:layout="@layout/fr_ineligible_informative"/>
+        tools:layout="@layout/fr_ineligible_informative">
+        <deepLink app:uri="android-app://com.wolfpackdigital.cashli/ineligibleInformative" />
+    </fragment>
 
 </navigation>
