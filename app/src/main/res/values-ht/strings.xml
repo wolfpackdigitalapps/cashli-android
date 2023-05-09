@@ -196,4 +196,5 @@
     <string name="faq">FAQ</string>
     <string name="pause_close_account">Pause or Close account</string>
     <string name="logout">Logout</string>
+    <string name="unpause_close_account">Unpause or Close account</string>
 </resources>

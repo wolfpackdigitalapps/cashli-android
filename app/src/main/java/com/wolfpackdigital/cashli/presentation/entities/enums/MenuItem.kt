@@ -13,5 +13,6 @@ enum class MenuItem(@StringRes val title: Int, @DrawableRes val icon: Int) {
     REFER_FRIEND(R.string.refer_friend, R.drawable.ic_plus_square),
     FAQ(R.string.faq, R.drawable.ic_question_mark),
     PAUSE_CLOSE_ACCOUNT(R.string.pause_close_account, R.drawable.ic_square_circle),
+    UNPAUSE_CLOSE_ACCOUNT(R.string.unpause_close_account, R.drawable.ic_square_circle),
     LOGOUT(R.string.logout, R.drawable.ic_logout)
 }
