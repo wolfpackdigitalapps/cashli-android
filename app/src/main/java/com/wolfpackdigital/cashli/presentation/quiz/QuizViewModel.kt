@@ -36,4 +36,8 @@ class QuizViewModel : BaseViewModel() {
     fun onContinueClicked() {
         return
     }
+
+    fun setSecondAltQuestionVisible(visible: Boolean) {
+        _displayAltSecondQuestion.value = visible
+    }
 }

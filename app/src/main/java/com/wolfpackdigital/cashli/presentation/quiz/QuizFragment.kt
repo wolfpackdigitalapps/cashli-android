@@ -19,6 +19,7 @@ class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.f
     private val args by navArgs<QuizFragmentArgs>()
 
     override fun setupViews() {
+        setupQuestions()
         setupTipAmountSection()
         setupSliderLabel()
     }
@@ -33,6 +34,22 @@ class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.f
                         ?.getChildAt(index)
                         ?.findViewById<RadioButton>(R.id.radio_button)
                         ?.isChecked = tipAmount.isChecked
+                }
+            }
+        }
+    }
+
+    private fun setupQuestions() {
+        binding?.quizFirstQuestion?.questionRg?.apply {
+            check(R.id.rb_yes)
+            setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.rb_yes -> {
+                        viewModel.setSecondAltQuestionVisible(false)
+                    }
+                    R.id.rb_no -> {
+                        viewModel.setSecondAltQuestionVisible(true)
+                    }
                 }
             }
         }
