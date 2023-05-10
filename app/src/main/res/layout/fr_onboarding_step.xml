@@ -35,15 +35,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_onboarding_3" />
 
+            <View
+                android:id="@+id/gl_header"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/dimen_48dp"
+                app:layout_constraintBottom_toBottomOf="@id/top_iv" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_header"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_negative_48dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_onboarding_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/top_iv"
+                app:layout_constraintTop_toBottomOf="@+id/gl_header"
                 app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintVertical_chainStyle="spread_inside">
 

@@ -149,7 +149,6 @@
     <!--    Claim Cash-->
     <string name="claim_cash_title">Claim cash now!</string>
     <string name="claim_cash_cash_amount">Cash amount</string>
-    <string name="dollar_amount" translatable="false">$%d</string>
     <string name="dollar_amount_float" translatable="false">$%.2f</string>
 
     <string name="claim_cash_due_date">Due date</string>
