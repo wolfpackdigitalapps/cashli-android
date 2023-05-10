@@ -45,4 +45,12 @@ object Libs {
     const val ANDROIDX_BROWSER = "androidx.browser:browser"
     const val PLAID_LINK = "com.plaid.link:sdk-core"
     const val TOOLTIP_BALLOON = "com.github.skydoves:balloon:1.4.7"
+
+    const val ANDROIDX_COMPOSE_UI = "androidx.compose.ui:ui"
+    const val ANDROIDX_COMPOSE_MATERIAL = "androidx.compose.material:material"
+    const val ANDROIDX_COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling"
+    const val ANDROIDX_COMPOSE_UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
+    const val ANDROIDX_COMPOSE_RUNTIME = "androidx.compose.runtime:runtime"
+    const val ANDROIDX_COMPOSE_RUNTIME_LIVEDATA = "androidx.compose.runtime:runtime-livedata"
+    const val COLORFUL_SLIDERS = "com.github.SmartToolFactory:Compose-Colorful-Sliders"
 }

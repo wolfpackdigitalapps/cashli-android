@@ -152,7 +152,7 @@ object AppModules {
         }
         viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel() }
-        viewModel { QuizViewModel() }
+        viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
     }
 
     private val apiModule = module {

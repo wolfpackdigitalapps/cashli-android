@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="QuizFragmentBinding">
 
@@ -147,46 +146,15 @@
                 android:src="@drawable/ic_group"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_tip_amount" />
+                app:layout_constraintTop_toBottomOf="@id/cv_tip_amount" />
 
-            <LinearLayout
-                android:id="@+id/ll_tip_amount"
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/cv_tip_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_10dp"
                 android:layout_marginTop="@dimen/dimen_16dp"
-                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/ll_tip_selection"
-                app:viewState="@{viewModel.tipSeekbarVisible ? View.VISIBLE : View.GONE }">
-
-                <androidx.appcompat.widget.AppCompatSeekBar
-                    android:id="@+id/sb_tip_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:maxHeight="@dimen/dimen_10dp"
-                    android:min="0"
-                    android:minHeight="@dimen/dimen_10dp"
-                    android:progress="@={viewModel.tipAmountPerc}"
-                    android:progressDrawable="@drawable/bg_seekbar_alt_progress"
-                    android:splitTrack="false"
-                    android:thumb="@drawable/bg_seekbar_thumb"
-                    android:thumbOffset="0dp"
-                    android:thumbTint="@color/colorPrimaryDark"
-                    tools:progress="50" />
-
-                <TextView
-                    android:id="@+id/tv_tip_amount"
-                    style="@style/TextView.C2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_12dp"
-                    android:layout_marginTop="@dimen/dimen_12dp"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorGrayB6"
-                    tools:text="$10" />
-            </LinearLayout>
+                app:viewState="@{viewModel.tipSeekbarVisible ? View.VISIBLE : View.GONE }" />
 
             <TextView
                 android:id="@+id/tv_footnote"

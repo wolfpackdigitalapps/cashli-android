@@ -1,8 +1,7 @@
 package com.wolfpackdigital.cashli.presentation.quiz
 
 import android.widget.RadioButton
-import android.widget.SeekBar
-import android.widget.TextView
+import androidx.compose.material.MaterialTheme
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.wolfpackdigital.cashli.R
@@ -11,17 +10,20 @@ import com.wolfpackdigital.cashli.databinding.TipRadioButtonBinding
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setImageTint
 import com.wolfpackdigital.cashli.shared.utils.extensions.percentOf
+import com.wolfpackdigital.cashli.shared.utils.views.StyledSlider
+import com.wolfpackdigital.cashli.shared.utils.views.StyledSliderUIState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.fr_quiz) {
 
-    override val viewModel by viewModel<QuizViewModel>()
     private val args by navArgs<QuizFragmentArgs>()
+    override val viewModel by viewModel<QuizViewModel> { parametersOf(args.cashAmount) }
 
     override fun setupViews() {
         setupQuestions()
         setupTipAmountSection()
-        setupSliderLabel()
+        setupSliderView()
     }
 
     private fun setupTipAmountSection() {
@@ -47,6 +49,7 @@ class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.f
                     R.id.rb_yes -> {
                         viewModel.setSecondAltQuestionVisible(false)
                     }
+
                     R.id.rb_no -> {
                         viewModel.setSecondAltQuestionVisible(true)
                     }
@@ -82,20 +85,18 @@ class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.f
         }
     }
 
-    @Suppress("MagicNumber")
-    private fun setupSliderLabel() {
-        viewModel.tipAmountPerc.observe(viewLifecycleOwner) { perc ->
-            binding?.llTipAmount?.findViewById<SeekBar>(R.id.sb_tip_amount)?.let { sb ->
-                binding?.llTipAmount?.findViewById<TextView>(R.id.tv_tip_amount)?.apply {
-                    // TODO Change this
-                    val percentage = perc / 10f
-                    text = getString(
-                        R.string.quiz_tip_amount_slider,
-                        percentage,
-                        percentage.percentOf(args.cashAmount)
-                    )
-                    x = sb.thumb.bounds.exactCenterX()
-                }
+    private fun setupSliderView() {
+        binding?.cvTipAmount?.setContent {
+            MaterialTheme {
+                StyledSlider(
+                    uiState = StyledSliderUIState.TipAmountSliderUIState(
+                        sliderValue = viewModel.sliderValue,
+                        tipAmountPerc = viewModel.tipAmountPerc,
+                        tipAmount = viewModel.tipAmount,
+                        isInvertedColorScheme = true
+                    ),
+                    onAmountChanged = viewModel::setSliderValue
+                )
             }
         }
     }

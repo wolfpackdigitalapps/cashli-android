@@ -2,13 +2,21 @@ package com.wolfpackdigital.cashli.presentation.quiz
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.utils.extensions.percentOf
 
-class QuizViewModel : BaseViewModel() {
+@Suppress("MagicNumber", "ForbiddenComment")
+class QuizViewModel(cashAmount: Float) : BaseViewModel() {
 
     private val _tipSeekbarVisible = MutableLiveData(false)
     val tipSeekbarVisible: LiveData<Boolean> = _tipSeekbarVisible
-    val tipAmountPerc = MutableLiveData(0)
+
+    private val _sliderValue = MutableLiveData(0f)
+    val sliderValue: LiveData<Float> = _sliderValue
+    // TODO: Change this to actual value
+    val tipAmountPerc: LiveData<Float> = _sliderValue.map { it / 10f }
+    val tipAmount: LiveData<Float> = tipAmountPerc.map { it.percentOf(cashAmount) }
 
     private val _displayAltSecondQuestion = MutableLiveData(false)
     val displayAltSecondQuestion: LiveData<Boolean> = _displayAltSecondQuestion
@@ -39,5 +47,9 @@ class QuizViewModel : BaseViewModel() {
 
     fun setSecondAltQuestionVisible(visible: Boolean) {
         _displayAltSecondQuestion.value = visible
+    }
+
+    fun setSliderValue(sliderValue: Float) {
+        _sliderValue.value = sliderValue
     }
 }
