@@ -15,8 +15,7 @@ class ApplicationClass : Application() {
         startKoin {
             modules(AppModules.modules)
         }
-        // Uncomment this line if you use Push Notifications
-        // createNotificationChannel()
+        createNotificationChannel()
     }
 
     private fun createNotificationChannel() {

@@ -7,7 +7,9 @@ import android.content.Intent
 import androidx.annotation.CallSuper
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
+import androidx.core.os.bundleOf
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -16,15 +18,13 @@ import com.google.gson.JsonSyntaxException
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.main.MainActivity
 import com.wolfpackdigital.cashli.shared.notifications.NotificationModel
+import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.extensions.isAppInForeground
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-
-const val FCM_NOTIFICATION_MODEL = "fcm_notification_model"
-const val NO_TOKEN_MSG = "No token"
 
 abstract class BaseMessagingService : FirebaseMessagingService() {
 
@@ -36,16 +36,29 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
         val receivedMessage = try {
             gson.fromJson(receivedJSON, NotificationModel::class.java)
         } catch (ex: JsonSyntaxException) {
+            FirebaseCrashlytics.getInstance().recordException(ex)
             return
         }
-        createNotificationFromPush(applicationContext, receivedMessage)
+        if (applicationContext.isAppInForeground()) {
+            sendBroadcast(
+                Intent(Constants.PUSH_NOTIFICATION_EXTRA_FOREGROUND).apply {
+                    putExtras(
+                        bundleOf(
+                            Constants.PUSH_NOTIFICATION_EXTRA_DATA_FOREGROUND to receivedMessage
+                        )
+                    )
+                }
+            )
+        } else {
+            createNotificationFromPush(applicationContext, receivedMessage)
+        }
     }
 
     @CallSuper
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         runBlocking {
-            withContext(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
                 handleNewToken()
             }
         }
@@ -60,19 +73,23 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
             context.getString(R.string.push_notification_channel_id)
         ).apply {
             setSmallIcon(R.drawable.ic_push_notifications)
+            color = context.getColor(R.color.colorGreen71)
             setContentTitle(pushNotificationData.title)
             setStyle(NotificationCompat.BigTextStyle().bigText(pushNotificationData.body))
             setAutoCancel(true)
             val notificationIntent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                putExtra(FCM_NOTIFICATION_MODEL, pushNotificationData)
+                putExtra(
+                    Constants.PUSH_NOTIFICATION_EXTRA,
+                    bundleOf(Constants.PUSH_NOTIFICATION_EXTRA_DATA to pushNotificationData)
+                )
             }
             val resultPendingIntent = TaskStackBuilder.create(context).run {
                 addParentStack(MainActivity::class.java)
                 addNextIntentWithParentStack(notificationIntent)
                 getPendingIntent(
                     pushNotificationData.body.hashCode(),
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )
             }
             setContentIntent(resultPendingIntent)
@@ -92,7 +109,7 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
         )
     }
 
-    abstract fun handleNewToken()
+    abstract suspend fun handleNewToken()
 
     companion object {
         suspend fun getDeviceToken(): String {
@@ -112,10 +129,14 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
         private suspend fun <T> getDeviceTokenWrapper(block: (OnCompleteListener<T>) -> Unit) =
             suspendCancellableCoroutine<T> { cancellableContinuation ->
                 block(
-                    OnCompleteListener<T> {
-                        it.result?.let { result ->
-                            cancellableContinuation.resume(result)
-                        } ?: cancellableContinuation.resumeWithException(Exception(NO_TOKEN_MSG))
+                    OnCompleteListener<T> { task ->
+                        if (task.isSuccessful)
+                            cancellableContinuation.resume(task.result)
+                        else {
+                            FirebaseCrashlytics.getInstance()
+                                .recordException(Throwable(task.exception))
+                            cancellableContinuation.cancel()
+                        }
                     }
                 )
             }

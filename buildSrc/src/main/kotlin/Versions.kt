@@ -12,6 +12,7 @@ object Versions {
 
     const val ANDROID_NAVIGATION = "2.5.3"
 
+    const val OKHTTP_BOM = "4.11.0"
     const val FIREBASE_BOM = "31.2.3"
     const val GMS_SERVICES = "4.3.15"
     const val FIREBASE_APP_DISTRIBUTION = "3.0.2"

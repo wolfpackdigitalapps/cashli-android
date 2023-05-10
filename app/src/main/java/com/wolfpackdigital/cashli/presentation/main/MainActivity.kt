@@ -61,7 +61,18 @@ class MainActivity : BaseActivity<ActMainBinding, MainActivityViewModel>(R.layou
         navController.addOnDestinationChangedListener(viewModel.destinationChangeListener)
     }
 
-    override fun parseNotificationFromIntent(notification: NotificationModel?) {
-        // TODO add routes
+    override fun parseNotificationFromIntent(
+        notification: NotificationModel?,
+        fromBackground: Boolean
+    ) {
+        when (fromBackground) {
+            true -> {
+                // TODO handle background notification
+            }
+
+            false -> {
+                // TODO handle foreground notification
+            }
+        }
     }
 }

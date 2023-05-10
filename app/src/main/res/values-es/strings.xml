@@ -84,6 +84,17 @@
     <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
     <string name="up_to_sum">Up to $%s!</string>
     <string name="hello_user">Hi, %s!</string>
+    <string name="request_cash_ineligible">Unfortunately, you can\'t get a cash advance at this time.</string>
+    <string name="request_cash_approved_for">You’ve been approved for</string>
+    <string name="claim_cash_now">Claim cash now</string>
+    <string name="cash_zecimals_value">$%.2f</string>
+    <string name="request_cash_tips">Cash could be delivered in minutes.</string>
+    <string name="request_cash_balance_value">-$%.2f</string>
+    <string name="request_cash_balance_label">Cash advance balance</string>
+    <string name="request_cash_balance_details">Including tips &amp; express fee, if applicable.</string>
+    <string name="scheduled_repayment_date">Scheduled repayment date: %s</string>
+    <string name="bank_account_balance">Bank account balance</string>
+    <string name="bank_account_check_date">As of %s</string>
 
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>
@@ -171,9 +182,13 @@
     <string name="no_messaging_app_found">No messaging app found.</string>
     <string name="generic_error">Something went wrong, please try again.</string>
     <string name="generic_session_expired">Session expired, please login again.</string>
+    <string name="generic_see_more">See more</string>
     <string name="save">Save</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!--Push Notifications -->
+    <string name="notification_rejected_text">Without notification permission you will not receive alerts from “Cashli” app.</string>
 
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>
@@ -187,6 +202,23 @@
 
     <!--More -->
     <string name="more">More</string>
+    <string name="user_name">%s %s</string>
+    <string name="membership_advance_history">Membership &amp; Advance history</string>
+    <string name="terms_and_conditions_title">Terms and Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="refer_friend">Refer a friend</string>
+    <string name="faq">FAQ</string>
+    <string name="pause_close_account">Pause or Close account</string>
+    <string name="logout">Logout</string>
+    <string name="unpause_close_account">Unpause or Close account</string>
+
+    <!--Log out-->
+    <string name="log_out">Log out</string>
+    <string name="log_out_message">Are you sure you want to log out?</string>
+    <string name="yes_log_out">Yes, Log me out</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

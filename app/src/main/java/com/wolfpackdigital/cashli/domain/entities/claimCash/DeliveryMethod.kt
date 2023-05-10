@@ -23,7 +23,7 @@ enum class DeliveryMethod(
         // TODO Replace this with appropriate drawable after discussing with Alexandra
         background = R.drawable.bg_express_item,
         icon = R.drawable.ic_regular_delivery,
-        tint = R.color.green71
+        tint = R.color.colorGreen71
     ),
     EXPRESS(
         methodName = R.string.delivery_method_express,

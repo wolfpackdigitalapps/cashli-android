@@ -8,6 +8,7 @@ import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
+import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
@@ -32,7 +33,8 @@ private const val VALUE_SPAN_OPEN_DTS = "openDTS"
 
 class ChoosePasswordViewModel(
     private val validateChoosePasswordFormUseCase: ValidateChoosePasswordFormUseCase,
-    private val registerNewUserUseCase: RegisterNewUserUseCase
+    private val registerNewUserUseCase: RegisterNewUserUseCase,
+    private val registerDeviceTokenUseCase: RegisterDeviceTokenUseCase
 ) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
@@ -135,6 +137,7 @@ class ChoosePasswordViewModel(
             result.onSuccess { newUserProfile ->
                 userProfile = newUserProfile
                 token = newUserProfile.tokens
+                registerDeviceTokenUseCase(Unit)
                 _cmd.value = Command.ClearSignUpData
                 _baseCmd.value = BaseCommand.ShowPopupById(
                     PopupConfig(

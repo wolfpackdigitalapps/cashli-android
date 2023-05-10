@@ -36,7 +36,18 @@ object Constants {
 
     // DeepLinks
     const val SIGN_IN_SCREEN_DL = "android-app://com.wolfpackdigital.cashli/signIn"
+    const val INELIGIBLE_INFORMATIVE_SCREEN_DL = "android-app://com.wolfpackdigital.cashli/ineligibleInformative"
 
     // Support
     const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"
+
+    // DateTime Formatter
+    const val FULL_MONTH_DAY_YEAR = "MMMM d, yyyy"
+
+    // PUSH NOTIFICATIONS
+    const val PUSH_NOTIFICATION_EXTRA = "push_notification_extra"
+    const val PUSH_NOTIFICATION_EXTRA_DATA = "push_notification_extra_data"
+    const val PUSH_NOTIFICATION_EXTRA_FOREGROUND = "push_notification_extra_foreground"
+    const val PUSH_NOTIFICATION_EXTRA_DATA_FOREGROUND = "push_notification_extra_data_foreground"
+    const val PUSH_NOTIFICATION_SETTING = "push_notifications_enabled"
 }

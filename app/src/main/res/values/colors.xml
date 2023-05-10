@@ -7,6 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteF9">#F6F6F9</color>
     <color name="colorWhiteF5">#F0EDF5</color>
+    <color name="colorGrayF3">#E2E2F3</color>
     <color name="colorGrayF4">#DFDFF4</color>
     <color name="colorGrayDC">#C2C2DC</color>
     <color name="colorGrayB6">#9F9FB6</color>
@@ -16,7 +17,7 @@
     <color name="colorPurpleB9">#8080B9</color>
     <color name="colorPinkBF">#CC4EBF</color>
     <color name="colorRed62">#FD4D62</color>
-    <color name="green71">#07D171</color>
+    <color name="colorGreen71">#07D171</color>
 
     <color name="claimCashGradientStart">#5840E9</color>
     <color name="claimCashGradientCenter">#915EFF</color>

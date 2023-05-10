@@ -6,11 +6,13 @@ import com.wolfpackdigital.cashli.data.remote.dto.requests.IdentifiersRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.RefreshTokenRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.ResetPasswordRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.SignInRequestDto
+import com.wolfpackdigital.cashli.data.remote.dto.requests.SingleDataRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.IdentifierTokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.PasswordIdentifierTokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.TokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.UserProfileDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.POST
 
 interface AuthApi {
@@ -54,4 +56,12 @@ interface AuthApi {
     suspend fun resetPassword(
         @Body resetPasswordRequest: ResetPasswordRequestDto
     )
+
+    @POST("v1/device_tokens")
+    suspend fun registerDeviceToken(
+        @Body singleDataRequest: SingleDataRequestDto
+    )
+
+    @DELETE("v1/sessions")
+    suspend fun signOutUser()
 }

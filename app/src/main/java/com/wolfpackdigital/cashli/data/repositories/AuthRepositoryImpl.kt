@@ -8,6 +8,7 @@ import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPassw
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestToResetPasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.SignInRequestToSignInRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.SingleDataRequestToSingleDataRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.remote.api.AuthApi
@@ -18,6 +19,7 @@ import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.RefreshTokenRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.ResetPasswordRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.SingleDataRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
 import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierToken
 import com.wolfpackdigital.cashli.domain.entities.response.Token
@@ -35,7 +37,8 @@ class AuthRepositoryImpl(
     private val userProfileMapper: UserProfileDtoToUserProfileMapper,
     private val signInRequestMapper: SignInRequestToSignInRequestDtoMapper,
     private val passwordIdentifierTokenMapper: PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper,
-    private val resetPasswordRequestDtoToResetPasswordRequestMapper: ResetPasswordRequestToResetPasswordRequestDtoMapper
+    private val resetPasswordRequestDtoToResetPasswordRequestMapper: ResetPasswordRequestToResetPasswordRequestDtoMapper,
+    private val singleDataRequestMapper: SingleDataRequestToSingleDataRequestDtoMapper
 ) : AuthRepository {
     override suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token {
         val requestDto = refreshTokenMapper.map(refreshTokenRequest)
@@ -89,5 +92,13 @@ class AuthRepositoryImpl(
         authApi.resetPassword(
             resetPasswordRequestDtoToResetPasswordRequestMapper.map(resetPasswordRequest)
         )
+    }
+
+    override suspend fun registerDeviceToken(registerDeviceToken: SingleDataRequest) {
+        authApi.registerDeviceToken(singleDataRequestMapper.map(registerDeviceToken))
+    }
+
+    override suspend fun signOutUser() {
+        authApi.signOutUser()
     }
 }

@@ -6,7 +6,9 @@ import com.wolfpackdigital.cashli.shared.base.Mapper
 
 class UserProfileDtoToUserProfileMapper(
     private val languagesMapper: LanguagesDtoToLanguagesMapper,
-    private val tokenMapper: TokenDtoToTokenMapper
+    private val tokenMapper: TokenDtoToTokenMapper,
+    private val bankAccountMapper: BankAccountDtoToBankAccountMapper,
+    private val userSettingMapper: UserSettingDtoToUserSettingMapper
 ) : Mapper<UserProfileDto, UserProfile> {
     override fun map(input: UserProfileDto): UserProfile {
         return UserProfile(
@@ -20,14 +22,18 @@ class UserProfileDtoToUserProfileMapper(
             city = input.city,
             state = input.state,
             language = languagesMapper.map(input.language),
-            tokens = tokenMapper.map(input.tokens)
+            tokens = input.tokens?.let { tokenMapper.map(it) },
+            bankAccount = input.bankAccount?.let { bankAccountMapper.map(it) },
+            userSettings = input.userSettings?.map { userSettingMapper.map(it) } ?: listOf()
         )
     }
 }
 
 class UserProfileToUserProfileDtoMapper(
     private val languagesMapper: LanguagesToLanguagesDtoMapper,
-    private val tokenMapper: TokenToTokenDtoMapper
+    private val tokenMapper: TokenToTokenDtoMapper,
+    private val bankAccountMapper: BankAccountToBankAccountDtoMapper,
+    private val userSettingMapper: UserSettingToUserSettingDtoMapper
 ) : Mapper<UserProfile, UserProfileDto> {
     override fun map(input: UserProfile): UserProfileDto {
         return UserProfileDto(
@@ -41,7 +47,9 @@ class UserProfileToUserProfileDtoMapper(
             city = input.city,
             state = input.state,
             language = languagesMapper.map(input.language),
-            tokens = tokenMapper.map(input.tokens)
+            tokens = input.tokens?.let { tokenMapper.map(it) },
+            bankAccount = input.bankAccount?.let { bankAccountMapper.map(it) },
+            userSettings = input.userSettings.map { userSettingMapper.map(it) }
         )
     }
 }

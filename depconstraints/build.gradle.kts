@@ -34,6 +34,7 @@ val viewPager2 = "1.0.0"
 val dotIndicator = "4.3"
 val androidxBrowser = "1.5.0"
 val plaidLink = "3.11.0"
+val tooltipBalloon = "1.4.7"
 
 /* TODO: Replace this with version after update
  * https://github.com/SmartToolFactory/Compose-Colorful-Sliders/issues/12
@@ -71,8 +72,10 @@ dependencies {
 
         api("${Libs.RETROFIT}:$retrofit")
         api("${Libs.RETROFIT_GSON_CONVERTER}:$converters")
-        api("${Libs.RETROFIT_LOGGING_INTERCEPTOR}:$loggingInterceptor")
-        api("${Libs.GOOGLE_GSON}:$gson")
+
+        api("${Libs.OKHTTP_BOM}:${Versions.OKHTTP_BOM}")
+        api(Libs.OKHTTP_LOGGING_INTERCEPTOR)
+        api(Libs.OKHTTP)
 
         api("${Libs.RX_PERMISSIONS}:$rxPermissions")
         api("${Libs.RX_JAVA2_ANDROID}:$rxAndroid")
@@ -85,6 +88,7 @@ dependencies {
         api("${Libs.DOT_INDICATOR}:$dotIndicator")
         api("${Libs.ANDROIDX_BROWSER}:$androidxBrowser")
         api("${Libs.PLAID_LINK}:$plaidLink")
+        api("${Libs.TOOLTIP_BALLOON}:$tooltipBalloon")
 
         api("${Libs.ANDROIDX_COMPOSE_UI}:${Versions.COMPOSE}")
         api("${Libs.ANDROIDX_COMPOSE_MATERIAL}:${Versions.COMPOSE}")

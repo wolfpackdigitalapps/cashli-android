@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.data.remote.api.AuthApi
 import com.wolfpackdigital.cashli.data.remote.api.BankApi
+import com.wolfpackdigital.cashli.data.remote.api.UserApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -50,4 +51,5 @@ object ApiProvider {
 
     fun provideAuthApi(): AuthApi = retrofit.create(AuthApi::class.java)
     fun provideBankApi(): BankApi = retrofit.create(BankApi::class.java)
+    fun provideUserApi(): UserApi = retrofit.create(UserApi::class.java)
 }
