@@ -10,6 +10,7 @@ import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UserSignInRequest
+import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateSignInFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
@@ -28,7 +29,8 @@ const val API_ERROR = "Invalid credentials"
 
 class SignInViewModel(
     private val validateSignInFormUseCase: ValidateSignInFormUseCase,
-    private val signInUserUseCase: SignInUserUseCase
+    private val signInUserUseCase: SignInUserUseCase,
+    private val registerDeviceTokenUseCase: RegisterDeviceTokenUseCase
 ) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
@@ -105,6 +107,7 @@ class SignInViewModel(
             result.onSuccess { newProfile ->
                 userProfile = newProfile
                 token = newProfile.tokens
+                registerDeviceTokenUseCase(Unit)
                 _baseCmd.value = BaseCommand.PerformNavAction(
                     NavigationDirections.actionGlobalHomeGraph(),
                     popUpTo = R.id.navigation,

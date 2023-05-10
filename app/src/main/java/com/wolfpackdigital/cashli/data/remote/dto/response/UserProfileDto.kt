@@ -18,5 +18,6 @@ data class UserProfileDto(
     @SerializedName("state") val state: String,
     @SerializedName("language") val language: LanguagesDto = LanguagesDto.ENGLISH,
     @SerializedName("tokens") val tokens: TokenDto?,
-    @SerializedName("bank_account") val bankAccount: BankAccountDto?
+    @SerializedName("bank_account") val bankAccount: BankAccountDto?,
+    @SerializedName("user_settings") val userSettings: List<UserSettingDto>?
 ) : Parcelable

@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -286,4 +287,14 @@ fun NavHostFragment.inflateNewGraph(graphId: Int, startDestinationId: Int) {
     val inflater = this.navController.navInflater
     val graph = inflater.inflate(graphId).apply { setStartDestination(startDestinationId) }
     this.navController.graph = graph
+}
+
+fun Fragment.openAppSettings() {
+    val settingsIntent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        .putExtra(
+            Settings.EXTRA_APP_PACKAGE,
+            requireContext().packageName
+        )
+    startActivity(settingsIntent)
 }

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".application.ApplicationClass"
@@ -22,21 +23,25 @@
             </intent-filter>
         </activity>
 
-        <!--Uncomment this to for Push Notification-->
-        <!--<service
-            android:name=".data.notifications.MessagingService"
+        <service
+            android:name=".shared.notifications.MessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_push_notifications" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorGreen71" />
         <receiver
-            android:name=".data.notifications.OnBootBroadcastReceiver"
+            android:name=".shared.notifications.OnBootBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>-->
+        </receiver>
     </application>
 
 </manifest>
