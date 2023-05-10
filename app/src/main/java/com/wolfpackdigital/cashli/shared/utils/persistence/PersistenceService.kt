@@ -41,4 +41,8 @@ interface PersistenceService {
         set(value) {
             Hawk.put(HawkKeys.USER_PROFILE, value)
         }
+    fun clearUserData() {
+        Hawk.delete(HawkKeys.USER_PROFILE)
+        Hawk.delete(HawkKeys.TOKEN_KEY)
+    }
 }

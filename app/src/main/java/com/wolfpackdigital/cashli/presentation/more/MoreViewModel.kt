@@ -87,8 +87,7 @@ class MoreViewModel(
         performApiCall {
             val result = logOutUserUseCase(Unit)
             result.onSuccess {
-                userProfile = null
-                token = null
+                clearUserData()
                 _baseCmd.value = BaseCommand.PerformNavDeepLink(
                     deepLink = SIGN_IN_SCREEN_DL,
                     popUpTo = R.id.navigation
