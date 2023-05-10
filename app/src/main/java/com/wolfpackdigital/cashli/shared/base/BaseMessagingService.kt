@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
+import androidx.core.os.bundleOf
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.messaging.FirebaseMessaging
@@ -43,12 +44,9 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
             sendBroadcast(
                 Intent(Constants.PUSH_NOTIFICATION_EXTRA_FOREGROUND).apply {
                     putExtras(
-                        Bundle().apply {
-                            putParcelable(
-                                Constants.PUSH_NOTIFICATION_EXTRA_DATA_FOREGROUND,
-                                receivedMessage
-                            )
-                        }
+                        bundleOf(
+                            Constants.PUSH_NOTIFICATION_EXTRA_DATA_FOREGROUND to receivedMessage
+                        )
                     )
                 }
             )
@@ -84,9 +82,7 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 putExtra(
                     Constants.PUSH_NOTIFICATION_EXTRA,
-                    Bundle().apply {
-                        putParcelable(Constants.PUSH_NOTIFICATION_EXTRA_DATA, pushNotificationData)
-                    }
+                    bundleOf(Constants.PUSH_NOTIFICATION_EXTRA_DATA to pushNotificationData)
                 )
             }
             val resultPendingIntent = TaskStackBuilder.create(context).run {
