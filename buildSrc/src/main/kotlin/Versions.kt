@@ -7,7 +7,7 @@ object Versions {
     const val TARGET_SDK = 33
     const val MIN_SDK = 26
 
-    const val KOTLIN = "1.8.10"
+    const val KOTLIN = "1.8.21"
     const val BUILD_GRADLE = "8.0.1"
 
     const val ANDROID_NAVIGATION = "2.5.3"
