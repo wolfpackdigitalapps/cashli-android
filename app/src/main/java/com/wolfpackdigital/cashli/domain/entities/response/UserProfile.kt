@@ -14,5 +14,6 @@ data class UserProfile(
     val state: String,
     val language: Languages = Languages.ENGLISH,
     val tokens: Token?,
-    val bankAccount: BankAccount?
+    val bankAccount: BankAccount?,
+    val userSettings: List<UserSetting> = listOf()
 )

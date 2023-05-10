@@ -47,5 +47,5 @@ object Libs {
     const val DOT_INDICATOR = "com.tbuonomo:dotsindicator"
     const val ANDROIDX_BROWSER = "androidx.browser:browser"
     const val PLAID_LINK = "com.plaid.link:sdk-core"
-    const val TOOLTIP_BALLOON = "com.github.skydoves:balloon:1.4.7"
+    const val TOOLTIP_BALLOON = "com.github.skydoves:balloon"
 }

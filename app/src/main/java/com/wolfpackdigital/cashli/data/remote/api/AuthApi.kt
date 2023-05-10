@@ -6,6 +6,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.requests.IdentifiersRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.RefreshTokenRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.ResetPasswordRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.SignInRequestDto
+import com.wolfpackdigital.cashli.data.remote.dto.requests.SingleDataRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.IdentifierTokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.PasswordIdentifierTokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.TokenDto
@@ -54,6 +55,11 @@ interface AuthApi {
     @POST("v1/password/reset")
     suspend fun resetPassword(
         @Body resetPasswordRequest: ResetPasswordRequestDto
+    )
+
+    @POST("v1/device_tokens")
+    suspend fun registerDeviceToken(
+        @Body singleDataRequest: SingleDataRequestDto
     )
 
     @DELETE("v1/sessions")

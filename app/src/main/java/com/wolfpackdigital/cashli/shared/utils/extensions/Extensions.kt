@@ -2,6 +2,8 @@
 
 package com.wolfpackdigital.cashli.shared.utils.extensions
 
+import android.app.ActivityManager
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,6 +14,7 @@ import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -192,4 +195,28 @@ fun startCounter(
     override fun onFinish() {
         onFinishCallback.invoke()
     }
+}
+
+@Suppress("ReturnCount")
+fun Context.isAppInForeground(): Boolean {
+    val mActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    val appProcesses = mActivityManager.runningAppProcesses ?: return false
+    val packageName = packageName
+    for (appProcess in appProcesses) {
+        if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND &&
+            appProcess.processName == packageName
+        ) {
+            return true
+        }
+    }
+    return false
+}
+
+@Suppress("ReturnCount")
+fun NotificationManagerCompat.areDeviceNotificationsFullyEnabled(): Boolean {
+    if (!areNotificationsEnabled()) return false
+    for (notificationChannel in notificationChannels) {
+        if (notificationChannel.importance == NotificationManager.IMPORTANCE_NONE) return false
+    }
+    return true
 }

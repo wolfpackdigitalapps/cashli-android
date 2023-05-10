@@ -13,6 +13,23 @@ interface PersistenceService {
             Hawk.put(HawkKeys.TOKEN_KEY, token)
         }
 
+    var deviceToken: String?
+        get() = Hawk.get(HawkKeys.KEY_DEVICE_TOKEN)
+        set(token) {
+            Hawk.put(HawkKeys.KEY_DEVICE_TOKEN, token)
+        }
+    var isNotificationPermissionAsked: Boolean
+        get() = Hawk.get(HawkKeys.NOTIFICATION_PERMISSION_ASKED, false)
+        set(token) {
+            Hawk.put(HawkKeys.NOTIFICATION_PERMISSION_ASKED, token)
+        }
+
+    var hasNotificationPermissionGranted: Boolean
+        get() = Hawk.get(HawkKeys.NOTIFICATION_PERMISSION_GRANTED, false)
+        set(token) {
+            Hawk.put(HawkKeys.NOTIFICATION_PERMISSION_GRANTED, token)
+        }
+
     var language: Languages?
         get() = Hawk.get(HawkKeys.LANGUAGE)
         set(value) {
