@@ -34,6 +34,7 @@ val viewPager2 = "1.0.0"
 val dotIndicator = "4.3"
 val androidxBrowser = "1.5.0"
 val plaidLink = "3.11.0"
+val tooltipBalloon = "1.4.7"
 
 dependencies {
     constraints {
@@ -82,5 +83,6 @@ dependencies {
         api("${Libs.DOT_INDICATOR}:$dotIndicator")
         api("${Libs.ANDROIDX_BROWSER}:$androidxBrowser")
         api("${Libs.PLAID_LINK}:$plaidLink")
+        api("${Libs.TOOLTIP_BALLOON}:$tooltipBalloon")
     }
 }

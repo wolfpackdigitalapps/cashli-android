@@ -175,6 +175,9 @@
     <string name="generic_see_more">See more</string>
     <string name="save">Save</string>
 
+    <!--Push Notifications -->
+    <string name="notification_rejected_text">Without notification permission you will not receive alerts from “Cashli” app.</string>
+
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>
     <string name="account_created_successfully">Your account has been\nsuccessfully created.</string>
