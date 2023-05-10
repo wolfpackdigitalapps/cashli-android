@@ -90,4 +90,8 @@ class AuthRepositoryImpl(
             resetPasswordRequestDtoToResetPasswordRequestMapper.map(resetPasswordRequest)
         )
     }
+
+    override suspend fun signOutUser() {
+        authApi.signOutUser()
+    }
 }

@@ -2,14 +2,24 @@ package com.wolfpackdigital.cashli.presentation.more
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.enums.MenuItem
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
+import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.SIGN_IN_SCREEN_DL
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
+import kotlinx.coroutines.launch
 
-class MoreViewModel : BaseViewModel(), PersistenceService {
+class MoreViewModel(
+    private val logOutUserUseCase: LogOutUserUseCase
+) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
@@ -61,7 +71,36 @@ class MoreViewModel : BaseViewModel(), PersistenceService {
             }
 
             MenuItem.LOGOUT -> {
-                // TODO new card
+                _baseCmd.value = BaseCommand.ShowPopupById(
+                    PopupConfig(
+                        titleId = R.string.log_out,
+                        imageId = R.drawable.ic_log_out,
+                        contentIdOrString = R.string.log_out_message,
+                        buttonPrimaryId = R.string.yes_log_out,
+                        isCloseVisible = false,
+                        buttonSecondaryId = R.string.cancel,
+                        buttonPrimaryClick = { handleLogOut() },
+                    )
+                )
+            }
+        }
+    }
+
+    private fun handleLogOut() {
+        performApiCall {
+            val result = logOutUserUseCase(Unit)
+            result.onSuccess {
+                userProfile = null
+                token = null
+                _baseCmd.value = BaseCommand.PerformNavDeepLink(
+                    deepLink = SIGN_IN_SCREEN_DL,
+                    popUpTo = R.id.navigation
+                )
+            }
+            result.onError {
+                val error =
+                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                _baseCmd.value = BaseCommand.ShowToast(error)
             }
         }
     }

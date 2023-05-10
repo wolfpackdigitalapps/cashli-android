@@ -11,6 +11,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.response.PasswordIdentifierTok
 import com.wolfpackdigital.cashli.data.remote.dto.response.TokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.UserProfileDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.POST
 
 interface AuthApi {
@@ -54,4 +55,7 @@ interface AuthApi {
     suspend fun resetPassword(
         @Body resetPasswordRequest: ResetPasswordRequestDto
     )
+
+    @DELETE("v1/sessions")
+    suspend fun signOutUser()
 }

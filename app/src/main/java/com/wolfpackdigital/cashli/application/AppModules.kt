@@ -64,6 +64,7 @@ import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
+import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
@@ -136,7 +137,7 @@ object AppModules {
         viewModel { SignInViewModel(get(), get()) }
         viewModel { HomeViewModel(get()) }
         viewModel { AccountViewModel() }
-        viewModel { MoreViewModel() }
+        viewModel { MoreViewModel(get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 identifier, codeReceivedViaType, get(), get()
@@ -259,6 +260,7 @@ object AppModules {
         single { SubmitPasswordIdentifiersUseCase(get()) }
         single { ValidateCodeByPasswordIdentifierUseCase(get()) }
         single { ResetPasswordUseCase(get()) }
+        single { LogOutUserUseCase(get())}
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)

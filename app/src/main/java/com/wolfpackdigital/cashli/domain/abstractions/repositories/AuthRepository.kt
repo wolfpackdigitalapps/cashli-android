@@ -40,4 +40,6 @@ interface AuthRepository {
     suspend fun resetPassword(
         resetPasswordRequest: ResetPasswordRequest
     )
+
+    suspend fun signOutUser()
 }
