@@ -9,6 +9,7 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
@@ -45,6 +46,8 @@ fun Throwable.getParsedError(): ApiError = try {
     val response = (this as? HttpException)?.response()
     val body = response?.errorBody()
     val code = response?.code()
+    Log.e("HERE AND HERE", this.toString())
+    Log.e("HERE AND HERE", body.toString())
     val model = Gson().fromJson(body?.string(), ApiError::class.java)
     model?.copy(errorCode = code) ?: ApiError(messageId = R.string.generic_error)
 } catch (ex: JsonParseException) {

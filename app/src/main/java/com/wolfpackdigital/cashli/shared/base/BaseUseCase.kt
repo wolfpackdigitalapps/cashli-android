@@ -1,6 +1,5 @@
 package com.wolfpackdigital.cashli.shared.base
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.shared.exceptions.RefreshTokenExpiredException
@@ -28,7 +27,6 @@ abstract class BaseUseCase<in P, R> where P : Any {
                         throw throwable
                     }
                     else -> {
-                        Log.e("HERE AND HERE", throwable.toString())
                         Result.Error(throwable.getParsedError())
                     }
                 }
