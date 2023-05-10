@@ -186,6 +186,17 @@
 
     <!--More -->
     <string name="more">More</string>
+    <string name="user_name">%s %s</string>
+    <string name="membership_advance_history">Membership &amp; Advance history</string>
+    <string name="terms_and_conditions_title">Terms and Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="refer_friend">Refer a friend</string>
+    <string name="faq">FAQ</string>
+    <string name="pause_close_account">Pause or Close account</string>
+    <string name="logout">Logout</string>
+    <string name="unpause_close_account">Unpause or Close account</string>
 
 
 </resources>

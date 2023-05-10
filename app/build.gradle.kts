@@ -130,8 +130,11 @@ dependencies {
     // Networking
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON_CONVERTER)
-    implementation(Libs.RETROFIT_LOGGING_INTERCEPTOR)
     implementation(Libs.GOOGLE_GSON)
+
+    implementation(platform("${Libs.OKHTTP_BOM}:${Versions.OKHTTP_BOM}"))
+    implementation(Libs.OKHTTP)
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
 
     // Permissions
     implementation(Libs.RX_PERMISSIONS)

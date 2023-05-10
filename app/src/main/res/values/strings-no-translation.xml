@@ -12,6 +12,8 @@
     <string name="privacy_policy_url" translatable="false">https://google.com</string>
     <string name="dwolla_terms_of_service_url" translatable="false">https://google.com</string>
     <string name="dwolla_privacy_policy_url" translatable="false">https://google.com</string>
+    <string name="faq_url" translatable="false">https://google.com</string>
+    <string name="terms_and_conditions_url" translatable="false">https://google.com</string>
 
     <string name="generic_not_implemented_error" translatable="false">Action not implemented</string>
 </resources>

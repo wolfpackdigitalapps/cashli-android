@@ -66,8 +66,10 @@ dependencies {
 
         api("${Libs.RETROFIT}:$retrofit")
         api("${Libs.RETROFIT_GSON_CONVERTER}:$converters")
-        api("${Libs.RETROFIT_LOGGING_INTERCEPTOR}:$loggingInterceptor")
-        api("${Libs.GOOGLE_GSON}:$gson")
+
+        api("${Libs.OKHTTP_BOM}:${Versions.OKHTTP_BOM}")
+        api(Libs.OKHTTP_LOGGING_INTERCEPTOR)
+        api(Libs.OKHTTP)
 
         api("${Libs.RX_PERMISSIONS}:$rxPermissions")
         api("${Libs.RX_JAVA2_ANDROID}:$rxAndroid")
