@@ -272,7 +272,7 @@ object AppModules {
         single { SubmitPasswordIdentifiersUseCase(get()) }
         single { ValidateCodeByPasswordIdentifierUseCase(get()) }
         single { ResetPasswordUseCase(get()) }
-        single { LogOutUserUseCase(get())}
+        single { LogOutUserUseCase(get()) }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)

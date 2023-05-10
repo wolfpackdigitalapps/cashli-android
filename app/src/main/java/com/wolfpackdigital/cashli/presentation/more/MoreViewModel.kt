@@ -2,7 +2,6 @@ package com.wolfpackdigital.cashli.presentation.more
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
@@ -11,11 +10,9 @@ import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
-import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.SIGN_IN_SCREEN_DL
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
-import kotlinx.coroutines.launch
 
 class MoreViewModel(
     private val logOutUserUseCase: LogOutUserUseCase
