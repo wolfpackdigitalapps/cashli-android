@@ -201,5 +201,11 @@
     <string name="logout">Logout</string>
     <string name="unpause_close_account">Unpause or Close account</string>
 
+    <!--Log out-->
+    <string name="log_out">Log out</string>
+    <string name="log_out_message">Are you sure you want to log out?</string>
+    <string name="yes_log_out">Yes, Log me out</string>
+    <string name="cancel">Cancel</string>
+
 
 </resources>

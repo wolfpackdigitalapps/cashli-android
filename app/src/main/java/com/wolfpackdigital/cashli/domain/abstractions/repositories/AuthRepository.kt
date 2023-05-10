@@ -43,4 +43,6 @@ interface AuthRepository {
     )
 
     suspend fun registerDeviceToken(registerDeviceToken: SingleDataRequest)
+
+    suspend fun signOutUser()
 }

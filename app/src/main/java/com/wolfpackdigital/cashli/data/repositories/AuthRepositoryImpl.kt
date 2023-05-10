@@ -97,4 +97,8 @@ class AuthRepositoryImpl(
     override suspend fun registerDeviceToken(registerDeviceToken: SingleDataRequest) {
         authApi.registerDeviceToken(singleDataRequestMapper.map(registerDeviceToken))
     }
+
+    override suspend fun signOutUser() {
+        authApi.signOutUser()
+    }
 }
