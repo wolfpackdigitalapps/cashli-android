@@ -41,8 +41,20 @@
 -keep class com.google.gson.** { *; }
 -keep class com.orhanobut.hawk.** { *; }
 
--keep class **.R$*
--keep @kotlinx.parcelize.Parcelize public class *
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
 # JSR 305 annotations are for embedding nullability information.
 -dontwarn javax.annotation.**
 
