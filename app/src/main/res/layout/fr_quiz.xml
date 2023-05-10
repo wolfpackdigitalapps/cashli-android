@@ -146,7 +146,7 @@
                 android:src="@drawable/ic_group"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_tip_amount" />
+                app:layout_constraintTop_toBottomOf="@id/ll_tip_selection" />
 
             <androidx.compose.ui.platform.ComposeView
                 android:id="@+id/cv_tip_amount"
