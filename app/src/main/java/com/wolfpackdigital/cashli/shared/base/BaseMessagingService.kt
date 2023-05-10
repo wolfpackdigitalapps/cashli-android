@@ -20,11 +20,11 @@ import com.wolfpackdigital.cashli.presentation.main.MainActivity
 import com.wolfpackdigital.cashli.shared.notifications.NotificationModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.isAppInForeground
-import kotlin.coroutines.resume
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
 
 abstract class BaseMessagingService : FirebaseMessagingService() {
 
