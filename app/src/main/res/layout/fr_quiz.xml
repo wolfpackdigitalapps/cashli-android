@@ -152,7 +152,7 @@
                 android:id="@+id/cv_tip_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_4dp"
                 app:layout_constraintTop_toBottomOf="@id/ll_tip_selection"
                 app:viewState="@{viewModel.tipSeekbarVisible ? View.VISIBLE : View.GONE }" />
 

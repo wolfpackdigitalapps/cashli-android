@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
@@ -84,7 +84,7 @@ fun SliderWithLabel(
                 modifier = Modifier
                     .padding(horizontal = horizontalPadding)
                     .onGloballyPositioned { coordinates ->
-                        sliderMinX = coordinates.positionInWindow().x
+                        sliderMinX = coordinates.positionInParent().x
                         sliderMaxX = sliderMinX + coordinates.size.width
                     }
             )

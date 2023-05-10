@@ -12,6 +12,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LiveData
 import com.smarttoolfactory.slider.MaterialSliderDefaults
@@ -40,6 +41,7 @@ sealed class StyledSliderUIState(val value: LiveData<Float>, val invertedColorSc
 @Composable
 fun StyledSlider(
     uiState: StyledSliderUIState,
+    horizontalPadding: Dp = dimensionResource(id = R.dimen.dimen_28dp),
     onAmountChanged: (Float) -> Unit
 ) {
     val context = LocalContext.current
@@ -102,7 +104,7 @@ fun StyledSlider(
             width = dimensionResource(id = R.dimen.dimen_1dp),
             color = borderColor
         ),
-        horizontalPadding = dimensionResource(id = R.dimen.dimen_28dp),
+        horizontalPadding = horizontalPadding,
         label = {
             Text(
                 text = labelText,
