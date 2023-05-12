@@ -20,12 +20,11 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_401
 import com.wolfpackdigital.cashli.shared.utils.Constants.REPEAT_ANIM_ONE_TIME
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
-
-const val API_ERROR = "Invalid credentials"
 
 class SignInViewModel(
     private val validateSignInFormUseCase: ValidateSignInFormUseCase,
@@ -117,7 +116,7 @@ class SignInViewModel(
             result.onError {
                 val error =
                     it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                if (error == API_ERROR) {
+                if (it.errorCode == ERROR_CODE_401) {
                     isEmailCredentialsInUse.value?.let { emailInUse ->
                         _error.value =
                             if (emailInUse) R.string.incorrect_credentials_with_email
