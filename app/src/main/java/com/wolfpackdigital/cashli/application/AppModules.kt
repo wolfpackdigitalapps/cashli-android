@@ -116,6 +116,7 @@ import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInf
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
+import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -159,6 +160,7 @@ object AppModules {
         }
         viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel() }
+        viewModel { EditProfileViewModel(get(), get()) }
     }
 
     private val apiModule = module {

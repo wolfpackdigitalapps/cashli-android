@@ -83,6 +83,12 @@ class MoreViewModel(
         }
     }
 
+    fun goToEditProfileScreen() {
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            MoreFragmentDirections.actionMoreFragmentToEditProfileFragment()
+        )
+    }
+
     private fun handleLogOut() {
         performApiCall {
             val result = logOutUserUseCase(Unit)

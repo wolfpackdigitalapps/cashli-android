@@ -5,6 +5,7 @@ package com.wolfpackdigital.cashli.shared.utils.bindingadapters
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingConversion
 import com.wolfpackdigital.cashli.shared.utils.Constants.ALPHA_0
@@ -60,4 +61,10 @@ fun View.setFadeVisibility(viewState: Int?) {
             animate().setDuration(FADE_ANIM_DURATION_200).alpha(ALPHA_0).setListener(endListener)
         }
     }
+}
+@BindingAdapter("topMargin")
+fun View.setLayoutMarginTop(dimen: Float) {
+    val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
+    layoutParams.topMargin = dimen.toInt()
+    this.layoutParams = layoutParams
 }

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".EditProfileBinding">
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <import type="android.text.InputType" />
+
+        <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        style="@style/ScrollView.VerticalPinkScrollBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhiteF9">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@id/iv_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_dots"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewModel="@{viewModel.toolbar}" />
+
+            <ImageView
+                android:id="@+id/white_arch_background"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dimen_56dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arch_white"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name"
+                style="@style/TextView.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_56dp"
+                android:layout_marginEnd="@dimen/dimen_28dp"
+                android:text="@{@string/user_name(viewModel.firstNameLabel, viewModel.lastNameLabel)}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/white_arch_background"
+                tools:text="Mike Ross" />
+
+            <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+                android:id="@+id/et_first_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_40dp"
+                android:theme="@style/EditTextBaseLightTheme"
+                app:cliDrawableEnd="@{@drawable/ic_edit}"
+                app:cliDrawableEndClick="@{viewModel::toggleFirstNameEnabled}"
+                app:cliDrawableEndColor="@{@color/colorGrayB6}"
+                app:cliError="@{viewModel.firstNameError}"
+                app:cliHint="@{@string/et_hint}"
+                app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:cliInputType="@{InputType.TYPE_TEXT_VARIATION_PERSON_NAME}"
+                app:cliLabel="@{@string/edit_first_name_label}"
+                app:cliLabelColor="@{@color/colorPrimaryDark}"
+                app:cliMaxChars="@{Constants.MAX_CHARS_50}"
+                app:cliRequestFocusAfterClick="@{true}"
+                app:cliText="@={viewModel.newFirstName}"
+                app:cliTextInputEditTextEnabled="@{viewModel.isFirstNameEnabled()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:onCliImeDoneAction="@{viewModel::closeKeyboardAndClearFocus}" />
+
+            <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+                android:id="@+id/et_last_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:theme="@style/EditTextBaseLightTheme"
+                app:cliDrawableEnd="@{@drawable/ic_edit}"
+                app:cliDrawableEndClick="@{viewModel::toggleLastNameEnabled}"
+                app:cliDrawableEndColor="@{@color/colorGrayB6}"
+                app:cliError="@{viewModel.lastNameError}"
+                app:cliHint="@{@string/et_hint}"
+                app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:cliInputType="@{InputType.TYPE_TEXT_VARIATION_PERSON_NAME}"
+                app:cliLabel="@{@string/edit_last_name_label}"
+                app:cliLabelColor="@{@color/colorPrimaryDark}"
+                app:cliMaxChars="@{Constants.MAX_CHARS_50}"
+                app:cliRequestFocusAfterClick="@{true}"
+                app:cliText="@={viewModel.newLastName}"
+                app:cliTextInputEditTextEnabled="@{viewModel.isLastNameEnabled()}"
+                app:layout_constraintBottom_toTopOf="@id/layout_phone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_first_name"
+                app:layout_constraintVertical_bias="0.0"
+                app:onCliImeDoneAction="@{viewModel::closeKeyboardAndClearFocus}" />
+
+            <include
+                android:id="@+id/layout_phone"
+                layout="@layout/edit_profile_change_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                app:data="@{viewModel.phoneNumber}"
+                app:isEmail="@{false}"
+                app:isLabelVisible="@{true}"
+                app:layout_constraintBottom_toTopOf="@id/layout_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:title="@{@string/change_phone}" />
+
+            <include
+                android:id="@+id/layout_email"
+                layout="@layout/edit_profile_change_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                app:data="@{viewModel.email}"
+                app:isEmail="@{true}"
+                app:isLabelVisible="@{true}"
+                app:layout_constraintBottom_toTopOf="@id/layout_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:title="@{@string/change_email}" />
+
+            <include
+                android:id="@+id/layout_password"
+                layout="@layout/edit_profile_change_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_48dp"
+                app:isLabelVisible="@{false}"
+                app:layout_constraintBottom_toTopOf="@id/btn_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:title="@{@string/change_phone}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save"
+                style="@style/Widget.Cashli.Button.Accent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_28dp"
+                android:onClick="@{() -> viewModel.onSaveClicked()}"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

@@ -9,9 +9,12 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.FOCUSABLE
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -21,7 +24,9 @@ import com.wolfpackdigital.cashli.BaseEditTextBinding
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.visibility
+import com.wolfpackdigital.cashli.shared.utils.extensions.getFocusAndShowKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
+
 
 class BaseEditText @JvmOverloads constructor(
     context: Context,
@@ -103,6 +108,11 @@ fun BaseEditText.cliLabelRes(@StringRes labelRes: Int?) {
     binding.tvLabel.visibility = View.VISIBLE
 }
 
+@BindingAdapter("cliLabelColor")
+fun BaseEditText.setCliLabelColor(color: Int) {
+    binding.tvLabel.setTextColor(color)
+}
+
 @BindingAdapter("cliMaxChars")
 fun BaseEditText.cliMaxChars(max: Int?) {
     max ?: return
@@ -137,10 +147,23 @@ fun BaseEditText.cliDrawableEnd(end: Drawable?) {
         binding.ivDrawableEnd.setImageDrawable(it)
     }
 }
+@BindingAdapter("cliDrawableEndColor")
+fun BaseEditText.cliDrawableEndColor(color: Int) {
+    binding.ivDrawableEnd.setColorFilter(color)
+}
 
-@BindingAdapter("cliDrawableEndClick")
-fun BaseEditText.cliDrawableEndClick(callback: () -> Unit?) {
+@BindingAdapter("cliDrawableEndClick","cliRequestFocusAfterClick", requireAll = false)
+fun BaseEditText.cliDrawableEndClick(callback: () -> Unit?, requestFocus: Boolean?) {
     binding.ivDrawableEnd.setOnClickDebounced {
         callback()
+        if (requestFocus == true) {
+            binding.tietContent.getFocusAndShowKeyboard()
+        }
     }
+}
+
+@BindingAdapter("cliTextInputEditTextEnabled")
+fun BaseEditText.cliTextInputEditTextEnabled(enable: Boolean) {
+    binding.tietContent.isEnabled = enable
+
 }

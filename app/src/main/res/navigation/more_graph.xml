@@ -9,5 +9,14 @@
         android:id="@+id/moreFragment"
         android:name="com.wolfpackdigital.cashli.presentation.more.MoreFragment"
         android:label="MoreFragment"
-        tools:layout="@layout/fr_more" />
+        tools:layout="@layout/fr_more" >
+        <action
+            android:id="@+id/action_moreFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fr_edit_profile"/>
 </navigation>

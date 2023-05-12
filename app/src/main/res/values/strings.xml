@@ -208,4 +208,14 @@
     <string name="yes_log_out">Yes, Log me out</string>
     <string name="cancel">Cancel</string>
 
+    <!-- Edit profile-->
+    <string name="edit_profile">Edit profile</string>
+    <string name="current_email">Current email: %s</string>
+    <string name="current_phone">Current phone: %s</string>
+    <string name="change_phone">Change your phone</string>
+    <string name="change_email">Change your email</string>
+    <string name="change_password">Change your password</string>
+    <string name="edit_first_name_label">FIRST NAME</string>
+    <string name="edit_last_name_label">LAST NAME</string>
+
 </resources>
