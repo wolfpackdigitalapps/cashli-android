@@ -30,6 +30,7 @@ object Constants {
     const val RESTART_ONBOARDING_STEPS = "restart_onboarding_steps"
 
     // API ERROR CODES
+    const val ERROR_CODE_401 = 401
     const val ERROR_CODE_409 = 409
     const val ERROR_CODE_422 = 422
     const val ERROR_CODE_429 = 429
