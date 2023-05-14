@@ -174,6 +174,8 @@
     <string name="quiz_tip_choose_amount">Choose a different amount</string>
     <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in Latin America.</string>
     <string name="quiz_agreement">By confirming, you agree to ACH terms.</string>
+    <string name="quiz_popup_description">Your cash advance is on its way. On %1$s, we will withdraw %2$s* from your bank account.</string>
+    <string name="quiz_popup_annex">It includes a tip and an express fee, if applicable.</string>
 
     <!--Generic -->
     <string name="generic_continue">Continue</string>

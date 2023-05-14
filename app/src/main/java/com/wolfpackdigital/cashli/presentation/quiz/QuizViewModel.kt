@@ -3,6 +3,9 @@ package com.wolfpackdigital.cashli.presentation.quiz
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.extensions.percentOf
 
@@ -14,6 +17,7 @@ class QuizViewModel(cashAmount: Float) : BaseViewModel() {
 
     private val _sliderValue = MutableLiveData(0f)
     val sliderValue: LiveData<Float> = _sliderValue
+
     // TODO: Change this to actual value
     val tipAmountPerc: LiveData<Float> = _sliderValue.map { it / 10f }
     val tipAmount: LiveData<Float> = tipAmountPerc.map { it.percentOf(cashAmount) }
@@ -42,7 +46,18 @@ class QuizViewModel(cashAmount: Float) : BaseViewModel() {
     }
 
     fun onContinueClicked() {
-        return
+        _baseCmd.value = BaseCommand.ShowPopupById(
+            PopupConfig(
+                titleId = R.string.congrats,
+                imageId = R.drawable.ic_congrats,
+                contentIdOrString = R.string.quiz_popup_description,
+                contentFormatArgs = arrayOf("14 February 2023", "$104.20"),
+                secondaryContent = R.string.quiz_popup_annex,
+                buttonCloseClick = {
+                    _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
+                }
+            )
+        )
     }
 
     fun setSecondAltQuestionVisible(visible: Boolean) {
