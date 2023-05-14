@@ -1,8 +1,12 @@
 package com.wolfpackdigital.cashli.presentation.claimCash
 
+import android.os.Bundle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.res.dimensionResource
 import androidx.recyclerview.widget.GridLayoutManager
+import com.stripe.android.PaymentConfiguration
+import com.stripe.android.paymentsheet.PaymentSheet
+import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.databinding.ClaimCashFragmentBinding
 import com.wolfpackdigital.cashli.presentation.claimCash.adapter.DeliveryMethodAdapter
@@ -20,14 +24,22 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
 
     override val viewModel by viewModel<ClaimCashViewModel>()
 
+    private lateinit var paymentSheet: PaymentSheet
+
     private val adapter by lazy {
         DeliveryMethodAdapter(viewModel::onDeliveryMethodSelected)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
     }
 
     override fun setupViews() {
         setupSliderView()
         setupRv()
         setupObservers()
+        setupPaymentSheet()
     }
 
     private fun setupObservers() {
@@ -75,5 +87,35 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
             }
         }
         viewModel.deliveryMethods.observe(viewLifecycleOwner, adapter::submitList)
+    }
+
+    private fun setupPaymentSheet() {
+        viewModel.customerConfig.observe(viewLifecycleOwner) { stripeCustomerConfig ->
+            context?.let {
+                PaymentConfiguration.init(it, stripeCustomerConfig.publishableKey)
+                paymentSheet.presentWithSetupIntent(
+                    stripeCustomerConfig.setupIntentClientSecret,
+                    PaymentSheet.Configuration(
+                        merchantDisplayName = it.getString(R.string.app_name),
+                        primaryButtonLabel = it.getString(R.string.generic_continue),
+                        customer = stripeCustomerConfig.customerConfig,
+                    )
+                )
+            }
+        }
+    }
+
+    private fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
+        when(paymentSheetResult) {
+            is PaymentSheetResult.Canceled -> {
+
+            }
+            is PaymentSheetResult.Failed -> {
+
+            }
+            is PaymentSheetResult.Completed -> {
+
+            }
+        }
     }
 }

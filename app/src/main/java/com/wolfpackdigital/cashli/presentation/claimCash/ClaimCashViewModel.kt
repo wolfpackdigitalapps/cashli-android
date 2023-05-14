@@ -3,6 +3,7 @@ package com.wolfpackdigital.cashli.presentation.claimCash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import com.stripe.android.paymentsheet.PaymentSheet
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethodItem
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
@@ -28,6 +29,9 @@ class ClaimCashViewModel : BaseViewModel() {
     val selectedDeliveryMethod: LiveData<DeliveryMethodItem> = _deliveryMethods.map { list ->
         list.first { it.isSelected }
     }
+
+    private val _customerConfig = MutableLiveData<StripeCustomerConfig>()
+    val customerConfig: LiveData<StripeCustomerConfig> = _customerConfig
 
     init {
         // TODO Replace this with appropriate data after clearing with BE
@@ -58,14 +62,27 @@ class ClaimCashViewModel : BaseViewModel() {
     }
 
     fun continueToQuiz() {
+//        requestPaymentIntent()
         _amount.value?.let {
             _baseCmd.value = BaseCommand.PerformNavAction(
                 ClaimCashFragmentDirections.actionClaimCashFragmentToQuizFragment(it)
             )
         }
     }
+
     fun setAmountPerc(amountPerc: Float) {
         _amountPerc.value = amountPerc
+    }
+
+    fun requestPaymentIntent() {
+        _customerConfig.value = StripeCustomerConfig(
+            customerConfig = PaymentSheet.CustomerConfiguration(
+                id = "",
+                ephemeralKeySecret = ""
+            ),
+            publishableKey = "",
+            setupIntentClientSecret = ""
+        )
     }
 
     sealed class Command {

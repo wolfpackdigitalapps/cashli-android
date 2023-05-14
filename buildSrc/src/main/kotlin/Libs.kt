@@ -56,4 +56,7 @@ object Libs {
     const val ANDROIDX_COMPOSE_RUNTIME = "androidx.compose.runtime:runtime"
     const val ANDROIDX_COMPOSE_RUNTIME_LIVEDATA = "androidx.compose.runtime:runtime-livedata"
     const val COLORFUL_SLIDERS = "com.github.SmartToolFactory:Compose-Colorful-Sliders"
+
+    const val STRIPE = "com.stripe:stripe-android"
+    const val STRIPE_CARDSCAN = "com.stripe:stripecardscan"
 }

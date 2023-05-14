@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -173,4 +174,8 @@ dependencies {
     implementation(Libs.ANDROIDX_COMPOSE_RUNTIME)
     implementation(Libs.ANDROIDX_COMPOSE_RUNTIME_LIVEDATA)
     implementation(Libs.COLORFUL_SLIDERS)
+
+    //Stripe
+    implementation(Libs.STRIPE)
+    implementation(Libs.STRIPE_CARDSCAN)
 }

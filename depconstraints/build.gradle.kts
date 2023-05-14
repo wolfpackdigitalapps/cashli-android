@@ -41,6 +41,8 @@ val tooltipBalloon = "1.4.7"
 */
 val sliders = "master-SNAPSHOT"
 
+val stripe = "20.25.1"
+
 dependencies {
     constraints {
         api("${Libs.KOTLIN_STD_LIB}:${Versions.KOTLIN}")
@@ -97,5 +99,7 @@ dependencies {
         api("${Libs.ANDROIDX_COMPOSE_RUNTIME}:${Versions.COMPOSE}")
         api("${Libs.ANDROIDX_COMPOSE_RUNTIME_LIVEDATA}:${Versions.COMPOSE}")
         api("${Libs.COLORFUL_SLIDERS}:$sliders")
+        api("${Libs.STRIPE}:$stripe")
+        api("${Libs.STRIPE_CARDSCAN}:$stripe")
     }
 }
