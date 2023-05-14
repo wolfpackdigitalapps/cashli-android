@@ -29,7 +29,7 @@
                 android:contentDescription="@null"
                 android:src="@drawable/ic_dots"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/claimCashBgDotsTint" />
+                app:tint="@color/colorClaimCashBgDotsTint" />
 
             <ImageButton
                 android:id="@+id/ib_back"

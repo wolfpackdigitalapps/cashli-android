@@ -62,15 +62,15 @@ fun StyledSlider(
     val trackColor = Brush.horizontalGradient(
         if (uiState.invertedColorScheme) {
             listOf(
-                colorResource(id = R.color.seekbarAltGradientStart),
-                colorResource(id = R.color.seekbarAltGradientCenter),
-                colorResource(id = R.color.seekbarAltGradientEnd)
+                colorResource(id = R.color.colorSeekbarAltGradientStart),
+                colorResource(id = R.color.colorSeekbarAltGradientCenter),
+                colorResource(id = R.color.colorSeekbarAltGradientEnd)
             )
         } else {
             listOf(
-                colorResource(id = R.color.seekbarGradientStart),
-                colorResource(id = R.color.seekbarGradientCenter),
-                colorResource(id = R.color.seekbarGradientEnd)
+                colorResource(id = R.color.colorSeekbarGradientStart),
+                colorResource(id = R.color.colorSeekbarGradientCenter),
+                colorResource(id = R.color.colorSeekbarGradientEnd)
             )
         }
     )

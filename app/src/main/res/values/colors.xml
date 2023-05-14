@@ -20,18 +20,18 @@
     <color name="colorRed62">#FD4D62</color>
     <color name="colorGreen71">#07D171</color>
 
-    <color name="claimCashGradientStart">#5840E9</color>
-    <color name="claimCashGradientCenter">#915EFF</color>
-    <color name="claimCashGradientEnd">#B85EFF</color>
-    <color name="claimCashBgDotsTint">#9B9BB8</color>
+    <color name="colorClaimCashGradientStart">#5840E9</color>
+    <color name="colorClaimCashGradientCenter">#915EFF</color>
+    <color name="colorClaimCashGradientEnd">#B85EFF</color>
+    <color name="colorClaimCashBgDotsTint">#9B9BB8</color>
 
-    <color name="seekbarGradientStart">#545482</color>
-    <color name="seekbarGradientCenter">#7E7EA8</color>
-    <color name="seekbarGradientEnd">#C0C0F2</color>
+    <color name="colorSeekbarGradientStart">#545482</color>
+    <color name="colorSeekbarGradientCenter">#7E7EA8</color>
+    <color name="colorSeekbarGradientEnd">#C0C0F2</color>
 
-    <color name="seekbarAltGradientStart">#BBBBE0</color>
-    <color name="seekbarAltGradientCenter">#7E7EA8</color>
-    <color name="seekbarAltGradientEnd">#545482</color>
+    <color name="colorSeekbarAltGradientStart">#BBBBE0</color>
+    <color name="colorSeekbarAltGradientCenter">#7E7EA8</color>
+    <color name="colorSeekbarAltGradientEnd">#545482</color>
 
     <color name="divider">#E2E2F3</color>
 </resources>
