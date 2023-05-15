@@ -6,6 +6,9 @@ import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.LinkBankAccountInformativeBinding
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
+import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.extensions.navController
+import com.wolfpackdigital.cashli.shared.utils.extensions.setBackStackData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LinkBankAccountInformativeFragment :
@@ -33,6 +36,12 @@ class LinkBankAccountInformativeFragment :
                 is LinkBankAccountInformativeViewModel.Command.StartLinkingBackAccount -> {
                     linkAccountToPlaidLauncher.launch(it.linkTokenConfiguration)
                 }
+
+                LinkBankAccountInformativeViewModel.Command.RefreshUserDataNeeded ->
+                    navController?.setBackStackData(
+                        Constants.REFRESH_USER_DATA,
+                        true
+                    )
             }
         }
     }

@@ -28,6 +28,7 @@ object Constants {
 
     // Back stack keys
     const val RESTART_ONBOARDING_STEPS = "restart_onboarding_steps"
+    const val REFRESH_USER_DATA = "refresh_user_data"
 
     // API ERROR CODES
     const val ERROR_CODE_401 = 401

@@ -98,6 +98,7 @@ class LinkBankAccountInformativeViewModel(
                             titleId = R.string.duplicate_account,
                             contentIdOrString = R.string.bank_account_already_in_use
                         )
+
                     else -> _baseCmd.value = BaseCommand.ShowToast(error)
                 }
             }
@@ -153,6 +154,7 @@ class LinkBankAccountInformativeViewModel(
                                 buttonPrimaryId = R.string.cash_out,
                                 buttonSecondaryId = R.string.take_me_to_home,
                                 buttonSecondaryClick = {
+                                    _cmd.value = Command.RefreshUserDataNeeded
                                     _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
                                 },
                                 buttonPrimaryClick = {
@@ -161,6 +163,7 @@ class LinkBankAccountInformativeViewModel(
                             )
                         )
                     }
+
                     false -> {
                         alertDialog.dismiss()
                         _baseCmd.value = BaseCommand.PerformNavAction(
@@ -168,6 +171,7 @@ class LinkBankAccountInformativeViewModel(
                                 .actionLinkBankAccountInformativeFragmentToIneligibleInformativeFragment()
                         )
                     }
+
                     null -> {
                         toggleEligibilityStatusJob(alertDialog)
                     }
@@ -177,6 +181,7 @@ class LinkBankAccountInformativeViewModel(
                 val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
                 _baseCmd.value = BaseCommand.ShowToast(error)
                 alertDialog.dismiss()
+                _cmd.value = Command.RefreshUserDataNeeded
                 _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
             }
         }
@@ -249,6 +254,7 @@ class LinkBankAccountInformativeViewModel(
     }
 
     sealed class Command {
+        object RefreshUserDataNeeded : Command()
         data class StartLinkingBackAccount(
             val linkTokenConfiguration: LinkTokenConfiguration
         ) : Command()
