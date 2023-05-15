@@ -17,8 +17,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhiteF9">
+            android:layout_height="match_parent">
 
             <View
                 android:layout_width="match_parent"
@@ -41,14 +40,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
                 android:id="@+id/white_arch_background"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/dimen_56dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_arch_white"
-                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView

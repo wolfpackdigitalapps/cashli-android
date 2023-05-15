@@ -148,7 +148,7 @@ class HomeViewModel(
         )
     }
 
-    private fun goToClaimCash() {
+    fun goToClaimCash() {
         _baseCmd.value = BaseCommand.PerformNavAction(
             HomeFragmentDirections.actionHomeFragmentToClaimCashFragment()
         )

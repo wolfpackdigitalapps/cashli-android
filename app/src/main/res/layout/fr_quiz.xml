@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="QuizFragmentBinding">
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_claim_cash">
+
+            <ImageView
+                android:id="@+id/iv_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_dots"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/colorClaimCashBgDotsTint" />
+
+            <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
+                android:id="@+id/iv_arc_overlay"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dimen_56dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.H4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_60dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                android:text="@string/quiz_title"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_arc_overlay" />
+
+            <include
+                android:id="@+id/quiz_first_question"
+                layout="@layout/item_quiz_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_32dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:title="@{@string/quiz_first_question}" />
+
+            <include
+                android:id="@+id/quiz_second_question"
+                layout="@layout/item_quiz_question"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:layout_constraintEnd_toEndOf="@id/quiz_first_question"
+                app:layout_constraintStart_toStartOf="@id/quiz_first_question"
+                app:layout_constraintTop_toBottomOf="@id/quiz_first_question"
+                app:title="@{@string/quiz_second_question}"
+                app:viewState="@{viewModel.displayAltSecondQuestion ? View.GONE : View.VISIBLE}" />
+
+            <include
+                android:id="@+id/quiz_second_question_alt"
+                layout="@layout/item_quiz_question"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:layout_constraintEnd_toEndOf="@id/quiz_first_question"
+                app:layout_constraintStart_toStartOf="@id/quiz_first_question"
+                app:layout_constraintTop_toBottomOf="@id/quiz_first_question"
+                app:title="@{@string/quiz_second_question_alt}"
+                app:viewState="@{viewModel.displayAltSecondQuestion ? View.VISIBLE : View.GONE}" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="quiz_second_question, quiz_second_question_alt" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1dp"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:background="@color/divider"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+            <TextView
+                android:id="@+id/tv_tip_info"
+                style="@style/TextView.H6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:text="@string/quiz_tip_info"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@id/quiz_first_question"
+                app:layout_constraintStart_toStartOf="@id/quiz_first_question"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            <TextView
+                android:id="@+id/tv_tip_label"
+                style="@style/TextView.H6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:text="@string/quiz_tip_label"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="@id/tv_tip_info"
+                app:layout_constraintStart_toStartOf="@id/tv_tip_info"
+                app:layout_constraintTop_toBottomOf="@id/tv_tip_info" />
+
+            <LinearLayout
+                android:id="@+id/ll_tip_selection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/dimen_4dp"
+                app:layout_constraintEnd_toEndOf="@id/tv_tip_info"
+                app:layout_constraintStart_toStartOf="@id/tv_tip_info"
+                app:layout_constraintTop_toBottomOf="@id/tv_tip_label" />
+
+            <ImageView
+                android:id="@+id/iv_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_group"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_tip_selection" />
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/cv_tip_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_4dp"
+                app:layout_constraintTop_toBottomOf="@id/ll_tip_selection"
+                app:viewState="@{viewModel.tipSeekbarVisible ? View.VISIBLE : View.GONE }" />
+
+            <TextView
+                android:id="@+id/tv_footnote"
+                style="@style/TextView.H6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_56dp"
+                android:text="@string/quiz_footnote"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_14sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_group"
+                app:layout_constraintTop_toTopOf="@id/iv_group"
+                app:layout_constraintVertical_bias="0.9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_continue"
+                style="@style/Widget.Cashli.Button.PrimaryDark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_56dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
+                android:onClick="@{()-> viewModel.onContinueClicked()}"
+                android:text="@string/continue_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_footnote" />
+
+            <TextView
+                android:id="@+id/tv_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginBottom="@dimen/dimen_64dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/quiz_agreement"
+                android:textColor="@color/colorGrayB6"
+                android:textSize="@dimen/size_14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_continue"
+                app:layout_constraintVertical_bias="0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
