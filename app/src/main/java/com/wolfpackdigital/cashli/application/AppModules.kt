@@ -119,6 +119,7 @@ import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
+import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -160,6 +161,7 @@ object AppModules {
         }
         viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel() }
+        viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
         viewModel { HelpViewModel() }
     }
 

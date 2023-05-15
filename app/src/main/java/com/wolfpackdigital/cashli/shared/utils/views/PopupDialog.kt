@@ -29,6 +29,7 @@ class PopupDialog(
         ).also {
             it.setVariable(BR.viewModel, popupConfig)
         }
+
         builder.setView(binding.root)
         dialog = builder.create()
 
@@ -81,9 +82,5 @@ class PopupDialog(
             context is AppCompatActivity && !context.isFinishing -> dialog.show()
             else -> dialog.dismiss()
         }
-    }
-
-    fun dismiss() {
-        dialog.dismiss()
     }
 }

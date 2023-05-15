@@ -36,6 +36,11 @@ val androidxBrowser = "1.5.0"
 val plaidLink = "3.11.0"
 val tooltipBalloon = "1.4.7"
 
+/* TODO: Replace this with version after update
+ * https://github.com/SmartToolFactory/Compose-Colorful-Sliders/issues/12
+*/
+val sliders = "master-SNAPSHOT"
+
 dependencies {
     constraints {
         api("${Libs.KOTLIN_STD_LIB}:${Versions.KOTLIN}")
@@ -84,5 +89,13 @@ dependencies {
         api("${Libs.ANDROIDX_BROWSER}:$androidxBrowser")
         api("${Libs.PLAID_LINK}:$plaidLink")
         api("${Libs.TOOLTIP_BALLOON}:$tooltipBalloon")
+
+        api("${Libs.ANDROIDX_COMPOSE_UI}:${Versions.COMPOSE}")
+        api("${Libs.ANDROIDX_COMPOSE_MATERIAL}:${Versions.COMPOSE}")
+        api("${Libs.ANDROIDX_COMPOSE_UI_TOOLING}:${Versions.COMPOSE}")
+        api("${Libs.ANDROIDX_COMPOSE_UI_TOOLING_PREVIEW}:${Versions.COMPOSE}")
+        api("${Libs.ANDROIDX_COMPOSE_RUNTIME}:${Versions.COMPOSE}")
+        api("${Libs.ANDROIDX_COMPOSE_RUNTIME_LIVEDATA}:${Versions.COMPOSE}")
+        api("${Libs.COLORFUL_SLIDERS}:$sliders")
     }
 }
