@@ -9,5 +9,15 @@
         android:id="@+id/moreFragment"
         android:name="com.wolfpackdigital.cashli.presentation.more.MoreFragment"
         android:label="MoreFragment"
-        tools:layout="@layout/fr_more" />
+        tools:layout="@layout/fr_more" >
+        <action
+            android:id="@+id/action_moreFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.help.HelpFragment"
+        android:label="HelpFragment"
+        tools:layout="@layout/fr_help" />
 </navigation>

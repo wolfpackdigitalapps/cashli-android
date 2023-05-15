@@ -110,6 +110,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.informative.Informati
 import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
 import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
+import com.wolfpackdigital.cashli.presentation.help.HelpViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeViewModel
@@ -159,6 +160,7 @@ object AppModules {
         }
         viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel() }
+        viewModel { HelpViewModel() }
     }
 
     private val apiModule = module {

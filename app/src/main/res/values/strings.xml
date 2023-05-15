@@ -188,6 +188,11 @@
     <!--Account -->
     <string name="account">Account</string>
 
+    <!--Help-->
+    <string name="help_description">We will do our best to reply to each message within 24 hours.</string>
+    <string name="help_text_us">Text us</string>
+    <string name="help_email_us">Email us</string>
+
     <!--More -->
     <string name="more">More</string>
     <string name="user_name">%s %s</string>

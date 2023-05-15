@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="HelpFragmentBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.help.HelpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/iv_dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_dots"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@null"
+            android:onClick="@{() -> viewModel.back()}"
+            android:padding="@dimen/dimen_16dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_arch"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:contentDescription="@null"
+            android:src="@color/colorWhiteF9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.H6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/help"
+            android:textColor="@color/colorGrayDC"
+            app:layout_constraintBottom_toBottomOf="@id/ib_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ib_back" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextView.H5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_56dp"
+            android:text="@string/help_description"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintTop_toTopOf="@id/iv_arch" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_text_us"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_40dp"
+            android:onClick="@{() -> viewModel.openSmsApp()}"
+            android:text="@string/help_text_us"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            app:layout_constraintVertical_bias="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_email_us"
+            style="@style/Widget.Cashli.Button.PrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:onClick="@{() -> viewModel.openEmailApp()}"
+            android:text="@string/help_email_us"
+            app:layout_constraintTop_toBottomOf="@id/btn_text_us"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
