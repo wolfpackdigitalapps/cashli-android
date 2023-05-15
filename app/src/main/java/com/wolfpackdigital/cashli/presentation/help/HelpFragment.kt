@@ -8,7 +8,7 @@ import com.wolfpackdigital.cashli.databinding.HelpFragmentBinding
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private val MAILTO_URI = "mailto:"
+private const val MAILTO_URI = "mailto:"
 
 class HelpFragment : BaseFragment<HelpFragmentBinding, HelpViewModel>(R.layout.fr_help) {
 

@@ -21,7 +21,6 @@ class HelpViewModel : BaseViewModel() {
     }
 
     sealed class Command {
-        data class OpenEmailApp(val email: String): Command()
+        data class OpenEmailApp(val email: String) : Command()
     }
-
 }
