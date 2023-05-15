@@ -123,6 +123,7 @@
     <string name="creation_date_tooltip">Creation date of your bank account pending..</string>
     <string name="ineligible_try_again">You may try again after your next paycheck.</string>
 
+
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
     <string name="confirm_one_time_password">Confirm One Time Password</string>
@@ -153,7 +154,6 @@
     <!--    Claim Cash-->
     <string name="claim_cash_title">Claim cash now!</string>
     <string name="claim_cash_cash_amount">Cash amount</string>
-    <string name="dollar_amount" translatable="false">$%d</string>
     <string name="dollar_amount_float" translatable="false">$%.2f</string>
 
     <string name="claim_cash_due_date">Due date</string>
@@ -170,6 +170,19 @@
 
     <string name="delivery_method_free" tools:ignore="UnusedResources">Free</string>
 
+    <!--Quiz-->
+    <string name="quiz_title">Cashli strives to reduce remittance fees.</string>
+    <string name="quiz_first_question">Have you ever sent money to loved ones or friends abroad?</string>
+    <string name="quiz_second_question">Would you be interested in saving up to hundreds of dollars in fees per year?</string>
+    <string name="quiz_second_question_alt">Do you still think it’s a good idea to help hard-working folks save up to hundreds of dollars in fees per year?</string>
+    <string name="quiz_tip_info">Providing cash advances with no interest &amp; no unfair fees is a hard business. Your generous tips will help our mission to carry on!</string>
+    <string name="quiz_tip_label">Please pick a tip amount:</string>
+    <string name="quiz_tip_choose_amount">Choose a different amount</string>
+    <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in Latin America.</string>
+    <string name="quiz_agreement">By confirming, you agree to ACH terms.</string>
+    <string name="quiz_popup_description">Your cash advance is on its way. On %1$s, we will withdraw %2$s* from your bank account.</string>
+    <string name="quiz_popup_annex">It includes a tip and an express fee, if applicable.</string>
+
     <!--Generic -->
     <string name="generic_continue">Continue</string>
     <string name="generic_seconds_abbreviation">sec</string>
@@ -179,6 +192,8 @@
     <string name="generic_session_expired">Session expired, please login again.</string>
     <string name="generic_see_more">See more</string>
     <string name="save">Save</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!--Push Notifications -->
     <string name="notification_rejected_text">Without notification permission you will not receive alerts from “Cashli” app.</string>

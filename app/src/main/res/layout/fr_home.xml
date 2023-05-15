@@ -60,34 +60,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
+                android:onClick="@{() -> viewModel.goToClaimCash()}"
                 tools:text="Hi, Mike!" />
 
-            <View
+            <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
                 android:id="@+id/view_arch"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/dimen_100dp"
-                android:background="@drawable/ic_arch_white"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_name" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/colorWhiteF9"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_arch" />
+                app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
             <ViewStub
                 android:id="@+id/stub_link_bank_account"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
                 android:inflatedId="@+id/link_bank_account"
                 android:layout="@layout/link_bank_account_layout"
                 android:visibility="@{viewModel.linkBankAccountInfo.bankAccount == null}"
@@ -103,7 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:inflatedId="@+id/bank_account_info"
                 android:layout="@layout/link_bank_account_info_layout"

@@ -128,6 +128,7 @@ class HomeViewModel(
             val result = getUserProfileUseCase(Unit)
             result.onSuccess { newUserProfile ->
                 userProfile = token?.let { newUserProfile.copy(tokens = it) }
+                _currentUserProfile.value = userProfile
             }
             result.onError {
                 val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
@@ -166,7 +167,7 @@ class HomeViewModel(
         )
     }
 
-    private fun goToClaimCash() {
+    fun goToClaimCash() {
         _baseCmd.value = BaseCommand.PerformNavAction(
             HomeFragmentDirections.actionHomeFragmentToClaimCashFragment()
         )

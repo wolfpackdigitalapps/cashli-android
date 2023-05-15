@@ -100,6 +100,17 @@
         <item name="android:backgroundTint">@color/btn_background_primary_dark_selector</item>
     </style>
 
+    <!--    Radio Button-->
+    <style name="CashliRadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/selector_radio_button</item>
+        <item name="buttonTint">@color/btn_radio_tint_selector</item>
+        <item name="android:maxHeight">@dimen/dimen_40dp</item>
+        <item name="android:minHeight">@dimen/dimen_40dp</item>
+        <item name="android:paddingHorizontal">@dimen/dimen_8dp</item>
+        <item name="android:textAppearance">@style/TextView.P1</item>
+        <item name="android:textColor">@color/btn_radio_tint_selector</item>
+    </style>
+
     <!-- TextView -->
     <style name="TextView">
         <item name="android:textColor">@color/colorWhite</item>
@@ -183,9 +194,9 @@
         <item name="android:textSize">@dimen/size_12sp</item>
     </style>
 
-    <style name="TextView.C2" parent="TextView">
-        <item name="fontFamily">@font/lato_bold</item>
-        <item name="android:textSize">@dimen/size_12sp</item>
+    <style name="TextView.P1" parent="TextView">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:textSize">@dimen/size_16sp</item>
     </style>
 
 </resources>

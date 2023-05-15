@@ -14,164 +14,193 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_12dp"
-        android:background="@drawable/round_corners_white_background">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_close"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/dimen_12dp"
-            app:icon="@drawable/ic_close"
-            app:iconTint="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:visibility="@{viewModel.isCloseVisible}" />
-
-        <ImageView
-            android:id="@+id/iv_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_64dp"
-            android:contentDescription="@null"
-            app:drawableRes="@{viewModel.imageId}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_profile_check" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_title"
-            style="@style/TextView.Bold"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_20dp"
-            android:layout_marginTop="@dimen/dimen_40dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_top"
-            app:textRes="@{viewModel.titleId}"
-            tools:text="Congrats!" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_content"
-            style="@style/TextView.Regular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_20dp"
-            android:layout_marginTop="@dimen/dimen_40dp"
-            android:layout_marginBottom="@dimen/dimen_48dp"
-            android:textColor="@color/colorGray76"
-            android:textSize="@dimen/size_16sp"
-            app:layout_constraintBottom_toTopOf="@id/content_barrier"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:textArgs="@{viewModel.contentFormatArgs}"
-            app:textIdOrString="@{viewModel.contentIdOrString}"
-            tools:text="Connection to your bank account has been successful." />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/content_barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="top"
-            app:constraint_referenced_ids="btn_primary" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_primary"
-            style="@style/Widget.Cashli.Button.Accent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_12dp"
-            android:layout_marginTop="@dimen/dimen_64dp"
-            android:layout_marginBottom="@dimen/dimen_20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_content"
-            app:layout_constraintVertical_bias="0.0"
-            app:textRes="@{viewModel.buttonPrimaryId}"
-            app:visibility="@{viewModel.buttonPrimaryId != null}"
-            tools:text="Ok"
-            tools:visibility="visible" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_secondary"
-            style="@style/Widget.Cashli.Button.NoBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_12dp"
-            android:layout_marginBottom="@dimen/dimen_12dp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_primary"
-            app:layout_constraintVertical_bias="0.0"
-            app:textRes="@{viewModel.buttonSecondaryId}"
-            app:visibility="@{viewModel.buttonSecondaryId != null}"
-            tools:text="Close"
-            tools:visibility="visible" />
+        android:paddingHorizontal="@dimen/dimen_52dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_timer"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_40dp"
+            android:layout_margin="@dimen/dimen_12dp"
+            android:background="@drawable/round_corners_white_background"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_barrier"
-            app:layout_constraintVertical_bias="0.0"
-            app:visibility="@{viewModel.timerCount != null}">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_timer"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_close"
+                style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dimen_12dp"
+                app:icon="@drawable/ic_close"
+                app:iconTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibility="@{viewModel.isCloseVisible}" />
+
+            <ImageView
+                android:id="@+id/iv_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_64dp"
                 android:contentDescription="@null"
+                app:drawableRes="@{viewModel.imageId}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_profile_check" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_title"
+                style="@style/TextView.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_40dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_top"
+                app:textRes="@{viewModel.titleId}"
+                tools:text="Congrats!" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_content"
+                style="@style/TextView.Regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_40dp"
+                android:textColor="@color/colorGray76"
+                android:textSize="@dimen/size_16sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_secondary_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintVertical_bias="0"
+                app:textArgs="@{viewModel.contentFormatArgs}"
+                app:textIdOrString="@{viewModel.contentIdOrString}"
+                tools:text="Connection to your bank account has been successful." />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_secondary_content"
+                style="@style/TextView.C1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_32dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorGrayA8"
+                app:layout_constraintBottom_toTopOf="@id/content_barrier"
+                app:layout_constraintEnd_toEndOf="@id/tv_content"
+                app:layout_constraintStart_toStartOf="@id/tv_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_content"
+                app:layout_goneMarginBottom="@dimen/dimen_48dp"
+                app:textRes="@{viewModel.secondaryContent}"
+                app:visibility="@{viewModel.secondaryContent != null}"
+                tools:text="It includes a tip and an express fee, if applicable."
+                tools:visibility="gone" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/content_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="top"
+                app:constraint_referenced_ids="btn_primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_primary"
+                style="@style/Widget.Cashli.Button.Accent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_12dp"
+                android:layout_marginTop="@dimen/dimen_64dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_clock" />
+                app:layout_constraintTop_toBottomOf="@id/tv_content"
+                app:layout_constraintVertical_bias="0.0"
+                app:textRes="@{viewModel.buttonPrimaryId}"
+                app:visibility="@{viewModel.buttonPrimaryId != null}"
+                tools:text="Ok"
+                tools:visibility="visible" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_timer"
-                style="@style/TextView.Bold"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_secondary"
+                style="@style/Widget.Cashli.Button.NoBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:textColor="@color/colorGrayB6"
-                android:textSize="@dimen/size_18sp"
+                android:layout_marginHorizontal="@dimen/dimen_12dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toTopOf="@id/tv_timer_label"
-                app:layout_constraintEnd_toEndOf="@id/iv_timer"
-                app:layout_constraintStart_toStartOf="@id/iv_timer"
-                app:layout_constraintTop_toTopOf="@id/iv_timer"
-                app:layout_constraintVertical_bias="0.6"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="5" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_primary"
+                app:layout_constraintVertical_bias="0.0"
+                app:textRes="@{viewModel.buttonSecondaryId}"
+                app:visibility="@{viewModel.buttonSecondaryId != null}"
+                tools:text="Close"
+                tools:visibility="visible" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_timer_label"
-                style="@style/TextView.Regular"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="@string/generic_seconds_abbreviation"
-                android:textColor="@color/colorGrayB6"
-                android:textSize="@dimen/size_12sp"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="@id/iv_timer"
-                app:layout_constraintEnd_toEndOf="@id/iv_timer"
-                app:layout_constraintStart_toStartOf="@id/iv_timer"
-                app:layout_constraintTop_toBottomOf="@id/tv_timer" />
+                android:layout_marginBottom="@dimen/dimen_40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/content_barrier"
+                app:layout_constraintVertical_bias="0.0"
+                app:visibility="@{viewModel.timerCount != null}"
+                tools:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_clock" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_timer"
+                    style="@style/TextView.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorGrayB6"
+                    android:textSize="@dimen/size_18sp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toTopOf="@id/tv_timer_label"
+                    app:layout_constraintEnd_toEndOf="@id/iv_timer"
+                    app:layout_constraintStart_toStartOf="@id/iv_timer"
+                    app:layout_constraintTop_toTopOf="@id/iv_timer"
+                    app:layout_constraintVertical_bias="0.6"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="5" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_timer_label"
+                    style="@style/TextView.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/generic_seconds_abbreviation"
+                    android:textColor="@color/colorGrayB6"
+                    android:textSize="@dimen/size_12sp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_timer"
+                    app:layout_constraintEnd_toEndOf="@id/iv_timer"
+                    app:layout_constraintStart_toStartOf="@id/iv_timer"
+                    app:layout_constraintTop_toBottomOf="@id/tv_timer" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

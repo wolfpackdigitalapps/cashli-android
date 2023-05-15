@@ -28,7 +28,7 @@ object Libs {
 
     const val RETROFIT = "com.squareup.retrofit2:retrofit"
     const val RETROFIT_GSON_CONVERTER = "com.squareup.retrofit2:converter-gson"
-    
+
     const val OKHTTP_BOM = "com.squareup.okhttp3:okhttp-bom"
     const val OKHTTP = "com.squareup.okhttp3:okhttp"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor"
@@ -49,4 +49,12 @@ object Libs {
     const val PLAID_LINK = "com.plaid.link:sdk-core"
     const val TOOLTIP_BALLOON = "com.github.skydoves:balloon"
     const val PAGINATION = "androidx.paging:paging-runtime"
+
+    const val ANDROIDX_COMPOSE_UI = "androidx.compose.ui:ui"
+    const val ANDROIDX_COMPOSE_MATERIAL = "androidx.compose.material:material"
+    const val ANDROIDX_COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling"
+    const val ANDROIDX_COMPOSE_UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
+    const val ANDROIDX_COMPOSE_RUNTIME = "androidx.compose.runtime:runtime"
+    const val ANDROIDX_COMPOSE_RUNTIME_LIVEDATA = "androidx.compose.runtime:runtime-livedata"
+    const val COLORFUL_SLIDERS = "com.github.SmartToolFactory:Compose-Colorful-Sliders"
 }

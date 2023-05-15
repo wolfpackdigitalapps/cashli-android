@@ -19,4 +19,6 @@ object Versions {
     const val FIREBASE_CRASHLYTICS_GRADLE = "2.9.0"
     const val DETEKT = "1.22.0"
     const val DEPS_UPDATES = "0.42.0"
+
+    const val COMPOSE = "1.4.2"
 }

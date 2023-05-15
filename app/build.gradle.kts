@@ -66,6 +66,9 @@ android {
     }
 
     buildFeatures.dataBinding = true
+    buildFeatures.compose = true
+
+    composeOptions.kotlinCompilerExtensionVersion = Versions.COMPOSE
 
     lint {
         abortOnError = true
@@ -164,4 +167,13 @@ dependencies {
 
     // Pagination
     implementation(Libs.PAGINATION)
+
+    // Compose
+    implementation(Libs.ANDROIDX_COMPOSE_UI)
+    implementation(Libs.ANDROIDX_COMPOSE_MATERIAL)
+    implementation(Libs.ANDROIDX_COMPOSE_UI_TOOLING)
+    implementation(Libs.ANDROIDX_COMPOSE_UI_TOOLING_PREVIEW)
+    implementation(Libs.ANDROIDX_COMPOSE_RUNTIME)
+    implementation(Libs.ANDROIDX_COMPOSE_RUNTIME_LIVEDATA)
+    implementation(Libs.COLORFUL_SLIDERS)
 }

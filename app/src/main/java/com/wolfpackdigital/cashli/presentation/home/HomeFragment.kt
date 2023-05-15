@@ -10,9 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import com.wolfpackdigital.cashli.HomeBinding
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.areDeviceNotificationsFullyEnabled
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import com.wolfpackdigital.cashli.shared.utils.extensions.getBackStackData
+import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment :
@@ -45,6 +48,17 @@ class HomeFragment :
             viewModel.bankTransactionsFlow.collectLatest { pagingData ->
                 bankTransactionsAdapter.submitData(pagingData)
             }
+        }
+        setupBackStackData()
+    }
+
+    private fun setupBackStackData() {
+        navController?.getBackStackData<Boolean>(
+            Constants.REFRESH_USER_DATA,
+            viewLifecycleOwner,
+            removeValue = true
+        ) {
+            if (it == true) viewModel.getUserProfile()
         }
     }
 
