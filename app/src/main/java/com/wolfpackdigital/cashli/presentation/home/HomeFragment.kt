@@ -6,10 +6,13 @@ import android.os.Build
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.wolfpackdigital.cashli.HomeBinding
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.extensions.areDeviceNotificationsFullyEnabled
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment :
@@ -17,12 +20,17 @@ class HomeFragment :
 
     override val viewModel by viewModel<HomeViewModel>()
 
+    private val bankTransactionsAdapter: BankTransactionsAdapter by lazy { BankTransactionsAdapter() }
+
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             viewModel.handleUserPushNotificationsSetting(isGranted)
         }
 
     override fun setupViews() {
+        binding?.rvBankTransactions?.apply {
+            adapter = bankTransactionsAdapter
+        }
         setupObservers()
     }
 
@@ -31,6 +39,11 @@ class HomeFragment :
             when (it) {
                 HomeViewModel.Command.CheckPushNotificationPermissions ->
                     handlePushNotificationPermissions()
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.bankTransactionsFlow.collectLatest { pagingData ->
+                bankTransactionsAdapter.submitData(pagingData)
             }
         }
     }

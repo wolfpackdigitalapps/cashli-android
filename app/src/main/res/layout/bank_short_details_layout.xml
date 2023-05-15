@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="BankShortDetailsBinding">
+
+        <variable
+            name="bankAccountInfo"
+            type="com.wolfpackdigital.cashli.domain.entities.response.BankAccount" />
+
+        <variable
+            name="inflatedVisibility"
+            type="Boolean" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="@{inflatedVisibility}"
+        app:cardBackgroundColor="@color/colorWhiteF5"
+        app:cardCornerRadius="@dimen/dimen_20dp"
+        app:cardElevation="@dimen/dimen_0dp"
+        app:strokeColor="@color/colorGrayF1"
+        app:strokeWidth="@dimen/dimen_1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dimen_24dp">
+
+            <ImageView
+                android:id="@+id/iv_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_bank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_bank_name"
+                style="@style/TextView.S2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:text="@{bankAccountInfo.institutionName}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/tv_balance"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@id/iv_bank"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Bank of America" />
+
+            <TextView
+                android:id="@+id/tv_balance"
+                style="@style/TextView.S2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                android:text="@{bankAccountInfo.balance}"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/colorPurpleF3"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_bank_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="$145.22" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_merchant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_balance, tv_bank_name" />
+
+            <TextView
+                android:id="@+id/tv_bank_mask"
+                style="@style/TextView.C1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorGrayB6"
+                app:bankSubtypeAndMask="@{bankAccountInfo}"
+                app:layout_constraintStart_toEndOf="@id/iv_bank"
+                app:layout_constraintTop_toBottomOf="@id/barrier_merchant"
+                tools:text="Checking - 8864" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -6,6 +6,8 @@ import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSu
 import com.wolfpackdigital.cashli.data.mappers.BankAccountToBankAccountDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.BankTransactionDtoToBankTransactionMapper
+import com.wolfpackdigital.cashli.data.mappers.BankTransactionToBankTransactionDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
@@ -46,6 +48,7 @@ import com.wolfpackdigital.cashli.data.mappers.UserSettingDtoToUserSettingMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
+import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
 import com.wolfpackdigital.cashli.data.patternMatchers.CityAndStatePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.LettersAndCommaPatternMatcherImpl
@@ -174,7 +177,7 @@ object AppModules {
             )
         }
         single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
-        single<UserRepository> { UserRepositoryImpl(get(), get(), get(), get()) }
+        single<UserRepository> { UserRepositoryImpl(get(), get(), get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -188,6 +191,8 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { BankTransactionToBankTransactionDtoMapper() }
+        factory { BankTransactionDtoToBankTransactionMapper() }
         factory { UserSettingDtoToUserSettingMapper() }
         factory { UserSettingToUserSettingDtoMapper() }
         factory { SingleDataRequestToSingleDataRequestDtoMapper() }
@@ -275,5 +280,16 @@ object AppModules {
         single { LogOutUserUseCase(get()) }
     }
 
-    val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)
+    private val pagingSources = module {
+        factory { BankTransactionsPagingSource(get()) }
+    }
+    val modules = listOf(
+        viewModels,
+        apiModule,
+        repoModule,
+        mappersModule,
+        useCases,
+        patternsModule,
+        pagingSources
+    )
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ItemBankTransactionBinding">
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.domain.entities.response.BankTransaction" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        app:cardBackgroundColor="@color/colorWhiteF5"
+        app:cardCornerRadius="@dimen/dimen_20dp"
+        app:cardElevation="@dimen/dimen_0dp"
+        app:strokeColor="@color/colorGrayF1"
+        app:strokeWidth="@dimen/dimen_1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dimen_12dp">
+
+            <TextView
+                android:id="@+id/tv_merchant_name"
+                style="@style/TextView.S2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:text="@{viewModel.merchantName}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/tv_amount"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Teller" />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                style="@style/TextView.S2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                android:text="@{viewModel.amount}"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/colorPurpleF3"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_merchant_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="- $145.22" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_merchant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_amount, tv_merchant_name" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/TextView.C1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:text="@{viewModel.date}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorGrayB6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier_merchant"
+                tools:text="2 days ago" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

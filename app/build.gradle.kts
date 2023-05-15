@@ -159,6 +159,9 @@ dependencies {
     // PlaidLink
     implementation(Libs.PLAID_LINK)
 
-    //Tooltips
+    // Tooltips
     implementation(Libs.TOOLTIP_BALLOON)
+
+    // Pagination
+    implementation(Libs.PAGINATION)
 }

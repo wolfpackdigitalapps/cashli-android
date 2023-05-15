@@ -19,6 +19,8 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.BankAccountSubtype
+import com.wolfpackdigital.cashli.domain.entities.response.BankAccount
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.CustomClickSpan
@@ -113,4 +115,19 @@ fun TextView.setCustomTextAndBalloon(
     )
     movementMethod = LinkMovementMethod.getInstance()
     setText(string)
+}
+
+@BindingAdapter("bankSubtypeAndMask")
+fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?) {
+    bankAccount ?: return
+    val bankSubtype = when (bankAccount.accountSubtype) {
+        BankAccountSubtype.CHECKING -> context.getString(R.string.bank_account_subtype_checking)
+        BankAccountSubtype.DEPOSITORY -> context.getString(R.string.bank_account_subtype_depository)
+        BankAccountSubtype.SAVINGS -> context.getString(R.string.bank_account_subtype_savings)
+    }
+    text = context.getString(
+        R.string.bank_account_subtype_and_mask,
+        bankSubtype,
+        bankAccount.accountNumberMask
+    )
 }

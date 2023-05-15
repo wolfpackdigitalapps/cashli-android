@@ -18,6 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
@@ -87,7 +88,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_20dp"
                 android:inflatedId="@+id/link_bank_account"
                 android:layout="@layout/link_bank_account_layout"
                 android:visibility="@{viewModel.linkBankAccountInfo.bankAccount == null}"
@@ -95,7 +95,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name"
-                app:linkBankAccountInfo="@{viewModel.linkBankAccountInfo}" />
+                app:linkBankAccountInfo="@{viewModel.linkBankAccountInfo}"
+                tools:visibility="visible" />
 
             <ViewStub
                 android:id="@+id/stub_bank_account_info"
@@ -191,7 +192,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
                 app:layout_constraintVertical_bias="0.0"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
+                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}"
+                tools:visibility="visible" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier_cash_advance"
@@ -200,6 +202,71 @@
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="cash_balance, cash_approved, cash_ineligible, request_cash_advance"
                 tools:ignore="UnknownId" />
+
+            <ViewStub
+                android:id="@+id/stub_bank_short_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:inflatedId="@+id/bank_short_details"
+                android:layout="@layout/bank_short_details_layout"
+                android:visibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
+                app:bankAccountInfo="@{viewModel.linkBankAccountInfo.bankAccount}"
+                app:inflatedVisibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier_cash_advance"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/delimiter_bank_transactions"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1dp"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:background="@color/colorGrayEB"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bank_short_details"
+                tools:ignore="UnknownId" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_bank_transactions"
+                style="@style/TextView.H4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:lineSpacingExtra="@dimen/dimen_4dp"
+                android:text="@string/bank_transactions"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/delimiter_bank_transactions" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_bank_transactions"
+                style="@style/RecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="@dimen/dimen_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_bank_transactions"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_bank_transaction" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
+                app:constraint_referenced_ids="rv_bank_transactions, tv_bank_transactions, delimiter_bank_transactions" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

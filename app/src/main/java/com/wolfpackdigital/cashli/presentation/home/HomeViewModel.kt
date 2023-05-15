@@ -4,7 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.entities.response.UserSetting
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
@@ -26,13 +30,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import kotlin.random.Random
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 private const val SUM_150 = "150"
+private const val TRANSACTIONS_PAGE_SIZE = 10
 
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserSettingUseCase: UpdateUserSettingUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel(), PersistenceService, KoinComponent {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
@@ -50,7 +57,8 @@ class HomeViewModel(
     val linkBankAccountInfo: LiveData<LinkBankAccountInfo> = currentUserProfile.map { userProfile ->
         LinkBankAccountInfo(
             bankAccount = userProfile?.bankAccount?.copy(
-                timestamp = userProfile.bankAccount.timestamp.toFormattedLocalDateTime() ?: EMPTY_STRING
+                timestamp = userProfile.bankAccount.timestamp.toFormattedLocalDateTime()
+                    ?: EMPTY_STRING
             ),
             linkBankAccountAction = { goToLinkBankAccount() }
         )
@@ -58,6 +66,16 @@ class HomeViewModel(
 
     private val _requestCashAdvanceInfo = MutableLiveData<RequestCashAdvanceInfo>()
     val requestCashAdvanceInfo: LiveData<RequestCashAdvanceInfo> = _requestCashAdvanceInfo
+
+    val bankTransactionsFlow = Pager(
+        config = PagingConfig(
+            pageSize = TRANSACTIONS_PAGE_SIZE,
+            enablePlaceholders = false,
+            initialLoadSize = TRANSACTIONS_PAGE_SIZE
+        )
+    ) {
+        inject<BankTransactionsPagingSource>().value
+    }.flow.cachedIn(viewModelScope)
 
     init {
         if (!isNotificationPermissionAsked)

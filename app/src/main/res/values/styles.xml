@@ -136,6 +136,12 @@
         <item name="hintTextColor">@color/colorGrayB6</item>
     </style>
 
+    <style name="RecyclerView">
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:splitMotionEvents">false</item>
+    </style>
+
     <!-- ScrollView -->
     <style name="ScrollView">
         <item name="android:fillViewport">true</item>
