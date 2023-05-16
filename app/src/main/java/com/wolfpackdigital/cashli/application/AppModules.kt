@@ -225,8 +225,8 @@ object AppModules {
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
         factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
         factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileToUserProfileDtoMapper(get(), get(), get(), get()) }
-        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get()) }
+        factory { UserProfileToUserProfileDtoMapper(get(), get(), get(), get(), get()) }
+        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get()) }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
         factory { SignInRequestToSignInRequestDtoMapper(get()) }

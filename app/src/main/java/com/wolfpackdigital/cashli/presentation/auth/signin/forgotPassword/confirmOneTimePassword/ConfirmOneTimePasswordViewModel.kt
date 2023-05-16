@@ -23,7 +23,6 @@ class ConfirmOneTimePasswordViewModel(
     private val codeReceivedViaType: CodeReceivedViaType,
     private val submitPasswordIdentifiersUseCase: SubmitPasswordIdentifiersUseCase,
     private val validateCodeByPasswordIdentifierUseCase: ValidateCodeByPasswordIdentifierUseCase
-
 ) : BaseValidateCodeViewModel() {
 
     private val _toolbar = MutableLiveData(

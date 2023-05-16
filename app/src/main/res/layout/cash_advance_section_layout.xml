@@ -6,6 +6,8 @@
 
     <data class=".CashAdvanceSectionBinding">
 
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.RequestCashAdvanceType" />
+
         <variable
             name="viewModel"
             type="com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo" />
@@ -25,8 +27,8 @@
             android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/request_cash_advance"
             android:layout="@layout/request_cash_advance_layout"
-            android:visibility="@{viewModel.upToSum != null &amp;&amp; viewModel.eligible == null}"
-            app:inflatedVisibility="@{viewModel.upToSum != null &amp;&amp; viewModel.eligible == null}"
+            android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.CASH_UP_TO}"
+            app:inflatedVisibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.CASH_UP_TO}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,8 +43,8 @@
             android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/cash_ineligible"
             android:layout="@layout/request_cash_ineligible_layout"
-            android:visibility="@{viewModel.eligible == false &amp;&amp; viewModel.upToSum == null}"
-            app:inflatedVisibility="@{viewModel.eligible == false &amp;&amp; viewModel.upToSum == null}"
+            android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.NOT_ELIGIBLE}"
+            app:inflatedVisibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.NOT_ELIGIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,8 +59,8 @@
             android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/cash_approved"
             android:layout="@layout/request_cash_approved_layout"
-            android:visibility="@{viewModel.eligible == true &amp;&amp; viewModel.cashApproved != null}"
-            app:inflatedVisibility="@{viewModel.eligible == true &amp;&amp; viewModel.cashApproved != null}"
+            android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.APPROVED_FOR}"
+            app:inflatedVisibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.APPROVED_FOR}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -73,8 +75,8 @@
             android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/cash_balance"
             android:layout="@layout/request_cash_balance_layout"
-            android:visibility="@{viewModel.cashAdvanceBalance != null}"
-            app:inflatedVisibility="@{viewModel.cashAdvanceBalance != null}"
+            android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.CLAIMED_ADVANCE}"
+            app:inflatedVisibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.CLAIMED_ADVANCE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

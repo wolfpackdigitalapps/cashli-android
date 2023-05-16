@@ -5,6 +5,12 @@
     android:id="@+id/link_account_graph"
     app:startDestination="@id/linkBankAccountInformativeFragment">
 
+    <include app:graph="@navigation/claim_cash_graph" />
+
+    <action
+        android:id="@+id/action_global_claimCashGraph"
+        app:destination="@id/claim_cash_graph" />
+
     <fragment
         android:id="@+id/linkBankAccountInformativeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeFragment"

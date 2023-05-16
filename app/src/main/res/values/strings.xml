@@ -86,9 +86,7 @@
     <string name="request_cash_ineligible">Unfortunately, you can\'t get a cash advance at this time.</string>
     <string name="request_cash_approved_for">You’ve been approved for</string>
     <string name="claim_cash_now">Claim cash now</string>
-    <string name="cash_zecimals_value">$%.2f</string>
     <string name="request_cash_tips">Cash could be delivered in minutes.</string>
-    <string name="request_cash_balance_value">-$%.2f</string>
     <string name="request_cash_balance_label">Cash advance balance</string>
     <string name="request_cash_balance_details">Including tips &amp; express fee, if applicable.</string>
     <string name="scheduled_repayment_date">Scheduled repayment date: %s</string>
