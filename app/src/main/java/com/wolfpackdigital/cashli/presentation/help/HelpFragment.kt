@@ -6,6 +6,7 @@ import android.net.Uri
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.databinding.HelpFragmentBinding
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
+import com.wolfpackdigital.cashli.shared.utils.extensions.snackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val MAILTO_URI = "mailto:"
@@ -33,6 +34,8 @@ class HelpFragment : BaseFragment<HelpFragmentBinding, HelpViewModel>(R.layout.f
 
             resolveActivity(packageManager)?.let {
                 startActivity(this)
+            } ?: run {
+                snackBar(R.string.no_mail_app_found)
             }
         }
     }
