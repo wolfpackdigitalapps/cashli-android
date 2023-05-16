@@ -234,7 +234,6 @@
 
     <!--Plurals-->
     <plurals name="past_days_plural">
-        <item quantity="zero">today</item>
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
     </plurals>
