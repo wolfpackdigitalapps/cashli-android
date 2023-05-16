@@ -17,6 +17,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 
+@Suppress("TooManyFunctions")
 interface AuthApi {
 
     @POST("v1/registration/submit_identifiers")

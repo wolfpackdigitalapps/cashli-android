@@ -62,7 +62,6 @@ class ChangePasswordViewModel(
         !password.isNullOrBlank() && !confirmPassword.isNullOrBlank() && !confirmNewPassword.isNullOrBlank()
     }.asLiveData()
 
-
     fun toggleCurrentPasswordVisible() {
         _currentPasswordVisible.value = _currentPasswordVisible.value?.not()
     }

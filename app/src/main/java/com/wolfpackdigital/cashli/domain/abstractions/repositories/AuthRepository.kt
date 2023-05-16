@@ -13,6 +13,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierTok
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
+@Suppress("TooManyFunctions")
 interface AuthRepository {
     suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token
     suspend fun submitRegistrationIdentifiers(

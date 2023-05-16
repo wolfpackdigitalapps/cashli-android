@@ -27,7 +27,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierTok
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
-@Suppress("MaxLineLength", "LongParameterList")
+@Suppress("MaxLineLength", "LongParameterList", "TooManyFunctions")
 class AuthRepositoryImpl(
     private val authApi: AuthApi,
     private val tokenMapper: TokenDtoToTokenMapper,
