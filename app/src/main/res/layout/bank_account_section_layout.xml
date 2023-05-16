@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".BankAccountSectionBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bank_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ViewStub
+            android:id="@+id/stub_link_bank_account"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:inflatedId="@+id/link_bank_account"
+            android:layout="@layout/link_bank_account_layout"
+            android:visibility="@{viewModel.bankAccount == null}"
+            app:inflatedVisibility="@{viewModel.bankAccount == null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:linkBankAccountInfo="@{viewModel}"
+            tools:visibility="visible" />
+
+        <ViewStub
+            android:id="@+id/stub_bank_account_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:inflatedId="@+id/bank_account_info"
+            android:layout="@layout/link_bank_account_info_layout"
+            android:visibility="@{viewModel.bankAccount != null}"
+            app:inflatedVisibility="@{viewModel.bankAccount != null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:linkBankAccountInfo="@{viewModel}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -8,6 +8,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.BankTransaction
 
 private const val DEFAULT_PAGE_INDEX = 1
 
+@Suppress("TooGenericExceptionCaught")
 class BankTransactionsPagingSource(
     private val repo: UserRepository
 ) : PagingSource<Int, BankTransaction>() {

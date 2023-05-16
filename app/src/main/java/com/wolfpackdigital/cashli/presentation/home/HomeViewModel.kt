@@ -28,10 +28,10 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDateTi
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import kotlin.random.Random
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.time.LocalDateTime
+import kotlin.random.Random
 
 private const val SUM_150 = "150"
 private const val TRANSACTIONS_PAGE_SIZE = 10

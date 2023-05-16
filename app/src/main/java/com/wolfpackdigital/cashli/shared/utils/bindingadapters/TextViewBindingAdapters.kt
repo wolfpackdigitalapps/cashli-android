@@ -24,7 +24,10 @@ import com.wolfpackdigital.cashli.domain.entities.response.BankAccount
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.CustomClickSpan
+import com.wolfpackdigital.cashli.shared.utils.extensions.daysBetweenDates
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
+import com.wolfpackdigital.cashli.shared.utils.extensions.toLocalDateFromPatternOrNull
+import java.time.LocalDate
 
 private const val KEY_SPAN_ACTION = "action"
 
@@ -129,5 +132,21 @@ fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?) {
         R.string.bank_account_subtype_and_mask,
         bankSubtype,
         bankAccount.accountNumberMask
+    )
+}
+
+@BindingAdapter(
+    value = ["pastDaysText", "dateFormat"],
+    requireAll = false
+)
+fun TextView.setPastDaysText(dateString: String?, dateFormat: String?) {
+    dateString ?: return
+    val oldDate = dateString.toLocalDateFromPatternOrNull(dateFormat) ?: return
+    val today = LocalDate.now()
+    val days = daysBetweenDates(oldDate, today)
+    text = resources.getQuantityString(
+        R.plurals.past_days_plural,
+        days,
+        days
     )
 }

@@ -23,7 +23,9 @@ class UserRepositoryImpl(
         return userProfileMapper.map(result)
     }
 
-    override suspend fun getUserBankTransactions(bankTransactionsRequest: BankTransactionsRequest): List<BankTransaction> {
+    override suspend fun getUserBankTransactions(
+        bankTransactionsRequest: BankTransactionsRequest
+    ): List<BankTransaction> {
         val result = userApi.getUserBankTransaction(
             bankTransactionsRequest.page,
             bankTransactionsRequest.perPage

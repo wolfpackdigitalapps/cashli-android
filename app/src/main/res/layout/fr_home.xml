@@ -10,254 +10,90 @@
             type="com.wolfpackdigital.cashli.presentation.home.HomeViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        style="@style/ScrollView.VerticalPinkScrollBar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_half"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".5" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_dots" />
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_name"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_68dp"
+            android:onClick="@{() -> viewModel.goToClaimCash()}"
+            android:text="@{@string/hello_user(viewModel.currentUserProfile.firstName)}"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/size_28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:text="Hi, Mike!" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
+            android:id="@+id/view_arch"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimaryDark"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dimen_100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_half"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".5" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home"
+            style="@style/RecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/dimen_20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            app:layout_constraintVertical_bias="0.0"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_bank_transaction" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_dots" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_scroll_to_top"
+            style="@style/FloatingActionButton.Expanded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_20dp"
+            android:contentDescription="@null"
+            android:text="@string/back_to_top"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
 
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:viewModel="@{viewModel.toolbar}" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_name"
-                style="@style/TextView.Bold"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_68dp"
-                android:text="@{@string/hello_user(viewModel.currentUserProfile.firstName)}"
-                android:textAlignment="viewStart"
-                android:textSize="@dimen/size_28sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                android:onClick="@{() -> viewModel.goToClaimCash()}"
-                tools:text="Hi, Mike!" />
-
-            <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
-                android:id="@+id/view_arch"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/dimen_100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_name" />
-
-            <ViewStub
-                android:id="@+id/stub_link_bank_account"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_20dp"
-                android:layout_marginBottom="@dimen/dimen_20dp"
-                android:inflatedId="@+id/link_bank_account"
-                android:layout="@layout/link_bank_account_layout"
-                android:visibility="@{viewModel.linkBankAccountInfo.bankAccount == null}"
-                app:inflatedVisibility="@{viewModel.linkBankAccountInfo.bankAccount == null}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"
-                app:linkBankAccountInfo="@{viewModel.linkBankAccountInfo}"
-                tools:visibility="visible" />
-
-            <ViewStub
-                android:id="@+id/stub_bank_account_info"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_20dp"
-                android:layout_marginBottom="@dimen/dimen_20dp"
-                android:inflatedId="@+id/bank_account_info"
-                android:layout="@layout/link_bank_account_info_layout"
-                android:visibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
-                app:inflatedVisibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"
-                app:linkBankAccountInfo="@{viewModel.linkBankAccountInfo}" />
-
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier_bank_account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="link_bank_account, bank_account_info"
-                tools:ignore="UnknownId" />
-
-            <ViewStub
-                android:id="@+id/stub_request_cash_advance"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_20dp"
-                android:inflatedId="@+id/request_cash_advance"
-                android:layout="@layout/request_cash_advance_layout"
-                android:visibility="@{viewModel.requestCashAdvanceInfo.upToSum != null &amp;&amp; viewModel.requestCashAdvanceInfo.eligible == null}"
-                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.upToSum != null &amp;&amp; viewModel.requestCashAdvanceInfo.eligible == null}"
-                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
-                app:layout_constraintVertical_bias="0.0"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
-
-            <ViewStub
-                android:id="@+id/stub_cash_ineligible"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_20dp"
-                android:inflatedId="@+id/cash_ineligible"
-                android:layout="@layout/request_cash_ineligible_layout"
-                android:visibility="@{viewModel.requestCashAdvanceInfo.eligible == false &amp;&amp; viewModel.requestCashAdvanceInfo.upToSum == null}"
-                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible == false &amp;&amp; viewModel.requestCashAdvanceInfo.upToSum == null}"
-                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
-                app:layout_constraintVertical_bias="0.0"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
-
-            <ViewStub
-                android:id="@+id/stub_cash_approved"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_20dp"
-                android:inflatedId="@+id/cash_approved"
-                android:layout="@layout/request_cash_approved_layout"
-                android:visibility="@{viewModel.requestCashAdvanceInfo.eligible == true &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
-                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.eligible == true &amp;&amp; viewModel.requestCashAdvanceInfo.cashApproved != null}"
-                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
-                app:layout_constraintVertical_bias="0.0"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}" />
-
-            <ViewStub
-                android:id="@+id/stub_cash_balance"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_20dp"
-                android:inflatedId="@+id/cash_balance"
-                android:layout="@layout/request_cash_balance_layout"
-                android:visibility="@{viewModel.requestCashAdvanceInfo.cashAdvanceBalance != null}"
-                app:inflatedVisibility="@{viewModel.requestCashAdvanceInfo.cashAdvanceBalance != null}"
-                app:layout_constraintBottom_toBottomOf="@+id/barrier_cash_advance"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier_bank_account"
-                app:layout_constraintVertical_bias="0.0"
-                app:requestCashAdvanceInfo="@{viewModel.requestCashAdvanceInfo}"
-                tools:visibility="visible" />
-
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier_cash_advance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="cash_balance, cash_approved, cash_ineligible, request_cash_advance"
-                tools:ignore="UnknownId" />
-
-            <ViewStub
-                android:id="@+id/stub_bank_short_details"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:inflatedId="@+id/bank_short_details"
-                android:layout="@layout/bank_short_details_layout"
-                android:visibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
-                app:bankAccountInfo="@{viewModel.linkBankAccountInfo.bankAccount}"
-                app:inflatedVisibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier_cash_advance"
-                tools:visibility="visible" />
-
-            <View
-                android:id="@+id/delimiter_bank_transactions"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_1dp"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_24dp"
-                android:background="@color/colorGrayEB"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bank_short_details"
-                tools:ignore="UnknownId" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_bank_transactions"
-                style="@style/TextView.H4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_24dp"
-                android:layout_marginTop="@dimen/dimen_24dp"
-                android:lineSpacingExtra="@dimen/dimen_4dp"
-                android:text="@string/bank_transactions"
-                android:textAlignment="viewStart"
-                android:textColor="@color/colorPrimaryDark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/delimiter_bank_transactions" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_bank_transactions"
-                style="@style/RecyclerView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingBottom="@dimen/dimen_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_bank_transactions"
-                tools:itemCount="4"
-                tools:listitem="@layout/item_bank_transaction" />
-
-            <androidx.constraintlayout.widget.Group
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="@{viewModel.linkBankAccountInfo.bankAccount != null}"
-                app:constraint_referenced_ids="rv_bank_transactions, tv_bank_transactions, delimiter_bank_transactions" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,7 +5,7 @@
 
     <data class="ItemBankTransactionBinding">
 
-        <import type="androidx.core.content.ContextCompat" />
+        <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
 
         <variable
             name="viewModel"
@@ -73,11 +73,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_24dp"
-                android:text="@{viewModel.date}"
                 android:textAlignment="viewStart"
                 android:textColor="@color/colorGrayB6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_merchant"
+                app:pastDaysText="@{viewModel.date}"
                 tools:text="2 days ago" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

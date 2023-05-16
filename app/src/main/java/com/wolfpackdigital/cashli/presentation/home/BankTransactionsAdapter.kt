@@ -12,7 +12,7 @@ class BankTransactionsAdapter :
         R.layout.item_bank_transaction,
         object : DiffUtil.ItemCallback<BankTransaction>() {
             override fun areItemsTheSame(oldItem: BankTransaction, newItem: BankTransaction) =
-                false
+                oldItem.transactionId == newItem.transactionId
 
             override fun areContentsTheSame(oldItem: BankTransaction, newItem: BankTransaction) =
                 oldItem == newItem

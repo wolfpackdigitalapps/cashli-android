@@ -6,4 +6,6 @@ data class LinkBankAccountInfo(
     var isPending: Boolean = false,
     var bankAccount: BankAccount? = null,
     var linkBankAccountAction: () -> Unit = {}
-)
+) {
+    fun onLinkBankAccountAction() = linkBankAccountAction()
+}

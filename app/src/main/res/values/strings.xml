@@ -99,6 +99,7 @@
     <string name="bank_account_subtype_depository">Depository</string>
     <string name="bank_account_subtype_savings">Savings</string>
     <string name="bank_transactions">Latest bank transactions</string>
+    <string name="back_to_top">Back to top</string>
 
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>
@@ -230,6 +231,7 @@
 
     <!--Plurals-->
     <plurals name="past_days_plural">
+        <item quantity="zero">today</item>
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
     </plurals>

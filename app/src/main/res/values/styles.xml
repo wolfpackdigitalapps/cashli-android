@@ -164,6 +164,20 @@
         <item name="android:scrollbars">vertical</item>
     </style>
 
+    <style name="FloatingActionButton">
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="elevation">@dimen/dimen_0dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="tint">@color/colorWhite</item>
+    </style>
+
+    <style name="FloatingActionButton.Expanded">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">@dimen/dimen_0dp</item>
+        <item name="android:paddingEnd">@dimen/dimen_0dp</item>
+    </style>
+
     <style name="TextView.H1" parent="TextView">
         <item name="fontFamily">@font/lato_bold</item>
         <item name="android:textSize">@dimen/size_34sp</item>

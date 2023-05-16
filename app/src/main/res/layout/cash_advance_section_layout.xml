@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".CashAdvanceSectionBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bank_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ViewStub
+            android:id="@+id/stub_request_cash_advance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:inflatedId="@+id/request_cash_advance"
+            android:layout="@layout/request_cash_advance_layout"
+            android:visibility="@{viewModel.upToSum != null &amp;&amp; viewModel.eligible == null}"
+            app:inflatedVisibility="@{viewModel.upToSum != null &amp;&amp; viewModel.eligible == null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:requestCashAdvanceInfo="@{viewModel}" />
+
+        <ViewStub
+            android:id="@+id/stub_cash_ineligible"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:inflatedId="@+id/cash_ineligible"
+            android:layout="@layout/request_cash_ineligible_layout"
+            android:visibility="@{viewModel.eligible == false &amp;&amp; viewModel.upToSum == null}"
+            app:inflatedVisibility="@{viewModel.eligible == false &amp;&amp; viewModel.upToSum == null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:requestCashAdvanceInfo="@{viewModel}" />
+
+        <ViewStub
+            android:id="@+id/stub_cash_approved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:inflatedId="@+id/cash_approved"
+            android:layout="@layout/request_cash_approved_layout"
+            android:visibility="@{viewModel.eligible == true &amp;&amp; viewModel.cashApproved != null}"
+            app:inflatedVisibility="@{viewModel.eligible == true &amp;&amp; viewModel.cashApproved != null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:requestCashAdvanceInfo="@{viewModel}" />
+
+        <ViewStub
+            android:id="@+id/stub_cash_balance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:inflatedId="@+id/cash_balance"
+            android:layout="@layout/request_cash_balance_layout"
+            android:visibility="@{viewModel.cashAdvanceBalance != null}"
+            app:inflatedVisibility="@{viewModel.cashAdvanceBalance != null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:requestCashAdvanceInfo="@{viewModel}"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
