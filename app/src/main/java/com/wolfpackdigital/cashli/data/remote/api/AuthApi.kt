@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.data.remote.api
 
+import com.wolfpackdigital.cashli.data.remote.dto.requests.ChangePasswordRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.CreateUserProfileRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.IdentifiersCodeValidationRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.IdentifiersRequestDto
@@ -13,6 +14,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.response.TokenDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.UserProfileDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface AuthApi {
@@ -60,6 +62,11 @@ interface AuthApi {
     @POST("v1/device_tokens")
     suspend fun registerDeviceToken(
         @Body singleDataRequest: SingleDataRequestDto
+    )
+
+    @PATCH("v1/password/change")
+    suspend fun changePassword(
+        @Body changePasswordRequest: ChangePasswordRequestDto
     )
 
     @DELETE("v1/sessions")

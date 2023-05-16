@@ -6,6 +6,7 @@ import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSu
 import com.wolfpackdigital.cashli.data.mappers.BankAccountToBankAccountDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
@@ -63,6 +64,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepositor
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
@@ -80,6 +82,7 @@ import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChangePasswordPasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateUseCase
@@ -109,6 +112,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateP
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
+import com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
 import com.wolfpackdigital.cashli.presentation.help.HelpViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
@@ -163,6 +167,7 @@ object AppModules {
         viewModel { ClaimCashViewModel() }
         viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
         viewModel { HelpViewModel() }
+        viewModel { ChangePasswordViewModel(get(), get()) }
     }
 
     private val apiModule = module {
@@ -174,7 +179,7 @@ object AppModules {
     private val repoModule = module {
         single<AuthRepository> {
             AuthRepositoryImpl(
-                get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()
+                get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()
             )
         }
         single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
@@ -238,6 +243,7 @@ object AppModules {
         factory { CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper(get()) }
         factory { LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper() }
         factory { LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper() }
+        factory { ChangePasswordRequestToChangePasswordRequestDtoMapper() }
     }
 
     private val useCases = module {
@@ -277,6 +283,8 @@ object AppModules {
         single { ValidateCodeByPasswordIdentifierUseCase(get()) }
         single { ResetPasswordUseCase(get()) }
         single { LogOutUserUseCase(get()) }
+        single { ChangePasswordUseCase(get()) }
+        single { ValidateChangePasswordPasswordFormUseCase(get()) }
     }
 
     val modules = listOf(viewModels, apiModule, repoModule, mappersModule, useCases, patternsModule)

@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.domain.abstractions.repositories
 
+import com.wolfpackdigital.cashli.domain.entities.requests.ChangePasswordRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
@@ -40,6 +41,10 @@ interface AuthRepository {
 
     suspend fun resetPassword(
         resetPasswordRequest: ResetPasswordRequest
+    )
+
+    suspend fun changePassword(
+        changePasswordRequest: ChangePasswordRequest
     )
 
     suspend fun registerDeviceToken(registerDeviceToken: SingleDataRequest)

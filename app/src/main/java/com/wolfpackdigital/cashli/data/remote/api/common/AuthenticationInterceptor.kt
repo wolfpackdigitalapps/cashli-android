@@ -21,6 +21,7 @@ class AuthenticationInterceptor : Interceptor, PersistenceService {
 }
 
 fun Request.Builder.signWithToken(token: TokenDto): Request.Builder {
+    removeHeader(AUTHORIZATION)
     header(AUTHORIZATION, "$BEARER ${token.accessToken}")
     return this
 }
