@@ -78,6 +78,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
                 app:layout_constraintVertical_bias="0"
+                app:layout_goneMarginBottom="@dimen/dimen_48dp"
                 app:textArgs="@{viewModel.contentFormatArgs}"
                 app:textIdOrString="@{viewModel.contentIdOrString}"
                 tools:text="Connection to your bank account has been successful." />
@@ -125,7 +126,7 @@
                 app:textRes="@{viewModel.buttonPrimaryId}"
                 app:visibility="@{viewModel.buttonPrimaryId != null}"
                 tools:text="Ok"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_secondary"
@@ -143,7 +144,7 @@
                 app:textRes="@{viewModel.buttonSecondaryId}"
                 app:visibility="@{viewModel.buttonSecondaryId != null}"
                 tools:text="Close"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_timer"
@@ -155,8 +156,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/content_barrier"
                 app:layout_constraintVertical_bias="0.0"
+                app:layout_goneMarginTop="@dimen/dimen_56dp"
                 app:visibility="@{viewModel.timerCount != null}"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/iv_timer"
