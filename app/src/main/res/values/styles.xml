@@ -188,6 +188,11 @@
         <item name="android:textSize">@dimen/size_20sp</item>
     </style>
 
+    <style name="TextView.H5" parent="TextView">
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/size_18sp</item>
+    </style>
+
     <style name="TextView.H6" parent="TextView">
         <item name="fontFamily">@font/lato_semi_bold</item>
         <item name="android:textSize">@dimen/size_16sp</item>

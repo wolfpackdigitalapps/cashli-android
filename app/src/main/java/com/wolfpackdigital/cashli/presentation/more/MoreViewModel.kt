@@ -48,7 +48,9 @@ class MoreViewModel(
             }
 
             MenuItem.HELP -> {
-                // TODO new card
+                _baseCmd.value = BaseCommand.PerformNavAction(
+                    MoreFragmentDirections.actionMoreFragmentToHelpFragment()
+                )
             }
 
             MenuItem.REFER_FRIEND -> {
