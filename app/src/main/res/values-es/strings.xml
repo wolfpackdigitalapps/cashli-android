@@ -248,10 +248,23 @@
     <string name="yes_log_out">Yes, Log me out</string>
     <string name="cancel">Cancel</string>
 
+    <!-- Edit profile-->
+    <string name="edit_profile">Edit profile</string>
+    <string name="current_email">Current email: %s</string>
+    <string name="current_phone">Current phone: %s</string>
+    <string name="change_phone">Change your phone</string>
+    <string name="change_email">Change your email</string>
+    <string name="change_password">Change your password</string>
+    <string name="edit_first_name_label">FIRST NAME</string>
+    <string name="edit_last_name_label">LAST NAME</string>
+    <string name="new_phone_number">Type a new phone number</string>
+    <string name="new_email">Type a new email</string>
+    <string name="phone">PHONE</string>
+    <string name="email">EMAIL</string>
+
     <!--Plurals-->
     <plurals name="past_days_plural">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
     </plurals>
-
 </resources>

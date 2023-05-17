@@ -41,6 +41,10 @@ import com.wolfpackdigital.cashli.data.mappers.SingleDataRequestDtoToSingleDataR
 import com.wolfpackdigital.cashli.data.mappers.SingleDataRequestToSingleDataRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UpdateIdentifiersCodeValidationRequestDtoToUpdateIdentifiersCodeValidationRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestDtoToUserProfileRequestMapper
+import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestToUserProfileRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
@@ -67,6 +71,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepositor
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
@@ -79,11 +84,14 @@ import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.UpdateUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
+import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByUpdateIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChangePasswordPasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
@@ -125,6 +133,8 @@ import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAcco
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
 import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
+import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
+import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
@@ -163,9 +173,12 @@ object AppModules {
         viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get(), get()) }
         viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
         viewModel { RequestCodeViewModel(get(), get()) }
-        viewModel { (phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType) ->
+        viewModel { (
+            phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
+            fromEditProfile: Boolean
+        ) ->
             ConfirmOneTimePasswordViewModel(
-                phoneNumberOrEmail, codeReceivedViaType, get(), get()
+                phoneNumberOrEmail, codeReceivedViaType, fromEditProfile, get(), get(), get(), get()
             )
         }
         viewModel { IneligibleInformativeViewModel() }
@@ -173,6 +186,10 @@ object AppModules {
         viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
         viewModel { HelpViewModel() }
         viewModel { ChangePasswordViewModel(get(), get()) }
+        viewModel { EditProfileViewModel(get(), get(), get()) }
+        viewModel { (editPhoneOrEmail: EditPhoneOrEmail) ->
+            ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())
+        }
     }
 
     private val apiModule = module {
@@ -184,11 +201,34 @@ object AppModules {
     private val repoModule = module {
         single<AuthRepository> {
             AuthRepositoryImpl(
-                get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
             )
         }
         single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
-        single<UserRepository> { UserRepositoryImpl(get(), get(), get(), get(), get()) }
+        single<UserRepository> {
+            UserRepositoryImpl(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
     }
 
     private val patternsModule = module {
@@ -251,6 +291,18 @@ object AppModules {
         factory { LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper() }
         factory { LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper() }
         factory { ChangePasswordRequestToChangePasswordRequestDtoMapper() }
+        factory {
+            UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper(
+                get()
+            )
+        }
+        factory {
+            UpdateIdentifiersCodeValidationRequestDtoToUpdateIdentifiersCodeValidationRequestMapper(
+                get()
+            )
+        }
+        factory { UpdateUserProfileRequestDtoToUserProfileRequestMapper(get()) }
+        factory { UpdateUserProfileRequestToUserProfileRequestDtoMapper(get()) }
     }
 
     private val useCases = module {
@@ -292,6 +344,9 @@ object AppModules {
         single { LogOutUserUseCase(get()) }
         single { ChangePasswordUseCase(get()) }
         single { ValidateChangePasswordPasswordFormUseCase(get()) }
+        single { SubmitChangeIdentifiersUseCase(get()) }
+        single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
+        single { UpdateUserProfileUseCase(get()) }
     }
 
     private val pagingSources = module {

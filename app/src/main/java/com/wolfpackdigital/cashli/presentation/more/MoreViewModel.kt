@@ -21,8 +21,10 @@ class MoreViewModel(
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
 
-    val firstName = userProfile?.firstName
-    val lastName = userProfile?.lastName
+    private val _firstName = MutableLiveData(userProfile?.firstName)
+    val firstName: LiveData<String?> = _firstName
+    private val _lastName = MutableLiveData(userProfile?.lastName)
+    val lastName: LiveData<String?> = _lastName
 
     // TODO replace content of filter when account status is known(pause or unpause)
     private val _menuItems =
@@ -56,9 +58,7 @@ class MoreViewModel(
             }
 
             MenuItem.REFER_FRIEND -> {
-                _baseCmd.value = BaseCommand.PerformNavAction(
-                    MoreFragmentDirections.actionMoreFragmentToChangePasswordFragment()
-                )
+                // TODO new card
             }
 
             MenuItem.FAQ -> {
@@ -87,6 +87,17 @@ class MoreViewModel(
                 )
             }
         }
+    }
+
+    fun goToEditProfileScreen() {
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            MoreFragmentDirections.actionMoreFragmentToEditProfileFragment()
+        )
+    }
+
+    fun setUpdatedData() {
+        _firstName.value = userProfile?.firstName
+        _lastName.value = userProfile?.lastName
     }
 
     private fun handleLogOut() {

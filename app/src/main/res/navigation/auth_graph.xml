@@ -116,10 +116,16 @@
             app:argType="string" />
         <argument
             android:name="codeReceivedViaType"
-            app:argType="com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType" />
+            app:argType="string" />
         <action
             android:id="@+id/action_confirmOneTimePasswordFragment_to_resetPasswordFragment"
             app:destination="@id/resetPasswordFragment" />
+        <argument
+            android:name="fromEditProfile"
+            app:argType="string"
+             />
+        <deepLink app:uri="android-app://com.wolfpackdigital.cashli/confirmOneTimePassword/{phoneNumberOrEmail}/{codeReceivedViaType}/{fromEditProfile}"/>
+
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"

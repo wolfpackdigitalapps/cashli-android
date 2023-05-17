@@ -21,6 +21,7 @@ import com.wolfpackdigital.cashli.BaseEditTextBinding
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.visibility
+import com.wolfpackdigital.cashli.shared.utils.extensions.getFocusAndShowKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
 
 class BaseEditText @JvmOverloads constructor(
@@ -103,6 +104,11 @@ fun BaseEditText.cliLabelRes(@StringRes labelRes: Int?) {
     binding.tvLabel.visibility = View.VISIBLE
 }
 
+@BindingAdapter("cliLabelColor")
+fun BaseEditText.setCliLabelColor(color: Int) {
+    binding.tvLabel.setTextColor(color)
+}
+
 @BindingAdapter("cliMaxChars")
 fun BaseEditText.cliMaxChars(max: Int?) {
     max ?: return
@@ -137,10 +143,22 @@ fun BaseEditText.cliDrawableEnd(end: Drawable?) {
         binding.ivDrawableEnd.setImageDrawable(it)
     }
 }
+@BindingAdapter("cliDrawableEndColor")
+fun BaseEditText.cliDrawableEndColor(color: Int) {
+    binding.ivDrawableEnd.setColorFilter(color)
+}
 
-@BindingAdapter("cliDrawableEndClick")
-fun BaseEditText.cliDrawableEndClick(callback: () -> Unit?) {
+@BindingAdapter("cliDrawableEndClick", "cliRequestFocusAfterClick", requireAll = false)
+fun BaseEditText.cliDrawableEndClick(callback: () -> Unit?, requestFocus: Boolean?) {
     binding.ivDrawableEnd.setOnClickDebounced {
         callback()
+        if (requestFocus == true) {
+            binding.tietContent.getFocusAndShowKeyboard()
+        }
     }
+}
+
+@BindingAdapter("cliTextInputEditTextEnabled")
+fun BaseEditText.cliTextInputEditTextEnabled(enable: Boolean) {
+    binding.tietContent.isEnabled = enable
 }

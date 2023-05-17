@@ -7,6 +7,6 @@ data class BankAccount(
     val name: String,
     val accountSubtype: BankAccountSubtype,
     val accountNumberMask: String,
-    val balance: String,
+    val balance: String?,
     val timestamp: String
 )

@@ -32,6 +32,9 @@ class MainActivityViewModel : ViewModel(), PersistenceService {
                 R.id.homeFragment,
                 R.id.accountFragment,
                 R.id.moreFragment,
+                R.id.editProfileFragment,
+                R.id.changePhoneOrEmailFragment -> true
+                R.id.moreFragment,
                 R.id.claimCashFragment,
                 R.id.quizFragment,
                 R.id.settingsFragment,

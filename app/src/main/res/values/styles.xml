@@ -159,6 +159,21 @@
         <item name="thumbTint">@color/switch_thumb_selector</item>
     </style>
 
+    <style name="BaseTextInputEditTextLight" parent="BaseTextInputEditText">
+        <item name="android:background">@drawable/text_input_edit_text_background_light_selector</item>
+        <item name="android:textColor">@color/colorGray76</item>
+        <item name="android:textColorHint">@color/colorGrayB6</item>
+        <item name="hintTextColor">@color/colorGrayB6</item>
+    </style>
+
+    <style name="EditTextBaseTheme">
+        <item name="customTextInputEditTextStyle">@style/BaseTextInputEditText</item>
+    </style>
+
+    <style name="EditTextBaseLightTheme">
+        <item name="customTextInputEditTextStyle">@style/BaseTextInputEditTextLight</item>
+    </style>
+
     <!-- ScrollView -->
     <style name="ScrollView">
         <item name="android:fillViewport">true</item>
