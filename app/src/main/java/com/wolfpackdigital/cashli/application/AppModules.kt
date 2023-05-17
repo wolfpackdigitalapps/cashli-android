@@ -124,6 +124,7 @@ import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInf
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
+import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
@@ -141,6 +142,7 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
+        viewModel { SettingsViewModel() }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
         viewModel { LinkBankAccountInformativeViewModel(get(), get(), get()) }

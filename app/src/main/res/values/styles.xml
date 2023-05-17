@@ -153,6 +153,12 @@
         <item name="android:splitMotionEvents">false</item>
     </style>
 
+    <style name="Switch.Green" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="useMaterialThemeColors">false</item>
+        <item name="trackTint">@color/switch_track_selector</item>
+        <item name="thumbTint">@color/switch_thumb_selector</item>
+    </style>
+
     <!-- ScrollView -->
     <style name="ScrollView">
         <item name="android:fillViewport">true</item>

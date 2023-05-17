@@ -34,6 +34,7 @@ class MainActivityViewModel : ViewModel(), PersistenceService {
                 R.id.moreFragment,
                 R.id.claimCashFragment,
                 R.id.quizFragment,
+                R.id.settingsFragment,
                 R.id.helpFragment -> true
                 else -> false
             }

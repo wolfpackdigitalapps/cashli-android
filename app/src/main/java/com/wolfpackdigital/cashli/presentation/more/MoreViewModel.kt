@@ -44,7 +44,9 @@ class MoreViewModel(
             }
 
             MenuItem.SETTINGS -> {
-                // TODO new card
+                _baseCmd.value = BaseCommand.PerformNavAction(
+                    MoreFragmentDirections.actionMoreFragmentToSettingsFragment()
+                )
             }
 
             MenuItem.HELP -> {
