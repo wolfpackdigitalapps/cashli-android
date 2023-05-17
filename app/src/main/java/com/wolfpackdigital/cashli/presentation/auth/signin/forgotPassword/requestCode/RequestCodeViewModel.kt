@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import com.google.gson.Gson
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
@@ -116,7 +117,7 @@ class RequestCodeViewModel(
             }
         }?.let {
             RequestCodeFragmentDirections.actionRequestCodeFragmentToConfirmOneTimePasswordFragment(
-                it, if (isEmailInUse) CodeReceivedViaType.EMAIL else CodeReceivedViaType.SMS
+                it, if (isEmailInUse) Gson().toJson(CodeReceivedViaType.EMAIL) else Gson().toJson(CodeReceivedViaType.SMS), Gson().toJson(false)
             )
         }?.let {
             BaseCommand.PerformNavAction(

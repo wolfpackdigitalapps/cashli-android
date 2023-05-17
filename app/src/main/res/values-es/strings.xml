@@ -216,6 +216,10 @@
     <string name="change_password">Change your password</string>
     <string name="edit_first_name_label">FIRST NAME</string>
     <string name="edit_last_name_label">LAST NAME</string>
+    <string name="new_phone_number">Type a new phone number</string>
+    <string name="new_email">Type a new email</string>
+    <string name="phone">PHONE</string>
+    <string name="email">EMAIL</string>
 
 
 </resources>

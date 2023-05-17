@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ChangePhoneOrEmailBinding">
+
+        <import type="com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail" />
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <import type="android.text.InputType" />
+
+        <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhiteF9">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@id/iv_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.toolbar}" />
+
+        <ImageView
+            android:id="@+id/white_arch_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dimen_56dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_arch_white"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_60dp"
+            android:text="@{viewModel.editPhoneOrEmail == EditPhoneOrEmail.PHONE ? @string/new_phone_number : @string/new_email}"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/white_arch_background"
+            tools:text="Type a new phone number" />
+
+        <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+            android:id="@+id/et_phone_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:theme="@style/EditTextBaseLightTheme"
+            app:cliError="@{viewModel.editPhoneOrEmail == EditPhoneOrEmail.PHONE ? viewModel.phoneNumberError : viewModel.emailError}"
+            app:cliHint="@{@string/et_hint}"
+            app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+            app:cliInputType="@{viewModel.editPhoneOrEmail == EditPhoneOrEmail.PHONE ? InputType.TYPE_CLASS_NUMBER : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
+            app:cliLabel="@{viewModel.editPhoneOrEmail == EditPhoneOrEmail.PHONE ? @string/phone : @string/email}"
+            app:cliLabelColor="@{@color/colorPrimaryDark}"
+            app:cliMaxChars="@{Constants.MAX_CHARS_50}"
+            app:cliText="@={viewModel.phoneOrEmail}"
+            app:layout_constraintBottom_toTopOf="@id/btn_save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintVertical_bias="0.0"
+            app:onCliImeDoneAction="@{viewModel::closeKeyboardAndClearFocus}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_56dp"
+            android:enabled="@{!viewModel.disableButton}"
+            android:onClick="@{() -> viewModel.onSaveClicked()}"
+            android:text="@string/save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_phone_email" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

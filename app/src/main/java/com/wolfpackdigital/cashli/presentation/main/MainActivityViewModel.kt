@@ -31,7 +31,9 @@ class MainActivityViewModel : ViewModel(), PersistenceService {
             val showBottomNav = when (destination.id) {
                 R.id.homeFragment,
                 R.id.accountFragment,
-                R.id.moreFragment -> true
+                R.id.moreFragment,
+                R.id.editProfileFragment,
+                R.id.changePhoneOrEmailFragment -> true
                 else -> false
             }
             setBottomBarVisibility(showBottomNav)

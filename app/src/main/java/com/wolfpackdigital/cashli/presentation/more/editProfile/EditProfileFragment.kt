@@ -18,4 +18,9 @@ class EditProfileFragment :
         viewModel.newFirstName.observe(viewLifecycleOwner) { viewModel.clearFirstNameError() }
         viewModel.newLastName.observe(viewLifecycleOwner) { viewModel.clearLastNameError() }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setUpdatedData()
+    }
 }

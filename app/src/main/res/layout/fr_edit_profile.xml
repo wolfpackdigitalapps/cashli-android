@@ -146,6 +146,7 @@
                 app:layout_constraintBottom_toTopOf="@id/layout_email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:onClick="@{viewModel::onChangePhoneClicked}"
                 app:title="@{@string/change_phone}" />
 
             <include
@@ -160,6 +161,7 @@
                 app:layout_constraintBottom_toTopOf="@id/layout_password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:onClick="@{viewModel::onChangeEmailClicked}"
                 app:title="@{@string/change_email}" />
 
             <include
