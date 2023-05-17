@@ -9,7 +9,10 @@ import androidx.core.content.ContextCompat
 import com.wolfpackdigital.cashli.HomeBinding
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.areDeviceNotificationsFullyEnabled
+import com.wolfpackdigital.cashli.shared.utils.extensions.getBackStackData
+import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment :
@@ -32,6 +35,13 @@ class HomeFragment :
                 HomeViewModel.Command.CheckPushNotificationPermissions ->
                     handlePushNotificationPermissions()
             }
+        }
+        navController?.getBackStackData<Boolean>(
+            Constants.REFRESH_USER_DATA,
+            viewLifecycleOwner,
+            removeValue = true
+        ) {
+            if (it == true) viewModel.getUserProfile()
         }
     }
 

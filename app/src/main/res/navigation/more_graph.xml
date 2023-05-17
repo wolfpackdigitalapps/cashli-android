@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_moreFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -32,4 +38,17 @@
             android:name="changePhoneOrEmail"
             app:argType="com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.help.HelpFragment"
+        android:label="HelpFragment"
+        tools:layout="@layout/fr_help" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordFragment"
+        android:label="ChangePasswordFragment"
+        tools:layout="@layout/fr_change_password" />
 </navigation>

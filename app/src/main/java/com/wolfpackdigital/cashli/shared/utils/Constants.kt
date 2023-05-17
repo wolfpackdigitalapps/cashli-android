@@ -2,9 +2,9 @@ package com.wolfpackdigital.cashli.shared.utils
 
 object Constants {
     // Millis
-    const val DEBOUNCE_INTERVAL_MILLIS_1000 = 1000L
+    const val DEBOUNCE_INTERVAL_MILLIS_1000 = 1_000L
     const val DEBOUNCE_INTERVAL_MILLIS_300 = 350L
-    const val COUNT_DOWN_TIME_6_SEC = 6000L
+    const val COUNT_DOWN_TIME_6_SEC = 6_000L
 
     // MISC
     const val FIRST_INDEX = 0
@@ -28,8 +28,10 @@ object Constants {
 
     // Back stack keys
     const val RESTART_ONBOARDING_STEPS = "restart_onboarding_steps"
+    const val REFRESH_USER_DATA = "refresh_user_data"
 
     // API ERROR CODES
+    const val ERROR_CODE_401 = 401
     const val ERROR_CODE_409 = 409
     const val ERROR_CODE_422 = 422
     const val ERROR_CODE_429 = 429

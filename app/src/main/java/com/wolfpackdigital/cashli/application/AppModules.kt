@@ -6,6 +6,7 @@ import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSu
 import com.wolfpackdigital.cashli.data.mappers.BankAccountToBankAccountDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
@@ -68,6 +69,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepositor
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
+import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
@@ -88,6 +90,7 @@ import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCas
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByUpdateIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateBlankFieldUseCase
+import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChangePasswordPasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateFormUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateCityAndStateUseCase
@@ -117,7 +120,9 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.createProfile.CreateP
 import com.wolfpackdigital.cashli.presentation.auth.signup.informative.InformativeViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumberViewModel
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
+import com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
+import com.wolfpackdigital.cashli.presentation.help.HelpViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeViewModel
@@ -128,6 +133,7 @@ import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewM
 import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
+import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -170,6 +176,9 @@ object AppModules {
         }
         viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel() }
+        viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
+        viewModel { HelpViewModel() }
+        viewModel { ChangePasswordViewModel(get(), get()) }
         viewModel { EditProfileViewModel(get(), get(), get()) }
         viewModel { (editPhoneOrEmail: EditPhoneOrEmail) -> ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())}
     }
@@ -183,7 +192,7 @@ object AppModules {
     private val repoModule = module {
         single<AuthRepository> {
             AuthRepositoryImpl(
-                get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()
+                get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()
             )
         }
         single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
@@ -247,6 +256,7 @@ object AppModules {
         factory { CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper(get()) }
         factory { LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper() }
         factory { LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper() }
+        factory { ChangePasswordRequestToChangePasswordRequestDtoMapper() }
         factory { UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper(get()) }
         factory { UpdateIdentifiersCodeValidationRequestDtoToUpdateIdentifiersCodeValidationRequestMapper(get()) }
         factory { UpdateUserProfileRequestDtoToUserProfileRequestMapper(get()) }
@@ -290,6 +300,8 @@ object AppModules {
         single { ValidateCodeByPasswordIdentifierUseCase(get()) }
         single { ResetPasswordUseCase(get()) }
         single { LogOutUserUseCase(get()) }
+        single { ChangePasswordUseCase(get()) }
+        single { ValidateChangePasswordPasswordFormUseCase(get()) }
         single { SubmitChangeIdentifiersUseCase(get()) }
         single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
         single { UpdateUserProfileUseCase(get()) }

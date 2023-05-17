@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.domain.abstractions.repositories
 
+import com.wolfpackdigital.cashli.domain.entities.requests.ChangePasswordRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
@@ -12,6 +13,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierTok
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
+@Suppress("TooManyFunctions")
 interface AuthRepository {
     suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token
     suspend fun submitRegistrationIdentifiers(
@@ -40,6 +42,10 @@ interface AuthRepository {
 
     suspend fun resetPassword(
         resetPasswordRequest: ResetPasswordRequest
+    )
+
+    suspend fun changePassword(
+        changePasswordRequest: ChangePasswordRequest
     )
 
     suspend fun registerDeviceToken(registerDeviceToken: SingleDataRequest)

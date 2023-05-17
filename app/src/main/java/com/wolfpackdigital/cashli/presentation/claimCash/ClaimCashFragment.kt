@@ -1,11 +1,15 @@
 package com.wolfpackdigital.cashli.presentation.claimCash
 
+import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.res.dimensionResource
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.databinding.ClaimCashFragmentBinding
 import com.wolfpackdigital.cashli.presentation.claimCash.adapter.DeliveryMethodAdapter
 import com.wolfpackdigital.cashli.presentation.claimCash.adapter.DeliveryMethodItemDecoration
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
+import com.wolfpackdigital.cashli.shared.utils.views.StyledSlider
+import com.wolfpackdigital.cashli.shared.utils.views.StyledSliderUIState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val COLUMN_COUNT = 2
@@ -21,12 +25,12 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
     }
 
     override fun setupViews() {
+        setupSliderView()
         setupRv()
         setupObservers()
     }
 
     private fun setupObservers() {
-        viewModel.amountPerc.observe(viewLifecycleOwner, ::moveValueText)
         viewModel.deliveryMethods.observe(viewLifecycleOwner, adapter::submitList)
         viewModel.cmd.observe(viewLifecycleOwner) { command ->
             when (command) {
@@ -56,12 +60,20 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
         binding?.mlCashAmount?.transitionToStart()
     }
 
-    private fun moveValueText(perc: Int) {
-        binding?.sbCashAmount?.let { sb ->
-            binding?.tvCashAmountLabel?.apply {
-                text = getString(R.string.dollar_amount, perc)
-                x = sb.thumb.bounds.exactCenterX() - sb.thumbOffset
+    private fun setupSliderView() {
+        binding?.cvCashAmount?.setContent {
+            MaterialTheme {
+                StyledSlider(
+                    uiState = StyledSliderUIState.ClaimCashSliderUIState(
+                        sliderValue = viewModel.amountPerc,
+                        labelValue = viewModel.amount,
+                        isInvertedColorScheme = false
+                    ),
+                    onAmountChanged = viewModel::setAmountPerc,
+                    horizontalPadding = dimensionResource(id = R.dimen.dimen_20dp)
+                )
             }
         }
+        viewModel.deliveryMethods.observe(viewLifecycleOwner, adapter::submitList)
     }
 }

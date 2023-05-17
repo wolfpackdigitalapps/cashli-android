@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethodItem
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 
@@ -13,9 +14,10 @@ class ClaimCashViewModel : BaseViewModel() {
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
 
-    val amountPerc = MutableLiveData(0)
+    private val _amountPerc = MutableLiveData(0f)
+    val amountPerc: LiveData<Float> = _amountPerc
 
-    private val _amount = MutableLiveData(amountPerc.value?.toFloat() ?: 0f)
+    private val _amount = MutableLiveData(amountPerc.value ?: 0f)
     val amount: LiveData<Float> = _amount
 
     private val _dueDate = MutableLiveData("February 15th, 2023")
@@ -40,7 +42,7 @@ class ClaimCashViewModel : BaseViewModel() {
 
     fun saveAmount() {
         amountPerc.value?.let {
-            _amount.value = it.toFloat()
+            _amount.value = it
             _cmd.value = Command.TransitionToStart
         }
     }
@@ -53,6 +55,17 @@ class ClaimCashViewModel : BaseViewModel() {
             }
             _deliveryMethods.value = newList
         }
+    }
+
+    fun continueToQuiz() {
+        _amount.value?.let {
+            _baseCmd.value = BaseCommand.PerformNavAction(
+                ClaimCashFragmentDirections.actionClaimCashFragmentToQuizFragment(it)
+            )
+        }
+    }
+    fun setAmountPerc(amountPerc: Float) {
+        _amountPerc.value = amountPerc
     }
 
     sealed class Command {

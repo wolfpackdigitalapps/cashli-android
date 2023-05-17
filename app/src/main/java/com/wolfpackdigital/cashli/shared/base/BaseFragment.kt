@@ -101,6 +101,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                         hideSoftKeyboard(viewWithFocus)
                         viewWithFocus.clearFocus()
                     }
+                is BaseCommand.OpenSMSApp -> activity?.showSMSApp(it.phoneNumber)
             }
         }
     }

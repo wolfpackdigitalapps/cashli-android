@@ -129,5 +129,9 @@ sealed class BaseCommand {
         val inclusive: Boolean = false
     ) : BaseCommand()
 
+    data class OpenSMSApp(
+        val phoneNumber: String = SUPPORT_PHONE_NUMBER
+    ) : BaseCommand()
+
     object ForceCloseKeyboard : BaseCommand()
 }
