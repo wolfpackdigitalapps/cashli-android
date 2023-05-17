@@ -22,6 +22,7 @@ import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 private const val PHONE_NUMBER_PREFIX = "+1 "
 
+@Suppress("LongParameterList")
 class ConfirmOneTimePasswordViewModel(
     private val phoneNumberOrEmail: String,
     private val codeReceivedViaType: CodeReceivedViaType,
@@ -30,7 +31,6 @@ class ConfirmOneTimePasswordViewModel(
     private val validateCodeByPasswordIdentifierUseCase: ValidateCodeByPasswordIdentifierUseCase,
     private val submitChangeIdentifiersUseCase: SubmitChangeIdentifiersUseCase,
     private val validateCodeByUpdateIdentifiersUseCase: ValidateCodeByUpdateIdentifiersUseCase
-
 ) : BaseValidateCodeViewModel(), PersistenceService {
 
     private val _toolbar = MutableLiveData(
@@ -170,7 +170,6 @@ class ConfirmOneTimePasswordViewModel(
                 _invalidCodeErrorVisible.value = error
             else
                 _baseCmd.value = BaseCommand.ShowToast(error)
-
         }
     }
 

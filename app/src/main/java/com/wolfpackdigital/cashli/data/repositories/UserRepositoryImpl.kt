@@ -14,13 +14,15 @@ import com.wolfpackdigital.cashli.domain.entities.requests.UpdateUserProfileRequ
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.entities.response.UserSetting
 
+@Suppress("LongParameterList")
 class UserRepositoryImpl(
     private val userApi: UserApi,
     private val userProfileMapper: UserProfileDtoToUserProfileMapper,
     private val userSettingToDtoMapper: UserSettingToUserSettingDtoMapper,
     private val userSettingMapper: UserSettingDtoToUserSettingMapper,
     private val changeIdentifiersRequestMapper: IdentifiersRequestToIdentifiersRequestDtoMapper,
-    private val updateIdentifiersRequestMapper: UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper,
+    private val updateIdentifiersRequestMapper:
+        UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper,
     private val updateUserProfileRequestMapper: UpdateUserProfileRequestToUserProfileRequestDtoMapper
 ) : UserRepository {
     override suspend fun getUserProfile(): UserProfile {
@@ -37,7 +39,9 @@ class UserRepositoryImpl(
         userApi.submitChangeIdentifiers(changeIdentifiersRequestMapper.map(changeIdentifiersRequest))
     }
 
-    override suspend fun updateChangeIdentifiers(updateIdentifiersRequest: UpdateIdentifiersCodeValidationRequest): UserProfile {
+    override suspend fun updateChangeIdentifiers(
+        updateIdentifiersRequest: UpdateIdentifiersCodeValidationRequest
+    ): UserProfile {
         val result = userApi.updateChangeIdentifiers(
             updateIdentifiersRequestMapper.map(updateIdentifiersRequest)
         )

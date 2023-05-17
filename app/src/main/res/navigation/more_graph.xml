@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_moreFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
-        <action
-            android:id="@+id/action_moreFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -28,6 +25,9 @@
         <action
             android:id="@+id/action_editProfileFragment_to_changePhoneOrEmailFragment"
             app:destination="@id/changePhoneOrEmailFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/changePhoneOrEmailFragment"

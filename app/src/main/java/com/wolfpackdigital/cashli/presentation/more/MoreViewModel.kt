@@ -56,9 +56,7 @@ class MoreViewModel(
             }
 
             MenuItem.REFER_FRIEND -> {
-                _baseCmd.value = BaseCommand.PerformNavAction(
-                    MoreFragmentDirections.actionMoreFragmentToChangePasswordFragment()
-                )
+                // TODO new card
             }
 
             MenuItem.FAQ -> {

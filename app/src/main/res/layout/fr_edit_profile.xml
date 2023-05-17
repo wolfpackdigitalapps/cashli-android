@@ -55,14 +55,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:viewModel="@{viewModel.toolbar}" />
 
-            <ImageView
+            <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
                 android:id="@+id/white_arch_background"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/dimen_56dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_arch_white"
-                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -175,7 +173,8 @@
                 app:layout_constraintBottom_toTopOf="@id/btn_save"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:title="@{@string/change_phone}" />
+                app:onClick="@{viewModel::onChangePasswordClicked}"
+                app:title="@{@string/change_password}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"

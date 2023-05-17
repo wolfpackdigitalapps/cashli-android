@@ -9,12 +9,9 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.FOCUSABLE
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -26,7 +23,6 @@ import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounc
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.visibility
 import com.wolfpackdigital.cashli.shared.utils.extensions.getFocusAndShowKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
-
 
 class BaseEditText @JvmOverloads constructor(
     context: Context,
@@ -152,7 +148,7 @@ fun BaseEditText.cliDrawableEndColor(color: Int) {
     binding.ivDrawableEnd.setColorFilter(color)
 }
 
-@BindingAdapter("cliDrawableEndClick","cliRequestFocusAfterClick", requireAll = false)
+@BindingAdapter("cliDrawableEndClick", "cliRequestFocusAfterClick", requireAll = false)
 fun BaseEditText.cliDrawableEndClick(callback: () -> Unit?, requestFocus: Boolean?) {
     binding.ivDrawableEnd.setOnClickDebounced {
         callback()
@@ -165,5 +161,4 @@ fun BaseEditText.cliDrawableEndClick(callback: () -> Unit?, requestFocus: Boolea
 @BindingAdapter("cliTextInputEditTextEnabled")
 fun BaseEditText.cliTextInputEditTextEnabled(enable: Boolean) {
     binding.tietContent.isEnabled = enable
-
 }

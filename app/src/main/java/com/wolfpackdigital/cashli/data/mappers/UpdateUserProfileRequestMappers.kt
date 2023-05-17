@@ -1,9 +1,7 @@
 package com.wolfpackdigital.cashli.data.mappers
 
 import com.wolfpackdigital.cashli.data.remote.dto.requests.UpdateUserProfileRequestDto
-import com.wolfpackdigital.cashli.data.remote.dto.requests.UserProfileRequestDto
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateUserProfileRequest
-import com.wolfpackdigital.cashli.domain.entities.requests.UserProfileRequest
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
 class UpdateUserProfileRequestDtoToUserProfileRequestMapper(

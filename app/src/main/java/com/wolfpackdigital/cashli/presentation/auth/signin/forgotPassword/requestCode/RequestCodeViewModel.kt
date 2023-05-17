@@ -84,6 +84,7 @@ class RequestCodeViewModel(
                     _credentialsInUseTextId.value = R.string.use_your_phone
                     _usePhoneOrEmailTextId.value = R.string.forgot_password_screen_message_email
                 }
+
                 false -> {
                     _credentialsInUseTextId.value = R.string.use_your_email
                     _usePhoneOrEmailTextId.value = R.string.forgot_password_screen_message_phone
@@ -117,7 +118,11 @@ class RequestCodeViewModel(
             }
         }?.let {
             RequestCodeFragmentDirections.actionRequestCodeFragmentToConfirmOneTimePasswordFragment(
-                it, if (isEmailInUse) Gson().toJson(CodeReceivedViaType.EMAIL) else Gson().toJson(CodeReceivedViaType.SMS), Gson().toJson(false)
+                it,
+                if (isEmailInUse) Gson().toJson(CodeReceivedViaType.EMAIL) else Gson().toJson(
+                    CodeReceivedViaType.SMS
+                ),
+                Gson().toJson(false)
             )
         }?.let {
             BaseCommand.PerformNavAction(

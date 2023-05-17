@@ -47,13 +47,13 @@
             android:layout_marginEnd="@dimen/dimen_10dp"
             android:contentDescription="@null"
             android:src="@{icon != null ? icon : @drawable/ic_chevron_right}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title_change"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_title"
+            app:layout_constraintTop_toTopOf="@id/tv_title_change"
             tools:src="@drawable/ic_chevron_right" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_change"
             style="@style/TextView.SemiBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,8 +77,8 @@
             android:textColor="@color/colorGrayB6"
             app:layout_constraintEnd_toStartOf="@id/iv_icon"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintStart_toStartOf="@id/tv_title_change"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_change"
             app:visibility="@{isLabelVisible}"
             tools:text="Current email: email@yahoo.com" />
 
@@ -88,7 +88,7 @@
             android:layout_height="@dimen/dimen_1dp"
             android:background="@color/colorGrayF3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_change"
             app:topMargin="@{isLabelVisible ? @dimen/dimen_28dp : @dimen/dimen_16dp}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

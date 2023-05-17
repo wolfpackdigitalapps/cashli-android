@@ -39,6 +39,6 @@ fun View.getFocusAndShowKeyboard() {
     this.isEnabled = true
     this.requestFocus()
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE)
-            as InputMethodManager
+        as InputMethodManager
     inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }

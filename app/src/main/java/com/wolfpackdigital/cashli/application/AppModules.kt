@@ -168,8 +168,10 @@ object AppModules {
         viewModel { CreateProfileViewModel(get(), get(), get(), get(), get(), get(), get()) }
         viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
         viewModel { RequestCodeViewModel(get(), get()) }
-        viewModel { (phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
-                    fromEditProfile: Boolean) ->
+        viewModel { (
+            phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
+            fromEditProfile: Boolean
+        ) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail, codeReceivedViaType, fromEditProfile, get(), get(), get(), get()
             )
@@ -180,7 +182,9 @@ object AppModules {
         viewModel { HelpViewModel() }
         viewModel { ChangePasswordViewModel(get(), get()) }
         viewModel { EditProfileViewModel(get(), get(), get()) }
-        viewModel { (editPhoneOrEmail: EditPhoneOrEmail) -> ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())}
+        viewModel { (editPhoneOrEmail: EditPhoneOrEmail) ->
+            ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())
+        }
     }
 
     private val apiModule = module {
@@ -192,11 +196,33 @@ object AppModules {
     private val repoModule = module {
         single<AuthRepository> {
             AuthRepositoryImpl(
-                get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
             )
         }
         single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
-        single<UserRepository> { UserRepositoryImpl(get(), get(), get(), get(), get(), get(), get()) }
+        single<UserRepository> {
+            UserRepositoryImpl(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
     }
 
     private val patternsModule = module {
@@ -257,8 +283,16 @@ object AppModules {
         factory { LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper() }
         factory { LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper() }
         factory { ChangePasswordRequestToChangePasswordRequestDtoMapper() }
-        factory { UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper(get()) }
-        factory { UpdateIdentifiersCodeValidationRequestDtoToUpdateIdentifiersCodeValidationRequestMapper(get()) }
+        factory {
+            UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper(
+                get()
+            )
+        }
+        factory {
+            UpdateIdentifiersCodeValidationRequestDtoToUpdateIdentifiersCodeValidationRequestMapper(
+                get()
+            )
+        }
         factory { UpdateUserProfileRequestDtoToUserProfileRequestMapper(get()) }
         factory { UpdateUserProfileRequestToUserProfileRequestDtoMapper(get()) }
     }

@@ -64,7 +64,6 @@ class ChangePhoneOrEmailViewModel(
     private val _emailError = MutableLiveData<Any?>()
     val emailError: LiveData<Any?> = _emailError
 
-
     fun onSaveClicked() {
         when (editPhoneOrEmail) {
             EditPhoneOrEmail.PHONE -> handlePhoneChange()
@@ -83,9 +82,9 @@ class ChangePhoneOrEmailViewModel(
                 result.onSuccess {
                     _baseCmd.value = BaseCommand.PerformNavDeepLink(
                         deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL${request.identifier}/${
-                            Gson().toJson(
-                                CodeReceivedViaType.EMAIL
-                            )
+                        Gson().toJson(
+                            CodeReceivedViaType.EMAIL
+                        )
                         }/${Gson().toJson(true)}"
                     )
                 }
@@ -120,10 +119,10 @@ class ChangePhoneOrEmailViewModel(
                     val result = submitChangeIdentifiersUseCase(request)
                     result.onSuccess {
                         _baseCmd.value = BaseCommand.PerformNavDeepLink(
-                            deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL${phoneNumber}/${
-                                Gson().toJson(
-                                    CodeReceivedViaType.SMS
-                                )
+                            deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL$phoneNumber/${
+                            Gson().toJson(
+                                CodeReceivedViaType.SMS
+                            )
                             }/${Gson().toJson(true)}"
                         )
                     }
@@ -154,5 +153,4 @@ class ChangePhoneOrEmailViewModel(
         _emailError.value = null
         onSavePhoneNumberError.value = null
     }
-
 }
