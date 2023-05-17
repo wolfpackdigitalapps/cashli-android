@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_28dp"
             android:layout_marginTop="@dimen/dimen_12dp"
-            android:text="@{@string/cash_zecimals_value(requestCashAdvanceInfo.cashApproved)}"
+            android:text="@{requestCashAdvanceInfo.cashApproved}"
             android:textSize="@dimen/size_28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

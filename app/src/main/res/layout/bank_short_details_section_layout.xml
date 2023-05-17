@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".BankShortDetailsSectionBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.domain.entities.response.BankAccount" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bank_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_marginBottom="@dimen/dimen_16dp">
+
+        <ViewStub
+            android:id="@+id/stub_bank_short_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inflatedId="@+id/bank_short_details"
+            android:layout="@layout/bank_short_details_layout"
+            android:visibility="@{viewModel != null}"
+            app:bankAccountInfo="@{viewModel}"
+            app:inflatedVisibility="@{viewModel != null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/delimiter_bank_transactions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:background="@color/colorGrayEB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bank_short_details"
+            tools:ignore="UnknownId" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_bank_transactions"
+            style="@style/TextView.H4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_6dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:lineSpacingExtra="@dimen/dimen_4dp"
+            android:text="@string/bank_transactions"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/delimiter_bank_transactions" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

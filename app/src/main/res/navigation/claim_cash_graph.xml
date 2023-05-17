@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/claim_cash_graph"
+    app:startDestination="@id/claimCashFragment">
+
+    <fragment
+        android:id="@+id/claimCashFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashFragment"
+        android:label="CashClaimFragment"
+        tools:layout="@layout/fr_claim_cash">
+        <action
+            android:id="@+id/action_claimCashFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.quiz.QuizFragment"
+        android:label="QuizFragment"
+        tools:layout="@layout/fr_quiz">
+        <argument
+            android:name="cashAmount"
+            app:argType="float" />
+    </fragment>
+
+</navigation>

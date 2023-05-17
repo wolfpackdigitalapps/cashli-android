@@ -1,8 +1,8 @@
 package com.wolfpackdigital.cashli.data.remote.api
 
+import com.wolfpackdigital.cashli.data.remote.dto.enums.EligibilityStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.CompleteLinkBankAccountRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.BankTokenDto
-import com.wolfpackdigital.cashli.data.remote.dto.response.EligibilityStatusDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH

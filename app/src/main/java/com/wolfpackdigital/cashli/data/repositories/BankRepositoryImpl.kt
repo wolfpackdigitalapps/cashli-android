@@ -5,9 +5,9 @@ import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToC
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusDtoToEligibilityStatusMapper
 import com.wolfpackdigital.cashli.data.remote.api.BankApi
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepository
+import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
 import com.wolfpackdigital.cashli.domain.entities.requests.CompleteLinkBankAccountRequest
 import com.wolfpackdigital.cashli.domain.entities.response.BankToken
-import com.wolfpackdigital.cashli.domain.entities.response.EligibilityStatus
 
 @Suppress("MaxLineLength")
 class BankRepositoryImpl(

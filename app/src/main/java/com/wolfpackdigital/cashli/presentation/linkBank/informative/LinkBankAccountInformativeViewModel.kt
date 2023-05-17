@@ -9,7 +9,9 @@ import com.plaid.link.configuration.LinkTokenConfiguration
 import com.plaid.link.linkTokenConfiguration
 import com.plaid.link.result.LinkExit
 import com.plaid.link.result.LinkSuccess
+import com.wolfpackdigital.cashli.LinkAccountGraphDirections
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
 import com.wolfpackdigital.cashli.domain.entities.requests.CompleteLinkBankAccountRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountBalanceRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountInfoRequest
@@ -128,21 +130,17 @@ class LinkBankAccountInformativeViewModel(
         checkEligibilityStatusJob = null
     }
 
-    private var mockEligibleStatusCount = 0
-
     @Suppress("MagicNumber")
     private fun handleEligibilityStatus(alertDialog: AlertDialog) {
-        mockEligibleStatusCount++
         viewModelScope.launch {
             val result = getEligibilityStatusUseCase(Unit)
             result.onSuccess { eligibilityStatus ->
-                // TODO replace magic number and mock data after BE ready
-                val isUserEligible = if (mockEligibleStatusCount == 2)
-                    true
-                else
-                    eligibilityStatus.eligible
-                when (isUserEligible) {
-                    true -> {
+                when (eligibilityStatus) {
+                    EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                        toggleEligibilityStatusJob(alertDialog)
+                    }
+
+                    EligibilityStatus.ELIGIBLE -> {
                         alertDialog.dismiss()
                         _baseCmd.value = BaseCommand.ShowPopupById(
                             PopupConfig(
@@ -158,13 +156,17 @@ class LinkBankAccountInformativeViewModel(
                                     _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
                                 },
                                 buttonPrimaryClick = {
-                                    // TODO add redirect to cash out
+                                    _baseCmd.value = BaseCommand.PerformNavAction(
+                                        LinkAccountGraphDirections.actionGlobalClaimCashGraph(),
+                                        popUpTo = R.id.linkBankAccountInformativeFragment,
+                                        inclusive = true
+                                    )
                                 }
                             )
                         )
                     }
 
-                    false -> {
+                    EligibilityStatus.NOT_ELIGIBLE -> {
                         alertDialog.dismiss()
                         _baseCmd.value = BaseCommand.PerformNavAction(
                             LinkBankAccountInformativeFragmentDirections
@@ -172,8 +174,8 @@ class LinkBankAccountInformativeViewModel(
                         )
                     }
 
-                    null -> {
-                        toggleEligibilityStatusJob(alertDialog)
+                    else -> {
+                        // TODO add logic if necessary
                     }
                 }
             }
