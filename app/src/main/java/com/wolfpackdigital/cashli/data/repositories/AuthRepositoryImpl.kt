@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.data.repositories
 
+import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierTokenDtoToIdentifierTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper
@@ -13,6 +14,7 @@ import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.remote.api.AuthApi
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
+import com.wolfpackdigital.cashli.domain.entities.requests.ChangePasswordRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.CreateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
@@ -25,7 +27,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.PasswordIdentifierTok
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
-@Suppress("MaxLineLength", "LongParameterList")
+@Suppress("MaxLineLength", "LongParameterList", "TooManyFunctions")
 class AuthRepositoryImpl(
     private val authApi: AuthApi,
     private val tokenMapper: TokenDtoToTokenMapper,
@@ -38,7 +40,8 @@ class AuthRepositoryImpl(
     private val signInRequestMapper: SignInRequestToSignInRequestDtoMapper,
     private val passwordIdentifierTokenMapper: PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper,
     private val resetPasswordRequestDtoToResetPasswordRequestMapper: ResetPasswordRequestToResetPasswordRequestDtoMapper,
-    private val singleDataRequestMapper: SingleDataRequestToSingleDataRequestDtoMapper
+    private val singleDataRequestMapper: SingleDataRequestToSingleDataRequestDtoMapper,
+    private val changePasswordRequestDtoMapper: ChangePasswordRequestToChangePasswordRequestDtoMapper
 ) : AuthRepository {
     override suspend fun refreshAuthToken(refreshTokenRequest: RefreshTokenRequest): Token {
         val requestDto = refreshTokenMapper.map(refreshTokenRequest)
@@ -91,6 +94,12 @@ class AuthRepositoryImpl(
     override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest) {
         authApi.resetPassword(
             resetPasswordRequestDtoToResetPasswordRequestMapper.map(resetPasswordRequest)
+        )
+    }
+
+    override suspend fun changePassword(changePasswordRequest: ChangePasswordRequest) {
+        authApi.changePassword(
+            changePasswordRequestDtoMapper.map(changePasswordRequest)
         )
     }
 
