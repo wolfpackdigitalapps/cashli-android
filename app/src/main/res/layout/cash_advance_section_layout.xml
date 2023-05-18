@@ -24,7 +24,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_10dp"
-            android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/request_cash_advance"
             android:layout="@layout/request_cash_advance_layout"
             android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.CASH_UP_TO}"
@@ -32,7 +31,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:requestCashAdvanceInfo="@{viewModel}" />
 
         <ViewStub
@@ -40,7 +38,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_10dp"
-            android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/cash_ineligible"
             android:layout="@layout/request_cash_ineligible_layout"
             android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.NOT_ELIGIBLE}"
@@ -48,7 +45,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:requestCashAdvanceInfo="@{viewModel}" />
 
         <ViewStub
@@ -56,7 +52,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_10dp"
-            android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/cash_approved"
             android:layout="@layout/request_cash_approved_layout"
             android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.APPROVED_FOR}"
@@ -64,7 +59,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:requestCashAdvanceInfo="@{viewModel}" />
 
         <ViewStub
@@ -72,7 +66,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_10dp"
-            android:layout_marginBottom="@dimen/dimen_20dp"
             android:inflatedId="@+id/cash_balance"
             android:layout="@layout/request_cash_balance_layout"
             android:visibility="@{viewModel.requestCashAdvanceType == RequestCashAdvanceType.CLAIMED_ADVANCE}"
@@ -80,7 +73,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:requestCashAdvanceInfo="@{viewModel}"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>

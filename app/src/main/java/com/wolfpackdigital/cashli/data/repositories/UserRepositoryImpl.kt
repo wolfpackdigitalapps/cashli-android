@@ -10,10 +10,10 @@ import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
 import com.wolfpackdigital.cashli.data.remote.api.UserApi
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.requests.BankTransactionsRequest
-import com.wolfpackdigital.cashli.domain.entities.response.BankTransaction
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateIdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateUserProfileRequest
+import com.wolfpackdigital.cashli.domain.entities.response.BankTransaction
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.entities.response.UserSetting
 
