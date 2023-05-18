@@ -24,7 +24,7 @@
 
         <com.wolfpackdigital.cashli.shared.utils.views.CustomTextInputEditText
             android:id="@+id/tiet_content"
-            style="@style/BaseTextInputEditText"
+            style="?attr/customTextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"

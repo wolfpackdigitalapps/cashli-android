@@ -4,8 +4,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.ValidateCodeBinding
-import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.presentation.auth.signup.SignUpSharedViewModel
+import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.extensions.showSMSApp
 import org.koin.androidx.viewmodel.ext.android.viewModel

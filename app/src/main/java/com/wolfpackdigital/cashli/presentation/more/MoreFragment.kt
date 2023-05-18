@@ -22,4 +22,9 @@ class MoreFragment :
     private fun setupObservers() {
         viewModel.menuItems.observe(viewLifecycleOwner, adapter::submitList)
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setUpdatedData()
+    }
 }

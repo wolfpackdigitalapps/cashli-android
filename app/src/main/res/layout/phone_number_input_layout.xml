@@ -75,6 +75,7 @@
             android:layout_marginTop="@dimen/dimen_6dp"
             android:layout_marginEnd="@dimen/dimen_24dp"
             android:textColor="@color/colorWhite"
+            android:theme="@style/EditTextBaseTheme"
             app:cliError="@{error}"
             app:cliHint="@{@string/phone_number_hint}"
             app:cliImeOptions="@{imeOption}"

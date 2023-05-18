@@ -11,12 +11,34 @@
         android:label="MoreFragment"
         tools:layout="@layout/fr_more">
         <action
+            android:id="@+id/action_moreFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
             android:id="@+id/action_moreFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fr_edit_profile">
         <action
-            android:id="@+id/action_moreFragment_to_changePasswordFragment"
+            android:id="@+id/action_editProfileFragment_to_changePhoneOrEmailFragment"
+            app:destination="@id/changePhoneOrEmailFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/changePhoneOrEmailFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailFragment"
+        android:label="ChangePhoneOrEmailFragment"
+        tools:layout="@layout/fr_change_phone_email">
+        <argument
+            android:name="changePhoneOrEmail"
+            app:argType="com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/helpFragment"

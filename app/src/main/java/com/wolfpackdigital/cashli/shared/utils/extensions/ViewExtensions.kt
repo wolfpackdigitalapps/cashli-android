@@ -32,3 +32,9 @@ fun View.setAlphaAnimationVisibility(alphaAnimationConfig: AlphaAnimationConfig)
     }
     startAnimation(anim)
 }
+
+fun View.getFocusAndShowKeyboard() {
+    this.isEnabled = true
+    this.requestFocus()
+    showSoftKeyboard(this)
+}
