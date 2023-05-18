@@ -1,6 +1,7 @@
 package com.wolfpackdigital.cashli.data.remote.api.common
 
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
+import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
@@ -20,7 +21,7 @@ private const val CHANGE_PASSWORD_LAST_SEGMENT = "change"
 class RefreshTokenInterceptor : Authenticator, KoinComponent, PersistenceService {
     private val refreshTokenUseCase: RefreshTokenUseCase by inject()
 
-    // private val logoutUseCase: LogoutUseCase by inject()
+    private val logoutUseCase: LogOutUserUseCase by inject()
     private val tokenMapper: TokenToTokenDtoMapper by inject()
 
     override fun authenticate(route: Route?, response: Response): Request? {
@@ -45,7 +46,7 @@ class RefreshTokenInterceptor : Authenticator, KoinComponent, PersistenceService
             }
             result.onError {
                 if (it.errorCode == HttpURLConnection.HTTP_FORBIDDEN) {
-                    //  logoutUseCase.invoke(Unit)
+                    logoutUseCase.invoke(Unit)
                     throw RefreshTokenExpiredException()
                 }
             }

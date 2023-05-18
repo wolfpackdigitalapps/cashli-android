@@ -19,10 +19,15 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.BankAccountSubtype
+import com.wolfpackdigital.cashli.domain.entities.response.BankAccount
 import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.CustomClickSpan
+import com.wolfpackdigital.cashli.shared.utils.extensions.daysBetweenDates
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
+import com.wolfpackdigital.cashli.shared.utils.extensions.toLocalDateFromPatternOrNull
+import java.time.LocalDate
 
 private const val KEY_SPAN_ACTION = "action"
 
@@ -113,4 +118,35 @@ fun TextView.setCustomTextAndBalloon(
     )
     movementMethod = LinkMovementMethod.getInstance()
     setText(string)
+}
+
+@BindingAdapter("bankSubtypeAndMask")
+fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?) {
+    bankAccount ?: return
+    val bankSubtype = when (bankAccount.accountSubtype) {
+        BankAccountSubtype.CHECKING -> context.getString(R.string.bank_account_subtype_checking)
+        BankAccountSubtype.DEPOSITORY -> context.getString(R.string.bank_account_subtype_depository)
+        BankAccountSubtype.SAVINGS -> context.getString(R.string.bank_account_subtype_savings)
+    }
+    text = context.getString(
+        R.string.bank_account_subtype_and_mask,
+        bankSubtype,
+        bankAccount.accountNumberMask
+    )
+}
+
+@BindingAdapter(
+    value = ["pastDaysText", "dateFormat"],
+    requireAll = false
+)
+fun TextView.setPastDaysText(dateString: String?, dateFormat: String?) {
+    dateString ?: return
+    val oldDate = dateString.toLocalDateFromPatternOrNull(dateFormat) ?: return
+    val today = LocalDate.now()
+    val days = daysBetweenDates(oldDate, today)
+    text = resources.getQuantityString(
+        R.plurals.past_days_plural,
+        days,
+        days
+    )
 }

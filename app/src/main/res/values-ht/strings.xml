@@ -87,14 +87,18 @@
     <string name="request_cash_ineligible">Unfortunately, you can\'t get a cash advance at this time.</string>
     <string name="request_cash_approved_for">You’ve been approved for</string>
     <string name="claim_cash_now">Claim cash now</string>
-    <string name="cash_zecimals_value">$%.2f</string>
     <string name="request_cash_tips">Cash could be delivered in minutes.</string>
-    <string name="request_cash_balance_value">-$%.2f</string>
     <string name="request_cash_balance_label">Cash advance balance</string>
     <string name="request_cash_balance_details">Including tips &amp; express fee, if applicable.</string>
     <string name="scheduled_repayment_date">Scheduled repayment date: %s</string>
     <string name="bank_account_balance">Bank account balance</string>
     <string name="bank_account_check_date">As of %s</string>
+    <string name="bank_account_subtype_and_mask">%s - %s</string>
+    <string name="bank_account_subtype_checking">Checking</string>
+    <string name="bank_account_subtype_depository">Depository</string>
+    <string name="bank_account_subtype_savings">Savings</string>
+    <string name="bank_transactions">Latest bank transactions</string>
+    <string name="back_to_top">Back to top</string>
 
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>
@@ -250,5 +254,12 @@
     <string name="new_email">Type a new email</string>
     <string name="phone">PHONE</string>
     <string name="email">EMAIL</string>
+
+    <!--Plurals-->
+    <plurals name="past_days_plural">
+        <item quantity="zero">today</item>
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
 
 </resources>

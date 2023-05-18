@@ -2,6 +2,7 @@ package com.wolfpackdigital.cashli.data.remote.dto.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.wolfpackdigital.cashli.data.remote.dto.enums.EligibilityStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.enums.LanguagesDto
 import kotlinx.parcelize.Parcelize
 
@@ -18,6 +19,8 @@ data class UserProfileDto(
     @SerializedName("state") val state: String,
     @SerializedName("language") val language: LanguagesDto = LanguagesDto.ENGLISH,
     @SerializedName("tokens") val tokens: TokenDto?,
+    @SerializedName("bank_account_connected") val bankAccountConnected: Boolean,
+    @SerializedName("eligibility_status") val eligibilityStatus: EligibilityStatusDto,
     @SerializedName("bank_account") val bankAccount: BankAccountDto?,
     @SerializedName("user_settings") val userSettings: List<UserSettingDto>?
 ) : Parcelable

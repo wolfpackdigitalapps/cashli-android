@@ -147,8 +147,15 @@
         <item name="hintTextColor">@color/colorGrayB6</item>
     </style>
 
+    <style name="RecyclerView">
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:splitMotionEvents">false</item>
+    </style>
+
     <style name="BaseTextInputEditTextLight" parent="BaseTextInputEditText">
-        <item name="android:background">@drawable/text_input_edit_text_background_light_selector</item>
+        <item name="android:background">@drawable/text_input_edit_text_background_light_selector
+        </item>
         <item name="android:textColor">@color/colorGray76</item>
         <item name="android:textColorHint">@color/colorGrayB6</item>
         <item name="hintTextColor">@color/colorGrayB6</item>
@@ -171,6 +178,20 @@
         <item name="android:fadeScrollbars">false</item>
         <item name="android:scrollbarThumbVertical">@drawable/scrollview_thumb</item>
         <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="FloatingActionButton">
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="elevation">@dimen/dimen_0dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="tint">@color/colorWhite</item>
+    </style>
+
+    <style name="FloatingActionButton.Expanded">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">@dimen/dimen_0dp</item>
+        <item name="android:paddingEnd">@dimen/dimen_0dp</item>
     </style>
 
     <style name="TextView.H1" parent="TextView">

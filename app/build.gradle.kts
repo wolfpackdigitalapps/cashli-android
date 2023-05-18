@@ -162,10 +162,13 @@ dependencies {
     // PlaidLink
     implementation(Libs.PLAID_LINK)
 
-    //Tooltips
+    // Tooltips
     implementation(Libs.TOOLTIP_BALLOON)
 
-    //Compose
+    // Pagination
+    implementation(Libs.PAGINATION)
+
+    // Compose
     implementation(Libs.ANDROIDX_COMPOSE_UI)
     implementation(Libs.ANDROIDX_COMPOSE_MATERIAL)
     implementation(Libs.ANDROIDX_COMPOSE_UI_TOOLING)

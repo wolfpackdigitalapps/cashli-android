@@ -9,36 +9,19 @@
         android:id="@+id/action_global_linkAccountGraph"
         app:destination="@id/link_account_graph" />
 
+    <action
+        android:id="@+id/action_global_claimCashGraph"
+        app:destination="@id/claim_cash_graph" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.wolfpackdigital.cashli.presentation.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fr_home">
-        <action
-            android:id="@+id/action_homeFragment_to_claimCashFragment"
-            app:destination="@id/claimCashFragment" />
     </fragment>
 
     <include app:graph="@navigation/link_account_graph" />
 
-    <fragment
-        android:id="@+id/claimCashFragment"
-        android:name="com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashFragment"
-        android:label="CashClaimFragment"
-        tools:layout="@layout/fr_claim_cash">
-        <action
-            android:id="@+id/action_claimCashFragment_to_quizFragment"
-            app:destination="@id/quizFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/quizFragment"
-        android:name="com.wolfpackdigital.cashli.presentation.quiz.QuizFragment"
-        android:label="QuizFragment"
-        tools:layout="@layout/fr_quiz">
-        <argument
-            android:name="cashAmount"
-            app:argType="float" />
-    </fragment>
+    <include app:graph="@navigation/claim_cash_graph" />
 
 </navigation>

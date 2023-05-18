@@ -3,9 +3,12 @@ package com.wolfpackdigital.cashli.shared.utils.extensions
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import androidx.recyclerview.widget.RecyclerView
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
 
 // Extensions related to views (Views, TextViews, etc...)
+private const val SCROLL_DOWN = 1
+private const val SCROLL_UP = -1
 
 fun View.setAlphaAnimationVisibility(alphaAnimationConfig: AlphaAnimationConfig) {
     val animationListener = object : Animation.AnimationListener {
@@ -32,6 +35,13 @@ fun View.setAlphaAnimationVisibility(alphaAnimationConfig: AlphaAnimationConfig)
     }
     startAnimation(anim)
 }
+
+fun RecyclerView.reachedViewBottom() = !canScrollVertically(SCROLL_DOWN)
+
+fun RecyclerView.reachedViewTop() = !canScrollVertically(SCROLL_UP)
+
+fun RecyclerView.canScrollBothDirections() =
+    canScrollVertically(SCROLL_DOWN) && canScrollVertically(SCROLL_UP)
 
 fun View.getFocusAndShowKeyboard() {
     this.isEnabled = true
