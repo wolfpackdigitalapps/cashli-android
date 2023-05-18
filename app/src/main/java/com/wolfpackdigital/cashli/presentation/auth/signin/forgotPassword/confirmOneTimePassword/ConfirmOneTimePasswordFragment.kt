@@ -17,10 +17,7 @@ class ConfirmOneTimePasswordFragment :
     override val viewModel by viewModel<ConfirmOneTimePasswordViewModel> {
         parametersOf(
             navArgs.phoneNumberOrEmail,
-            when (navArgs.codeReceivedViaType) {
-                0 -> CodeReceivedViaType.SMS
-                else -> CodeReceivedViaType.EMAIL
-            },
+            CodeReceivedViaType.values().find { it.ordinal == navArgs.codeReceivedViaType },
             navArgs.fromEditProfile
         )
     }

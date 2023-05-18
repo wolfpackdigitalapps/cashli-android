@@ -82,11 +82,12 @@ class ChangePhoneOrEmailViewModel(
                 result.onSuccess {
                     _baseCmd.value = BaseCommand.PerformNavDeepLink(
                         deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL${
-                        request.identifier}/${CodeReceivedViaType.EMAIL.ordinal}/${true}"
+                        request.identifier
+                        }/${CodeReceivedViaType.EMAIL.ordinal}/${true}"
                     )
                 }
                 result.onError {
-                    showApiError(it)
+                    showApiError(it, request.channel)
                 }
             }
         }
@@ -116,19 +117,22 @@ class ChangePhoneOrEmailViewModel(
                         )
                     }
                     result.onError {
-                        showApiError(it)
+                        showApiError(it, request.channel)
                     }
                 }
             }
         }
     }
 
-    private fun showApiError(apiError: ApiError) {
+    private fun showApiError(apiError: ApiError, channel: IdentifierChannel) {
         val error =
             apiError.errors?.firstOrNull() ?: apiError.messageId ?: R.string.generic_error
         when (apiError.errorCode) {
             Constants.ERROR_CODE_422, Constants.ERROR_CODE_429 ->
-                phoneNumberError.value = error
+                when (channel) {
+                    IdentifierChannel.SMS -> phoneNumberError.value = error
+                    IdentifierChannel.EMAIL -> _emailError.value = error
+                }
 
             else -> _baseCmd.value = BaseCommand.ShowToast(error)
         }

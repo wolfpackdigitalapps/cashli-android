@@ -118,7 +118,9 @@ class RequestCodeViewModel(
         }?.let {
             RequestCodeFragmentDirections.actionRequestCodeFragmentToConfirmOneTimePasswordFragment(
                 it,
-                if (isEmailInUse) CodeReceivedViaType.EMAIL.ordinal else
+                if (isEmailInUse)
+                    CodeReceivedViaType.EMAIL.ordinal
+                else
                     CodeReceivedViaType.SMS.ordinal,
                 false
             )
