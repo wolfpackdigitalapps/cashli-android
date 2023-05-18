@@ -6,10 +6,6 @@
         app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@+id/start"
         app:duration="200">
-
-        <OnClick
-            app:clickAction="transitionToEnd"
-            app:targetId="@id/ib_edit_low_balance" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -25,6 +21,19 @@
                 app:attributeName="crossfade"
                 app:customFloatValue="0" />
         </Constraint>
+        <Constraint
+            android:id="@+id/et_low_balance_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_6dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_low_balance" />
 
     </ConstraintSet>
 
@@ -41,6 +50,19 @@
                 app:attributeName="crossfade"
                 app:customFloatValue="1" />
         </Constraint>
+        <Constraint
+            android:id="@+id/et_low_balance_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_6dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_low_balance" />
 
     </ConstraintSet>
 </MotionScene>

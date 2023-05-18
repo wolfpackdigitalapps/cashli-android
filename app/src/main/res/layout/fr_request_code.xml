@@ -5,6 +5,8 @@
 
     <data class=".RequestCodeBinding">
 
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.InputFilterType" />
+
         <import type="android.text.InputType" />
 
         <import type="android.view.inputmethod.EditorInfo" />
@@ -91,6 +93,7 @@
                 app:cliError="@{viewModel.error}"
                 app:cliHint="@{@string/et_hint}"
                 app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                 app:cliInputType="@{InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
                 app:cliLabel="@{@string/email_label_caps}"
                 app:cliMaxChars="@{Constants.MAX_CHARS_50}"

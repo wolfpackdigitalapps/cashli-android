@@ -6,9 +6,9 @@ import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSu
 import com.wolfpackdigital.cashli.data.mappers.BankAccountToBankAccountDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionDtoToBankTransactionMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionToBankTransactionDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
@@ -51,6 +51,8 @@ import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRe
 import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingDtoToUserSettingMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyDtoToUserSettingsKeyMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyToUserSettingsKeyDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
@@ -132,9 +134,9 @@ import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInf
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
-import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
+import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
@@ -152,7 +154,7 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
-        viewModel { SettingsViewModel() }
+        viewModel { SettingsViewModel(get()) }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
         viewModel { LinkBankAccountInformativeViewModel(get(), get(), get()) }
@@ -242,10 +244,12 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { UserSettingsKeyToUserSettingsKeyDtoMapper() }
+        factory { UserSettingsKeyDtoToUserSettingsKeyMapper() }
         factory { BankTransactionToBankTransactionDtoMapper() }
         factory { BankTransactionDtoToBankTransactionMapper() }
-        factory { UserSettingDtoToUserSettingMapper() }
-        factory { UserSettingToUserSettingDtoMapper() }
+        factory { UserSettingDtoToUserSettingMapper(get()) }
+        factory { UserSettingToUserSettingDtoMapper(get()) }
         factory { SingleDataRequestToSingleDataRequestDtoMapper() }
         factory { SingleDataRequestDtoToSingleDataRequestMapper() }
         factory { BankAccountSubtypeDtoToBankAccountSubtypeMapper() }

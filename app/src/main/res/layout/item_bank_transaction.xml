@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/dimen_12dp">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_merchant_name"
                 style="@style/TextView.S2"
                 android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Teller" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_amount"
                 style="@style/TextView.S2"
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="tv_amount, tv_merchant_name" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_date"
                 style="@style/TextView.C1"
                 android:layout_width="0dp"

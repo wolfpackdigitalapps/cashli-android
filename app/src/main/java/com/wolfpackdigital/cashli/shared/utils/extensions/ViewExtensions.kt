@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import androidx.recyclerview.widget.RecyclerView
 import android.view.inputmethod.InputMethodManager
+import androidx.recyclerview.widget.RecyclerView
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
 
 // Extensions related to views (Views, TextViews, etc...)

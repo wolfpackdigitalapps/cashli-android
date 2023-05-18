@@ -242,6 +242,7 @@
     <string name="notify_balance_below_description">You will be notified on your phone if your bank account balance falls below this amount or if an upcoming bill might make it fall below it.</string>
     <string name="notifications">Notifications</string>
     <string name="enable_push_notifications">Enable push notifications</string>
+    <string name="et_low_balance_amount_hint">enter balance amount</string>
 
     <!--Log out-->
     <string name="log_out">Log out</string>

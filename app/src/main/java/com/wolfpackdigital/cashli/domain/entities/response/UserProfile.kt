@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.domain.entities.response
 
+import com.wolfpackdigital.cashli.domain.entities.UserSetting
 import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
 import com.wolfpackdigital.cashli.domain.entities.enums.Languages
 

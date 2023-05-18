@@ -13,5 +13,20 @@ class SettingsFragment : BaseFragment<SettingsBinding, SettingsViewModel>(R.layo
         setupObservers()
     }
 
-    private fun setupObservers() {}
+    private fun setupObservers() {
+        viewModel.cmd.observe(viewLifecycleOwner) { command ->
+            when (command) {
+                is SettingsViewModel.Command.TransitionToStart -> transitionToStart()
+                is SettingsViewModel.Command.TransitionToEnd -> transitionToEnd()
+            }
+        }
+    }
+
+    private fun transitionToStart() {
+        binding?.mlBalanceAlertAmount?.transitionToStart()
+    }
+
+    private fun transitionToEnd() {
+        binding?.mlBalanceAlertAmount?.transitionToEnd()
+    }
 }

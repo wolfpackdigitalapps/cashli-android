@@ -18,11 +18,13 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.lifecycle.LiveData
 import com.wolfpackdigital.cashli.BaseEditTextBinding
+import com.wolfpackdigital.cashli.presentation.entities.enums.InputFilterType
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.visibility
 import com.wolfpackdigital.cashli.shared.utils.extensions.getFocusAndShowKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
+import com.wolfpackdigital.cashli.shared.utils.inputFilters.WholeNumberFilter
 
 class BaseEditText @JvmOverloads constructor(
     context: Context,
@@ -109,12 +111,15 @@ fun BaseEditText.setCliLabelColor(color: Int) {
     binding.tvLabel.setTextColor(color)
 }
 
-@BindingAdapter("cliMaxChars")
-fun BaseEditText.cliMaxChars(max: Int?) {
-    max ?: return
+@BindingAdapter(value = ["cliInputFilterType", "cliMaxChars"], requireAll = false)
+fun BaseEditText.cliInputFilters(inputFilterType: InputFilterType?, max: Int?) {
     binding.tietContent.apply {
         filters = filters.toMutableList().also {
-            it.add(InputFilter.LengthFilter(max))
+            when (inputFilterType) {
+                InputFilterType.MAX_CHARS -> it.add(InputFilter.LengthFilter(max ?: return))
+                InputFilterType.WHOLE_NUMBER -> it.add(WholeNumberFilter())
+                else -> {}
+            }
         }.toTypedArray()
     }
 }
@@ -143,6 +148,7 @@ fun BaseEditText.cliDrawableEnd(end: Drawable?) {
         binding.ivDrawableEnd.setImageDrawable(it)
     }
 }
+
 @BindingAdapter("cliDrawableEndColor")
 fun BaseEditText.cliDrawableEndColor(color: Int) {
     binding.ivDrawableEnd.setColorFilter(color)
