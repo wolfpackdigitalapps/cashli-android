@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.google.gson.Gson
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
@@ -15,6 +13,8 @@ import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateEmailUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
+import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.shared.base.ApiError
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
@@ -81,21 +81,12 @@ class ChangePhoneOrEmailViewModel(
                 val result = submitChangeIdentifiersUseCase(request)
                 result.onSuccess {
                     _baseCmd.value = BaseCommand.PerformNavDeepLink(
-                        deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL${request.identifier}/${
-                        Gson().toJson(
-                            CodeReceivedViaType.EMAIL
-                        )
-                        }/${Gson().toJson(true)}"
+                        deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL${
+                        request.identifier}/${CodeReceivedViaType.EMAIL.ordinal}/${true}"
                     )
                 }
                 result.onError {
-                    val error =
-                        it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                    when (it.errorCode) {
-                        Constants.ERROR_CODE_422, Constants.ERROR_CODE_429 ->
-                            _emailError.value = error
-                        else -> _baseCmd.value = BaseCommand.ShowToast(error)
-                    }
+                    showApiError(it)
                 }
             }
         }
@@ -120,23 +111,26 @@ class ChangePhoneOrEmailViewModel(
                     result.onSuccess {
                         _baseCmd.value = BaseCommand.PerformNavDeepLink(
                             deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL$phoneNumber/${
-                            Gson().toJson(
-                                CodeReceivedViaType.SMS
-                            )
-                            }/${Gson().toJson(true)}"
+                            CodeReceivedViaType.SMS.ordinal
+                            }/${true}"
                         )
                     }
                     result.onError {
-                        val error =
-                            it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                        when (it.errorCode) {
-                            Constants.ERROR_CODE_422, Constants.ERROR_CODE_429 ->
-                                phoneNumberError.value = error
-                            else -> _baseCmd.value = BaseCommand.ShowToast(error)
-                        }
+                        showApiError(it)
                     }
                 }
             }
+        }
+    }
+
+    private fun showApiError(apiError: ApiError) {
+        val error =
+            apiError.errors?.firstOrNull() ?: apiError.messageId ?: R.string.generic_error
+        when (apiError.errorCode) {
+            Constants.ERROR_CODE_422, Constants.ERROR_CODE_429 ->
+                phoneNumberError.value = error
+
+            else -> _baseCmd.value = BaseCommand.ShowToast(error)
         }
     }
 

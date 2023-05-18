@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
@@ -14,6 +13,8 @@ import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCa
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByUpdateIdentifiersUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
+import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
+import com.wolfpackdigital.cashli.shared.base.ApiError
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseValidateCodeViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
@@ -152,25 +153,24 @@ class ConfirmOneTimePasswordViewModel(
     private suspend fun resendConfirmationFromEditProfile(request: IdentifiersRequest) {
         val result = submitChangeIdentifiersUseCase(request)
         result.onError {
-            val error =
-                it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-            if (it.errorCode == Constants.ERROR_CODE_422)
-                _invalidCodeErrorVisible.value = error
-            else
-                _baseCmd.value = BaseCommand.ShowToast(error)
+            showApiError(it)
         }
     }
 
     private suspend fun resendConfirmationFromPasswordReset(request: IdentifiersRequest) {
         val result = submitPasswordIdentifiersUseCase(request)
         result.onError {
-            val error =
-                it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-            if (it.errorCode == Constants.ERROR_CODE_422)
-                _invalidCodeErrorVisible.value = error
-            else
-                _baseCmd.value = BaseCommand.ShowToast(error)
+            showApiError(it)
         }
+    }
+
+    private fun showApiError(it: ApiError) {
+        val error =
+            it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+        if (it.errorCode == Constants.ERROR_CODE_422)
+            _invalidCodeErrorVisible.value = error
+        else
+            _baseCmd.value = BaseCommand.ShowToast(error)
     }
 
     fun onResendConfirmationCodeClicked() {

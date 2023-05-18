@@ -15,7 +15,6 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
-import com.wolfpackdigital.cashli.shared.utils.Constants.PREFIX_RO_LENGTH
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 @Suppress("TooManyFunctions")
@@ -39,8 +38,7 @@ class EditProfileViewModel(
     private val _lastNameLabel = MutableLiveData(userProfile?.lastName)
     val lastNameLabel: LiveData<String?> = _lastNameLabel
 
-    // TODO replace that 3 when only US numbers are used
-    private val _phoneNumber = MutableLiveData(userProfile?.phoneNumber?.substring(PREFIX_RO_LENGTH))
+    private val _phoneNumber = MutableLiveData(userProfile?.phoneNumber)
     val phoneNumber: LiveData<String?> = _phoneNumber
 
     private val _email = MutableLiveData(userProfile?.email)
@@ -62,7 +60,7 @@ class EditProfileViewModel(
     val lastNameError: LiveData<Any?> = _lastNameError
 
     fun setUpdatedData() {
-        _phoneNumber.value = userProfile?.phoneNumber?.substring(PREFIX_RO_LENGTH)
+        _phoneNumber.value = userProfile?.phoneNumber
         _email.value = userProfile?.email
         _firstNameLabel.value = userProfile?.firstName
         _lastNameLabel.value = userProfile?.lastName

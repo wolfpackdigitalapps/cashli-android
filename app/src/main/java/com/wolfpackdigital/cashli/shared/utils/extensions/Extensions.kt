@@ -173,6 +173,12 @@ fun hideSoftKeyboard(view: View) {
     imm?.hideSoftInputFromWindow(view.applicationWindowToken, KEYBOARD_HIDDEN_FLAG)
 }
 
+fun showSoftKeyboard(view: View) {
+    val inputMethodManager = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE)
+        as InputMethodManager
+    inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+}
+
 fun Context.stringFromResource(@StringRes id: Int, vararg formatArgs: Any?): String {
     return resources.getString(id, *formatArgs)
 }

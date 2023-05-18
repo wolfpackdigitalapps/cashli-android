@@ -33,8 +33,7 @@ class MainActivityViewModel : ViewModel(), PersistenceService {
                 R.id.accountFragment,
                 R.id.moreFragment,
                 R.id.editProfileFragment,
-                R.id.changePhoneOrEmailFragment -> true
-                R.id.moreFragment,
+                R.id.changePhoneOrEmailFragment,
                 R.id.claimCashFragment,
                 R.id.quizFragment,
                 R.id.helpFragment -> true

@@ -67,7 +67,6 @@ import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepositor
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepository
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
-import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
@@ -122,6 +121,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumb
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
 import com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
+import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.presentation.help.HelpViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
 import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
