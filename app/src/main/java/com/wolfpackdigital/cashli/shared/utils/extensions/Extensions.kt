@@ -139,6 +139,15 @@ fun <T1 : Any, T2 : Any, R : Any> safeLet(p1: T1?, p2: T2?, block: (T1, T2) -> R
     return if (p1 != null && p2 != null) block(p1, p2) else null
 }
 
+fun <T1 : Any, T2 : Any, T3 : Any, R : Any> safeLet(
+    p1: T1?,
+    p2: T2?,
+    p3: T3?,
+    block: (T1, T2, T3) -> R?
+): R? {
+    return if (p1 != null && p2 != null && p3 != null) block(p1, p2, p3) else null
+}
+
 // Usage: condition then "yes" ?: "no"
 infix fun <T> Boolean.then(param: T): T? = if (this) param else null
 
@@ -164,6 +173,12 @@ fun hideSoftKeyboard(view: View) {
     imm?.hideSoftInputFromWindow(view.applicationWindowToken, KEYBOARD_HIDDEN_FLAG)
 }
 
+fun showSoftKeyboard(view: View) {
+    val inputMethodManager = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE)
+        as InputMethodManager
+    inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+}
+
 fun Context.stringFromResource(@StringRes id: Int, vararg formatArgs: Any?): String {
     return resources.getString(id, *formatArgs)
 }
@@ -178,6 +193,7 @@ fun getStringFromResourceOrText(
         is String -> textIdOrString
         is Int -> textArgs?.let { args -> context.stringFromResource(textIdOrString, *args) }
             ?: context.stringFromResource(textIdOrString)
+
         else -> Constants.EMPTY_STRING
     }
 }

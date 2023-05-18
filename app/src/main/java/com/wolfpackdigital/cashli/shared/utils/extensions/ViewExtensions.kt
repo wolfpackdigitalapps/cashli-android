@@ -42,3 +42,9 @@ fun RecyclerView.reachedViewTop() = !canScrollVertically(SCROLL_UP)
 
 fun RecyclerView.canScrollBothDirections() =
     canScrollVertically(SCROLL_DOWN) && canScrollVertically(SCROLL_UP)
+
+fun View.getFocusAndShowKeyboard() {
+    this.isEnabled = true
+    this.requestFocus()
+    showSoftKeyboard(this)
+}

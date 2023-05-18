@@ -32,8 +32,11 @@ class MainActivityViewModel : ViewModel(), PersistenceService {
                 R.id.homeFragment,
                 R.id.accountFragment,
                 R.id.moreFragment,
+                R.id.editProfileFragment,
+                R.id.changePhoneOrEmailFragment,
                 R.id.claimCashFragment,
-                R.id.quizFragment -> true
+                R.id.quizFragment,
+                R.id.helpFragment -> true
                 else -> false
             }
             setBottomBarVisibility(showBottomNav)

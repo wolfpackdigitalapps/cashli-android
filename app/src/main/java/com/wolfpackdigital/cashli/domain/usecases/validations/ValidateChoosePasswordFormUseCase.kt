@@ -15,11 +15,13 @@ class ValidateChoosePasswordFormUseCase(
                     successful = false,
                     errorMessageId = R.string.password_not_match
                 )
+
             !validatePasswordLengthUseCase(password) ->
                 ValidationResult(
                     successful = false,
                     errorMessageId = R.string.password_length
                 )
+
             !validatePasswordUseCase(password) ->
                 ValidationResult(
                     successful = false,

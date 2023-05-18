@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.enums.Languages
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
@@ -20,6 +19,7 @@ import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateLastNameFo
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateStreetFieldUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateZipCodeUseCase
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
+import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError

@@ -16,6 +16,8 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.net.HttpURLConnection
 
+private const val CHANGE_PASSWORD_LAST_SEGMENT = "change"
+
 class RefreshTokenInterceptor : Authenticator, KoinComponent, PersistenceService {
     private val refreshTokenUseCase: RefreshTokenUseCase by inject()
 
@@ -23,6 +25,10 @@ class RefreshTokenInterceptor : Authenticator, KoinComponent, PersistenceService
     private val tokenMapper: TokenToTokenDtoMapper by inject()
 
     override fun authenticate(route: Route?, response: Response): Request? {
+        if (response.request.url.pathSegments.last() == CHANGE_PASSWORD_LAST_SEGMENT) {
+            return null
+        }
+
         token?.let { refreshToken(it.refreshToken) }
 
         val builder = response.request.newBuilder()
