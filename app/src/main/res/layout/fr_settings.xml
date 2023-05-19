@@ -195,7 +195,7 @@
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_24dp"
                 android:background="@null"
-                android:checked="true"
+                android:checked="@{viewModel.notificationsEnabled}"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -207,6 +207,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:onClick="@{() -> viewModel.onTogglePushNotifications()}"
                 app:layout_constraintBottom_toBottomOf="@+id/sc_notifications"
                 app:layout_constraintEnd_toEndOf="@+id/sc_notifications"
                 app:layout_constraintStart_toStartOf="@+id/sc_notifications"
