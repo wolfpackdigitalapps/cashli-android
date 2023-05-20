@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.application
 
+import com.wolfpackdigital.cashli.data.mappers.AccountStatusDtoToAccountStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountDtoToBankAccountMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeDtoToBankAccountSubtypeMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSubtypeDtoMapper
@@ -48,7 +49,6 @@ import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestToUserPro
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingDtoToUserSettingMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
@@ -274,8 +274,7 @@ object AppModules {
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
         factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
         factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileToUserProfileDtoMapper(get(), get(), get(), get(), get()) }
-        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get()) }
+        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get(), get()) }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
         factory { SignInRequestToSignInRequestDtoMapper(get()) }
@@ -303,6 +302,7 @@ object AppModules {
         }
         factory { UpdateUserProfileRequestDtoToUserProfileRequestMapper(get()) }
         factory { UpdateUserProfileRequestToUserProfileRequestDtoMapper(get()) }
+        factory { AccountStatusDtoToAccountStatusMapper() }
     }
 
     private val useCases = module {

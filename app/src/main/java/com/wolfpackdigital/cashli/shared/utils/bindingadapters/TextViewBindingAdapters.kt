@@ -8,6 +8,7 @@ import android.text.SpannedString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
@@ -30,11 +31,16 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.toLocalDateFromPattern
 import java.time.LocalDate
 
 private const val KEY_SPAN_ACTION = "action"
+private const val TAG = "TextViewBindingAdapters"
 
 @BindingAdapter("textRes")
 fun TextView.textRes(@StringRes textRes: Int?) {
     textRes ?: return
-    setText(textRes)
+    try {
+        setText(textRes)
+    } catch (e: Exception) {
+        Log.e(TAG, "textRes: ${e.stackTrace}")
+    }
 }
 
 @Suppress("SpreadOperator")

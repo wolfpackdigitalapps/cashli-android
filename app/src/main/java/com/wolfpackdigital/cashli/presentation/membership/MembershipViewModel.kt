@@ -3,6 +3,7 @@ package com.wolfpackdigital.cashli.presentation.membership
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
@@ -17,12 +18,22 @@ class MembershipViewModel : BaseViewModel(), PersistenceService {
     )
     val toolbar: LiveData<Toolbar> = _toolbar
 
-    private val _membershipItem = MutableLiveData<MembershipAdvanceItem>(
-        MembershipAdvanceItem.MembershipActiveItem(
-            topText = "June 01st, 2022",
-            middleText = "February 01st, 2023",
-            bottomText = "$2.99"
-        )
+    private val _membershipItem = MutableLiveData<MembershipAdvanceItem?>(
+        when (userProfile?.accountStatus) {
+            AccountStatus.ACTIVE -> MembershipAdvanceItem.MembershipActiveItem(
+                topText = String(),
+                middleText = String(),
+                bottomText = String()
+            )
+
+            AccountStatus.PAUSED -> MembershipAdvanceItem.MembershipPausedItem(
+                topText = String(),
+                middleText = String(),
+                bottomText = String()
+            )
+
+            else -> null
+        }
     )
-    val membershipItem: LiveData<MembershipAdvanceItem> = _membershipItem
+    val membershipItem: LiveData<MembershipAdvanceItem?> = _membershipItem
 }

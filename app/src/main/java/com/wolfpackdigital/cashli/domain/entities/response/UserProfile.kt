@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.domain.entities.response
 
+import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
 import com.wolfpackdigital.cashli.domain.entities.enums.Languages
 
@@ -15,6 +16,7 @@ data class UserProfile(
     val state: String,
     val language: Languages = Languages.ENGLISH,
     val tokens: Token?,
+    val accountStatus: AccountStatus,
     val bankAccountConnected: Boolean,
     val eligibilityStatus: EligibilityStatus,
     val bankAccount: BankAccount?,
