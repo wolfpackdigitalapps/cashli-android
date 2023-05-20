@@ -34,7 +34,9 @@ class MoreViewModel(
     fun handleOnMenuItemClicked(menuItem: MenuItem) {
         when (menuItem) {
             MenuItem.MEMBERSHIP_ADVANCE_HISTORY -> {
-                // TODO new card
+                _baseCmd.value = BaseCommand.PerformNavAction(
+                    MoreFragmentDirections.actionMoreFragmentToMembershipFragment()
+                )
             }
 
             MenuItem.TERMS_AND_CONDITIONS -> {

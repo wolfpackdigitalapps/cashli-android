@@ -131,6 +131,7 @@ import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
+import com.wolfpackdigital.cashli.presentation.membership.MembershipViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
@@ -188,6 +189,7 @@ object AppModules {
         viewModel { (editPhoneOrEmail: EditPhoneOrEmail) ->
             ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())
         }
+        viewModel { MembershipViewModel() }
     }
 
     private val apiModule = module {
