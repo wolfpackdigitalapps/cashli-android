@@ -38,12 +38,14 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 
 private const val CHECK_ELIGIBILITY_DELAY = 10
+
 abstract class LinkPlaidAccountViewModel(
     private val generateLinkTokenUseCase: GenerateLinkTokenUseCase,
     private val completeLinkingBankAccountUseCase: CompleteLinkingBankAccountUseCase,
     private val getEligibilityStatusUseCase: GetEligibilityStatusUseCase
-): BaseViewModel() {
+) : BaseViewModel() {
 
+    @Suppress("VariableNaming")
     protected val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command>
         get() = _cmd

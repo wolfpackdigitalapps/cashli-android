@@ -26,7 +26,8 @@ class AccountViewModel(
     generateLinkTokenUseCase,
     completeLinkingBankAccountUseCase,
     getEligibilityStatusUseCase
-), PersistenceService {
+),
+    PersistenceService {
 
     private val _account = MutableLiveData(userProfile?.bankAccount)
     val account: LiveData<BankAccount?> = _account

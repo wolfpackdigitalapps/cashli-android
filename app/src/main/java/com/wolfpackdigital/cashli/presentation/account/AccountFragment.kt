@@ -22,7 +22,6 @@ class AccountFragment :
             }
         }
 
-
     override fun setupViews() {
         setupObservers()
     }
