@@ -30,4 +30,8 @@ class BankRepositoryImpl(
         val dtoRequest = bankAccountRequestMapper.map(linkBankAccountDtoRequest)
         bankApi.completeLinkingBankAccount(dtoRequest)
     }
+
+    override suspend fun unlinkAccount() {
+        bankApi.unlinkAccount()
+    }
 }

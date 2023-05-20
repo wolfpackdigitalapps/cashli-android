@@ -9,5 +9,5 @@
         android:id="@+id/accountFragment"
         android:name="com.wolfpackdigital.cashli.presentation.account.AccountFragment"
         android:label="AccountFragment"
-        tools:layout="@layout/fr_home" />
+        tools:layout="@layout/fr_account" />
 </navigation>

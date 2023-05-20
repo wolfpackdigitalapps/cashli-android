@@ -1,29 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".AccountBinding">
+
+        <import type="com.wolfpackdigital.cashli.R" />
 
         <variable
             name="viewModel"
             type="com.wolfpackdigital.cashli.presentation.account.AccountViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:id="@+id/sv_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhiteF9">
+        android:fillViewport="true">
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextView.Bold"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_root"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/account"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@color/colorPrimaryDark">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/iv_bg_dots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_dots"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
+                android:id="@+id/arc_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dimen_56dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/colorWhiteF9"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_account_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_40dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_account_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_no_account"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_account_top"
+                app:visibility="@{viewModel.account == null}"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_account_description"
+                    style="@style/TextView.S1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_32dp"
+                    android:layout_marginTop="@dimen/dimen_32dp"
+                    android:text="@string/account_description"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorGray76"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_continue"
+                    style="@style/Widget.Cashli.Button.Accent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_24dp"
+                    android:layout_marginTop="@dimen/dimen_32dp"
+                    android:layout_marginBottom="@dimen/dimen_32dp"
+                    android:onClick="@{() -> viewModel.linkMyBankAccount()}"
+                    android:text="@string/link_your_bank_account"
+                    app:contentPadding="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_account_description"
+                    app:layout_constraintVertical_bias="0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@drawable/bg_bank_account_layout"
+                android:paddingVertical="@dimen/dimen_12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_account_top"
+                app:layout_constraintVertical_bias="0"
+                app:visibility="@{viewModel.account != null}">
+
+                <TextView
+                    android:id="@+id/tv_bank_name"
+                    style="@style/TextView.S2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_24dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toStartOf="@id/iv_more_dots"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:textIdOrString="@{viewModel.account.institutionName}"
+                    tools:text="Bank of America" />
+
+                <TextView
+                    android:id="@+id/tv_account_number"
+                    style="@style/TextView.C1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorGrayB6"
+                    app:bankSubtypeAndMask="@{viewModel.account}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_bank_name"
+                    app:layout_constraintStart_toStartOf="@id/tv_bank_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_bank_name"
+                    app:layout_constraintVertical_bias="0"
+                    app:stringRes="@{R.string.account_bank_account_type_mask}"
+                    tools:text="Checking ****4679" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:id="@+id/iv_more_dots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_more_dots_vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:onClick="@{viewModel::onDeleteAccount}"
+                    app:requirement_image="@{R.drawable.ic_delete}"
+                    app:tooltip_text="@{R.string.generic_remove}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

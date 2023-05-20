@@ -5,6 +5,7 @@ import com.plaid.link.result.LinkExit
 import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.LinkBankAccountInformativeBinding
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.presentation.plaid.LinkPlaidAccountViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
@@ -33,11 +34,11 @@ class LinkBankAccountInformativeFragment :
     private fun setupObservers() {
         viewModel.cmd.observe(viewLifecycleOwner) {
             when (it) {
-                is LinkBankAccountInformativeViewModel.Command.StartLinkingBackAccount -> {
+                is LinkPlaidAccountViewModel.Command.StartLinkingBackAccount -> {
                     linkAccountToPlaidLauncher.launch(it.linkTokenConfiguration)
                 }
 
-                LinkBankAccountInformativeViewModel.Command.RefreshUserDataNeeded ->
+                LinkPlaidAccountViewModel.Command.RefreshUserDataNeeded ->
                     navController?.setBackStackData(
                         Constants.REFRESH_USER_DATA,
                         true

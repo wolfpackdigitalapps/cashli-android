@@ -5,6 +5,8 @@
 
     <data class="BankShortDetailsBinding">
 
+        <import type="com.wolfpackdigital.cashli.R" />
+
         <variable
             name="bankAccountInfo"
             type="com.wolfpackdigital.cashli.domain.entities.response.BankAccount" />
@@ -91,6 +93,7 @@
                 app:bankSubtypeAndMask="@{bankAccountInfo}"
                 app:layout_constraintStart_toEndOf="@id/iv_bank"
                 app:layout_constraintTop_toBottomOf="@id/barrier_merchant"
+                app:stringRes="@{R.string.bank_account_subtype_and_mask}"
                 tools:text="Checking - 8864" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

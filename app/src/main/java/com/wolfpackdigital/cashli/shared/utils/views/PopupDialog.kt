@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import com.wolfpackdigital.cashli.BR
 import com.wolfpackdigital.cashli.PopupDialogBinding
@@ -64,6 +66,16 @@ class PopupDialog(
         if (popupConfig.isOtherActionInstant)
             popupConfig.otherAction.invoke(dialog)
         dialog.window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
+
+        if (popupConfig.isSecondaryContentBold) {
+            binding.tvSecondaryContent.apply {
+                typeface = ResourcesCompat.getFont(
+                    context,
+                    R.font.lato_bold
+                )
+                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+            }
+        }
     }
 
     private fun updateTimerTextOnTick(timer: Long, binding: PopupDialogBinding) {

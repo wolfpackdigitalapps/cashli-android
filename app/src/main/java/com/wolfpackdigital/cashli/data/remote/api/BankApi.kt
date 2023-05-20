@@ -4,6 +4,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.enums.EligibilityStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.CompleteLinkBankAccountRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.BankTokenDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -20,4 +21,7 @@ interface BankApi {
     suspend fun completeLinkingBankAccount(
         @Body linkBankAccountDtoRequest: CompleteLinkBankAccountRequestDto
     )
+
+    @DELETE("v1/bank_accounts/link")
+    suspend fun unlinkAccount()
 }

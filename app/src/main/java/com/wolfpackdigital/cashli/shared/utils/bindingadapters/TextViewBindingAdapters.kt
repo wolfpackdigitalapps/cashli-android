@@ -120,8 +120,9 @@ fun TextView.setCustomTextAndBalloon(
     setText(string)
 }
 
-@BindingAdapter("bankSubtypeAndMask")
-fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?) {
+@BindingAdapter("bankSubtypeAndMask", "stringRes")
+fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?, @StringRes stringRes: Int?) {
+    val stringResource = stringRes ?: R.string.bank_account_subtype_and_mask
     bankAccount ?: return
     val bankSubtype = when (bankAccount.accountSubtype) {
         BankAccountSubtype.CHECKING -> context.getString(R.string.bank_account_subtype_checking)
@@ -129,7 +130,7 @@ fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?) {
         BankAccountSubtype.SAVINGS -> context.getString(R.string.bank_account_subtype_savings)
     }
     text = context.getString(
-        R.string.bank_account_subtype_and_mask,
+        stringResource,
         bankSubtype,
         bankAccount.accountNumberMask
     )

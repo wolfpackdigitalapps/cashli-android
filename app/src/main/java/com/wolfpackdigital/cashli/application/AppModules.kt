@@ -86,6 +86,7 @@ import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.UnlinkAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
@@ -161,7 +162,7 @@ object AppModules {
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
         viewModel { HomeViewModel(get(), get()) }
-        viewModel { AccountViewModel() }
+        viewModel { AccountViewModel(get(), get(), get(), get(), get()) }
         viewModel { MoreViewModel(get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
@@ -345,6 +346,7 @@ object AppModules {
         single { SubmitChangeIdentifiersUseCase(get()) }
         single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
         single { UpdateUserProfileUseCase(get()) }
+        single { UnlinkAccountUseCase(get()) }
     }
 
     private val pagingSources = module {

@@ -184,6 +184,7 @@
 
     <!--Generic -->
     <string name="generic_continue">Continue</string>
+    <string name="generic_remove">Remove</string>
     <string name="generic_seconds_abbreviation">sec</string>
     <string name="generic_confirm">Confirm</string>
     <string name="no_messaging_app_found">No messaging app found.</string>
@@ -207,6 +208,12 @@
 
     <!--Account -->
     <string name="account">Account</string>
+    <string name="account_description">Without a linked bank account, we won\'t be able to determine your eligibility for a cash advance.</string>
+    <string name="account_remove_bank_account">Remove bank account</string>
+    <string name="account_remove_bank_account_description">Removing your bank account will disqualify you for requesting future cash advances.</string>
+    <string name="account_remove_bank_account_proceed">Proceed</string>
+    <string name="account_remove_bank_account_outstanding_advance_balance">Sorry, you can\'t remove your account at this time.\n\nYou have an outstanding advance balance.</string>
+    <string name="account_remove_bank_account_try_again">Please try again after the due payment has cleared your bank account. ACH may still take days to reflect the payment in our systems.</string>
 
     <!--Help-->
     <string name="help_description">We will do our best to reply to each message within 24 hours.</string>
