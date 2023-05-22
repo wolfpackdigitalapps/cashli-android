@@ -22,7 +22,6 @@ object Constants {
     // Input text constraints
     const val PHONE_PREFIX_US = "+1"
     const val PHONE_PREFIX_RO = "+40"
-    const val PREFIX_RO_LENGTH = 3
     const val PHONE_NUMBER_LENGTH = 10
     const val MAX_CHARS_50 = 50
     const val MIN_CHARS_2 = 2

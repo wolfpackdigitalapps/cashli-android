@@ -1,10 +1,8 @@
 package com.wolfpackdigital.cashli.shared.utils.extensions
 
-import android.content.Context
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
 
@@ -48,7 +46,5 @@ fun RecyclerView.canScrollBothDirections() =
 fun View.getFocusAndShowKeyboard() {
     this.isEnabled = true
     this.requestFocus()
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE)
-        as InputMethodManager
-    inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+    showSoftKeyboard(this)
 }

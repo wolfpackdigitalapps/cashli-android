@@ -6,7 +6,6 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
@@ -18,6 +17,7 @@ import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersU
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByPasswordIdentifierUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByUpdateIdentifiersUseCase
+import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer

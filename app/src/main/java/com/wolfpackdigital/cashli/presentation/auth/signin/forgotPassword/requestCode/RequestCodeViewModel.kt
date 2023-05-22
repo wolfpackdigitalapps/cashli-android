@@ -5,16 +5,15 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.google.gson.Gson
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.domain.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateRequestCodeFormUseCase
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
+import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
@@ -119,10 +118,11 @@ class RequestCodeViewModel(
         }?.let {
             RequestCodeFragmentDirections.actionRequestCodeFragmentToConfirmOneTimePasswordFragment(
                 it,
-                if (isEmailInUse) Gson().toJson(CodeReceivedViaType.EMAIL) else Gson().toJson(
-                    CodeReceivedViaType.SMS
-                ),
-                Gson().toJson(false)
+                if (isEmailInUse)
+                    CodeReceivedViaType.EMAIL.ordinal
+                else
+                    CodeReceivedViaType.SMS.ordinal,
+                false
             )
         }?.let {
             BaseCommand.PerformNavAction(

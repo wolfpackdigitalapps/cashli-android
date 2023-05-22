@@ -1,4 +1,4 @@
-package com.wolfpackdigital.cashli.domain.entities.enums
+package com.wolfpackdigital.cashli.presentation.entities.enums
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
