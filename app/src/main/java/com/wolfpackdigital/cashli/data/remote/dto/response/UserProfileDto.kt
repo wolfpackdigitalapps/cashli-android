@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 import com.wolfpackdigital.cashli.data.remote.dto.enums.AccountStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.enums.EligibilityStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.enums.LanguagesDto
-import com.wolfpackdigital.cashli.domain.entities.response.LastMembership
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

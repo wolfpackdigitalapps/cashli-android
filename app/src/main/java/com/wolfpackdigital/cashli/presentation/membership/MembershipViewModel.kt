@@ -3,11 +3,8 @@ package com.wolfpackdigital.cashli.presentation.membership
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
-import com.wolfpackdigital.cashli.shared.utils.extensions.guardLet
-import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class MembershipViewModel : BaseViewModel(), PersistenceService {

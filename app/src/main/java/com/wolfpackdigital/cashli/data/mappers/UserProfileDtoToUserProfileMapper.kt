@@ -4,6 +4,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.response.UserProfileDto
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
+@Suppress("LongParameterList")
 class UserProfileDtoToUserProfileMapper(
     private val languagesMapper: LanguagesDtoToLanguagesMapper,
     private val tokenMapper: TokenDtoToTokenMapper,

@@ -61,5 +61,3 @@ fun TextView.strikeThroughText(membershipStatus: MembershipAdvanceItem?) {
         paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
     }
 }
-
-
