@@ -6,6 +6,8 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.utils.extensions.guardLet
+import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class MembershipViewModel : BaseViewModel(), PersistenceService {
@@ -18,21 +20,21 @@ class MembershipViewModel : BaseViewModel(), PersistenceService {
     )
     val toolbar: LiveData<Toolbar> = _toolbar
 
-    private val _membershipItem = MutableLiveData<MembershipAdvanceItem?>(
-        when (userProfile?.accountStatus) {
-            AccountStatus.ACTIVE -> MembershipAdvanceItem.MembershipActiveItem(
-                topText = String(),
-                middleText = String(),
-                bottomText = String()
-            )
+    private val _membershipItem = MutableLiveData(
+        userProfile?.lastMembership?.let { lastMembership ->
+            when (lastMembership.isMembershipActive) {
+                true -> MembershipAdvanceItem.MembershipActiveItem(
+                    topText = lastMembership.startDate,
+                    middleText = lastMembership.endDate,
+                    bottomText = lastMembership.amount
+                )
 
-            AccountStatus.PAUSED -> MembershipAdvanceItem.MembershipPausedItem(
-                topText = String(),
-                middleText = String(),
-                bottomText = String()
-            )
-
-            else -> null
+                false -> MembershipAdvanceItem.MembershipPausedItem(
+                    topText = lastMembership.startDate,
+                    middleText = lastMembership.endDate,
+                    bottomText = lastMembership.amount
+                )
+            }
         }
     )
     val membershipItem: LiveData<MembershipAdvanceItem?> = _membershipItem

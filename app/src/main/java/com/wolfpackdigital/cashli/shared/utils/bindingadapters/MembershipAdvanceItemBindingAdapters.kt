@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.shared.utils.bindingadapters
 
+import android.graphics.Paint
 import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.TextView
@@ -50,3 +51,15 @@ fun TextView.setBottomTextValue(item: MembershipAdvanceItem?) {
         }
     }
 }
+
+@BindingAdapter("membershipStatus")
+fun TextView.strikeThroughText(membershipStatus: MembershipAdvanceItem?) {
+    (membershipStatus as? MembershipAdvanceItem.MembershipPausedItem) ?.let {
+        paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        setTextColor(ContextCompat.getColor(context, R.color.colorGrayB6))
+    } ?: run {
+        paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+    }
+}
+
+

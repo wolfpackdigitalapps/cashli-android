@@ -28,6 +28,8 @@ import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestDtoToIdent
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
 import com.wolfpackdigital.cashli.data.mappers.LanguagesToLanguagesDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LastMembershipDtoToLastMembershipMapper
+import com.wolfpackdigital.cashli.data.mappers.LastMembershipStatusDtoToLastMembershipStatus
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
@@ -274,7 +276,7 @@ object AppModules {
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
         factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
         factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get(), get()) }
+        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get(), get(), get()) }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
         factory { SignInRequestToSignInRequestDtoMapper(get()) }
@@ -303,6 +305,8 @@ object AppModules {
         factory { UpdateUserProfileRequestDtoToUserProfileRequestMapper(get()) }
         factory { UpdateUserProfileRequestToUserProfileRequestDtoMapper(get()) }
         factory { AccountStatusDtoToAccountStatusMapper() }
+        factory { LastMembershipDtoToLastMembershipMapper(get()) }
+        factory { LastMembershipStatusDtoToLastMembershipStatus() }
     }
 
     private val useCases = module {

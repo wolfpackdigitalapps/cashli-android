@@ -18,7 +18,8 @@ data class UserProfile(
     val tokens: Token?,
     val accountStatus: AccountStatus,
     val bankAccountConnected: Boolean,
+    val lastMembership: LastMembership?,
     val eligibilityStatus: EligibilityStatus,
     val bankAccount: BankAccount?,
-    val userSettings: List<UserSetting> = listOf()
+    val userSettings: List<UserSetting> = listOf(),
 )

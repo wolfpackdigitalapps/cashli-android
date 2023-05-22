@@ -27,8 +27,14 @@ class MoreViewModel(
     val lastName: LiveData<String?> = _lastName
 
     // TODO replace content of filter when account status is known(pause or unpause)
-    private val _menuItems =
-        MutableLiveData(MenuItem.values().filter { it.title != R.string.unpause_close_account })
+    private val _menuItems = MutableLiveData(
+        buildList {
+            addAll(MenuItem.values())
+            remove(MenuItem.UNPAUSE_CLOSE_ACCOUNT)
+            if (userProfile?.lastMembership == null)
+                remove(MenuItem.MEMBERSHIP_ADVANCE_HISTORY)
+        }
+    )
     val menuItems: LiveData<List<MenuItem>> = _menuItems
 
     fun handleOnMenuItemClicked(menuItem: MenuItem) {

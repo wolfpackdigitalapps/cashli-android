@@ -10,7 +10,8 @@ class UserProfileDtoToUserProfileMapper(
     private val bankAccountMapper: BankAccountDtoToBankAccountMapper,
     private val userSettingMapper: UserSettingDtoToUserSettingMapper,
     private val eligibilityStatusMapper: EligibilityStatusDtoToEligibilityStatusMapper,
-    private val accountStatusMapper: AccountStatusDtoToAccountStatusMapper
+    private val accountStatusMapper: AccountStatusDtoToAccountStatusMapper,
+    private val lastMembershipMapper: LastMembershipDtoToLastMembershipMapper
 ) : Mapper<UserProfileDto, UserProfile> {
     override fun map(input: UserProfileDto): UserProfile {
         return UserProfile(
@@ -26,6 +27,7 @@ class UserProfileDtoToUserProfileMapper(
             language = languagesMapper.map(input.language),
             tokens = input.tokens?.let { tokenMapper.map(it) },
             bankAccountConnected = input.bankAccountConnected,
+            lastMembership = input.lastMembership?.let { lastMembershipMapper.map(it) },
             eligibilityStatus = eligibilityStatusMapper.map(input.eligibilityStatus),
             bankAccount = input.bankAccount?.let { bankAccountMapper.map(it) },
             userSettings = input.userSettings?.map { userSettingMapper.map(it) } ?: listOf(),

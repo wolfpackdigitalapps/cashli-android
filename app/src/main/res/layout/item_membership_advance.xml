@@ -49,12 +49,12 @@
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorPrimaryDark"
+                app:hidden="@{viewModel.itemType.title == null}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline_half_top"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:textIdOrString="@{viewModel.itemType.title}"
-                app:hidden="@{viewModel.itemType.title == null}"
                 tools:text="Membership Status" />
 
             <TextView
@@ -150,6 +150,7 @@
                 app:layout_constraintEnd_toStartOf="@id/guideline_half_bot"
                 app:layout_constraintStart_toStartOf="@id/tv_top_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_top_label"
+                app:membershipStatus="@{viewModel}"
                 app:textRes="@{viewModel.itemType.middleLabel}"
                 tools:text="Renewal" />
 
@@ -164,19 +165,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_middle_label"
                 app:layout_constraintEnd_toEndOf="@id/tv_top_value"
                 app:layout_constraintStart_toEndOf="@id/guideline_half_bot"
-                tools:text="June 01st, 2022" />
-
-            <TextView
-                android:id="@+id/tv_bottom_value"
-                style="@style/TextView.C1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:bottomTextType="@{viewModel}"
-                android:textAlignment="textEnd"
-                android:textColor="@color/colorGray76"
-                app:layout_constraintBaseline_toBaselineOf="@id/tv_bottom_label"
-                app:layout_constraintEnd_toEndOf="@id/tv_middle_value"
-                app:layout_constraintStart_toEndOf="@id/guideline_half_bot"
+                app:membershipStatus="@{viewModel}"
                 tools:text="June 01st, 2022" />
 
             <TextView
@@ -193,8 +182,23 @@
                 app:layout_constraintStart_toStartOf="@id/tv_middle_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_middle_label"
                 app:layout_constraintVertical_bias="0"
+                app:membershipStatus="@{viewModel}"
                 app:textRes="@{viewModel.itemType.bottomLabel}"
                 tools:text="Amount" />
+
+            <TextView
+                android:id="@+id/tv_bottom_value"
+                style="@style/TextView.C1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorGray76"
+                app:bottomTextType="@{viewModel}"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_bottom_label"
+                app:layout_constraintEnd_toEndOf="@id/tv_middle_value"
+                app:layout_constraintStart_toEndOf="@id/guideline_half_bot"
+                app:membershipStatus="@{viewModel}"
+                tools:text="June 01st, 2022" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
