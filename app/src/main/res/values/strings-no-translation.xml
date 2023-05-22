@@ -19,6 +19,4 @@
 
     <string name="quiz_tip_amount_perc" translatable="false">%d%%</string>
     <string name="quiz_tip_amount_slider" translatable="false">%.1f%% - $%.2f</string>
-
-    <string name="membership_amount_value" translatable="false">%s/month</string>
 </resources>

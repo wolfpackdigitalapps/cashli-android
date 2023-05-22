@@ -238,6 +238,7 @@
     <string name="cash_advance_paid_date">Paid Date</string>
     <string name="cash_advance_overdue">Overdue</string>
     <string name="cash_advance_paid">Paid</string>
+    <string name="membership_amount_value">%s/month</string>
 
     <!--Change Password-->
     <string name="change_password_toolbar_title">Change your password</string>
