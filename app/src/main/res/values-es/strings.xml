@@ -269,10 +269,9 @@
     <string name="email">EMAIL</string>
 
     <!--Plurals-->
-    <plurals name="past_days_plural">
+    <plurals name="past_days_plural" tools:ignore="MissingQuantity">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
-        <item quantity="many">%d days ago</item>
     </plurals>
 
 </resources>

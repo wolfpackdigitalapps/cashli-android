@@ -41,7 +41,7 @@
                 app:tintRes="@{viewModel.topTint}" />
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_card_title"
                 style="@style/TextView.H6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -64,10 +64,10 @@
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:textAlignment="textEnd"
                 app:itemType="@{viewModel}"
-                app:layout_constraintBottom_toBottomOf="@id/tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_card_title"
                 app:layout_constraintEnd_toStartOf="@id/iv_end_drawable"
                 app:layout_constraintStart_toEndOf="@id/guideline_half_top"
-                app:layout_constraintTop_toTopOf="@id/tv_title"
+                app:layout_constraintTop_toTopOf="@id/tv_card_title"
                 tools:text="Active" />
 
             <ImageView

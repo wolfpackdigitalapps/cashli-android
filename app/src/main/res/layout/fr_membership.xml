@@ -18,7 +18,7 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_root"
+            android:id="@+id/cl_fragment_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
