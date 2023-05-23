@@ -153,6 +153,12 @@
         <item name="android:splitMotionEvents">false</item>
     </style>
 
+    <style name="Switch.Green" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="useMaterialThemeColors">false</item>
+        <item name="trackTint">@color/switch_track_selector</item>
+        <item name="thumbTint">@color/switch_thumb_selector</item>
+    </style>
+
     <style name="BaseTextInputEditTextLight" parent="BaseTextInputEditText">
         <item name="android:background">@drawable/text_input_edit_text_background_light_selector
         </item>

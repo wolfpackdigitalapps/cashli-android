@@ -53,5 +53,4 @@ object Constants {
     const val PUSH_NOTIFICATION_EXTRA_DATA = "push_notification_extra_data"
     const val PUSH_NOTIFICATION_EXTRA_FOREGROUND = "push_notification_extra_foreground"
     const val PUSH_NOTIFICATION_EXTRA_DATA_FOREGROUND = "push_notification_extra_data_foreground"
-    const val PUSH_NOTIFICATION_SETTING = "push_notifications_enabled"
 }

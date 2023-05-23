@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.application
 
+import com.wolfpackdigital.cashli.data.mappers.AccountStatusDtoToAccountStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountDtoToBankAccountMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeDtoToBankAccountSubtypeMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSubtypeDtoMapper
@@ -29,6 +30,8 @@ import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestDtoToIdent
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
 import com.wolfpackdigital.cashli.data.mappers.LanguagesToLanguagesDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LastMembershipDtoToLastMembershipMapper
+import com.wolfpackdigital.cashli.data.mappers.LastMembershipStatusDtoToLastMembershipStatus
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
@@ -50,9 +53,10 @@ import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestToUserPro
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingDtoToUserSettingMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyDtoToUserSettingsKeyMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyToUserSettingsKeyDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
@@ -133,9 +137,11 @@ import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
+import com.wolfpackdigital.cashli.presentation.membership.MembershipViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
+import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
@@ -153,6 +159,7 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
+        viewModel { SettingsViewModel(get()) }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
         viewModel { LinkBankAccountInformativeViewModel(get(), get(), get()) }
@@ -190,6 +197,7 @@ object AppModules {
         viewModel { (editPhoneOrEmail: EditPhoneOrEmail) ->
             ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())
         }
+        viewModel { MembershipViewModel() }
     }
 
     private val apiModule = module {
@@ -244,10 +252,12 @@ object AppModules {
     private val mappersModule = module {
         factory { EligibilityChecksDtoToEligibilityChecksMapper(get()) }
         factory { EligibilityChecksToEligibilityChecksDtoMapper(get()) }
+        factory { UserSettingsKeyToUserSettingsKeyDtoMapper() }
+        factory { UserSettingsKeyDtoToUserSettingsKeyMapper() }
         factory { BankTransactionToBankTransactionDtoMapper() }
         factory { BankTransactionDtoToBankTransactionMapper() }
-        factory { UserSettingDtoToUserSettingMapper() }
-        factory { UserSettingToUserSettingDtoMapper() }
+        factory { UserSettingDtoToUserSettingMapper(get()) }
+        factory { UserSettingToUserSettingDtoMapper(get()) }
         factory { SingleDataRequestToSingleDataRequestDtoMapper() }
         factory { SingleDataRequestDtoToSingleDataRequestMapper() }
         factory { BankAccountSubtypeDtoToBankAccountSubtypeMapper() }
@@ -276,8 +286,7 @@ object AppModules {
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
         factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
         factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileToUserProfileDtoMapper(get(), get(), get(), get(), get()) }
-        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get()) }
+        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get(), get(), get()) }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
         factory { SignInRequestToSignInRequestDtoMapper(get()) }
@@ -305,6 +314,9 @@ object AppModules {
         }
         factory { UpdateUserProfileRequestDtoToUserProfileRequestMapper(get()) }
         factory { UpdateUserProfileRequestToUserProfileRequestDtoMapper(get()) }
+        factory { AccountStatusDtoToAccountStatusMapper() }
+        factory { LastMembershipDtoToLastMembershipMapper(get()) }
+        factory { LastMembershipStatusDtoToLastMembershipStatus() }
     }
 
     private val useCases = module {

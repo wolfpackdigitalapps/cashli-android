@@ -9,9 +9,10 @@ import androidx.paging.cachedIn
 import com.wolfpackdigital.cashli.HomeGraphDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
+import com.wolfpackdigital.cashli.domain.entities.UserSetting
 import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
+import com.wolfpackdigital.cashli.domain.entities.enums.UserSettingsKeys
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
-import com.wolfpackdigital.cashli.domain.entities.response.UserSetting
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
@@ -26,7 +27,6 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
-import com.wolfpackdigital.cashli.shared.utils.Constants.PUSH_NOTIFICATION_SETTING
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDateTime
@@ -178,7 +178,8 @@ class HomeViewModel(
         performApiCall(showLoading = false) {
             val result = updateUserSettingUseCase(
                 UserSetting(
-                    key = PUSH_NOTIFICATION_SETTING, value = isGranted.toString()
+                    key = UserSettingsKeys.PUSH_NOTIFICATIONS_ENABLED,
+                    value = isGranted.toString()
                 )
             )
             result.onSuccess { newUserSettings ->

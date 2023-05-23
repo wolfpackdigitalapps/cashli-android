@@ -18,6 +18,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import com.google.gson.reflect.TypeToken
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.ApiError
@@ -146,6 +147,13 @@ fun <T1 : Any, T2 : Any, T3 : Any, R : Any> safeLet(
     block: (T1, T2, T3) -> R?
 ): R? {
     return if (p1 != null && p2 != null && p3 != null) block(p1, p2, p3) else null
+}
+
+inline fun <reified T : Any> T?.json() = this?.let { Gson().toJson(this, T::class.java) }
+
+inline fun <reified T : Any> String?.fromJson(): T? = this?.let {
+    val type = object : TypeToken<T>() {}.type
+    Gson().fromJson(this, type)
 }
 
 // Usage: condition then "yes" ?: "no"
