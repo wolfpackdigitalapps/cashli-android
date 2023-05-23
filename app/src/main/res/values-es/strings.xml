@@ -226,6 +226,20 @@
     <string name="logout">Logout</string>
     <string name="unpause_close_account">Unpause or Close account</string>
 
+    <!--Membership -->
+    <string name="membership_status">Membership status</string>
+    <string name="membership_status_active">Active</string>
+    <string name="membership_status_paused">Paused</string>
+    <string name="membership_started">Started</string>
+    <string name="membership_renewal">Renewal</string>
+    <string name="membership_amount">Amount</string>
+    <string name="cash_advance_amount">Amount</string>
+    <string name="cash_advance_due_date">Due Date</string>
+    <string name="cash_advance_paid_date">Paid Date</string>
+    <string name="cash_advance_overdue">Overdue</string>
+    <string name="cash_advance_paid">Paid</string>
+    <string name="membership_amount_value">%s/month</string>
+
     <!--Change Password-->
     <string name="change_password_toolbar_title">Change your password</string>
     <string name="change_password_title">Type and confirm a new password</string>
@@ -264,7 +278,7 @@
     <string name="email">EMAIL</string>
 
     <!--Plurals-->
-    <plurals name="past_days_plural">
+    <plurals name="past_days_plural" tools:ignore="MissingQuantity">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
     </plurals>
