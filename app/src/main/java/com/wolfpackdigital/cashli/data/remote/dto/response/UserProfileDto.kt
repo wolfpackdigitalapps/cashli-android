@@ -2,6 +2,7 @@ package com.wolfpackdigital.cashli.data.remote.dto.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.wolfpackdigital.cashli.data.remote.dto.UserSettingDto
 import com.wolfpackdigital.cashli.data.remote.dto.enums.AccountStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.enums.EligibilityStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.enums.LanguagesDto

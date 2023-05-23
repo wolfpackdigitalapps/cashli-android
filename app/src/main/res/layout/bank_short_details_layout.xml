@@ -41,7 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_bank_name"
                 style="@style/TextView.S2"
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Bank of America" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_balance"
                 style="@style/TextView.S2"
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="tv_balance, tv_bank_name" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_bank_mask"
                 style="@style/TextView.C1"
                 android:layout_width="0dp"

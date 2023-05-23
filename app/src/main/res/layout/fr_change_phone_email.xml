@@ -5,6 +5,8 @@
 
     <data class=".ChangePhoneOrEmailBinding">
 
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.InputFilterType" />
+
         <import type="com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail" />
 
         <import type="android.view.inputmethod.EditorInfo" />
@@ -85,6 +87,7 @@
             app:cliError="@{viewModel.editPhoneOrEmail == EditPhoneOrEmail.PHONE ? viewModel.phoneNumberError : viewModel.emailError}"
             app:cliHint="@{@string/et_hint}"
             app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+            app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
             app:cliInputType="@{viewModel.editPhoneOrEmail == EditPhoneOrEmail.PHONE ? InputType.TYPE_CLASS_NUMBER : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
             app:cliLabel="@{viewModel.editPhoneOrEmail == EditPhoneOrEmail.PHONE ? @string/phone : @string/email}"
             app:cliLabelColor="@{@color/colorPrimaryDark}"

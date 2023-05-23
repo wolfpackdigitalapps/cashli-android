@@ -53,6 +53,8 @@ import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfil
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingDtoToUserSettingMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyDtoToUserSettingsKeyMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyToUserSettingsKeyDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
@@ -137,6 +139,7 @@ import com.wolfpackdigital.cashli.presentation.membership.MembershipViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
+import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
@@ -154,6 +157,7 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
+        viewModel { SettingsViewModel(get()) }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
         viewModel { LinkBankAccountInformativeViewModel(get(), get(), get()) }
@@ -244,10 +248,12 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { UserSettingsKeyToUserSettingsKeyDtoMapper() }
+        factory { UserSettingsKeyDtoToUserSettingsKeyMapper() }
         factory { BankTransactionToBankTransactionDtoMapper() }
         factory { BankTransactionDtoToBankTransactionMapper() }
-        factory { UserSettingDtoToUserSettingMapper() }
-        factory { UserSettingToUserSettingDtoMapper() }
+        factory { UserSettingDtoToUserSettingMapper(get()) }
+        factory { UserSettingToUserSettingDtoMapper(get()) }
         factory { SingleDataRequestToSingleDataRequestDtoMapper() }
         factory { SingleDataRequestDtoToSingleDataRequestMapper() }
         factory { BankAccountSubtypeDtoToBankAccountSubtypeMapper() }

@@ -4,6 +4,8 @@
 
     <data class=".CreateProfileBinding">
 
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.InputFilterType" />
+
         <import type="android.text.InputType" />
 
         <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
@@ -69,6 +71,7 @@
                     app:cliError="@{viewModel.firstNameError}"
                     app:cliHint="@{@string/et_hint}"
                     app:cliImeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                    app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                     app:cliInputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:cliLabel="@{@string/et_first_name}"
                     app:cliMaxChars="@{Constants.MAX_CHARS_50}"
@@ -88,6 +91,7 @@
                     app:cliError="@{viewModel.lastNameError}"
                     app:cliHint="@{@string/et_hint}"
                     app:cliImeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                    app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                     app:cliInputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:cliLabel="@{@string/et_last_name}"
                     app:cliMaxChars="@{Constants.MAX_CHARS_50}"
@@ -107,6 +111,7 @@
                     app:cliError="@{viewModel.streetError}"
                     app:cliHint="@{@string/et_hint}"
                     app:cliImeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                    app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                     app:cliInputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:cliLabel="@{@string/et_street}"
                     app:cliMaxChars="@{Constants.MAX_CHARS_50}"
@@ -125,6 +130,7 @@
                     app:cliError="@{viewModel.zipCodeError}"
                     app:cliHint="@{@string/et_hint}"
                     app:cliImeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                    app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                     app:cliInputType="@{InputType.TYPE_CLASS_NUMBER}"
                     app:cliLabel="@{@string/et_zip_code}"
                     app:cliMaxChars="@{viewModel.ZIP_CODE_LENGTH}"
@@ -163,6 +169,7 @@
                     app:cliError="@{viewModel.emailError}"
                     app:cliHint="@{@string/et_hint}"
                     app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                    app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                     app:cliInputType="@{InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
                     app:cliLabel="@{@string/et_email}"
                     app:cliMaxChars="@{Constants.MAX_CHARS_50}"

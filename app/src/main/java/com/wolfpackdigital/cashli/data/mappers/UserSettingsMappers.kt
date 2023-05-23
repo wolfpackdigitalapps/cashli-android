@@ -1,24 +1,28 @@
 package com.wolfpackdigital.cashli.data.mappers
 
-import com.wolfpackdigital.cashli.data.remote.dto.response.UserSettingDto
-import com.wolfpackdigital.cashli.domain.entities.response.UserSetting
+import com.wolfpackdigital.cashli.data.remote.dto.UserSettingDto
+import com.wolfpackdigital.cashli.domain.entities.UserSetting
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
-class UserSettingToUserSettingDtoMapper :
+class UserSettingToUserSettingDtoMapper(
+    private val userSettingsKeysMapper: UserSettingsKeyToUserSettingsKeyDtoMapper
+) :
     Mapper<UserSetting, UserSettingDto> {
     override fun map(input: UserSetting): UserSettingDto {
         return UserSettingDto(
-            key = input.key,
+            key = userSettingsKeysMapper.map(input.key),
             value = input.value
         )
     }
 }
 
-class UserSettingDtoToUserSettingMapper :
+class UserSettingDtoToUserSettingMapper(
+    private val userSettingsKeysMapper: UserSettingsKeyDtoToUserSettingsKeyMapper
+) :
     Mapper<UserSettingDto, UserSetting> {
     override fun map(input: UserSettingDto): UserSetting {
         return UserSetting(
-            key = input.key,
+            key = userSettingsKeysMapper.map(input.key),
             value = input.value
         )
     }

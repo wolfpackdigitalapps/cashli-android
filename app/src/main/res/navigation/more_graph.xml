@@ -17,6 +17,9 @@
             android:id="@+id/action_moreFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
         <action
+            android:id="@+id/action_moreFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
             android:id="@+id/action_moreFragment_to_membershipFragment"
             app:destination="@id/membershipFragment" />
     </fragment>
@@ -54,6 +57,12 @@
         android:name="com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordFragment"
         android:label="ChangePasswordFragment"
         tools:layout="@layout/fr_change_password" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.more.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fr_settings" />
 
     <fragment
         android:id="@+id/membershipFragment"
