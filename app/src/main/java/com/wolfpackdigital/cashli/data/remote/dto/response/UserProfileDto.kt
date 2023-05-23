@@ -25,6 +25,6 @@ data class UserProfileDto(
     @SerializedName("last_membership") val lastMembership: LastMembershipDto?,
     @SerializedName("eligibility_status") val eligibilityStatus: EligibilityStatusDto,
     @SerializedName("bank_account") val bankAccount: BankAccountDto?,
-    @SerializedName("user_settings") val userSettings: List<UserSettingDto>?,
+    @SerializedName("settings") val userSettings: List<UserSettingDto>?,
     @SerializedName("account_status") val accountStatus: AccountStatusDto
 ) : Parcelable
