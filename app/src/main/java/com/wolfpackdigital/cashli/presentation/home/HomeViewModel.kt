@@ -12,11 +12,13 @@ import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
 import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.entities.response.UserSetting
+import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
 import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
+import com.wolfpackdigital.cashli.presentation.entities.enums.BankAccountInfoType
 import com.wolfpackdigital.cashli.presentation.entities.enums.RequestCashAdvanceType
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
@@ -26,9 +28,13 @@ import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.Constants.PUSH_NOTIFICATION_SETTING
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
+import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDateTime
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -39,7 +45,8 @@ private const val TRANSACTIONS_PAGE_SIZE = 10
 
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
-    private val updateUserSettingUseCase: UpdateUserSettingUseCase
+    private val updateUserSettingUseCase: UpdateUserSettingUseCase,
+    private val getEligibilityStatusUseCase: GetEligibilityStatusUseCase
 ) : BaseViewModel(), PersistenceService, KoinComponent {
 
     private val _cmd = LiveEvent<Command>()
@@ -54,6 +61,8 @@ class HomeViewModel(
 
     private val _currentUserProfile = MutableLiveData<UserProfile?>()
     val currentUserProfile: LiveData<UserProfile?> = _currentUserProfile
+
+    private var checkEligibilityStatusJob: Job? = null
 
     val bankTransactionsFlow = Pager(
         config = PagingConfig(
@@ -90,15 +99,32 @@ class HomeViewModel(
 
     private fun handleLinkBankAccountInfo() {
         val bankInfo = currentUserProfile.value?.let { userProfile ->
-            // TODO check for pending status
-            LinkBankAccountInfo(
-                bankAccount = userProfile.bankAccount?.copy(
-                    timestamp = userProfile.bankAccount.timestamp.toFormattedLocalDateTime()
-                        ?: EMPTY_STRING
-                ),
-                linkBankAccountAction = { goToLinkBankAccount() }
-            )
+            when {
+                userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                    toggleEligibilityStatusJob()
+                    LinkBankAccountInfo(bankAccountInfoType = BankAccountInfoType.PENDING)
+                }
+
+                userProfile.bankAccount == null &&
+                    userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                    LinkBankAccountInfo(
+                        bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
+                        linkBankAccountAction = { goToLinkBankAccount() }
+                    )
+                }
+
+                else -> {
+                    LinkBankAccountInfo(
+                        bankAccountInfoType = BankAccountInfoType.CONNECTED,
+                        bankAccount = userProfile.bankAccount?.copy(
+                            timestamp = userProfile.bankAccount.timestamp.toFormattedLocalDateTime()
+                                ?: EMPTY_STRING
+                        )
+                    )
+                }
+            }
         }
+
         _cmd.value = Command.RefreshLinkBankAccountInfo(bankInfo)
     }
 
@@ -177,6 +203,51 @@ class HomeViewModel(
         _baseCmd.value = BaseCommand.PerformNavAction(
             HomeGraphDirections.actionGlobalClaimCashGraph()
         )
+    }
+
+    private fun initCheckEligibilityStatusJob() {
+        // TODO replace eligibility delay with minutes after more tests
+        checkEligibilityStatusJob = initTimer(Constants.COUNT_DOWN_TIME_30_SEC).onCompletion {
+            if (it == null)
+                handleEligibilityStatus()
+            cancelCheckEligibilityStatusJob()
+        }.launchIn(viewModelScope)
+    }
+
+    private fun toggleEligibilityStatusJob() {
+        viewModelScope.launch {
+            checkEligibilityStatusJob?.let {
+                cancelCheckEligibilityStatusJob()
+            }
+            initCheckEligibilityStatusJob()
+        }
+    }
+
+    fun cancelCheckEligibilityStatusJob() {
+        checkEligibilityStatusJob?.cancel()
+        checkEligibilityStatusJob = null
+    }
+
+    @Suppress("MagicNumber")
+    private fun handleEligibilityStatus() {
+        viewModelScope.launch {
+            val result = getEligibilityStatusUseCase(Unit)
+            result.onSuccess { eligibilityStatus ->
+                when (eligibilityStatus.status) {
+                    EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                        toggleEligibilityStatusJob()
+                    }
+
+                    EligibilityStatus.ELIGIBLE, EligibilityStatus.NOT_ELIGIBLE -> {
+                        getUserProfile()
+                    }
+
+                    else -> {
+                        // TODO add logic if necessary
+                    }
+                }
+            }
+        }
     }
 
     sealed class Command {

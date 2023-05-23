@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.presentation.home
 
 import android.Manifest
@@ -160,6 +162,11 @@ class HomeFragment :
     override fun onResume() {
         super.onResume()
         viewModel.getUserProfile()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.cancelCheckEligibilityStatusJob()
     }
 
     private fun handlePushNotificationPermissions() {
