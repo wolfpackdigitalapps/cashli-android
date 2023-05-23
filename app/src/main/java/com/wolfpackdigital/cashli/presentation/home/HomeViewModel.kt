@@ -156,17 +156,37 @@ class HomeViewModel(
                     value = isGranted.toString()
                 )
             )
-            result.onSuccess { newUserSettings ->
+            result.onSuccess { newUserSetting ->
                 userProfile =
                     userProfile?.copy(
-                        userSettings = userProfile?.userSettings?.map { oldUserSettings ->
-                            if (newUserSettings.key == oldUserSettings.key) newUserSettings
-                            else oldUserSettings
+                        userSettings = userProfile?.userSettings?.find {
+                            it.key == newUserSetting.key
+                        }?.let {
+                            handleUpdateExistingUserSetting(newUserSetting)
+                        } ?: handleNewUserSetting(newUserSetting)
+                    )
+                userProfile =
+                    userProfile?.copy(
+                        userSettings = userProfile?.userSettings?.map { oldUserSetting ->
+                            if (newUserSetting.key == oldUserSetting.key) newUserSetting
+                            else oldUserSetting
                         } ?: listOf()
                     )
             }
         }
     }
+
+    private fun handleUpdateExistingUserSetting(newUserSetting: UserSetting) =
+        userProfile?.userSettings?.map { oldUserSetting ->
+            if (newUserSetting.key == oldUserSetting.key) newUserSetting
+            else oldUserSetting
+        } ?: listOf()
+
+    private fun handleNewUserSetting(newUserSetting: UserSetting) =
+        buildList {
+            userProfile?.userSettings?.let { addAll(it) }
+            add(newUserSetting)
+        }
 
     private fun goToLinkBankAccount() {
         _baseCmd.value = BaseCommand.PerformNavAction(

@@ -82,13 +82,14 @@ class SettingsViewModel(
     ) {
         performApiCall {
             val result = updateUserSettingUseCase(userSetting)
-            result.onSuccess { newUserSettings ->
+            result.onSuccess { newUserSetting ->
                 userProfile =
                     userProfile?.copy(
-                        userSettings = userProfile?.userSettings?.map { oldUserSettings ->
-                            if (newUserSettings.key == oldUserSettings.key) newUserSettings
-                            else oldUserSettings
-                        } ?: listOf()
+                        userSettings = userProfile?.userSettings?.find {
+                            it.key == newUserSetting.key
+                        }?.let {
+                            handleUpdateExistingUserSetting(newUserSetting)
+                        } ?: handleNewUserSetting(newUserSetting)
                     )
                 onSuccess.invoke(userSetting)
             }
@@ -102,6 +103,18 @@ class SettingsViewModel(
                 _cmd.value = Command.TransitionToStart
         }
     }
+
+    private fun handleUpdateExistingUserSetting(newUserSetting: UserSetting) =
+        userProfile?.userSettings?.map { oldUserSetting ->
+            if (newUserSetting.key == oldUserSetting.key) newUserSetting
+            else oldUserSetting
+        } ?: listOf()
+
+    private fun handleNewUserSetting(newUserSetting: UserSetting) =
+        buildList {
+            userProfile?.userSettings?.let { addAll(it) }
+            add(newUserSetting)
+        }
 
     fun onTogglePushNotifications() {
         val userNotificationsSetting = userProfile?.userSettings?.find { userSetting ->
