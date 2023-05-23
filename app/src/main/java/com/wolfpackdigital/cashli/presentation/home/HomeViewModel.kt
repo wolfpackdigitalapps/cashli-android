@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.presentation.home
 
 import androidx.lifecycle.LiveData
