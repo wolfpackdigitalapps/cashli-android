@@ -9,11 +9,13 @@ import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionDtoToBankTransactionMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionToBankTransactionDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CashAdvanceRequestToCashAdvanceRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.DeliveryMethodToDeliveryMethodDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusDtoToEligibilityStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusToEligibilityStatusDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
@@ -89,6 +91,7 @@ import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RequestCashAdvanceUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
@@ -183,9 +186,9 @@ object AppModules {
         viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
         viewModel { RequestCodeViewModel(get(), get()) }
         viewModel { (
-            phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
-            fromEditProfile: Boolean
-        ) ->
+                        phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
+                        fromEditProfile: Boolean
+                    ) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail, codeReceivedViaType, fromEditProfile, get(), get(), get(), get()
             )
@@ -240,7 +243,7 @@ object AppModules {
                 get()
             )
         }
-        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get()) }
+        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -330,6 +333,8 @@ object AppModules {
         factory { LastMembershipDtoToLastMembershipMapper(get()) }
         factory { LastMembershipStatusDtoToLastMembershipStatusMapper() }
         factory { TransferFeesDtoToTransferFeesMapper() }
+        factory { DeliveryMethodToDeliveryMethodDtoMapper() }
+        factory { CashAdvanceRequestToCashAdvanceRequestDtoMapper(get()) }
     }
 
     private val useCases = module {
@@ -375,6 +380,7 @@ object AppModules {
         single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
         single { UpdateUserProfileUseCase(get()) }
         single { GetTransferFeesUseCase(get()) }
+        single { RequestCashAdvanceUseCase(get()) }
     }
 
     private val pagingSources = module {
