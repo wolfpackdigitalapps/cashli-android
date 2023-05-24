@@ -13,25 +13,43 @@ enum class DeliveryMethod(
     @StringRes val disclaimer: Int,
     @DrawableRes val background: Int,
     @DrawableRes val icon: Int,
-    @ColorRes val tint: Int
+    @ColorRes val tint: Int,
+    @StringRes val tooltipText: Int? = null
 ) {
     REGULAR(
         methodName = R.string.delivery_method_regular,
         description = R.string.delivery_method_regular_description,
         secondaryDescription = null,
         disclaimer = R.string.delivery_method_regular_disclaimer,
-        // TODO Replace this with appropriate drawable after discussing with Alexandra
-        background = R.drawable.bg_express_item,
+        background = R.drawable.bg_regular_item,
         icon = R.drawable.ic_regular_delivery,
-        tint = R.color.colorGreen71
+        tint = R.color.colorGreen71,
     ),
-    EXPRESS(
+    EXPRESS_WITHIN_MINUTES(
         methodName = R.string.delivery_method_express,
-        description = R.string.delivery_method_express_description,
+        description = R.string.delivery_method_express_within_minutes,
         secondaryDescription = R.string.delivery_method_express_secondary_description,
         disclaimer = R.string.delivery_method_express_disclaimer,
         background = R.drawable.bg_express_item,
         icon = R.drawable.ic_express_delivery,
         tint = R.color.colorAccent
+    ),
+    EXPRESS_SEVERAL_HOURS(
+        methodName = R.string.delivery_method_express,
+        description = R.string.delivery_method_express_several_hours,
+        disclaimer = R.string.delivery_method_regular_disclaimer,
+        background = R.drawable.bg_express_item,
+        icon = R.drawable.ic_express_delivery,
+        tint = R.color.colorAccent,
+        tooltipText = R.string.pending
+    ),
+    EXPRESS_WITHIN_20_HOURS(
+        methodName = R.string.delivery_method_express,
+        description = R.string.delivery_method_express_within_minutes,
+        disclaimer = R.string.delivery_method_regular_disclaimer,
+        background = R.drawable.bg_express_item,
+        icon = R.drawable.ic_express_delivery,
+        tint = R.color.colorAccent,
+        tooltipText = R.string.pending
     )
 }

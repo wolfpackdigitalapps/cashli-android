@@ -4,7 +4,7 @@ import com.wolfpackdigital.cashli.data.remote.dto.response.LastMembershipStatusD
 import com.wolfpackdigital.cashli.domain.entities.response.LastMembershipStatus
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
-class LastMembershipStatusDtoToLastMembershipStatus : Mapper<LastMembershipStatusDto, LastMembershipStatus> {
+class LastMembershipStatusDtoToLastMembershipStatusMapper : Mapper<LastMembershipStatusDto, LastMembershipStatus> {
     override fun map(input: LastMembershipStatusDto): LastMembershipStatus {
         return when (input) {
             LastMembershipStatusDto.PAYMENT_PENDING -> LastMembershipStatus.PAYMENT_PENDING
