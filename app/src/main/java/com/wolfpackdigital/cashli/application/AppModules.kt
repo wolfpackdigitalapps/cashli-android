@@ -53,7 +53,6 @@ import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestToUserPro
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingDtoToUserSettingMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyDtoToUserSettingsKeyMapper
@@ -172,7 +171,7 @@ object AppModules {
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
-        viewModel { HomeViewModel(get(), get(), get(), get()) }
+        viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
         viewModel { AccountViewModel() }
         viewModel { MoreViewModel(get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
@@ -184,9 +183,9 @@ object AppModules {
         viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
         viewModel { RequestCodeViewModel(get(), get()) }
         viewModel { (
-            phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
-            fromEditProfile: Boolean
-        ) ->
+                        phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
+                        fromEditProfile: Boolean
+                    ) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail, codeReceivedViaType, fromEditProfile, get(), get(), get(), get()
             )
@@ -289,8 +288,17 @@ object AppModules {
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
         factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
         factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileToUserProfileDtoMapper(get(), get(), get(), get(), get(), get(), get()) }
-        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get(), get(), get()) }
+        factory {
+            UserProfileDtoToUserProfileMapper(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
         factory { LanguagesToLanguagesDtoMapper() }
         factory { LanguagesDtoToLanguagesMapper() }
         factory { SignInRequestToSignInRequestDtoMapper(get()) }

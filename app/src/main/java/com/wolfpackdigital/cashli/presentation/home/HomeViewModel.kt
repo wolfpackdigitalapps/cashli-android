@@ -31,7 +31,6 @@ import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkA
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkInstitutionRequest
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
-import com.wolfpackdigital.cashli.domain.entities.response.UserSetting
 import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
@@ -72,8 +71,7 @@ private const val VALUE_SPAN_OPEN_RESOLVE_CONNECTION = "openResolveConnection"
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserSettingUseCase: UpdateUserSettingUseCase,
-    private val getEligibilityStatusUseCase: GetEligibilityStatusUseCase
-    private val updateUserSettingUseCase: UpdateUserSettingUseCase,
+    private val getEligibilityStatusUseCase: GetEligibilityStatusUseCase,
     private val generateUpdateLinkTokenUseCase: GenerateUpdateLinkTokenUseCase,
     private val completeUpdateLinkingBankAccountUseCase: CompleteUpdateLinkingBankAccountUseCase
 ) : BaseViewModel(), PersistenceService, KoinComponent {
@@ -106,7 +104,7 @@ class HomeViewModel(
     @StringRes
     val connectionLostTextId = R.string.warning_lost_connection
 
-    val connectionLostSpanAction: List<TextSpanAction> = listOf(
+    private val connectionLostSpanAction: List<TextSpanAction> = listOf(
         TextSpanAction(
             actionKey = VALUE_SPAN_OPEN_RESOLVE_CONNECTION,
             spanTextColor = R.color.colorPrimaryDark,
@@ -161,7 +159,7 @@ class HomeViewModel(
                 }
 
                 userProfile.bankAccount == null &&
-                    userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                        userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         linkBankAccountAction = { goToLinkBankAccount() }
