@@ -18,7 +18,8 @@ class BankAccountSectionAdapter :
             override fun areContentsTheSame(
                 oldItem: LinkBankAccountInfo,
                 newItem: LinkBankAccountInfo
-            ) = oldItem.bankAccount?.name == newItem.bankAccount?.name
+            ) = oldItem.eligibilityStatus == newItem.eligibilityStatus &&
+                oldItem.bankAccount?.name == newItem.bankAccount?.name
         }
     ) {
 

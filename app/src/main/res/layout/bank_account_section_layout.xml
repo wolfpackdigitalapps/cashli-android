@@ -6,6 +6,8 @@
 
     <data class=".BankAccountSectionBinding">
 
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.BankAccountInfoType" />
+
         <variable
             name="viewModel"
             type="com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo" />
@@ -18,14 +20,28 @@
         android:layout_height="wrap_content">
 
         <ViewStub
+            android:id="@+id/stub_link_bank_account_pending"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:inflatedId="@+id/link_bank_account_pending"
+            android:layout="@layout/link_bank_account_pending_layout"
+            android:visibility="@{viewModel.bankAccountInfoType == BankAccountInfoType.PENDING}"
+            app:inflatedVisibility="@{viewModel.bankAccountInfoType == BankAccountInfoType.PENDING}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:linkBankAccountInfo="@{viewModel}" />
+
+        <ViewStub
             android:id="@+id/stub_link_bank_account"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20dp"
             android:inflatedId="@+id/link_bank_account"
             android:layout="@layout/link_bank_account_layout"
-            android:visibility="@{viewModel.bankAccount == null}"
-            app:inflatedVisibility="@{viewModel.bankAccount == null}"
+            android:visibility="@{viewModel.bankAccountInfoType == BankAccountInfoType.NOT_CONNECTED}"
+            app:inflatedVisibility="@{viewModel.bankAccountInfoType == BankAccountInfoType.NOT_CONNECTED}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,8 +55,8 @@
             android:layout_marginTop="@dimen/dimen_20dp"
             android:inflatedId="@+id/bank_account_info"
             android:layout="@layout/link_bank_account_info_layout"
-            android:visibility="@{viewModel.bankAccount != null}"
-            app:inflatedVisibility="@{viewModel.bankAccount != null}"
+            android:visibility="@{viewModel.bankAccount != null &amp;&amp; viewModel.bankAccountInfoType == BankAccountInfoType.CONNECTED}"
+            app:inflatedVisibility="@{viewModel.bankAccount != null &amp;&amp; viewModel.bankAccountInfoType == BankAccountInfoType.CONNECTED}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

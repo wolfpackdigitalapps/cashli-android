@@ -1,9 +1,12 @@
 package com.wolfpackdigital.cashli.shared.utils.persistence
 
 import com.orhanobut.hawk.Hawk
+import com.wolfpackdigital.cashli.domain.entities.UserSetting
 import com.wolfpackdigital.cashli.domain.entities.enums.Languages
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
+import com.wolfpackdigital.cashli.shared.utils.extensions.fromJson
+import com.wolfpackdigital.cashli.shared.utils.extensions.json
 
 interface PersistenceService {
 
@@ -37,7 +40,12 @@ interface PersistenceService {
         }
 
     var userProfile: UserProfile?
-        get() = Hawk.get(HawkKeys.USER_PROFILE)
+        get() {
+            val user = Hawk.get<UserProfile>(HawkKeys.USER_PROFILE)
+            return user?.copy(
+                userSettings = user.userSettings.json().fromJson<List<UserSetting>>() ?: listOf()
+            )
+        }
         set(value) {
             Hawk.put(HawkKeys.USER_PROFILE, value)
         }

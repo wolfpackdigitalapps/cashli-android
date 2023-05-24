@@ -1,11 +1,11 @@
 package com.wolfpackdigital.cashli.data.remote.api
 
+import com.wolfpackdigital.cashli.data.remote.dto.UserSettingDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.IdentifiersRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.UpdateIdentifiersCodeValidationRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.UpdateUserProfileRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.BankTransactionDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.UserProfileDto
-import com.wolfpackdigital.cashli.data.remote.dto.response.UserSettingDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH

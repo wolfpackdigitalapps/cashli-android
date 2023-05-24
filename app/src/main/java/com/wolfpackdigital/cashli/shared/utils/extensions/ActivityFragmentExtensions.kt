@@ -8,12 +8,14 @@ import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Parcelable
 import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -297,4 +299,20 @@ fun Fragment.openAppSettings() {
             requireContext().packageName
         )
     startActivity(settingsIntent)
+}
+
+fun Context.handleNotificationsRequest(
+    permission: String?,
+    activityResultLauncher: ActivityResultLauncher<String>,
+    onPermissionAlreadyGranted: () -> Unit = {}
+) {
+    if (permission != null && ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_DENIED
+    ) {
+        activityResultLauncher.launch(permission)
+    } else {
+        onPermissionAlreadyGranted.invoke()
+    }
 }

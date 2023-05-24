@@ -142,6 +142,7 @@
     <!--Link Bank Account -->
     <string name="pending">Pending</string>
     <string name="pending_content">Your bank account will be connected soon.</string>
+    <string name="pending_time_content">Please wait for a few moments.</string>
     <string name="congrats">Congrats!</string>
     <string name="bank_account_connection_success">Connection to your bank account has been successful.\n\n<b>You are approved for $%s.</b></string>
     <string name="cash_out">Cash out</string>
@@ -229,6 +230,20 @@
     <string name="logout">Logout</string>
     <string name="unpause_close_account">Unpause or Close account</string>
 
+    <!--Membership -->
+    <string name="membership_status">Membership status</string>
+    <string name="membership_status_active">Active</string>
+    <string name="membership_status_paused">Paused</string>
+    <string name="membership_started">Started</string>
+    <string name="membership_renewal">Renewal</string>
+    <string name="membership_amount">Amount</string>
+    <string name="cash_advance_amount">Amount</string>
+    <string name="cash_advance_due_date">Due Date</string>
+    <string name="cash_advance_paid_date">Paid Date</string>
+    <string name="cash_advance_overdue">Overdue</string>
+    <string name="cash_advance_paid">Paid</string>
+    <string name="membership_amount_value">%s/month</string>
+
     <!--Change Password-->
     <string name="change_password_toolbar_title">Change your password</string>
     <string name="change_password_title">Type and confirm a new password</string>
@@ -237,6 +252,14 @@
     <string name="change_password_confirm_new_password">CONFIRM NEW PASSWORD*</string>
     <string name="change_password_passwords_changed">Your password has been successfully changed.</string>
     <string name="change_password_passwords_match_error">New password cannot be the same as the old password.</string>
+
+    <!--Settings-->
+    <string name="low_balance_alerts">Low balance alerts</string>
+    <string name="notify_if_balance_is_below">Notify if balance is below $%s</string>
+    <string name="notify_balance_below_description">You will be notified on your phone if your bank account balance falls below this amount or if an upcoming bill might make it fall below it.</string>
+    <string name="notifications">Notifications</string>
+    <string name="enable_push_notifications">Enable push notifications</string>
+    <string name="et_low_balance_amount_hint">enter balance amount</string>
 
     <!--Log out-->
     <string name="log_out">Log out</string>

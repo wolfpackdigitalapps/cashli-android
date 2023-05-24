@@ -9,6 +9,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.InputFilterType" />
+
         <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
 
         <import type="android.view.inputmethod.EditorInfo" />
@@ -52,8 +54,8 @@
                 android:id="@+id/gl_phone_number_email"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_top"
-                android:layout_marginBottom="@dimen/dimen_48dp"/>
+                android:layout_marginBottom="@dimen/dimen_48dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_top" />
 
             <include
                 android:id="@+id/layout_phone_number"
@@ -80,6 +82,7 @@
                 app:cliError="@{viewModel.error}"
                 app:cliHint="@{@string/et_hint}"
                 app:cliImeOptions="@{EditorInfo.IME_ACTION_NEXT}"
+                app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                 app:cliInputType="@{InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
                 app:cliLabel="@{@string/email_label_caps}"
                 app:cliMaxChars="@{Constants.MAX_CHARS_50}"

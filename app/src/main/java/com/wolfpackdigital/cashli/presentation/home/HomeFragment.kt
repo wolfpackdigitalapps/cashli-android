@@ -1,11 +1,11 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.presentation.home
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ConcatAdapter
@@ -24,6 +24,7 @@ import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounc
 import com.wolfpackdigital.cashli.shared.utils.extensions.areDeviceNotificationsFullyEnabled
 import com.wolfpackdigital.cashli.shared.utils.extensions.canScrollBothDirections
 import com.wolfpackdigital.cashli.shared.utils.extensions.getBackStackData
+import com.wolfpackdigital.cashli.shared.utils.extensions.handleNotificationsRequest
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.reachedViewBottom
 import com.wolfpackdigital.cashli.shared.utils.extensions.reachedViewTop
@@ -198,20 +199,27 @@ class HomeFragment :
         viewModel.getUserProfile()
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.cancelCheckEligibilityStatusJob()
+    }
+
     private fun handlePushNotificationPermissions() {
         context?.let { ctx ->
-            if (ContextCompat.checkSelfPermission(
-                    ctx,
+            val permission =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
                     Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_DENIED &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-            ) {
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            } else {
-                val deviceNotificationsEnabled =
-                    NotificationManagerCompat.from(ctx).areDeviceNotificationsFullyEnabled()
-                viewModel.handleUserPushNotificationsSetting(deviceNotificationsEnabled)
-            }
+                else
+                    null
+            ctx.handleNotificationsRequest(
+                permission,
+                requestPermissionLauncher,
+                onPermissionAlreadyGranted = {
+                    val deviceNotificationsEnabled =
+                        NotificationManagerCompat.from(ctx).areDeviceNotificationsFullyEnabled()
+                    viewModel.handleUserPushNotificationsSetting(deviceNotificationsEnabled)
+                }
+            )
         }
     }
 }
