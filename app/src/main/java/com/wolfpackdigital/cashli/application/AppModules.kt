@@ -187,9 +187,9 @@ object AppModules {
         viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
         viewModel { RequestCodeViewModel(get(), get()) }
         viewModel { (
-                        phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
-                        fromEditProfile: Boolean
-                    ) ->
+            phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
+            fromEditProfile: Boolean
+        ) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail, codeReceivedViaType, fromEditProfile, get(), get(), get(), get()
             )
