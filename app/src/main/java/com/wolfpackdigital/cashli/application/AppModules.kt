@@ -79,6 +79,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepositor
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.CashAdvanceRepository
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
+import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
@@ -195,7 +196,13 @@ object AppModules {
         }
         viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel(get()) }
-        viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
+        viewModel { (cashAmount: Float, deliveryMethod: DeliveryMethod) ->
+            QuizViewModel(
+                cashAmount,
+                deliveryMethod,
+                get()
+            )
+        }
         viewModel { HelpViewModel() }
         viewModel { ChangePasswordViewModel(get(), get()) }
         viewModel { EditProfileViewModel(get(), get(), get()) }

@@ -15,6 +15,7 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
+import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 import java.time.LocalTime
@@ -110,9 +111,12 @@ class ClaimCashViewModel(
     }
 
     fun continueToQuiz() {
-        _amount.value?.let {
+        safeLet(_amount.value, _selectedDeliveryMethod.value) { amount, deliveryMethod ->
             _baseCmd.value = BaseCommand.PerformNavAction(
-                ClaimCashFragmentDirections.actionClaimCashFragmentToQuizFragment(it)
+                ClaimCashFragmentDirections.actionClaimCashFragmentToQuizFragment(
+                    cashAmount = amount,
+                    deliveryMethod = deliveryMethod
+                )
             )
         }
     }

@@ -4,14 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
+import com.wolfpackdigital.cashli.domain.entities.requests.CashAdvanceRequest
+import com.wolfpackdigital.cashli.domain.usecases.RequestCashAdvanceUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
+import com.wolfpackdigital.cashli.shared.base.onError
+import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.extensions.percentOf
 
 private const val INITIAL_SLIDER_TIP = 8f
 
-class QuizViewModel(private val cashAmount: Float) : BaseViewModel() {
+class QuizViewModel(
+    private val cashAmount: Float,
+    private val deliveryMethod: DeliveryMethod,
+    private val requestCashAdvance: RequestCashAdvanceUseCase
+) : BaseViewModel() {
 
     private val _tipSeekbarVisible = MutableLiveData(false)
     val tipSeekbarVisible: LiveData<Boolean> = _tipSeekbarVisible
@@ -35,7 +44,7 @@ class QuizViewModel(private val cashAmount: Float) : BaseViewModel() {
         _tipPercAmounts.value = aux
     }
 
-    fun onContinueClicked() {
+    private fun displayPopup() {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
                 titleId = R.string.congrats,
@@ -51,6 +60,27 @@ class QuizViewModel(private val cashAmount: Float) : BaseViewModel() {
                 }
             )
         )
+    }
+
+    fun onContinueClicked() {
+        tipAmount.value?.let { tip ->
+            performApiCall {
+                val result = requestCashAdvance(
+                    CashAdvanceRequest(
+                        amount = cashAmount,
+                        tip = tip,
+                        transferChannel = deliveryMethod
+
+                    )
+                )
+                result.onSuccess { displayPopup() }
+                result.onError {
+                    val error =
+                        it.errors?.firstOrNull() ?: it.message ?: R.string.generic_error
+                    _baseCmd.value = BaseCommand.ShowToast(error)
+                }
+            }
+        }
     }
 
     fun setSecondAltQuestionVisible(visible: Boolean) {
