@@ -15,6 +15,7 @@ data class UserProfile(
     val state: String,
     val language: Languages = Languages.ENGLISH,
     val tokens: Token?,
+    val connectionExpired: Boolean,
     val bankAccountConnected: Boolean,
     val eligibilityStatus: EligibilityStatus,
     val bankAccount: BankAccount?,

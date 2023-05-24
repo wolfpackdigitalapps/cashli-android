@@ -19,6 +19,7 @@ data class UserProfileDto(
     @SerializedName("state") val state: String,
     @SerializedName("language") val language: LanguagesDto = LanguagesDto.ENGLISH,
     @SerializedName("tokens") val tokens: TokenDto?,
+    @SerializedName("connection_expired") val connectionExpired: Boolean,
     @SerializedName("bank_account_connected") val bankAccountConnected: Boolean,
     @SerializedName("eligibility_status") val eligibilityStatus: EligibilityStatusDto,
     @SerializedName("bank_account") val bankAccount: BankAccountDto?,

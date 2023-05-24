@@ -25,6 +25,7 @@
     <dimen name="dimen_60dp">60dp</dimen>
     <dimen name="dimen_64dp">64dp</dimen>
     <dimen name="dimen_68dp">68dp</dimen>
+    <dimen name="dimen_76dp">76dp</dimen>
     <dimen name="dimen_100dp">100dp</dimen>
 
     <!--  SP -->

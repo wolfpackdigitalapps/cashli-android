@@ -73,7 +73,9 @@ import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
@@ -160,7 +162,7 @@ object AppModules {
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
-        viewModel { HomeViewModel(get(), get()) }
+        viewModel { HomeViewModel(get(), get(), get(), get()) }
         viewModel { AccountViewModel() }
         viewModel { MoreViewModel(get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
@@ -345,6 +347,8 @@ object AppModules {
         single { SubmitChangeIdentifiersUseCase(get()) }
         single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
         single { UpdateUserProfileUseCase(get()) }
+        single { GenerateUpdateLinkTokenUseCase(get()) }
+        single { CompleteUpdateLinkingBankAccountUseCase(get()) }
     }
 
     private val pagingSources = module {

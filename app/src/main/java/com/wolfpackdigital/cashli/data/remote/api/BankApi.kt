@@ -20,4 +20,12 @@ interface BankApi {
     suspend fun completeLinkingBankAccount(
         @Body linkBankAccountDtoRequest: CompleteLinkBankAccountRequestDto
     )
+
+    @POST("v1/bank_accounts/update_link")
+    suspend fun generateUpdateLinkToken(): BankTokenDto
+
+    @PATCH("v1/bank_accounts/update_link")
+    suspend fun completeUpdateLinkingBankAccount(
+        @Body updateLinkBankAccountRequest: CompleteLinkBankAccountRequestDto
+    )
 }
