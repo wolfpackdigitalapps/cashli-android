@@ -12,7 +12,6 @@ import androidx.paging.cachedIn
 import com.plaid.link.configuration.LinkTokenConfiguration
 import com.plaid.link.linkTokenConfiguration
 import com.plaid.link.result.LinkExit
-import com.plaid.link.result.LinkResult
 import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.HomeGraphDirections
 import com.wolfpackdigital.cashli.R
@@ -30,9 +29,9 @@ import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkA
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountVerificationStatusRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkInstitutionRequest
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
-import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.presentation.entities.HomeGenericWarningInfo
@@ -65,7 +64,7 @@ import java.time.LocalDateTime
 private const val SUM_150 = "150"
 private const val TRANSACTIONS_PAGE_SIZE = 10
 
-//Span actions
+// Span actions
 private const val VALUE_SPAN_OPEN_RESOLVE_CONNECTION = "openResolveConnection"
 
 class HomeViewModel(
@@ -159,7 +158,7 @@ class HomeViewModel(
                 }
 
                 userProfile.bankAccount == null &&
-                        userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                    userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         linkBankAccountAction = { goToLinkBankAccount() }
@@ -185,7 +184,7 @@ class HomeViewModel(
         val cashAdvanceInfo = currentUserProfile.value?.let { userProfile ->
             when {
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                        userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         eligibilityStatus = userProfile.eligibilityStatus,
@@ -290,6 +289,7 @@ class HomeViewModel(
             val request = createLinkBankAccountRequest(linkSuccess)
             val result = completeUpdateLinkingBankAccountUseCase(request)
             result.onSuccess {
+                _cmd.value = Command.RemoveConnectionLostWarning
                 getUserProfile()
             }
             result.onError {
@@ -440,5 +440,7 @@ class HomeViewModel(
         ) : Command()
 
         object CheckPushNotificationPermissions : Command()
+
+        object RemoveConnectionLostWarning : Command()
     }
 }

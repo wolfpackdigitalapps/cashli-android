@@ -131,16 +131,18 @@ class HomeFragment :
                     updateLinkAccountToPLaidLauncher.launch(it.linkTokenConfiguration)
                 }
 
+                is HomeViewModel.Command.RemoveConnectionLostWarning -> {
+                    handleWarningsSection()
+                }
             }
         }
         setupBackStackData()
     }
 
-    private fun handleWarningsSection(homeGenericWarningInfo: HomeGenericWarningInfo?) {
+    private fun handleWarningsSection(homeGenericWarningInfo: HomeGenericWarningInfo? = null) {
         warningAdapter.submitList(
             homeGenericWarningInfo?.let { item -> listOf(item) } ?: emptyList()
         )
-
     }
 
     private fun handleBankAccountInfoSections(linkBankAccountInfo: LinkBankAccountInfo?) {

@@ -10,5 +10,4 @@ class GenerateUpdateLinkTokenUseCase(private val repo: BankRepository) :
 
     override suspend fun run(params: Unit): Result<BankToken> =
         Result.Success(repo.generateUpdateLinkToken())
-
 }
