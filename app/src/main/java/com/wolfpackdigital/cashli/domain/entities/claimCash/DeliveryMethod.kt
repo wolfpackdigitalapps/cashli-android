@@ -45,7 +45,7 @@ enum class DeliveryMethod(
     ),
     EXPRESS_WITHIN_20_HOURS(
         methodName = R.string.delivery_method_express,
-        description = R.string.delivery_method_express_within_minutes,
+        description = R.string.delivery_method_express_within_20_hours,
         disclaimer = R.string.delivery_method_regular_disclaimer,
         background = R.drawable.bg_express_item,
         icon = R.drawable.ic_express_delivery,
