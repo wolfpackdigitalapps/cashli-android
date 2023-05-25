@@ -5,6 +5,7 @@ object Constants {
     const val DEBOUNCE_INTERVAL_MILLIS_1000 = 1_000L
     const val DEBOUNCE_INTERVAL_MILLIS_300 = 350L
     const val COUNT_DOWN_TIME_6_SEC = 6_000L
+    const val COUNT_DOWN_TIME_30_SEC = 30
 
     // MISC
     const val FIRST_INDEX = 0

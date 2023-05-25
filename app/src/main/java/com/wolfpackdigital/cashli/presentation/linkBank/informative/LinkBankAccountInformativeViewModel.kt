@@ -31,14 +31,13 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.COUNT_DOWN_TIME_30_SEC
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
-
-private const val CHECK_ELIGIBILITY_DELAY = 10
 
 class LinkBankAccountInformativeViewModel(
     private val generateLinkTokenUseCase: GenerateLinkTokenUseCase,
@@ -109,7 +108,7 @@ class LinkBankAccountInformativeViewModel(
 
     private fun initCheckEligibilityStatusJob(alertDialog: AlertDialog) {
         // TODO replace eligibility delay with minutes after more tests
-        checkEligibilityStatusJob = initTimer(CHECK_ELIGIBILITY_DELAY).onCompletion {
+        checkEligibilityStatusJob = initTimer(COUNT_DOWN_TIME_30_SEC).onCompletion {
             if (it == null)
                 handleEligibilityStatus(alertDialog)
             cancelCheckEligibilityStatusJob()
@@ -135,7 +134,7 @@ class LinkBankAccountInformativeViewModel(
         viewModelScope.launch {
             val result = getEligibilityStatusUseCase(Unit)
             result.onSuccess { eligibilityStatus ->
-                when (eligibilityStatus) {
+                when (eligibilityStatus.status) {
                     EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                         toggleEligibilityStatusJob(alertDialog)
                     }
@@ -170,7 +169,9 @@ class LinkBankAccountInformativeViewModel(
                         alertDialog.dismiss()
                         _baseCmd.value = BaseCommand.PerformNavAction(
                             LinkBankAccountInformativeFragmentDirections
-                                .actionLinkBankAccountInformativeFragmentToIneligibleInformativeFragment()
+                                .actionLinkBankAccountInformativeFragmentToIneligibleInformativeFragment(),
+                            popUpTo = R.id.linkBankAccountInformativeFragment,
+                            inclusive = true
                         )
                     }
 

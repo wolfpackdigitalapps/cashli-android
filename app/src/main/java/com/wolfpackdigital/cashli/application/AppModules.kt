@@ -14,6 +14,8 @@ import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDto
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.EligibilityChecksDtoToEligibilityChecksMapper
+import com.wolfpackdigital.cashli.data.mappers.EligibilityChecksToEligibilityChecksDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusDtoToEligibilityStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusToEligibilityStatusDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
@@ -171,7 +173,7 @@ object AppModules {
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
-        viewModel { HomeViewModel(get(), get()) }
+        viewModel { HomeViewModel(get(), get(), get()) }
         viewModel { AccountViewModel() }
         viewModel { MoreViewModel(get(), get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
@@ -252,6 +254,8 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { EligibilityChecksDtoToEligibilityChecksMapper(get()) }
+        factory { EligibilityChecksToEligibilityChecksDtoMapper(get()) }
         factory { UserSettingsKeyToUserSettingsKeyDtoMapper() }
         factory { UserSettingsKeyDtoToUserSettingsKeyMapper() }
         factory { BankTransactionToBankTransactionDtoMapper() }
