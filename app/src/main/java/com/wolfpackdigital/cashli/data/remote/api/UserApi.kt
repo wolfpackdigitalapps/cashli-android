@@ -41,4 +41,7 @@ interface UserApi {
     suspend fun updateUserProfile(
         @Body updateUserProfileRequest: UpdateUserProfileRequestDto
     ): UserProfileDto
+
+    @POST("v1/profile/pause")
+    suspend fun pauseUserAccount()
 }

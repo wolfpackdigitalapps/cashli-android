@@ -246,7 +246,7 @@ class LinkBankAccountInformativeViewModel(
                 buttonPrimaryId = R.string.go_back_to_home,
                 buttonSecondaryId = R.string.get_support,
                 buttonSecondaryClick = {
-                    _baseCmd.value = BaseCommand.ShowSMSApp()
+                    _baseCmd.value = BaseCommand.OpenSMSApp()
                 },
                 buttonPrimaryClick = {
                     _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)

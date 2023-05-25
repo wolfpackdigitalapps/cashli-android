@@ -201,6 +201,25 @@
     <string name="bravo_text">Bravo!</string>
     <string name="account_created_successfully">Your account has been\nsuccessfully created.</string>
 
+    <!--Pause or Close Account-->
+    <string name="pause_or_close_account">Pause or Close\nAccount</string>
+    <string name="pause_account">Pause Account</string>
+    <string name="close_account">Close Account</string>
+    <string name="close_account_instead">Close account instead</string>
+    <string name="pause_account_instead">Pause account instead</string>
+    <string name="pause_account_content">If you pause your account we will no longer be able to notify you about future cash advances eligibility.\n\nWe\'ll stop sending low balance alerts &amp; charging the membership fee.</string>
+    <string name="close_account_ineligible">Sorry, you can\'t close your account at this time due to an outstanding advance.</string>
+
+    <!--Close Account-->
+    <string name="close_account_content">We are sorry you\'ve decided to part ways with us.</string>
+    <string name="what_is_the_reason">What\'s the reason?</string>
+    <string name="other_reason"><annotation action="textUs">Text us</annotation> for any other reason as we strive to improve our services.</string>
+    <string name="close_account_data_deletion">All of your personal identifiable data will be deleted in our databases.</string>
+    <string name="close_account_reason_advance_low">Max cash advance too low</string>
+    <string name="close_account_reason_fee">Express fee too high</string>
+    <string name="close_account_reason_ineligible">Ineligible for cash advances</string>
+    <string name="close_account_reason_competitor">A better competitor</string>
+
     <!--Home -->
     <string name="home">Home</string>
 

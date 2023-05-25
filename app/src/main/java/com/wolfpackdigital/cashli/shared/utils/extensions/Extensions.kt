@@ -15,7 +15,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDeepLinkRequest
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
@@ -244,3 +246,8 @@ fun NotificationManagerCompat.areDeviceNotificationsFullyEnabled(): Boolean {
     }
     return true
 }
+
+fun handleDeepLinkRequest(deepLink: String) =
+    NavDeepLinkRequest.Builder
+        .fromUri(deepLink.toUri())
+        .build()

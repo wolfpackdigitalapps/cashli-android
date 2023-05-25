@@ -26,5 +26,6 @@ class MoreFragment :
     override fun onResume() {
         super.onResume()
         viewModel.setUpdatedData()
+        viewModel.handleMenuItems()
     }
 }
