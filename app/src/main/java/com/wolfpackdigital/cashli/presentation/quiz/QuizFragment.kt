@@ -18,7 +18,7 @@ import org.koin.core.parameter.parametersOf
 class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.fr_quiz) {
 
     private val args by navArgs<QuizFragmentArgs>()
-    override val viewModel by viewModel<QuizViewModel> { parametersOf(args.cashAmount) }
+    override val viewModel by viewModel<QuizViewModel> { parametersOf(args.cashAmount, args.deliveryMethod) }
 
     override fun setupViews() {
         setupQuestions()
@@ -91,7 +91,6 @@ class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.f
                 StyledSlider(
                     uiState = StyledSliderUIState.TipAmountSliderUIState(
                         sliderValue = viewModel.sliderValue,
-                        tipAmountPerc = viewModel.tipAmountPerc,
                         tipAmount = viewModel.tipAmount,
                         isInvertedColorScheme = true
                     ),

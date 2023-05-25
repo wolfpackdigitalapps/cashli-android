@@ -23,6 +23,9 @@
         <argument
             android:name="cashAmount"
             app:argType="float" />
+        <argument
+            android:name="deliveryMethod"
+            app:argType="com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod"/>
     </fragment>
 
 </navigation>
