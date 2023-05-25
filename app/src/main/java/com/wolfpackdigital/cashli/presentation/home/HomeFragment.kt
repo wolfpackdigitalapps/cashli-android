@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.presentation.home
 
 import android.Manifest
@@ -8,8 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.plaid.link.OpenPlaidLink
+import com.plaid.link.result.LinkExit
+import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.HomeBinding
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.presentation.entities.HomeGenericWarningInfo
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
 import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
@@ -33,6 +39,9 @@ class HomeFragment :
 
     override val viewModel by viewModel<HomeViewModel>()
 
+    private val warningAdapter: GenericWarningAdapter by lazy {
+        GenericWarningAdapter()
+    }
     private val bankShortDetailsSectionAdapter: BankShortDetailsSectionAdapter by lazy {
         BankShortDetailsSectionAdapter()
     }
@@ -47,6 +56,7 @@ class HomeFragment :
     }
     private val concatAdapter: ConcatAdapter by lazy {
         ConcatAdapter(
+            warningAdapter,
             bankAccountSectionAdapter,
             cashAdvanceSectionAdapter,
             bankShortDetailsSectionAdapter,
@@ -57,6 +67,19 @@ class HomeFragment :
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             viewModel.handleUserPushNotificationsSetting(isGranted)
+        }
+
+    private val updateLinkAccountToPLaidLauncher =
+        registerForActivityResult(OpenPlaidLink()) { linkResult ->
+            when (linkResult) {
+                is LinkSuccess -> {
+                    viewModel.onSuccessUpdatingLinkBankAccount(linkResult)
+                }
+
+                is LinkExit -> {
+                    viewModel.onFailUpdatingLinkBankAccount(linkResult)
+                }
+            }
         }
 
     override fun setupViews() {
@@ -100,9 +123,26 @@ class HomeFragment :
 
                 is HomeViewModel.Command.RefreshRequestCashAdvanceInfo ->
                     handleRequestCashSection(it.requestCashAdvanceInfo)
+
+                is HomeViewModel.Command.ConnectionLostWarningInfo ->
+                    handleWarningsSection(it.homeGenericWarningInfo)
+
+                is HomeViewModel.Command.StartUpdatingLinkBankAccount -> {
+                    updateLinkAccountToPLaidLauncher.launch(it.linkTokenConfiguration)
+                }
+
+                is HomeViewModel.Command.RemoveConnectionLostWarning -> {
+                    handleWarningsSection()
+                }
             }
         }
         setupBackStackData()
+    }
+
+    private fun handleWarningsSection(homeGenericWarningInfo: HomeGenericWarningInfo? = null) {
+        warningAdapter.submitList(
+            homeGenericWarningInfo?.let { item -> listOf(item) } ?: emptyList()
+        )
     }
 
     private fun handleBankAccountInfoSections(linkBankAccountInfo: LinkBankAccountInfo?) {
@@ -159,6 +199,11 @@ class HomeFragment :
     override fun onResume() {
         super.onResume()
         viewModel.getUserProfile()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.cancelCheckEligibilityStatusJob()
     }
 
     private fun handlePushNotificationPermissions() {

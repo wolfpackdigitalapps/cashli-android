@@ -99,6 +99,7 @@
     <string name="bank_account_subtype_savings">Savings</string>
     <string name="bank_transactions">Latest bank transactions</string>
     <string name="back_to_top">Back to top</string>
+    <string name="warning_lost_connection">We lost connection with your bank account. <annotation action="openResolveConnection">Resolve now</annotation></string>
 
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>
@@ -125,7 +126,7 @@
 
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
-    <string name="confirm_one_time_password">Confirm One Time Password</string>
+    <string name="confirm_one_time_password">Confirm one time password</string>
     <string name="reset_password">Reset your password</string>
     <string name="forgot_password_screen_message_email">Please enter the email address you used to create your Cashli account.</string>
     <string name="forgot_password_screen_message_phone">Please enter the phone number you used to create your Cashli account.</string>
@@ -140,6 +141,7 @@
     <!--Link Bank Account -->
     <string name="pending">Pending</string>
     <string name="pending_content">Your bank account will be connected soon.</string>
+    <string name="pending_time_content">Please wait for a few moments.</string>
     <string name="congrats">Congrats!</string>
     <string name="bank_account_connection_success">Connection to your bank account has been successful.\n\n<b>You are approved for $%s.</b></string>
     <string name="cash_out">Cash out</string>

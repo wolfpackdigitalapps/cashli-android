@@ -114,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_60dp"
                 android:theme="@style/EditTextBaseLightTheme"
                 app:cliDrawableEnd="@{@drawable/ic_edit}"
                 app:cliDrawableEndClick="@{viewModel::toggleLastNameEnabled}"
