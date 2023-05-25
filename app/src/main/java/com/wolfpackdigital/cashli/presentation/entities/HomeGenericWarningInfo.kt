@@ -4,5 +4,5 @@ import androidx.annotation.StringRes
 
 data class HomeGenericWarningInfo(
     @StringRes val warningTextId: Int,
-    val spanAction: List<TextSpanAction>
+    val spanActions: List<TextSpanAction>
 )

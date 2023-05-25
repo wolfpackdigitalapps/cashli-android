@@ -37,7 +37,7 @@
             android:layout_marginTop="@dimen/dimen_16dp"
             android:layout_marginBottom="@dimen/dimen_24dp"
             android:textColor="@color/colorPrimaryDark"
-            app:actions="@{viewModel.spanAction}"
+            app:actions="@{viewModel.spanActions}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

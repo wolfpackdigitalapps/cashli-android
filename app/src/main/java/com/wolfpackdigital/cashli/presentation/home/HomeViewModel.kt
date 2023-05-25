@@ -143,7 +143,7 @@ class HomeViewModel(
         val homeWarningInfo = currentUserProfile.value?.let {
             HomeGenericWarningInfo(
                 warningTextId = connectionLostTextId,
-                spanAction = connectionLostSpanAction
+                spanActions = connectionLostSpanAction
             )
         }
         _cmd.value = Command.ConnectionLostWarningInfo(homeWarningInfo)
@@ -290,7 +290,6 @@ class HomeViewModel(
             val result = completeUpdateLinkingBankAccountUseCase(request)
             result.onSuccess {
                 _cmd.value = Command.RemoveConnectionLostWarning
-                getUserProfile()
             }
             result.onError {
                 val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
@@ -319,9 +318,6 @@ class HomeViewModel(
                 buttonSecondaryId = R.string.get_support,
                 buttonSecondaryClick = {
                     _baseCmd.value = BaseCommand.ShowSMSApp()
-                },
-                buttonPrimaryClick = {
-                    _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
                 }
             )
         )
