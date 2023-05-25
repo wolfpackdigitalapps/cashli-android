@@ -27,6 +27,7 @@ class UserProfileDtoToUserProfileMapper(
             state = input.state,
             language = languagesMapper.map(input.language),
             tokens = input.tokens?.let { tokenMapper.map(it) },
+            connectionExpired = input.connectionExpired,
             bankAccountConnected = input.bankAccountConnected,
             lastMembership = input.lastMembership?.let { lastMembershipMapper.map(it) },
             eligibilityStatus = eligibilityStatusMapper.map(input.eligibilityStatus),
