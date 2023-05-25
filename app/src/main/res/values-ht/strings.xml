@@ -99,6 +99,7 @@
     <string name="bank_account_subtype_savings">Savings</string>
     <string name="bank_transactions">Latest bank transactions</string>
     <string name="back_to_top">Back to top</string>
+    <string name="warning_lost_connection">We lost connection with your bank account. <annotation action="openResolveConnection">Resolve now</annotation></string>
 
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>

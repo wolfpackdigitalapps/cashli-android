@@ -30,4 +30,14 @@ class BankRepositoryImpl(
         val dtoRequest = bankAccountRequestMapper.map(linkBankAccountDtoRequest)
         bankApi.completeLinkingBankAccount(dtoRequest)
     }
+
+    override suspend fun generateUpdateLinkToken(): BankToken {
+        val result = bankApi.generateUpdateLinkToken()
+        return bankTokenMapper.map(result)
+    }
+
+    override suspend fun completeUpdateLinkingBankAccount(updateLinkBankAccountDtoRequest: CompleteLinkBankAccountRequest) {
+        val dtoRequest = bankAccountRequestMapper.map(updateLinkBankAccountDtoRequest)
+        bankApi.completeUpdateLinkingBankAccount(dtoRequest)
+    }
 }
