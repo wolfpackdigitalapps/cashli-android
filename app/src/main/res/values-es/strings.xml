@@ -126,7 +126,7 @@
 
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
-    <string name="confirm_one_time_password">Confirm One Time Password</string>
+    <string name="confirm_one_time_password">Confirm one time password</string>
     <string name="reset_password">Reset your password</string>
     <string name="forgot_password_screen_message_email">Please enter the email address you used to create your Cashli account.</string>
     <string name="forgot_password_screen_message_phone">Please enter the phone number you used to create your Cashli account.</string>
