@@ -163,10 +163,12 @@
 
     <string name="delivery_method_regular">Regular</string>
     <string name="delivery_method_regular_description">1–3 working days</string>
-    <string name="delivery_method_regular_disclaimer">This advance will be deposited into your Bank Of America account ending in 3091. Same bank account will be used for repayment.</string>
+    <string name="delivery_method_regular_disclaimer">This advance will be deposited into your %1$s account ending in %2$s. Same bank account will be used for repayment.</string>
 
     <string name="delivery_method_express">Express</string>
-    <string name="delivery_method_express_description">Within minutes</string>
+    <string name="delivery_method_express_within_minutes">Within minutes</string>
+    <string name="delivery_method_express_several_hours">Several hours</string>
+    <string name="delivery_method_express_within_20_hours">Within 20 hours</string>
     <string name="delivery_method_express_secondary_description">Leapfrogged</string>
     <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
 

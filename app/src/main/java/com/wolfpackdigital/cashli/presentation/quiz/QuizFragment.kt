@@ -91,7 +91,6 @@ class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.f
                 StyledSlider(
                     uiState = StyledSliderUIState.TipAmountSliderUIState(
                         sliderValue = viewModel.sliderValue,
-                        tipAmountPerc = viewModel.tipAmountPerc,
                         tipAmount = viewModel.tipAmount,
                         isInvertedColorScheme = true
                     ),
