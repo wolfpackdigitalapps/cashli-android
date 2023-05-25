@@ -84,7 +84,7 @@ class MoreViewModel(
             MenuItem.LOGOUT -> {
                 _baseCmd.value = BaseCommand.ShowPopupById(
                     PopupConfig(
-                        titleId = R.string.log_out,
+                        titleIdOrString = R.string.log_out,
                         imageId = R.drawable.ic_log_out,
                         contentIdOrString = R.string.log_out_message,
                         buttonPrimaryId = R.string.yes_log_out,

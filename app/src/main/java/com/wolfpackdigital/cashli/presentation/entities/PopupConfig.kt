@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import androidx.annotation.StringRes
 
 data class PopupConfig(
-    val titleId: Int,
+    val titleIdOrString: Any?,
     val imageId: Int,
     val contentIdOrString: Any? = null,
     val timerCount: Long? = null,

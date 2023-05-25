@@ -281,6 +281,13 @@
     <string name="phone">PHONE</string>
     <string name="email">EMAIL</string>
 
+    <!--PN-->
+    <string name="you_are_eligible_now">You are eligible to get a cash advance.</string>
+    <string name="low_balance">Low balance</string>
+    <string name="bank_balance_below">Your bank account balance is below $%s.</string>
+    <string name="link_account">Link account</string>
+    <string name="bank_account_connection_lost">We lost connection with your bank account. Resolve now.</string>
+
     <!--Plurals-->
     <plurals name="past_days_plural">
         <item quantity="zero">today</item>

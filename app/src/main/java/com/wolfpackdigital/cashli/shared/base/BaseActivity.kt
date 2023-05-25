@@ -9,14 +9,15 @@ import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import com.wolfpackdigital.cashli.BR
 import com.wolfpackdigital.cashli.shared.notifications.NotificationModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.parcelable
+import com.wolfpackdigital.cashli.shared.utils.extensions.showMessage
+import com.wolfpackdigital.cashli.shared.utils.extensions.showPopupById
 import com.wolfpackdigital.cashli.shared.utils.views.LoadingDialog
 
-abstract class BaseActivity<BINDING : ViewDataBinding, VIEW_MODEL : ViewModel>
+abstract class BaseActivity<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewModel>
 constructor(@LayoutRes private val layoutResource: Int) : AppCompatActivity() {
 
     protected val binding by activityBinding<BINDING>(
@@ -30,7 +31,7 @@ constructor(@LayoutRes private val layoutResource: Int) : AppCompatActivity() {
             val message = intent.extras?.parcelable<NotificationModel>(
                 Constants.PUSH_NOTIFICATION_EXTRA_DATA_FOREGROUND
             )
-            parseNotificationFromIntent(message, fromBackground = false)
+            parseNotificationFromIntent(message)
         }
     }
 
@@ -44,7 +45,8 @@ constructor(@LayoutRes private val layoutResource: Int) : AppCompatActivity() {
         addFcmBroadcastReceiver()
         loadingDialog = LoadingDialog(this)
         setupViews()
-        parseNotificationFromIntent(getNotificationFromIntent())
+        observeBaseCommands()
+        parseNotificationFromIntent(getNotificationFromIntent(), fromBackground = true)
     }
 
     override fun onDestroy() {
@@ -52,6 +54,21 @@ constructor(@LayoutRes private val layoutResource: Int) : AppCompatActivity() {
         unregisterReceiver(newFCMNotificationReceiver)
         loadingDialog?.dismiss()
         loadingDialog = null
+    }
+
+    private fun observeBaseCommands() {
+        viewModel.baseCmd.observe(this) {
+            when (it) {
+                is BaseCommand.ShowToast -> showMessage(it.message)
+                is BaseCommand.ShowSnackbar -> showMessage(
+                    it.message,
+                    isToast = false
+                )
+
+                is BaseCommand.ShowPopupById -> showPopupById(it.popupConfig)
+                else -> {}
+            }
+        }
     }
 
     abstract fun setupViews()
