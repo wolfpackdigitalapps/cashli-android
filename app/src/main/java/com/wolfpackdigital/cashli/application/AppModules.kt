@@ -9,11 +9,13 @@ import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionDtoToBankTransactionMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionToBankTransactionDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CashAdvanceRequestToCashAdvanceRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.DeliveryMethodToDeliveryMethodDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityChecksDtoToEligibilityChecksMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityChecksToEligibilityChecksDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusDtoToEligibilityStatusMapper
@@ -79,6 +81,7 @@ import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepositor
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.CashAdvanceRepository
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
+import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
@@ -93,6 +96,7 @@ import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RequestCashAdvanceUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
@@ -196,7 +200,13 @@ object AppModules {
         }
         viewModel { IneligibleInformativeViewModel() }
         viewModel { ClaimCashViewModel(get()) }
-        viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
+        viewModel { (cashAmount: Float, deliveryMethod: DeliveryMethod) ->
+            QuizViewModel(
+                cashAmount,
+                deliveryMethod,
+                get()
+            )
+        }
         viewModel { HelpViewModel() }
         viewModel { ChangePasswordViewModel(get(), get()) }
         viewModel { EditProfileViewModel(get(), get(), get()) }
@@ -244,7 +254,7 @@ object AppModules {
                 get()
             )
         }
-        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get()) }
+        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -336,6 +346,8 @@ object AppModules {
         factory { LastMembershipDtoToLastMembershipMapper(get()) }
         factory { LastMembershipStatusDtoToLastMembershipStatusMapper() }
         factory { TransferFeesDtoToTransferFeesMapper() }
+        factory { DeliveryMethodToDeliveryMethodDtoMapper() }
+        factory { CashAdvanceRequestToCashAdvanceRequestDtoMapper(get()) }
     }
 
     private val useCases = module {
@@ -381,6 +393,7 @@ object AppModules {
         single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
         single { UpdateUserProfileUseCase(get()) }
         single { GetTransferFeesUseCase(get()) }
+        single { RequestCashAdvanceUseCase(get()) }
         single { GenerateUpdateLinkTokenUseCase(get()) }
         single { CompleteUpdateLinkingBankAccountUseCase(get()) }
     }

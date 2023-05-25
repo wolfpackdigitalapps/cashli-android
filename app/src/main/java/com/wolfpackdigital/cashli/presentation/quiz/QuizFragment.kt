@@ -18,7 +18,7 @@ import org.koin.core.parameter.parametersOf
 class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.fr_quiz) {
 
     private val args by navArgs<QuizFragmentArgs>()
-    override val viewModel by viewModel<QuizViewModel> { parametersOf(args.cashAmount) }
+    override val viewModel by viewModel<QuizViewModel> { parametersOf(args.cashAmount, args.deliveryMethod) }
 
     override fun setupViews() {
         setupQuestions()
