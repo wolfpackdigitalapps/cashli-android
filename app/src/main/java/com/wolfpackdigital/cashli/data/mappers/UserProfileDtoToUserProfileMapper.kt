@@ -6,7 +6,7 @@ import com.wolfpackdigital.cashli.shared.base.Mapper
 
 @Suppress("LongParameterList")
 class UserProfileDtoToUserProfileMapper(
-    private val languagesMapper: LanguagesDtoToLanguagesMapper,
+    private val languagesMapper: LanguageDtoToLanguageMapper,
     private val tokenMapper: TokenDtoToTokenMapper,
     private val bankAccountMapper: BankAccountDtoToBankAccountMapper,
     private val userSettingMapper: UserSettingDtoToUserSettingMapper,

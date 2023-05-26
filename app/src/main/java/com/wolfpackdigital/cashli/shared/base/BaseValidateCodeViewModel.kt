@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateIdentifiersCodeValidationRequest
@@ -21,6 +22,7 @@ import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaTyp
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onCompletion
@@ -29,7 +31,7 @@ import kotlinx.coroutines.launch
 private const val COUNT_DOWN_TIME = 60
 private const val VERIFICATION_CODE_VALID_LENGTH = 4
 
-abstract class BaseValidateCodeViewModel : BaseViewModel() {
+abstract class BaseValidateCodeViewModel : BaseViewModel(), PersistenceService {
 
     val verificationCode = MutableLiveData<String?>()
 
@@ -98,7 +100,8 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
                 }
                 val request = IdentifiersRequest(
                     channel = channel,
-                    identifier = identifier
+                    identifier = identifier,
+                    locale = language ?: Language.ENGLISH
                 )
                 val result = submitRegistrationIdentifiersUseCase(request)
                 result.onError {
@@ -169,12 +172,14 @@ abstract class BaseValidateCodeViewModel : BaseViewModel() {
         when (it.errorCode) {
             ERROR_CODE_422 ->
                 _invalidCodeErrorVisible.value = error
+
             ERROR_CODE_429 -> {
                 _buttonsEnabled.value = false
                 updateCounterVariables()
                 cancelStepSwipeJob()
                 _invalidCodeErrorVisible.value = error
             }
+
             else ->
                 _baseCmd.value = BaseCommand.ShowToast(error)
         }

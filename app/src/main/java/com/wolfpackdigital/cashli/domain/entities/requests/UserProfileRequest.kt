@@ -1,6 +1,6 @@
 package com.wolfpackdigital.cashli.domain.entities.requests
 
-import com.wolfpackdigital.cashli.domain.entities.enums.Languages
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 
 data class UserProfileRequest(
@@ -13,5 +13,5 @@ data class UserProfileRequest(
     val zipCode: String = EMPTY_STRING,
     val city: String = EMPTY_STRING,
     val state: String = EMPTY_STRING,
-    val language: Languages = Languages.ENGLISH
+    val language: Language = Language.ENGLISH
 )

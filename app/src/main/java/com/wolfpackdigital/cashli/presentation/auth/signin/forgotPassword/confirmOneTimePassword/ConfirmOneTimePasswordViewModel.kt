@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateIdentifiersCodeValidationRequest
@@ -75,7 +76,8 @@ class ConfirmOneTimePasswordViewModel(
                         CodeReceivedViaType.SMS -> "$identifierPrefix$phoneNumberOrEmail"
                         CodeReceivedViaType.EMAIL -> phoneNumberOrEmail
                     },
-                    code = code
+                    code = code,
+                    locale = language ?: Language.ENGLISH
                 )
                 validatePasswordCode(
                     request,
@@ -141,7 +143,8 @@ class ConfirmOneTimePasswordViewModel(
                 identifier = when (codeReceivedViaType) {
                     CodeReceivedViaType.SMS -> "$identifierPrefix$phoneNumberOrEmail"
                     CodeReceivedViaType.EMAIL -> phoneNumberOrEmail
-                }
+                },
+                locale = language ?: Language.ENGLISH
             )
             when (fromEditProfile) {
                 true -> resendConfirmationFromEditProfile(request)

@@ -9,11 +9,11 @@
     <string name="language_creole" translatable="false">Mwen pale Kreyol</string>
 
     <string name="terms_of_service_url" translatable="false">https://google.com</string>
-    <string name="privacy_policy_url" translatable="false">https://google.com</string>
-    <string name="dwolla_terms_of_service_url" translatable="false">https://google.com</string>
-    <string name="dwolla_privacy_policy_url" translatable="false">https://google.com</string>
-    <string name="faq_url" translatable="false">https://google.com</string>
-    <string name="terms_and_conditions_url" translatable="false">https://google.com</string>
+    <string name="privacy_policy_url" translatable="false">https://www.cashli.io/privacy-policy</string>
+    <string name="dwolla_terms_of_service_url" translatable="false">https://www.dwolla.com/legal/dwolla-account-terms-of-service/#legal-content</string>
+    <string name="dwolla_privacy_policy_url" translatable="false">https://www.dwolla.com/legal/privacy/</string>
+    <string name="faq_url" translatable="false">https://www.cashli.io/faq</string>
+    <string name="terms_and_conditions_url" translatable="false">https://www.cashli.io/terms-of-use</string>
 
     <string name="generic_not_implemented_error" translatable="false">Action not implemented</string>
 
