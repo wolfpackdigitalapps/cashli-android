@@ -2,7 +2,7 @@ package com.wolfpackdigital.cashli.presentation.entities
 
 import androidx.annotation.StringRes
 
-data class HomeGenericWarningInfo(
+data class GenericWarningInfo(
     @StringRes val warningTextId: Int,
-    val spanActions: List<TextSpanAction>
+    val spanActions: List<TextSpanAction>?
 )

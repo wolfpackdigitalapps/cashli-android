@@ -15,7 +15,7 @@ import com.plaid.link.result.LinkExit
 import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.HomeBinding
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.presentation.entities.HomeGenericWarningInfo
+import com.wolfpackdigital.cashli.presentation.entities.GenericWarningInfo
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
 import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
@@ -135,7 +135,7 @@ class HomeFragment :
                     handleRequestCashSection(it.requestCashAdvanceInfo)
 
                 is HomeViewModel.Command.ConnectionLostWarningInfo ->
-                    handleWarningsSection(it.homeGenericWarningInfo)
+                    handleWarningsSection(it.genericWarningInfo)
 
                 is HomeViewModel.Command.StartUpdatingLinkBankAccount -> {
                     updateLinkAccountToPLaidLauncher.launch(it.linkTokenConfiguration)
@@ -149,9 +149,9 @@ class HomeFragment :
         setupBackStackData()
     }
 
-    private fun handleWarningsSection(homeGenericWarningInfo: HomeGenericWarningInfo? = null) {
+    private fun handleWarningsSection(genericWarningInfo: GenericWarningInfo? = null) {
         warningAdapter.submitList(
-            homeGenericWarningInfo?.let { item -> listOf(item) } ?: emptyList()
+            genericWarningInfo?.let { item -> listOf(item) } ?: emptyList()
         )
     }
 

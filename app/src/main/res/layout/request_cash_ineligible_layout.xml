@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".RequestCashIneligibleBinding">
 
@@ -42,32 +43,35 @@
             app:srcCompat="@drawable/ic_request_cash" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_message_three"
+            android:id="@+id/tv_explanation_message"
             style="@style/TextView.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_28dp"
             android:layout_marginTop="@dimen/dimen_24dp"
-            android:text="@string/request_cash_ineligible"
             android:textSize="@dimen/size_20sp"
+            app:actions="@{requestCashAdvanceInfo.warningInfo.spanActions}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_request_cash" />
+            app:layout_constraintTop_toBottomOf="@id/iv_request_cash"
+            app:textWithActions="@{requestCashAdvanceInfo.warningInfo.warningTextId}"
+            tools:text="@string/can_not_get_cash_advance" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_see_more"
+            android:id="@+id/btn_ineligible_action"
             style="@style/Widget.Cashli.Button.Accent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_24dp"
             android:layout_marginTop="@dimen/dimen_36dp"
             android:layout_marginBottom="@dimen/dimen_32dp"
-            android:onClick="@{() -> requestCashAdvanceInfo.seeMoreAction.invoke()}"
-            android:text="@string/generic_see_more"
+            android:onClick="@{() -> requestCashAdvanceInfo.buttonAction.invoke()}"
+            android:text="@{requestCashAdvanceInfo.isAccountPaused ? @string/unpause_your_membership : @string/generic_see_more}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_message_three" />
+            app:layout_constraintTop_toBottomOf="@id/tv_explanation_message"
+            tools:text="@string/generic_see_more" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.wolfpackdigital.cashli.presentation.entities.HomeGenericWarningInfo" />
+            type="com.wolfpackdigital.cashli.presentation.entities.GenericWarningInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

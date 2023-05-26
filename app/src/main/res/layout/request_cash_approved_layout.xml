@@ -69,23 +69,43 @@
             app:layout_constraintTop_toBottomOf="@id/tv_approved_for"
             tools:text="$100" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_eligibility_date"
+            style="@style/TextView.S1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_28dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:text="@{@string/on_date(requestCashAdvanceInfo.eligibilityDate)}"
+            android:textColor="@color/colorGrayB6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_approved_value"
+            app:visibility="@{requestCashAdvanceInfo.accountPaused}"
+            tools:text="On February 11, 2023"
+            tools:visibility="visible" />
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_claim_cash"
+            android:id="@+id/btn_cash_action"
             style="@style/Widget.Cashli.Button.Accent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_24dp"
             android:layout_marginTop="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_24dp"
             android:enabled="@{requestCashAdvanceInfo.claimCashEnabled}"
-            android:onClick="@{() -> requestCashAdvanceInfo.claimCashNowAction.invoke()}"
-            android:text="@string/claim_cash_now"
+            android:onClick="@{() -> requestCashAdvanceInfo.buttonAction.invoke()}"
+            android:text="@{requestCashAdvanceInfo.isAccountPaused ? @string/unpause_your_membership : @string/claim_cash_now}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_approved_value" />
+            app:layout_constraintTop_toBottomOf="@id/tv_eligibility_date"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="@string/claim_cash_now" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_tips"
-            style="@style/TextView.Regular"
+            style="@style/TextView.S1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_28dp"
@@ -97,8 +117,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_claim_cash"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@id/btn_cash_action"
+            app:layout_constraintVertical_bias="0.0"
+            app:visibility="@{!requestCashAdvanceInfo.accountPaused}"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
