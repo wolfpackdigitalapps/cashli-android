@@ -18,6 +18,7 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.HomeGenericWarningInfo
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
 import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
+import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
@@ -30,12 +31,15 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.reachedViewBottom
 import com.wolfpackdigital.cashli.shared.utils.extensions.reachedViewTop
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val SCROLL_TO_TOP = 0
 
 class HomeFragment :
     BaseFragment<HomeBinding, HomeViewModel>(R.layout.fr_home) {
+
+    private val activityViewModel by activityViewModel<MainActivityViewModel>()
 
     override val viewModel by viewModel<HomeViewModel>()
 
@@ -113,6 +117,12 @@ class HomeFragment :
     }
 
     private fun setupObservers() {
+        activityViewModel.cmd.observe(viewLifecycleOwner) {
+            when (it) {
+                MainActivityViewModel.Command.RefreshUserProfileData ->
+                    viewModel.getUserProfile()
+            }
+        }
         viewModel.cmd.observe(viewLifecycleOwner) {
             when (it) {
                 HomeViewModel.Command.CheckPushNotificationPermissions ->

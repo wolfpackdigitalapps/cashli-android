@@ -47,7 +47,7 @@ class QuizViewModel(
     private fun displayPopup() {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
-                titleId = R.string.congrats,
+                titleIdOrString = R.string.congrats,
                 imageId = R.drawable.ic_congrats,
                 contentIdOrString = R.string.quiz_popup_description,
                 contentFormatArgs = arrayOf(

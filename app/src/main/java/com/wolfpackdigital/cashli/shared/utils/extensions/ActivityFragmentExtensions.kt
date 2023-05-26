@@ -182,7 +182,6 @@ fun Fragment.showDialog(
     return null
 }
 
-@Suppress("ComplexMethod", "SpreadOperator")
 fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
     context?.let { ctx ->
         val popupDialog = PopupDialog(ctx, popupConfig)
@@ -190,6 +189,12 @@ fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
         return popupDialog
     }
     return null
+}
+
+fun Activity.showPopupById(popupConfig: PopupConfig): PopupDialog {
+    val popupDialog = PopupDialog(this, popupConfig)
+    popupDialog.show()
+    return popupDialog
 }
 
 @SuppressWarnings("LongParameterList")

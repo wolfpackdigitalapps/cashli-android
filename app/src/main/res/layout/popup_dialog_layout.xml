@@ -61,7 +61,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_top"
-                app:textRes="@{viewModel.titleId}"
+                app:textIdOrString="@{viewModel.titleIdOrString}"
                 tools:text="Congrats!" />
 
             <com.google.android.material.textview.MaterialTextView

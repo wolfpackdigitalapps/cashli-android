@@ -80,7 +80,7 @@ class LinkBankAccountInformativeViewModel(
             result.onSuccess {
                 _baseCmd.value = BaseCommand.ShowPopupById(
                     PopupConfig(
-                        titleId = R.string.pending,
+                        titleIdOrString = R.string.pending,
                         contentIdOrString = R.string.pending_content,
                         imageId = R.drawable.ic_pending,
                         isCloseVisible = false,
@@ -143,7 +143,7 @@ class LinkBankAccountInformativeViewModel(
                         alertDialog.dismiss()
                         _baseCmd.value = BaseCommand.ShowPopupById(
                             PopupConfig(
-                                titleId = R.string.congrats,
+                                titleIdOrString = R.string.congrats,
                                 contentIdOrString = R.string.bank_account_connection_success,
                                 contentFormatArgs = arrayOf(123),
                                 imageId = R.drawable.ic_congrats,
@@ -240,7 +240,7 @@ class LinkBankAccountInformativeViewModel(
     private fun handlePlaidErrorPopup(@StringRes titleId: Int, contentIdOrString: Any?) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
-                titleId = titleId,
+                titleIdOrString = titleId,
                 contentIdOrString = contentIdOrString,
                 imageId = R.drawable.ic_warning,
                 isCloseVisible = false,

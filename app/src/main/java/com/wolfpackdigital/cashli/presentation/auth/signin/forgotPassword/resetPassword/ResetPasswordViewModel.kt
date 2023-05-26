@@ -85,7 +85,7 @@ class ResetPasswordViewModel(
             result.onSuccess {
                 _baseCmd.value = BaseCommand.ShowPopupById(
                     PopupConfig(
-                        titleId = R.string.bravo_text,
+                        titleIdOrString = R.string.bravo_text,
                         imageId = R.drawable.ic_guard_check,
                         contentIdOrString = R.string.password_reset_success,
                         timerCount = Constants.COUNT_DOWN_TIME_6_SEC,

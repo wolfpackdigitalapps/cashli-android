@@ -20,6 +20,7 @@ import com.wolfpackdigital.cashli.presentation.main.MainActivity
 import com.wolfpackdigital.cashli.shared.notifications.NotificationModel
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.isAppInForeground
+import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -50,7 +51,9 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
                 }
             )
         } else {
-            createNotificationFromPush(applicationContext, receivedMessage)
+            safeLet(receivedMessage.title, receivedMessage.message) { _, _ ->
+                createNotificationFromPush(applicationContext, receivedMessage)
+            }
         }
     }
 
@@ -75,7 +78,7 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
             setSmallIcon(R.drawable.ic_push_notifications)
             color = context.getColor(R.color.colorGreen71)
             setContentTitle(pushNotificationData.title)
-            setStyle(NotificationCompat.BigTextStyle().bigText(pushNotificationData.body))
+            setStyle(NotificationCompat.BigTextStyle().bigText(pushNotificationData.message))
             setAutoCancel(true)
             val notificationIntent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -88,7 +91,7 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
                 addParentStack(MainActivity::class.java)
                 addNextIntentWithParentStack(notificationIntent)
                 getPendingIntent(
-                    pushNotificationData.body.hashCode(),
+                    pushNotificationData.title.hashCode(),
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )
             }
@@ -104,7 +107,7 @@ abstract class BaseMessagingService : FirebaseMessagingService() {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
         notificationManager?.notify(
-            pushNotificationData.body.hashCode(),
+            pushNotificationData.title.hashCode(),
             notificationBuilder.build()
         )
     }

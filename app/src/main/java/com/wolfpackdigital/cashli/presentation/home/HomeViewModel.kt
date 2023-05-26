@@ -310,7 +310,7 @@ class HomeViewModel(
     private fun handlePlaidErrorPopup(@StringRes titleId: Int, contentIdOrString: Any?) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
-                titleId = titleId,
+                titleIdOrString = titleId,
                 contentIdOrString = contentIdOrString,
                 imageId = R.drawable.ic_warning,
                 isCloseVisible = false,

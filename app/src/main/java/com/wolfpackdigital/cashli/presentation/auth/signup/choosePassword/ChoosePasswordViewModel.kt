@@ -141,7 +141,7 @@ class ChoosePasswordViewModel(
                 _cmd.value = Command.ClearSignUpData
                 _baseCmd.value = BaseCommand.ShowPopupById(
                     PopupConfig(
-                        titleId = R.string.bravo_text,
+                        titleIdOrString = R.string.bravo_text,
                         contentIdOrString = R.string.account_created_successfully,
                         imageId = R.drawable.ic_profile_check,
                         timerCount = Constants.COUNT_DOWN_TIME_6_SEC,
