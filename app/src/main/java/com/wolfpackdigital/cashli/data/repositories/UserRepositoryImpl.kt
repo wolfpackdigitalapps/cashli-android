@@ -29,6 +29,10 @@ class UserRepositoryImpl(
         UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper,
     private val updateUserProfileRequestMapper: UpdateUserProfileRequestToUserProfileRequestDtoMapper
 ) : UserRepository {
+    override suspend fun pauseUserAccount() {
+        userApi.pauseUserAccount()
+    }
+
     override suspend fun getUserProfile(): UserProfile {
         val result = userApi.getUserProfile()
         return userProfileMapper.map(result)

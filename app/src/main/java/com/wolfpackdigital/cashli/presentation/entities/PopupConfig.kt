@@ -12,6 +12,8 @@ data class PopupConfig(
     @StringRes val secondaryContent: Int? = null,
     val buttonPrimaryId: Int? = null,
     val buttonSecondaryId: Int? = null,
+    val buttonPrimaryEnabled: Boolean = true,
+    val buttonSecondaryEnabled: Boolean = true,
     val buttonPrimaryClick: () -> Unit = {},
     val buttonSecondaryClick: () -> Unit = {},
     val buttonCloseClick: () -> Unit = {},

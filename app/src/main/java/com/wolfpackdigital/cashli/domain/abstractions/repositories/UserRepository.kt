@@ -9,6 +9,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.BankTransaction
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
 interface UserRepository {
+    suspend fun pauseUserAccount()
     suspend fun getUserProfile(): UserProfile
     suspend fun getUserBankTransactions(bankTransactionsRequest: BankTransactionsRequest): List<BankTransaction>
     suspend fun updateUserProfileSetting(userSetting: UserSetting): UserSetting

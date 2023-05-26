@@ -121,7 +121,6 @@ sealed class BaseCommand {
         val extras: Navigator.Extras? = null
     ) : BaseCommand()
 
-    data class ShowSMSApp(val phoneNumber: String = SUPPORT_PHONE_NUMBER) : BaseCommand()
     object GoBack : BaseCommand()
 
     class GoBackTo(

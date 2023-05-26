@@ -93,6 +93,7 @@ import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetTransferFeesUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
@@ -140,6 +141,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumb
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
 import com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
+import com.wolfpackdigital.cashli.presentation.entities.args.DeleteAccountArgs
 import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.presentation.help.HelpViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
@@ -149,6 +151,7 @@ import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAcco
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.presentation.membership.MembershipViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
+import com.wolfpackdigital.cashli.presentation.more.deleteAccount.DeleteAccountViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
 import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
@@ -169,6 +172,7 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
+        viewModel { (deleteAccountArgs: DeleteAccountArgs) -> DeleteAccountViewModel(deleteAccountArgs) }
         viewModel { SettingsViewModel(get()) }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
@@ -181,7 +185,7 @@ object AppModules {
         viewModel { SignInViewModel(get(), get(), get()) }
         viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
         viewModel { AccountViewModel() }
-        viewModel { MoreViewModel(get()) }
+        viewModel { MoreViewModel(get(), get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 identifier, codeReceivedViaType, get(), get()
@@ -392,6 +396,7 @@ object AppModules {
         single { SubmitChangeIdentifiersUseCase(get()) }
         single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
         single { UpdateUserProfileUseCase(get()) }
+        single { PauseUserAccountUseCase(get()) }
         single { GetTransferFeesUseCase(get()) }
         single { RequestCashAdvanceUseCase(get()) }
         single { GenerateUpdateLinkTokenUseCase(get()) }
