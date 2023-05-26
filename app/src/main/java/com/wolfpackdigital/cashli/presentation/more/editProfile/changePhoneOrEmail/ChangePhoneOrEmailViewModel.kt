@@ -85,7 +85,7 @@ class ChangePhoneOrEmailViewModel(
                 result.onSuccess {
                     _baseCmd.value = BaseCommand.PerformNavDeepLink(
                         deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL${
-                            request.identifier
+                        request.identifier
                         }/${CodeReceivedViaType.EMAIL.ordinal}/${true}"
                     )
                 }
@@ -116,7 +116,7 @@ class ChangePhoneOrEmailViewModel(
                     result.onSuccess {
                         _baseCmd.value = BaseCommand.PerformNavDeepLink(
                             deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL$phoneNumber/${
-                                CodeReceivedViaType.SMS.ordinal
+                            CodeReceivedViaType.SMS.ordinal
                             }/${true}"
                         )
                     }
