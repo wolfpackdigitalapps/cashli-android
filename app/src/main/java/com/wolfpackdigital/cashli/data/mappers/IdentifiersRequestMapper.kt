@@ -6,24 +6,28 @@ import com.wolfpackdigital.cashli.shared.base.Mapper
 
 @Suppress("MaxLineLength")
 class IdentifiersRequestDtoToIdentifiersRequestMapper(
-    private val registrationIdentifierChannelMapper: IdentifierChannelDtoToIdentifierChannelMapper
+    private val registrationIdentifierChannelMapper: IdentifierChannelDtoToIdentifierChannelMapper,
+    private val languageMapper: LanguageDtoToLanguageMapper
 ) : Mapper<IdentifiersRequestDto, IdentifiersRequest> {
     override fun map(input: IdentifiersRequestDto): IdentifiersRequest {
         return IdentifiersRequest(
             channel = registrationIdentifierChannelMapper.map(input.channel),
-            identifier = input.identifier
+            identifier = input.identifier,
+            locale = languageMapper.map(input.locale)
         )
     }
 }
 
 @Suppress("MaxLineLength")
 class IdentifiersRequestToIdentifiersRequestDtoMapper(
-    private val registrationIdentifierChannelMapper: IdentifierChannelToIdentifierChannelDtoMapper
+    private val registrationIdentifierChannelMapper: IdentifierChannelToIdentifierChannelDtoMapper,
+    private val languageMapper: LanguageToLanguageDtoMapper
 ) : Mapper<IdentifiersRequest, IdentifiersRequestDto> {
     override fun map(input: IdentifiersRequest): IdentifiersRequestDto {
         return IdentifiersRequestDto(
             channel = registrationIdentifierChannelMapper.map(input.channel),
-            identifier = input.identifier
+            identifier = input.identifier,
+            locale = languageMapper.map(input.locale)
         )
     }
 }

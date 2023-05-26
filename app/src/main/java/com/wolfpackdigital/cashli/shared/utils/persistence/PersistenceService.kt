@@ -2,7 +2,7 @@ package com.wolfpackdigital.cashli.shared.utils.persistence
 
 import com.orhanobut.hawk.Hawk
 import com.wolfpackdigital.cashli.domain.entities.UserSetting
-import com.wolfpackdigital.cashli.domain.entities.enums.Languages
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.response.Token
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.shared.utils.extensions.fromJson
@@ -33,7 +33,7 @@ interface PersistenceService {
             Hawk.put(HawkKeys.NOTIFICATION_PERMISSION_GRANTED, token)
         }
 
-    var language: Languages?
+    var language: Language?
         get() = Hawk.get(HawkKeys.LANGUAGE)
         set(value) {
             Hawk.put(HawkKeys.LANGUAGE, value)

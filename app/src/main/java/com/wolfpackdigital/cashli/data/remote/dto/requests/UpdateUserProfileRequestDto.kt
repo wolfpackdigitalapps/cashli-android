@@ -2,7 +2,7 @@ package com.wolfpackdigital.cashli.data.remote.dto.requests
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.wolfpackdigital.cashli.data.remote.dto.enums.LanguagesDto
+import com.wolfpackdigital.cashli.data.remote.dto.enums.LanguageDto
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,5 +13,5 @@ data class UpdateUserProfileRequestDto(
     @SerializedName("zip_code") val zipCode: String,
     @SerializedName("city") val city: String,
     @SerializedName("state") val state: String,
-    @SerializedName("language") val language: LanguagesDto = LanguagesDto.ENGLISH
+    @SerializedName("language") val language: LanguageDto = LanguageDto.ENGLISH
 ) : Parcelable

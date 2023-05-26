@@ -30,8 +30,8 @@ import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestDtoToIdentifier
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestToIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
-import com.wolfpackdigital.cashli.data.mappers.LanguagesToLanguagesDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguageDtoToLanguageMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguageToLanguageDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.LastMembershipDtoToLastMembershipMapper
 import com.wolfpackdigital.cashli.data.mappers.LastMembershipStatusDtoToLastMembershipStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper
@@ -191,9 +191,9 @@ object AppModules {
         viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
         viewModel { RequestCodeViewModel(get(), get()) }
         viewModel { (
-            phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
-            fromEditProfile: Boolean
-        ) ->
+                        phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
+                        fromEditProfile: Boolean
+                    ) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail, codeReceivedViaType, fromEditProfile, get(), get(), get(), get()
             )
@@ -292,8 +292,8 @@ object AppModules {
         factory { RefreshTokenRequestDtoToRefreshTokenRequestMapper() }
         factory { IdentifierChannelToIdentifierChannelDtoMapper() }
         factory { IdentifierChannelDtoToIdentifierChannelMapper() }
-        factory { IdentifiersRequestDtoToIdentifiersRequestMapper(get()) }
-        factory { IdentifiersRequestToIdentifiersRequestDtoMapper(get()) }
+        factory { IdentifiersRequestDtoToIdentifiersRequestMapper(get(), get()) }
+        factory { IdentifiersRequestToIdentifiersRequestDtoMapper(get(), get()) }
         factory { IdentifierTokenDtoToIdentifierTokenMapper() }
         factory { IdentifierTokenToIdentifierTokenDtoMapper() }
         factory { CreateUserProfileRequestToCreateUserProfileRequestDtoMapper(get(), get()) }
@@ -302,8 +302,8 @@ object AppModules {
         factory { UserProfileRequestToUserProfileRequestDtoMapper(get()) }
         factory { IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper() }
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
-        factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
-        factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
+        factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper(get()) }
+        factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper(get()) }
         factory {
             UserProfileDtoToUserProfileMapper(
                 get(),
@@ -315,16 +315,16 @@ object AppModules {
                 get()
             )
         }
-        factory { LanguagesToLanguagesDtoMapper() }
-        factory { LanguagesDtoToLanguagesMapper() }
-        factory { SignInRequestToSignInRequestDtoMapper(get()) }
-        factory { SignInRequestDtoToSignInRequestMapper(get()) }
+        factory { LanguageToLanguageDtoMapper() }
+        factory { LanguageDtoToLanguageMapper() }
+        factory { SignInRequestToSignInRequestDtoMapper(get(), get()) }
+        factory { SignInRequestDtoToSignInRequestMapper(get(), get()) }
         factory { UserSignInRequestToUserSignInRequestDtoMapper() }
         factory { UserSignInRequestDtoToUserSignInRequestMapper() }
         factory { PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper() }
         factory { PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper() }
-        factory { ResetPasswordRequestDtoToResetPasswordRequestMapper() }
-        factory { ResetPasswordRequestToResetPasswordRequestDtoMapper() }
+        factory { ResetPasswordRequestDtoToResetPasswordRequestMapper(get()) }
+        factory { ResetPasswordRequestToResetPasswordRequestDtoMapper(get()) }
         factory { CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper(get()) }
         factory { CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper(get()) }
         factory { LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper() }

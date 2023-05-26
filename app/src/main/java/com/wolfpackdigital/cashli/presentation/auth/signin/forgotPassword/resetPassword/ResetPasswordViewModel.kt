@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.ResetPasswordRequest
 import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateChoosePasswordFormUseCase
@@ -16,13 +17,14 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 
 class ResetPasswordViewModel(
     private val resetToken: String,
     private val choosePasswordFormUseCase: ValidateChoosePasswordFormUseCase,
     private val resetPasswordUseCase: ResetPasswordUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), PersistenceService {
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -79,7 +81,8 @@ class ResetPasswordViewModel(
             val request = ResetPasswordRequest(
                 token = resetToken,
                 password = password,
-                confirmPassword = confirmPassword
+                confirmPassword = confirmPassword,
+                locale = language ?: Language.ENGLISH
             )
             val result = resetPasswordUseCase(request)
             result.onSuccess {

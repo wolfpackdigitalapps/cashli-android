@@ -8,6 +8,7 @@ import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateEmailUseCase
@@ -21,13 +22,14 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.CONFIRM_ONE_TIME_PASSWORD_DL
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class ChangePhoneOrEmailViewModel(
     val editPhoneOrEmail: EditPhoneOrEmail,
     private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val submitChangeIdentifiersUseCase: SubmitChangeIdentifiersUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), PersistenceService {
 
     private val _toolbar = MutableLiveData(
         Toolbar(
@@ -76,13 +78,14 @@ class ChangePhoneOrEmailViewModel(
             performApiCall {
                 val request = IdentifiersRequest(
                     channel = IdentifierChannel.EMAIL,
-                    identifier = phoneOrEmail.value.orEmpty()
+                    identifier = phoneOrEmail.value.orEmpty(),
+                    locale = language ?: Language.ENGLISH
                 )
                 val result = submitChangeIdentifiersUseCase(request)
                 result.onSuccess {
                     _baseCmd.value = BaseCommand.PerformNavDeepLink(
                         deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL${
-                        request.identifier
+                            request.identifier
                         }/${CodeReceivedViaType.EMAIL.ordinal}/${true}"
                     )
                 }
@@ -106,13 +109,14 @@ class ChangePhoneOrEmailViewModel(
                 performApiCall {
                     val request = IdentifiersRequest(
                         channel = IdentifierChannel.SMS,
-                        identifier = "$identifierPrefix$phoneNumber"
+                        identifier = "$identifierPrefix$phoneNumber",
+                        locale = language ?: Language.ENGLISH
                     )
                     val result = submitChangeIdentifiersUseCase(request)
                     result.onSuccess {
                         _baseCmd.value = BaseCommand.PerformNavDeepLink(
                             deepLink = "$CONFIRM_ONE_TIME_PASSWORD_DL$phoneNumber/${
-                            CodeReceivedViaType.SMS.ordinal
+                                CodeReceivedViaType.SMS.ordinal
                             }/${true}"
                         )
                     }

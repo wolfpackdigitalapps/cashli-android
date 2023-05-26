@@ -7,6 +7,7 @@ import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidatePhoneNumberFormUseCase
@@ -23,11 +24,12 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_US
 import com.wolfpackdigital.cashli.shared.utils.Constants.VARIANT_DEVELOP
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class PhoneNumberViewModel(
     private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase,
     private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
@@ -72,7 +74,8 @@ class PhoneNumberViewModel(
                 performApiCall {
                     val request = IdentifiersRequest(
                         channel = IdentifierChannel.SMS,
-                        identifier = "$identifierPrefix$number"
+                        identifier = "$identifierPrefix$number",
+                        locale = language ?: Language.ENGLISH
                     )
                     val result = submitRegistrationIdentifiersUseCase(request)
                     result.onSuccess {

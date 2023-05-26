@@ -8,9 +8,7 @@
             name="viewModel"
             type="com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel" />
 
-        <variable
-            name="languages"
-            type="com.wolfpackdigital.cashli.domain.entities.enums.Languages" />
+        <import type="com.wolfpackdigital.cashli.domain.entities.enums.Language" />
 
     </data>
 
@@ -81,7 +79,7 @@
             android:layout_marginHorizontal="@dimen/dimen_56dp"
             android:backgroundTint="@null"
             android:gravity="start"
-            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.ENGLISH)}"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(Language.ENGLISH)}"
             android:paddingVertical="@dimen/dimen_16dp"
             android:text="@string/language_english"
             android:textAlignment="textStart"
@@ -101,7 +99,7 @@
             android:layout_marginHorizontal="@dimen/dimen_56dp"
             android:backgroundTint="@null"
             android:gravity="start"
-            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.SPANISH)}"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(Language.SPANISH)}"
             android:paddingVertical="@dimen/dimen_16dp"
             android:text="@string/language_spanish"
             android:textAlignment="textStart"
@@ -121,7 +119,7 @@
             android:layout_marginHorizontal="@dimen/dimen_56dp"
             android:backgroundTint="@null"
             android:gravity="start"
-            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(languages.HAITI)}"
+            android:onClick="@{() -> viewModel.setLanguageAndNavigateToOnboarding(Language.HAITI)}"
             android:paddingVertical="@dimen/dimen_16dp"
             android:text="@string/language_creole"
             android:textAlignment="textStart"

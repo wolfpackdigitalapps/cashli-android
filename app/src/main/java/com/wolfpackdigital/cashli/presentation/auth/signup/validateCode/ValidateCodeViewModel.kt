@@ -3,6 +3,7 @@ package com.wolfpackdigital.cashli.presentation.auth.signup.validateCode
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.response.IdentifierToken
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
@@ -59,7 +60,8 @@ class ValidateCodeViewModel(
             performApiCall {
                 val request = IdentifiersCodeValidationRequest(
                     identifier = identifier,
-                    code = verificationCode
+                    code = verificationCode,
+                    locale = language ?: Language.ENGLISH
                 )
                 validateCode(
                     request,
@@ -80,6 +82,7 @@ class ValidateCodeViewModel(
                     ValidateCodeFragmentDirections.actionValidateCodeFragmentToCreateProfileFragment()
                 )
             }
+
             CodeReceivedViaType.EMAIL -> {
                 _cmd.value = Command.SaveEmailToken(identifierToken.token)
                 _baseCmd.value = BaseCommand.PerformNavAction(

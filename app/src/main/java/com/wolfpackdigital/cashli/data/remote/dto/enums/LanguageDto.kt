@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-enum class LanguagesDto : Parcelable {
+enum class LanguageDto : Parcelable {
     @SerializedName("en")
     ENGLISH,
     @SerializedName("es")

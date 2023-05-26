@@ -8,6 +8,7 @@ import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.NavigationDirections
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.SignInRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UserSignInRequest
 import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
@@ -136,7 +137,8 @@ class SignInViewModel(
                     userSignInRequest = UserSignInRequest(
                         identifier = email,
                         password = password
-                    )
+                    ),
+                    locale = language ?: Language.ENGLISH
                 )
             }
         } else {
@@ -149,7 +151,8 @@ class SignInViewModel(
                     userSignInRequest = UserSignInRequest(
                         identifier = "$identifierPrefix$phoneNumber",
                         password = password
-                    )
+                    ),
+                    locale = language ?: Language.ENGLISH
                 )
             }
         }

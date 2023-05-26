@@ -8,7 +8,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
-import com.wolfpackdigital.cashli.domain.entities.enums.Languages
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UserProfileRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
@@ -94,7 +94,8 @@ class CreateProfileViewModel(
             performApiCall {
                 val request = IdentifiersRequest(
                     channel = IdentifierChannel.EMAIL,
-                    identifier = email.value.orEmpty()
+                    identifier = email.value.orEmpty(),
+                    locale = language ?: Language.ENGLISH
                 )
                 val result = submitRegistrationIdentifiersUseCase(request)
                 result.onSuccess {
@@ -111,7 +112,7 @@ class CreateProfileViewModel(
                         zipCode = zipCode.value.orEmpty(),
                         city = cityAndStateArray?.firstOrNull().orEmpty(),
                         state = cityAndStateArray?.lastOrNull().orEmpty(),
-                        language = language ?: Languages.ENGLISH
+                        language = language ?: Language.ENGLISH
                     )
                     _cmd.value = Command.SaveUserProfile(temporaryUserProfileRequest)
                     _baseCmd.value = BaseCommand.PerformNavAction(

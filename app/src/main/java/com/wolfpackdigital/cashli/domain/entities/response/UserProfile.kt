@@ -3,7 +3,7 @@ package com.wolfpackdigital.cashli.domain.entities.response
 import com.wolfpackdigital.cashli.domain.entities.UserSetting
 import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
-import com.wolfpackdigital.cashli.domain.entities.enums.Languages
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 
 data class UserProfile(
     val id: Int,
@@ -15,7 +15,7 @@ data class UserProfile(
     val zipCode: String,
     val city: String,
     val state: String,
-    val language: Languages = Languages.ENGLISH,
+    val language: Language = Language.ENGLISH,
     val tokens: Token?,
     val connectionExpired: Boolean,
     val bankAccountConnected: Boolean,
