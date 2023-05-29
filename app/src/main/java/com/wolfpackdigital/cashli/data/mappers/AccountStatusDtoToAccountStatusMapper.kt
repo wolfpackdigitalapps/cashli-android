@@ -8,10 +8,8 @@ class AccountStatusDtoToAccountStatusMapper : Mapper<AccountStatusDto, AccountSt
     override fun map(input: AccountStatusDto): AccountStatus {
         return when (input) {
             AccountStatusDto.ACTIVE -> AccountStatus.ACTIVE
-            AccountStatusDto.LOCKED -> AccountStatus.LOCKED
             AccountStatusDto.PAUSED -> AccountStatus.PAUSED
             AccountStatusDto.CLOSED -> AccountStatus.CLOSED
-            AccountStatusDto.SUSPENDED -> AccountStatus.SUSPENDED
         }
     }
 }

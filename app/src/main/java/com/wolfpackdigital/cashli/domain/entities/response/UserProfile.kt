@@ -23,5 +23,6 @@ data class UserProfile(
     val eligibilityStatus: EligibilityStatus,
     val bankAccount: BankAccount?,
     val userSettings: List<UserSetting> = listOf(),
-    val accountStatus: AccountStatus
+    val accountStatus: AccountStatus,
+    val suspended: Boolean
 )

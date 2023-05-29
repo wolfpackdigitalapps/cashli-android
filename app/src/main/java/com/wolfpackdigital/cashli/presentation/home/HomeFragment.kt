@@ -15,7 +15,6 @@ import com.plaid.link.result.LinkExit
 import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.HomeBinding
 import com.wolfpackdigital.cashli.R
-import com.wolfpackdigital.cashli.presentation.entities.GenericWarningInfo
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
 import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
@@ -123,6 +122,7 @@ class HomeFragment :
                     viewModel.getUserProfile()
             }
         }
+        viewModel.accountWarnings.observe(viewLifecycleOwner, warningAdapter::submitList)
         viewModel.cmd.observe(viewLifecycleOwner) {
             when (it) {
                 HomeViewModel.Command.CheckPushNotificationPermissions ->
@@ -134,25 +134,12 @@ class HomeFragment :
                 is HomeViewModel.Command.RefreshRequestCashAdvanceInfo ->
                     handleRequestCashSection(it.requestCashAdvanceInfo)
 
-                is HomeViewModel.Command.ConnectionLostWarningInfo ->
-                    handleWarningsSection(it.genericWarningInfo)
-
                 is HomeViewModel.Command.StartUpdatingLinkBankAccount -> {
                     updateLinkAccountToPLaidLauncher.launch(it.linkTokenConfiguration)
-                }
-
-                is HomeViewModel.Command.RemoveConnectionLostWarning -> {
-                    handleWarningsSection()
                 }
             }
         }
         setupBackStackData()
-    }
-
-    private fun handleWarningsSection(genericWarningInfo: GenericWarningInfo? = null) {
-        warningAdapter.submitList(
-            genericWarningInfo?.let { item -> listOf(item) } ?: emptyList()
-        )
     }
 
     private fun handleBankAccountInfoSections(linkBankAccountInfo: LinkBankAccountInfo?) {

@@ -27,5 +27,6 @@ data class UserProfileDto(
     @SerializedName("eligibility_status") val eligibilityStatus: EligibilityStatusDto,
     @SerializedName("bank_account") val bankAccount: BankAccountDto?,
     @SerializedName("settings") val userSettings: List<UserSettingDto>?,
-    @SerializedName("account_status") val accountStatus: AccountStatusDto
+    @SerializedName("account_status") val accountStatus: AccountStatusDto,
+    @SerializedName("suspended") val suspended: Boolean
 ) : Parcelable
