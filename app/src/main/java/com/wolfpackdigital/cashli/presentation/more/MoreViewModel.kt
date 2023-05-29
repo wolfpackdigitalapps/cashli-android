@@ -115,6 +115,7 @@ class MoreViewModel(
                 titleIdOrString = R.string.pause_or_close_account,
                 imageId = R.drawable.ic_stop,
                 contentIdOrString = R.string.pause_account_content,
+                buttonPrimaryEnabled = userProfile?.bankAccountConnected ?: false,
                 buttonPrimaryId = R.string.pause_account,
                 buttonSecondaryId = R.string.close_account_instead,
                 buttonPrimaryClick = { handlePauseAccount() },

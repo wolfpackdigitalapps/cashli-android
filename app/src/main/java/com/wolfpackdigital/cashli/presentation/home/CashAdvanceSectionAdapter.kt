@@ -18,8 +18,7 @@ class CashAdvanceSectionAdapter :
             override fun areContentsTheSame(
                 oldItem: RequestCashAdvanceInfo,
                 newItem: RequestCashAdvanceInfo
-            ) = oldItem.eligibilityStatus == newItem.eligibilityStatus &&
-                oldItem.cashApproved == newItem.cashApproved &&
+            ) = oldItem.cashApproved == newItem.cashApproved &&
                 oldItem.cashAdvanceBalance == newItem.cashAdvanceBalance &&
                 oldItem.upToSum == newItem.upToSum
         }
