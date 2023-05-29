@@ -130,14 +130,15 @@ class HomeViewModel(
 
     private fun handleConnectionLostInfo() {
         val homeWarningInfo = currentUserProfile.value?.let {
-            val connectionLostSpanAction: List<TextSpanAction> =
-                listOf(
-                    TextSpanAction(actionKey = VALUE_SPAN_OPEN_RESOLVE_CONNECTION,
-                        spanTextColor = R.color.colorPrimaryDark,
-                        isSpanTextUnderlined = true,
-                        isSpanTextBold = true,
-                        action = { generateBankAccountUpdateLinkToken() })
+            val connectionLostSpanAction: List<TextSpanAction> = listOf(
+                TextSpanAction(
+                    actionKey = VALUE_SPAN_OPEN_RESOLVE_CONNECTION,
+                    spanTextColor = R.color.colorPrimaryDark,
+                    isSpanTextUnderlined = true,
+                    isSpanTextBold = true,
+                    action = { generateBankAccountUpdateLinkToken() }
                 )
+            )
             generateWarningInfoContent(R.string.warning_lost_connection, connectionLostSpanAction)
         }
         _cmd.value = Command.ConnectionLostWarningInfo(homeWarningInfo)
@@ -145,7 +146,8 @@ class HomeViewModel(
 
     private fun generateWarningInfoContent(@StringRes textId: Int, actions: List<TextSpanAction>?) =
         GenericWarningInfo(
-            warningTextId = textId, spanActions = actions
+            warningTextId = textId,
+            spanActions = actions
         )
 
     private fun handleLinkBankAccountInfo() {
@@ -156,9 +158,12 @@ class HomeViewModel(
                     LinkBankAccountInfo(bankAccountInfoType = BankAccountInfoType.PENDING)
                 }
 
-                userProfile.bankAccount == null && userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
-                    LinkBankAccountInfo(bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
-                        linkBankAccountAction = { goToLinkBankAccount() })
+                userProfile.bankAccount == null &&
+                    userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                    LinkBankAccountInfo(
+                        bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
+                        linkBankAccountAction = { goToLinkBankAccount() }
+                    )
                 }
 
                 else -> {
@@ -182,7 +187,8 @@ class HomeViewModel(
         val cashAdvanceInfo = currentUserProfile.value?.let { userProfile ->
             val isAccountPaused = userProfile.accountStatus == AccountStatus.PAUSED
             when {
-                userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED || userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
+                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         upToSum = SUM_150
@@ -191,11 +197,13 @@ class HomeViewModel(
 
                 userProfile.eligibilityStatus == EligibilityStatus.ELIGIBLE -> {
                     // TODO add already claimed cash check
-                    val eligibilityDate = if (isAccountPaused) LocalDateTime.now().toString()
-                        .toFormattedLocalDateTime() ?: EMPTY_STRING
-                    else null
+                    val eligibilityDate = if (isAccountPaused)
+                        LocalDateTime.now().toString().toFormattedLocalDateTime() ?: EMPTY_STRING
+                    else
+                        null
 
-                    RequestCashAdvanceInfo(requestCashAdvanceType = RequestCashAdvanceType.APPROVED_FOR,
+                    RequestCashAdvanceInfo(
+                        requestCashAdvanceType = RequestCashAdvanceType.APPROVED_FOR,
                         cashApproved = "$123.12",
                         isClaimCashEnabled = !userProfile.connectionExpired,
                         isAccountPaused = isAccountPaused,
@@ -206,28 +214,35 @@ class HomeViewModel(
                             } else {
                                 goToClaimCash()
                             }
-                        })
+                        }
+                    )
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.NOT_ELIGIBLE -> {
-                    val warningInfo = when (isAccountPaused) {
-                        true -> generateWarningInfoContent(
-                            textId = R.string.can_not_get_cash_advance_see_more,
-                            actions = listOf(
-                                TextSpanAction(actionKey = VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN,
-                                    spanTextColor = R.color.colorWhite,
-                                    isSpanTextUnderlined = true,
-                                    isSpanTextBold = false,
-                                    action = { goToIneligibleScreen() })
+                    val warningInfo =
+                        when (isAccountPaused) {
+                            true ->
+                                generateWarningInfoContent(
+                                    textId = R.string.can_not_get_cash_advance_see_more,
+                                    actions = listOf(
+                                        TextSpanAction(
+                                            actionKey = VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN,
+                                            spanTextColor = R.color.colorWhite,
+                                            isSpanTextUnderlined = true,
+                                            isSpanTextBold = false,
+                                            action = { goToIneligibleScreen() }
+                                        )
+                                    )
+                                )
+
+                            false -> generateWarningInfoContent(
+                                textId = R.string.can_not_get_cash_advance,
+                                actions = null
                             )
-                        )
+                        }
 
-                        false -> generateWarningInfoContent(
-                            textId = R.string.can_not_get_cash_advance, actions = null
-                        )
-                    }
-
-                    RequestCashAdvanceInfo(requestCashAdvanceType = RequestCashAdvanceType.NOT_ELIGIBLE,
+                    RequestCashAdvanceInfo(
+                        requestCashAdvanceType = RequestCashAdvanceType.NOT_ELIGIBLE,
                         isAccountPaused = isAccountPaused,
                         warningInfo = warningInfo,
                         buttonAction = {
@@ -243,7 +258,8 @@ class HomeViewModel(
 
                 else -> {
                     // TODO add already claimed cash check
-                    RequestCashAdvanceInfo(requestCashAdvanceType = RequestCashAdvanceType.CLAIMED_ADVANCE,
+                    RequestCashAdvanceInfo(
+                        requestCashAdvanceType = RequestCashAdvanceType.CLAIMED_ADVANCE,
                         cashAdvanceBalance = "-$123.44",
                         isAccountPaused = isAccountPaused,
                         repaymentDate = LocalDateTime.now().toString().toFormattedLocalDateTime()
@@ -252,7 +268,8 @@ class HomeViewModel(
                             if (isAccountPaused) {
                                 // TODO add action
                             }
-                        })
+                        }
+                    )
                 }
             }
         }
@@ -271,20 +288,26 @@ class HomeViewModel(
         performApiCall(showLoading = false) {
             val result = updateUserSettingUseCase(
                 UserSetting(
-                    key = UserSettingsKeys.PUSH_NOTIFICATIONS_ENABLED, value = isGranted.toString()
+                    key = UserSettingsKeys.PUSH_NOTIFICATIONS_ENABLED,
+                    value = isGranted.toString()
                 )
             )
             result.onSuccess { newUserSetting ->
-                userProfile = userProfile?.copy(userSettings = userProfile?.userSettings?.find {
-                    it.key == newUserSetting.key
-                }?.let {
-                    handleUpdateExistingUserSetting(newUserSetting)
-                } ?: handleNewUserSetting(newUserSetting))
                 userProfile =
-                    userProfile?.copy(userSettings = userProfile?.userSettings?.map { oldUserSetting ->
-                        if (newUserSetting.key == oldUserSetting.key) newUserSetting
-                        else oldUserSetting
-                    } ?: listOf())
+                    userProfile?.copy(
+                        userSettings = userProfile?.userSettings?.find {
+                            it.key == newUserSetting.key
+                        }?.let {
+                            handleUpdateExistingUserSetting(newUserSetting)
+                        } ?: handleNewUserSetting(newUserSetting)
+                    )
+                userProfile =
+                    userProfile?.copy(
+                        userSettings = userProfile?.userSettings?.map { oldUserSetting ->
+                            if (newUserSetting.key == oldUserSetting.key) newUserSetting
+                            else oldUserSetting
+                        } ?: listOf()
+                    )
             }
         }
     }
@@ -295,10 +318,11 @@ class HomeViewModel(
             else oldUserSetting
         } ?: listOf()
 
-    private fun handleNewUserSetting(newUserSetting: UserSetting) = buildList {
-        userProfile?.userSettings?.let { addAll(it) }
-        add(newUserSetting)
-    }
+    private fun handleNewUserSetting(newUserSetting: UserSetting) =
+        buildList {
+            userProfile?.userSettings?.let { addAll(it) }
+            add(newUserSetting)
+        }
 
     private fun generateBankAccountUpdateLinkToken() {
         performApiCall {
@@ -310,7 +334,8 @@ class HomeViewModel(
                 _cmd.value = Command.StartUpdatingLinkBankAccount(linkTokenConfiguration)
             }
             result.onError {
-                val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                val error =
+                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
                 _baseCmd.value = BaseCommand.ShowToast(error)
             }
         }
@@ -341,7 +366,8 @@ class HomeViewModel(
 
     private fun handlePlaidErrorPopup(@StringRes titleId: Int, contentIdOrString: Any?) {
         _baseCmd.value = BaseCommand.ShowPopupById(
-            PopupConfig(titleIdOrString = titleId,
+            PopupConfig(
+                titleIdOrString = titleId,
                 contentIdOrString = contentIdOrString,
                 imageId = R.drawable.ic_warning,
                 isCloseVisible = false,
@@ -349,20 +375,23 @@ class HomeViewModel(
                 buttonSecondaryId = R.string.get_support,
                 buttonSecondaryClick = {
                     _baseCmd.value = BaseCommand.OpenSMSApp()
-                })
+                }
+            )
         )
     }
 
     private fun createLinkBankAccountRequest(linkSuccess: LinkSuccess) =
         CompleteLinkBankAccountRequest(
-            publicToken = linkSuccess.publicToken, metadata = LinkAccountMetadataRequest(
+            publicToken = linkSuccess.publicToken,
+            metadata = LinkAccountMetadataRequest(
                 accounts = linkSuccess.metadata.accounts.map { linkAccount ->
                     LinkAccountInfoRequest(
                         id = linkAccount.id,
                         name = linkAccount.name,
                         mask = linkAccount.mask,
                         subtype = LinkAccountSubtypeRequest(
-                            name = linkAccount.subtype.json, type = LinkAccountTypeRequest(
+                            name = linkAccount.subtype.json,
+                            type = LinkAccountTypeRequest(
                                 name = linkAccount.subtype.accountType.json
                             )
                         ),
@@ -404,7 +433,8 @@ class HomeViewModel(
     private fun initCheckEligibilityStatusJob() {
         // TODO replace eligibility delay with minutes after more tests
         checkEligibilityStatusJob = initTimer(Constants.COUNT_DOWN_TIME_30_SEC).onCompletion {
-            if (it == null) handleEligibilityStatus()
+            if (it == null)
+                handleEligibilityStatus()
             cancelCheckEligibilityStatusJob()
         }.launchIn(viewModelScope)
     }
