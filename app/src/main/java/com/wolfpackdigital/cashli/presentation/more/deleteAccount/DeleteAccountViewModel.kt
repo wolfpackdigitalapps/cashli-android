@@ -30,7 +30,7 @@ class DeleteAccountViewModel(
     )
     val closeAccountReasons: LiveData<List<SimpleSelectableItem>> = _closeAccountReasons
 
-    var closeAccountReasonId: String? = null
+    var closeAccountReason: String? = null
 
     @StringRes
     val otherReasonTextId: Int = R.string.other_reason
@@ -46,12 +46,12 @@ class DeleteAccountViewModel(
     )
 
     fun onCloseAccountClicked() {
-        deleteAccountArgs.onDeleteAccount(closeAccountReasonId)
+        deleteAccountArgs.onDeleteAccount(closeAccountReason)
         back()
     }
 
     fun onCloseAccountReasonSelected(item: SimpleSelectableItem, itemValueHumanized: String) {
-        closeAccountReasonId = if (item.isChecked) null else itemValueHumanized
+        closeAccountReason = if (item.isChecked) null else itemValueHumanized
         val new = closeAccountReasons.value?.map {
             if (it.value == item.value) item.copy(isChecked = !item.isChecked)
             else it.copy(isChecked = false)
