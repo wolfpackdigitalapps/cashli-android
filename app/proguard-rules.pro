@@ -27,7 +27,7 @@
 -keepclassmembers enum * {
     @com.google.gson.annotations.SerializedName <fields>;
 }
--keepclassmembers enum com.wolfpackdigital.cashli.domain.entities.enums.* { *; }
+-keepclassmembers enum com.wolfpackdigital.cashli.domain.entities.* { *; }
 
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.
