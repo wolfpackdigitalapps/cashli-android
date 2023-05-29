@@ -27,7 +27,7 @@ class MoreViewModel(
     private val logOutUserUseCase: LogOutUserUseCase,
     private val pauseUserAccountUseCase: PauseUserAccountUseCase,
     private val closeUserAccountUseCase: CloseUserAccountUseCase,
-    private val getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase
+    private val getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase,
     private val unpauseAccountUseCase: UnpauseAccountUseCase
 ) : BaseViewModel(), PersistenceService {
 
@@ -143,7 +143,7 @@ class MoreViewModel(
                 isCloseVisible = true,
                 buttonSecondaryId = R.string.close_account_instead,
                 buttonPrimaryClick = ::unpauseAccount,
-                buttonSecondaryClick = ::showCloseAccountDialog
+                buttonSecondaryClick = ::handleCloseAccountAllowance
             )
         )
     }
