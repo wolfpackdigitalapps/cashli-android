@@ -8,24 +8,30 @@ import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Parcelable
 import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.annotation.IdRes
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
+import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 import com.wolfpackdigital.cashli.shared.utils.views.PopupDialog
@@ -180,7 +186,6 @@ fun Fragment.showDialog(
     return null
 }
 
-@Suppress("ComplexMethod", "SpreadOperator")
 fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
     context?.let { ctx ->
         val popupDialog = PopupDialog(ctx, popupConfig)
@@ -188,6 +193,12 @@ fun Fragment.showPopupById(popupConfig: PopupConfig): PopupDialog? {
         return popupDialog
     }
     return null
+}
+
+fun Activity.showPopupById(popupConfig: PopupConfig): PopupDialog {
+    val popupDialog = PopupDialog(this, popupConfig)
+    popupDialog.show()
+    return popupDialog
 }
 
 @SuppressWarnings("LongParameterList")
@@ -297,4 +308,65 @@ fun Fragment.openAppSettings() {
             requireContext().packageName
         )
     startActivity(settingsIntent)
+}
+
+fun Context.handleNotificationsRequest(
+    permission: String?,
+    activityResultLauncher: ActivityResultLauncher<String>,
+    onPermissionAlreadyGranted: () -> Unit = {}
+) {
+    if (permission != null && ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_DENIED
+    ) {
+        activityResultLauncher.launch(permission)
+    } else {
+        onPermissionAlreadyGranted.invoke()
+    }
+}
+
+fun Fragment.navigate(cmd: BaseCommand.PerformNavDeepLink) {
+    val request = handleDeepLinkRequest(cmd.deepLink)
+    navController?.navigate(
+        request,
+        handleNavOptions(cmd.popUpTo, cmd.popUpToRoot, cmd.inclusive)
+    )
+}
+
+fun Fragment.navigateById(cmd: BaseCommand.PerformNavById) {
+    navController?.navigate(
+        cmd.destinationId,
+        cmd.bundle,
+        cmd.options,
+        cmd.extras
+    )
+}
+
+fun Fragment.navigate(cmd: BaseCommand.PerformNavAction) {
+    navController?.navigate(
+        cmd.direction,
+        handleNavOptions(cmd.popUpTo, cmd.popUpToRoot, cmd.inclusive)
+    )
+}
+
+fun Fragment.handleNavOptions(
+    @IdRes popUpTo: Int? = null,
+    popUpToRoot: Boolean = false,
+    inclusive: Boolean = false
+): NavOptions {
+    val popUpToId = if (popUpToRoot)
+        navController?.graph?.findStartDestination()?.id
+    else
+        popUpTo
+    return NavOptions.Builder()
+        .setEnterAnim(R.anim.fade_in)
+        .setPopExitAnim(R.anim.fade_out)
+        .setPopEnterAnim(R.anim.fade_in)
+        .setExitAnim(R.anim.fade_out)
+        .setLaunchSingleTop(true)
+        .apply {
+            popUpToId?.let { popUpTo -> setPopUpTo(popUpTo, inclusive) }
+        }
+        .build()
 }

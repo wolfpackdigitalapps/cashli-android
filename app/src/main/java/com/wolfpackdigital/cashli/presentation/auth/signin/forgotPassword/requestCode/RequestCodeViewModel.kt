@@ -8,6 +8,7 @@ import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.IdentifierChannel
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
 import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.validations.ValidateRequestCodeFormUseCase
@@ -20,11 +21,12 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class RequestCodeViewModel(
     private val validateRequestCodeFormUseCase: ValidateRequestCodeFormUseCase,
     private val submitPasswordIdentifiersUseCase: SubmitPasswordIdentifiersUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), PersistenceService {
 
     private val _cmd = MutableLiveData<Command>()
     val cmd: LiveData<Command> = _cmd
@@ -140,7 +142,8 @@ class RequestCodeViewModel(
                     Constants.PHONE_PREFIX_US
                 val request = IdentifiersRequest(
                     channel = if (emailInUse) IdentifierChannel.EMAIL else IdentifierChannel.SMS,
-                    identifier = if (emailInUse) email else "$identifierPrefix$number"
+                    identifier = if (emailInUse) email else "$identifierPrefix$number",
+                    locale = language ?: Language.ENGLISH
                 )
                 val result = submitPasswordIdentifiersUseCase(request)
                 result.onSuccess {

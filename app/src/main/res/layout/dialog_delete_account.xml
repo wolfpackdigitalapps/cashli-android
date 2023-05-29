@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".DeleteAccountDialogBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.more.deleteAccount.DeleteAccountViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_close"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dimen_12dp"
+            android:onClick="@{() -> viewModel.back()}"
+            app:icon="@drawable/ic_close"
+            app:iconTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_64dp"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_stop"
+            tools:src="@drawable/ic_profile_check" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:text="@string/close_account"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/size_24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_top" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_content"
+            style="@style/TextView.P1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:text="@string/close_account_content"
+            android:textColor="@color/colorGray76"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_reason_title"
+            style="@style/TextView.H5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/what_is_the_reason"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_reasons"
+            style="@style/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reason_title"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_radio_button" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_other_reason"
+            style="@style/TextView.C1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorGray76"
+            app:actions="@{viewModel.otherReasonSpanActions}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_reasons"
+            app:textWithActions="@{viewModel.otherReasonTextId}"
+            tools:text="Text us for any other reason as we strive to improve our services." />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_primary"
+            style="@style/Widget.Cashli.Button.Accent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_44dp"
+            android:layout_marginBottom="@dimen/dimen_6dp"
+            android:onClick="@{() -> viewModel.onCloseAccountClicked()}"
+            android:text="@string/close_account"
+            app:layout_constraintBottom_toTopOf="@id/tv_personal_data_deletion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_other_reason"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_personal_data_deletion"
+            style="@style/TextView.C1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:text="@string/close_account_data_deletion"
+            android:textAlignment="center"
+            android:textColor="@color/colorGrayB6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/btn_primary"
+            app:layout_constraintStart_toStartOf="@id/btn_primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

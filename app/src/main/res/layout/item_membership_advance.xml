@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="MembershipAdvanceItemBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.membership.MembershipAdvanceItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_half_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/iv_top"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/bg_rounded_top_stroked"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tintRes="@{viewModel.topTint}" />
+
+            <TextView
+                android:id="@+id/tv_card_title"
+                style="@style/TextView.H6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_12dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:hidden="@{viewModel.itemType.title == null}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline_half_top"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textIdOrString="@{viewModel.itemType.title}"
+                tools:text="Membership Status" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_4dp"
+                android:textAlignment="textEnd"
+                app:itemType="@{viewModel}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_card_title"
+                app:layout_constraintEnd_toStartOf="@id/iv_end_drawable"
+                app:layout_constraintStart_toEndOf="@id/guideline_half_top"
+                app:layout_constraintTop_toTopOf="@id/tv_card_title"
+                tools:text="Active" />
+
+            <ImageView
+                android:id="@+id/iv_end_drawable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:importantForAccessibility="no"
+                app:itemType="@{viewModel}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_check"
+                tools:tint="@color/colorGreen71" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cl_top">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_half_bot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/iv_bot"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/bg_rounded_bottom_stroked"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tintRes="@{viewModel.itemType.bottomPartTint}" />
+
+            <TextView
+                android:id="@+id/tv_top_label"
+                style="@style/TextView.S2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_28dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toStartOf="@id/guideline_half_bot"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textRes="@{viewModel.itemType.topLabel}"
+                tools:text="Started" />
+
+            <TextView
+                android:id="@+id/tv_top_value"
+                style="@style/TextView.C1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:text="@{viewModel.topValue}"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorGray76"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_top_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline_half_bot"
+                tools:text="June 01st, 2022" />
+
+            <TextView
+                android:id="@+id/tv_middle_label"
+                style="@style/TextView.S2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_6dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toStartOf="@id/guideline_half_bot"
+                app:layout_constraintStart_toStartOf="@id/tv_top_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_top_label"
+                app:membershipStatus="@{viewModel}"
+                app:textRes="@{viewModel.itemType.middleLabel}"
+                tools:text="Renewal" />
+
+            <TextView
+                android:id="@+id/tv_middle_value"
+                style="@style/TextView.C1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.middleValue}"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorGray76"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_middle_label"
+                app:layout_constraintEnd_toEndOf="@id/tv_top_value"
+                app:layout_constraintStart_toEndOf="@id/guideline_half_bot"
+                app:membershipStatus="@{viewModel}"
+                tools:text="June 01st, 2022" />
+
+            <TextView
+                android:id="@+id/tv_bottom_label"
+                style="@style/TextView.S2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_6dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline_half_bot"
+                app:layout_constraintStart_toStartOf="@id/tv_middle_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_middle_label"
+                app:layout_constraintVertical_bias="0"
+                app:membershipStatus="@{viewModel}"
+                app:textRes="@{viewModel.itemType.bottomLabel}"
+                tools:text="Amount" />
+
+            <TextView
+                android:id="@+id/tv_bottom_value"
+                style="@style/TextView.C1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorGray76"
+                app:bottomTextType="@{viewModel}"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_bottom_label"
+                app:layout_constraintEnd_toEndOf="@id/tv_middle_value"
+                app:layout_constraintStart_toEndOf="@id/guideline_half_bot"
+                app:membershipStatus="@{viewModel}"
+                tools:text="June 01st, 2022" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,6 +1,6 @@
 package com.wolfpackdigital.cashli.domain.entities.requests
 
-import com.wolfpackdigital.cashli.domain.entities.enums.Languages
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 
 data class UpdateUserProfileRequest(
     val firstName: String,
@@ -9,5 +9,5 @@ data class UpdateUserProfileRequest(
     val zipCode: String,
     val city: String,
     val state: String,
-    val language: Languages = Languages.ENGLISH
+    val language: Language = Language.ENGLISH
 )

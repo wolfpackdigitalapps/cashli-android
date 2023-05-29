@@ -5,7 +5,7 @@ import com.wolfpackdigital.cashli.domain.entities.requests.UpdateUserProfileRequ
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
 class UpdateUserProfileRequestDtoToUserProfileRequestMapper(
-    private val languagesMapper: LanguagesDtoToLanguagesMapper
+    private val languagesMapper: LanguageDtoToLanguageMapper
 ) : Mapper<UpdateUserProfileRequestDto, UpdateUserProfileRequest> {
     override fun map(input: UpdateUserProfileRequestDto): UpdateUserProfileRequest {
         return UpdateUserProfileRequest(
@@ -21,7 +21,7 @@ class UpdateUserProfileRequestDtoToUserProfileRequestMapper(
 }
 
 class UpdateUserProfileRequestToUserProfileRequestDtoMapper(
-    private val languagesMapper: LanguagesToLanguagesDtoMapper
+    private val languagesMapper: LanguageToLanguageDtoMapper
 ) : Mapper<UpdateUserProfileRequest, UpdateUserProfileRequestDto> {
     override fun map(input: UpdateUserProfileRequest): UpdateUserProfileRequestDto {
         return UpdateUserProfileRequestDto(

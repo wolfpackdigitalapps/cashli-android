@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".SettingsBinding">
+
+        <import type="android.view.inputmethod.EditorInfo" />
+
+        <import type="android.text.InputType" />
+
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.InputFilterType" />
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel" />
+
+    </data>
+
+    <ScrollView
+        style="@style/ScrollView.VerticalPinkScrollBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
+            <ImageView
+                android:id="@+id/iv_dots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_dots"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewModel="@{viewModel.toolbar}" />
+
+            <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
+                android:id="@+id/iv_arch"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_screen_title"
+                style="@style/TextView.H4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_64dp"
+                android:text="@string/low_balance_alerts"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/ml_balance_alert_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                app:layoutDescription="@xml/low_balance_amount_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_screen_title"
+                tools:showPaths="true">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_low_balance"
+                    style="@style/TextView.H6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_24dp"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:text="@{@string/notify_if_balance_is_below(viewModel.amount)}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toStartOf="@id/ib_edit_low_balance"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Notify if balance is below $50" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:id="@+id/ib_edit_low_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:onClick="@{() -> viewModel.toggleChangeAmount()}"
+                    android:src="@drawable/ic_edit"
+                    app:altSrc="@drawable/ic_check"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_low_balance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_low_balance"
+                    app:layout_constraintTop_toTopOf="@id/tv_low_balance"
+                    app:overlay="false"
+                    app:tint="@color/colorPrimaryDark" />
+
+                <com.wolfpackdigital.cashli.shared.utils.views.BaseEditText
+                    android:id="@+id/et_low_balance_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_24dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_24dp"
+                    android:layout_marginBottom="@dimen/dimen_6dp"
+                    android:theme="@style/EditTextBaseLightTheme"
+                    android:visibility="visible"
+                    app:cliHint="@{@string/et_low_balance_amount_hint}"
+                    app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                    app:cliInputFilterType="@{InputFilterType.WHOLE_NUMBER}"
+                    app:cliInputType="@{InputType.TYPE_CLASS_NUMBER}"
+                    app:cliText="@={viewModel.newAmount}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_low_balance"
+                    app:onCliImeDoneAction="@{viewModel::closeKeyboardAndClearFocus}" />
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_notify_description"
+                style="@style/TextView.S1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:text="@string/notify_balance_below_description"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorGray76"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ml_balance_alert_amount" />
+
+            <View
+                android:id="@+id/delimiter"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1dp"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:background="@color/colorGrayF3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_notify_description" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_notifications"
+                style="@style/TextView.H4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:text="@string/notifications"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/delimiter" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_enable_notifications"
+                style="@style/TextView.H6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_32dp"
+                android:text="@string/enable_push_notifications"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/sc_notifications"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_notifications"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/sc_notifications"
+                style="@style/Switch.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:background="@null"
+                android:checked="@{viewModel.notificationsEnabled}"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                app:layout_constraintBottom_toBottomOf="@id/tv_enable_notifications"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_enable_notifications"
+                app:layout_constraintTop_toTopOf="@id/tv_enable_notifications" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="@{() -> viewModel.onTogglePushNotifications()}"
+                app:layout_constraintBottom_toBottomOf="@+id/sc_notifications"
+                app:layout_constraintEnd_toEndOf="@+id/sc_notifications"
+                app:layout_constraintStart_toStartOf="@+id/sc_notifications"
+                app:layout_constraintTop_toTopOf="@+id/sc_notifications" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

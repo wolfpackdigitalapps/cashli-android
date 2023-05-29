@@ -7,19 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
-import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavOptions
 import com.wolfpackdigital.cashli.BR
-import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.utils.extensions.hideSoftKeyboard
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
+import com.wolfpackdigital.cashli.shared.utils.extensions.navigate
+import com.wolfpackdigital.cashli.shared.utils.extensions.navigateById
 import com.wolfpackdigital.cashli.shared.utils.extensions.openUrl
 import com.wolfpackdigital.cashli.shared.utils.extensions.showMessage
 import com.wolfpackdigital.cashli.shared.utils.extensions.showPopupById
@@ -78,73 +74,30 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                     it.message,
                     isToast = false
                 )
+
                 is BaseCommand.PerformNavDeepLink -> navigate(it)
                 is BaseCommand.PerformNavAction -> navigate(it)
-                is BaseCommand.PerformNavById -> navController?.navigate(
-                    it.destinationId,
-                    it.bundle,
-                    it.options,
-                    it.extras
-                )
+                is BaseCommand.PerformNavById -> navigateById(it)
                 is BaseCommand.ShowPopupById -> showPopupById(it.popupConfig)
-                is BaseCommand.ShowSMSApp -> activity?.showSMSApp(it.phoneNumber)
                 is BaseCommand.GoBack ->
                     if (navController?.popBackStack() == false) {
                         activity?.finish()
                     }
+
                 is BaseCommand.GoBackTo -> navController?.popBackStack(
                     it.destinationId,
                     it.inclusive
                 )
+
                 is BaseCommand.ForceCloseKeyboard ->
                     binding?.root?.findFocus()?.let { viewWithFocus ->
                         hideSoftKeyboard(viewWithFocus)
                         viewWithFocus.clearFocus()
                     }
+
                 is BaseCommand.OpenSMSApp -> activity?.showSMSApp(it.phoneNumber)
             }
         }
-    }
-
-    private fun navigate(cmd: BaseCommand.PerformNavDeepLink) {
-        val request = handleDeepLinkRequest(cmd)
-        navController?.navigate(
-            request,
-            handleNavOptions(cmd.popUpTo, cmd.popUpToRoot, cmd.inclusive)
-        )
-    }
-
-    private fun navigate(cmd: BaseCommand.PerformNavAction) {
-        navController?.navigate(
-            cmd.direction,
-            handleNavOptions(cmd.popUpTo, cmd.popUpToRoot, cmd.inclusive)
-        )
-    }
-
-    private fun handleDeepLinkRequest(cmd: BaseCommand.PerformNavDeepLink) =
-        NavDeepLinkRequest.Builder
-            .fromUri(cmd.deepLink.toUri())
-            .build()
-
-    private fun handleNavOptions(
-        @IdRes popUpTo: Int? = null,
-        popUpToRoot: Boolean = false,
-        inclusive: Boolean = false
-    ): NavOptions {
-        val popUpToId = if (popUpToRoot)
-            navController?.graph?.findStartDestination()?.id
-        else
-            popUpTo
-        return NavOptions.Builder()
-            .setEnterAnim(R.anim.fade_in)
-            .setPopExitAnim(R.anim.fade_out)
-            .setPopEnterAnim(R.anim.fade_in)
-            .setExitAnim(R.anim.fade_out)
-            .setLaunchSingleTop(true)
-            .apply {
-                popUpToId?.let { popUpTo -> setPopUpTo(popUpTo, inclusive) }
-            }
-            .build()
     }
 
     private fun observeLoadingDialog() {

@@ -1,27 +1,25 @@
 package com.wolfpackdigital.cashli.data.mappers
 
-import com.wolfpackdigital.cashli.data.remote.dto.enums.LanguagesDto
-import com.wolfpackdigital.cashli.domain.entities.enums.Languages
+import com.wolfpackdigital.cashli.data.remote.dto.enums.LanguageDto
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
-class LanguagesDtoToLanguagesMapper :
-    Mapper<LanguagesDto, Languages> {
-    override fun map(input: LanguagesDto): Languages {
+class LanguageDtoToLanguageMapper : Mapper<LanguageDto, Language> {
+    override fun map(input: LanguageDto): Language {
         return when (input) {
-            LanguagesDto.ENGLISH -> Languages.ENGLISH
-            LanguagesDto.SPANISH -> Languages.SPANISH
-            LanguagesDto.HAITI -> Languages.HAITI
+            LanguageDto.ENGLISH -> Language.ENGLISH
+            LanguageDto.SPANISH -> Language.SPANISH
+            LanguageDto.HAITI -> Language.HAITI
         }
     }
 }
 
-class LanguagesToLanguagesDtoMapper :
-    Mapper<Languages, LanguagesDto> {
-    override fun map(input: Languages): LanguagesDto {
+class LanguageToLanguageDtoMapper : Mapper<Language, LanguageDto> {
+    override fun map(input: Language): LanguageDto {
         return when (input) {
-            Languages.ENGLISH -> LanguagesDto.ENGLISH
-            Languages.SPANISH -> LanguagesDto.SPANISH
-            Languages.HAITI -> LanguagesDto.HAITI
+            Language.ENGLISH -> LanguageDto.ENGLISH
+            Language.SPANISH -> LanguageDto.SPANISH
+            Language.HAITI -> LanguageDto.HAITI
         }
     }
 }

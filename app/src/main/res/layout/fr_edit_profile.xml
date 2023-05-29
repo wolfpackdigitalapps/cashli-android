@@ -7,6 +7,8 @@
 
         <import type="android.view.inputmethod.EditorInfo" />
 
+        <import type="com.wolfpackdigital.cashli.presentation.entities.enums.InputFilterType" />
+
         <import type="android.text.InputType" />
 
         <import type="com.wolfpackdigital.cashli.shared.utils.Constants" />
@@ -93,6 +95,7 @@
                 app:cliError="@{viewModel.firstNameError}"
                 app:cliHint="@{@string/et_hint}"
                 app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                 app:cliInputType="@{InputType.TYPE_TEXT_VARIATION_PERSON_NAME}"
                 app:cliLabel="@{@string/edit_first_name_label}"
                 app:cliLabelColor="@{@color/colorPrimaryDark}"
@@ -111,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_60dp"
                 android:theme="@style/EditTextBaseLightTheme"
                 app:cliDrawableEnd="@{@drawable/ic_edit}"
                 app:cliDrawableEndClick="@{viewModel::toggleLastNameEnabled}"
@@ -118,6 +122,7 @@
                 app:cliError="@{viewModel.lastNameError}"
                 app:cliHint="@{@string/et_hint}"
                 app:cliImeOptions="@{EditorInfo.IME_ACTION_DONE}"
+                app:cliInputFilterType="@{InputFilterType.MAX_CHARS}"
                 app:cliInputType="@{InputType.TYPE_TEXT_VARIATION_PERSON_NAME}"
                 app:cliLabel="@{@string/edit_last_name_label}"
                 app:cliLabelColor="@{@color/colorPrimaryDark}"

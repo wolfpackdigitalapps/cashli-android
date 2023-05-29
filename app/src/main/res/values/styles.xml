@@ -30,6 +30,11 @@
         <item name="android:textColor">@color/colorGrayB6</item>
     </style>
 
+    <style name="RoundedCornersDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="dialogCornerRadius">@dimen/dimen_20dp</item>
+        <item name="android:windowMinWidthMinor">70%</item>
+    </style>
+
     <!-- Buttons -->
     <style name="Widget.Cashli.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="fontFamily">@font/lato_bold</item>
@@ -151,6 +156,12 @@
         <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
         <item name="android:orientation">vertical</item>
         <item name="android:splitMotionEvents">false</item>
+    </style>
+
+    <style name="Switch.Green" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="useMaterialThemeColors">false</item>
+        <item name="trackTint">@color/switch_track_selector</item>
+        <item name="thumbTint">@color/switch_thumb_selector</item>
     </style>
 
     <style name="BaseTextInputEditTextLight" parent="BaseTextInputEditText">

@@ -5,6 +5,7 @@ object Constants {
     const val DEBOUNCE_INTERVAL_MILLIS_1000 = 1_000L
     const val DEBOUNCE_INTERVAL_MILLIS_300 = 350L
     const val COUNT_DOWN_TIME_6_SEC = 6_000L
+    const val COUNT_DOWN_TIME_30_SEC = 30
 
     // MISC
     const val FIRST_INDEX = 0
@@ -52,5 +53,4 @@ object Constants {
     const val PUSH_NOTIFICATION_EXTRA_DATA = "push_notification_extra_data"
     const val PUSH_NOTIFICATION_EXTRA_FOREGROUND = "push_notification_extra_foreground"
     const val PUSH_NOTIFICATION_EXTRA_DATA_FOREGROUND = "push_notification_extra_data_foreground"
-    const val PUSH_NOTIFICATION_SETTING = "push_notifications_enabled"
 }

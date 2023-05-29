@@ -70,9 +70,7 @@ class MainActivity : BaseActivity<ActMainBinding, MainActivityViewModel>(R.layou
                 // TODO handle background notification
             }
 
-            false -> {
-                // TODO handle foreground notification
-            }
+            false -> viewModel.handlePushNotificationType(notification)
         }
     }
 }

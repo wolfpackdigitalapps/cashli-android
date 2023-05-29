@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.application
 
+import com.wolfpackdigital.cashli.data.mappers.AccountStatusDtoToAccountStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountDtoToBankAccountMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeDtoToBankAccountSubtypeMapper
 import com.wolfpackdigital.cashli.data.mappers.BankAccountSubtypeToBankAccountSubtypeDtoMapper
@@ -8,11 +9,16 @@ import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionDtoToBankTransactionMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionToBankTransactionDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CashAdvanceRequestToCashAdvanceRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CloseUserAccountReasonRequestToCloseAccountReasonRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestToCreateUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.DeliveryMethodToDeliveryMethodDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.EligibilityChecksDtoToEligibilityChecksMapper
+import com.wolfpackdigital.cashli.data.mappers.EligibilityChecksToEligibilityChecksDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusDtoToEligibilityStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.EligibilityStatusToEligibilityStatusDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifierChannelDtoToIdentifierChannelMapper
@@ -25,8 +31,10 @@ import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestDtoToIdentifier
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersRequestToIdentifiersRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.LanguagesDtoToLanguagesMapper
-import com.wolfpackdigital.cashli.data.mappers.LanguagesToLanguagesDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguageDtoToLanguageMapper
+import com.wolfpackdigital.cashli.data.mappers.LanguageToLanguageDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.LastMembershipDtoToLastMembershipMapper
+import com.wolfpackdigital.cashli.data.mappers.LastMembershipStatusDtoToLastMembershipStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestDtoToLinkAccountMetadataRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
@@ -41,16 +49,19 @@ import com.wolfpackdigital.cashli.data.mappers.SingleDataRequestDtoToSingleDataR
 import com.wolfpackdigital.cashli.data.mappers.SingleDataRequestToSingleDataRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenDtoToTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.TransferFeesDtoToTransferFeesMapper
 import com.wolfpackdigital.cashli.data.mappers.UpdateIdentifiersCodeValidationRequestDtoToUpdateIdentifiersCodeValidationRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestToUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserOutstandingBalanceStatusMapperDtoToUserOutstandingBalanceStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
-import com.wolfpackdigital.cashli.data.mappers.UserProfileToUserProfileDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingDtoToUserSettingMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyDtoToUserSettingsKeyMapper
+import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyToUserSettingsKeyDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
@@ -64,23 +75,33 @@ import com.wolfpackdigital.cashli.data.patternMatchers.ZipCodePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.remote.api.common.ApiProvider
 import com.wolfpackdigital.cashli.data.repositories.AuthRepositoryImpl
 import com.wolfpackdigital.cashli.data.repositories.BankRepositoryImpl
+import com.wolfpackdigital.cashli.data.repositories.CashAdvanceRepositoryImpl
 import com.wolfpackdigital.cashli.data.repositories.UserRepositoryImpl
 import com.wolfpackdigital.cashli.domain.abstractions.PatternMatcher
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.AuthRepository
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.BankRepository
+import com.wolfpackdigital.cashli.domain.abstractions.repositories.CashAdvanceRepository
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
+import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
+import com.wolfpackdigital.cashli.domain.usecases.CloseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetTransferFeesUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterDeviceTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RegisterNewUserUseCase
+import com.wolfpackdigital.cashli.domain.usecases.RequestCashAdvanceUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ResetPasswordUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
@@ -125,6 +146,7 @@ import com.wolfpackdigital.cashli.presentation.auth.signup.phoneNumber.PhoneNumb
 import com.wolfpackdigital.cashli.presentation.auth.signup.validateCode.ValidateCodeViewModel
 import com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordViewModel
 import com.wolfpackdigital.cashli.presentation.claimCash.ClaimCashViewModel
+import com.wolfpackdigital.cashli.presentation.entities.args.DeleteAccountArgs
 import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaType
 import com.wolfpackdigital.cashli.presentation.help.HelpViewModel
 import com.wolfpackdigital.cashli.presentation.home.HomeViewModel
@@ -132,9 +154,12 @@ import com.wolfpackdigital.cashli.presentation.language.ChooseLanguageViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeViewModel
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
+import com.wolfpackdigital.cashli.presentation.membership.MembershipViewModel
 import com.wolfpackdigital.cashli.presentation.more.MoreViewModel
+import com.wolfpackdigital.cashli.presentation.more.deleteAccount.DeleteAccountViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.EditProfileViewModel
 import com.wolfpackdigital.cashli.presentation.more.editProfile.changePhoneOrEmail.ChangePhoneOrEmailViewModel
+import com.wolfpackdigital.cashli.presentation.more.settings.SettingsViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.OnboardingViewModel
 import com.wolfpackdigital.cashli.presentation.onboarding.step.OnboardingStepViewModel
 import com.wolfpackdigital.cashli.presentation.quiz.QuizViewModel
@@ -152,6 +177,8 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
+        viewModel { (deleteAccountArgs: DeleteAccountArgs) -> DeleteAccountViewModel(deleteAccountArgs) }
+        viewModel { SettingsViewModel(get()) }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
         viewModel { LinkBankAccountInformativeViewModel(get(), get(), get()) }
@@ -161,9 +188,9 @@ object AppModules {
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
-        viewModel { HomeViewModel(get(), get()) }
+        viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
         viewModel { AccountViewModel(get(), get(), get(), get(), get()) }
-        viewModel { MoreViewModel(get()) }
+        viewModel { MoreViewModel(get(), get(), get(), get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 identifier, codeReceivedViaType, get(), get()
@@ -181,20 +208,28 @@ object AppModules {
             )
         }
         viewModel { IneligibleInformativeViewModel() }
-        viewModel { ClaimCashViewModel() }
-        viewModel { (cashAmount: Float) -> QuizViewModel(cashAmount) }
+        viewModel { ClaimCashViewModel(get()) }
+        viewModel { (cashAmount: Float, deliveryMethod: DeliveryMethod) ->
+            QuizViewModel(
+                cashAmount,
+                deliveryMethod,
+                get()
+            )
+        }
         viewModel { HelpViewModel() }
         viewModel { ChangePasswordViewModel(get(), get()) }
         viewModel { EditProfileViewModel(get(), get(), get()) }
         viewModel { (editPhoneOrEmail: EditPhoneOrEmail) ->
             ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())
         }
+        viewModel { MembershipViewModel() }
     }
 
     private val apiModule = module {
         single { ApiProvider.provideAuthApi() }
         single { ApiProvider.provideBankApi() }
         single { ApiProvider.provideUserApi() }
+        single { ApiProvider.provideCashAdvanceApi() }
     }
 
     private val repoModule = module {
@@ -225,9 +260,12 @@ object AppModules {
                 get(),
                 get(),
                 get(),
+                get(),
+                get(),
                 get()
             )
         }
+        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -241,10 +279,16 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { UserOutstandingBalanceStatusMapperDtoToUserOutstandingBalanceStatusMapper() }
+        factory { CloseUserAccountReasonRequestToCloseAccountReasonRequestDtoMapper() }
+        factory { EligibilityChecksDtoToEligibilityChecksMapper(get()) }
+        factory { EligibilityChecksToEligibilityChecksDtoMapper(get()) }
+        factory { UserSettingsKeyToUserSettingsKeyDtoMapper() }
+        factory { UserSettingsKeyDtoToUserSettingsKeyMapper() }
         factory { BankTransactionToBankTransactionDtoMapper() }
         factory { BankTransactionDtoToBankTransactionMapper() }
-        factory { UserSettingDtoToUserSettingMapper() }
-        factory { UserSettingToUserSettingDtoMapper() }
+        factory { UserSettingDtoToUserSettingMapper(get()) }
+        factory { UserSettingToUserSettingDtoMapper(get()) }
         factory { SingleDataRequestToSingleDataRequestDtoMapper() }
         factory { SingleDataRequestDtoToSingleDataRequestMapper() }
         factory { BankAccountSubtypeDtoToBankAccountSubtypeMapper() }
@@ -261,8 +305,8 @@ object AppModules {
         factory { RefreshTokenRequestDtoToRefreshTokenRequestMapper() }
         factory { IdentifierChannelToIdentifierChannelDtoMapper() }
         factory { IdentifierChannelDtoToIdentifierChannelMapper() }
-        factory { IdentifiersRequestDtoToIdentifiersRequestMapper(get()) }
-        factory { IdentifiersRequestToIdentifiersRequestDtoMapper(get()) }
+        factory { IdentifiersRequestDtoToIdentifiersRequestMapper(get(), get()) }
+        factory { IdentifiersRequestToIdentifiersRequestDtoMapper(get(), get()) }
         factory { IdentifierTokenDtoToIdentifierTokenMapper() }
         factory { IdentifierTokenToIdentifierTokenDtoMapper() }
         factory { CreateUserProfileRequestToCreateUserProfileRequestDtoMapper(get(), get()) }
@@ -271,20 +315,29 @@ object AppModules {
         factory { UserProfileRequestToUserProfileRequestDtoMapper(get()) }
         factory { IdentifiersTokenRequestToIdentifiersTokenRequestDtoMapper() }
         factory { IdentifiersTokenRequestDtoToIdentifiersTokenRequestMapper() }
-        factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper() }
-        factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper() }
-        factory { UserProfileToUserProfileDtoMapper(get(), get(), get(), get(), get()) }
-        factory { UserProfileDtoToUserProfileMapper(get(), get(), get(), get(), get()) }
-        factory { LanguagesToLanguagesDtoMapper() }
-        factory { LanguagesDtoToLanguagesMapper() }
-        factory { SignInRequestToSignInRequestDtoMapper(get()) }
-        factory { SignInRequestDtoToSignInRequestMapper(get()) }
+        factory { IdentifiersCodeValidationRequestToIdentifiersCodeValidationRequestDtoMapper(get()) }
+        factory { IdentifiersCodeValidationRequestDtoToIdentifiersCodeValidationRequestMapper(get()) }
+        factory {
+            UserProfileDtoToUserProfileMapper(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
+        factory { LanguageToLanguageDtoMapper() }
+        factory { LanguageDtoToLanguageMapper() }
+        factory { SignInRequestToSignInRequestDtoMapper(get(), get()) }
+        factory { SignInRequestDtoToSignInRequestMapper(get(), get()) }
         factory { UserSignInRequestToUserSignInRequestDtoMapper() }
         factory { UserSignInRequestDtoToUserSignInRequestMapper() }
         factory { PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper() }
         factory { PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper() }
-        factory { ResetPasswordRequestDtoToResetPasswordRequestMapper() }
-        factory { ResetPasswordRequestToResetPasswordRequestDtoMapper() }
+        factory { ResetPasswordRequestDtoToResetPasswordRequestMapper(get()) }
+        factory { ResetPasswordRequestToResetPasswordRequestDtoMapper(get()) }
         factory { CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper(get()) }
         factory { CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper(get()) }
         factory { LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper() }
@@ -302,9 +355,17 @@ object AppModules {
         }
         factory { UpdateUserProfileRequestDtoToUserProfileRequestMapper(get()) }
         factory { UpdateUserProfileRequestToUserProfileRequestDtoMapper(get()) }
+        factory { AccountStatusDtoToAccountStatusMapper() }
+        factory { LastMembershipDtoToLastMembershipMapper(get()) }
+        factory { LastMembershipStatusDtoToLastMembershipStatusMapper() }
+        factory { TransferFeesDtoToTransferFeesMapper() }
+        factory { DeliveryMethodToDeliveryMethodDtoMapper() }
+        factory { CashAdvanceRequestToCashAdvanceRequestDtoMapper(get()) }
     }
 
     private val useCases = module {
+        single { GetUserOutstandingBalanceStatusUseCase(get()) }
+        single { CloseUserAccountUseCase(get()) }
         single { UpdateUserSettingUseCase(get()) }
         single { RegisterDeviceTokenUseCase(get()) }
         single { GetUserProfileUseCase(get()) }
@@ -347,6 +408,11 @@ object AppModules {
         single { ValidateCodeByUpdateIdentifiersUseCase(get()) }
         single { UpdateUserProfileUseCase(get()) }
         single { UnlinkAccountUseCase(get()) }
+        single { PauseUserAccountUseCase(get()) }
+        single { GetTransferFeesUseCase(get()) }
+        single { RequestCashAdvanceUseCase(get()) }
+        single { GenerateUpdateLinkTokenUseCase(get()) }
+        single { CompleteUpdateLinkingBankAccountUseCase(get()) }
     }
 
     private val pagingSources = module {

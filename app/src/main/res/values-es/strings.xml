@@ -84,7 +84,6 @@
     <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
     <string name="up_to_sum">Up to $%s!</string>
     <string name="hello_user">Hi, %s!</string>
-    <string name="request_cash_ineligible">Unfortunately, you can\'t get a cash advance at this time.</string>
     <string name="request_cash_approved_for">You’ve been approved for</string>
     <string name="claim_cash_now">Claim cash now</string>
     <string name="request_cash_tips">Cash could be delivered in minutes.</string>
@@ -99,6 +98,9 @@
     <string name="bank_account_subtype_savings">Savings</string>
     <string name="bank_transactions">Latest bank transactions</string>
     <string name="back_to_top">Back to top</string>
+    <string name="warning_lost_connection">We lost connection with your bank account. <annotation action="openResolveConnection">Resolve now</annotation></string>
+    <string name="unpause_your_membership">Unpause your membership</string>
+    <string name="can_not_get_cash_advance_see_more">Unfortunately, you can\'t get a cash advance at this time. <annotation action="openIneligibilityScreen">See more</annotation></string>
 
     <!--Link account informative -->
     <string name="link_my_bank_account">Link my bank account</string>
@@ -125,7 +127,7 @@
 
     <!--Forgot Password -->
     <string name="forgot_password">Forgot password</string>
-    <string name="confirm_one_time_password">Confirm One Time Password</string>
+    <string name="confirm_one_time_password">Confirm one time password</string>
     <string name="reset_password">Reset your password</string>
     <string name="forgot_password_screen_message_email">Please enter the email address you used to create your Cashli account.</string>
     <string name="forgot_password_screen_message_phone">Please enter the phone number you used to create your Cashli account.</string>
@@ -140,6 +142,7 @@
     <!--Link Bank Account -->
     <string name="pending">Pending</string>
     <string name="pending_content">Your bank account will be connected soon.</string>
+    <string name="pending_time_content">Please wait for a few moments.</string>
     <string name="congrats">Congrats!</string>
     <string name="bank_account_connection_success">Connection to your bank account has been successful.\n\n<b>You are approved for $%s.</b></string>
     <string name="cash_out">Cash out</string>
@@ -159,10 +162,12 @@
 
     <string name="delivery_method_regular">Regular</string>
     <string name="delivery_method_regular_description">1–3 working days</string>
-    <string name="delivery_method_regular_disclaimer">This advance will be deposited into your Bank Of America account ending in 3091. Same bank account will be used for repayment.</string>
+    <string name="delivery_method_regular_disclaimer">This advance will be deposited into your %1$s account ending in %2$s. Same bank account will be used for repayment.</string>
 
     <string name="delivery_method_express">Express</string>
-    <string name="delivery_method_express_description">Within minutes</string>
+    <string name="delivery_method_express_within_minutes">Within minutes</string>
+    <string name="delivery_method_express_several_hours">Several hours</string>
+    <string name="delivery_method_express_within_20_hours">Within 20 hours</string>
     <string name="delivery_method_express_secondary_description">Leapfrogged</string>
     <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
 
@@ -194,6 +199,7 @@
     <string name="save">Save</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="on_date">On %s</string>
 
     <!--Push Notifications -->
     <string name="notification_rejected_text">Without notification permission you will not receive alerts from “Cashli” app.</string>
@@ -201,6 +207,25 @@
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>
     <string name="account_created_successfully">Your account has been\nsuccessfully created.</string>
+
+    <!--Pause or Close Account-->
+    <string name="pause_or_close_account">Pause or Close\nAccount</string>
+    <string name="pause_account">Pause Account</string>
+    <string name="close_account">Close Account</string>
+    <string name="close_account_instead">Close account instead</string>
+    <string name="pause_account_instead">Pause account instead</string>
+    <string name="pause_account_content">If you pause your account we will no longer be able to notify you about future cash advances eligibility.\n\nWe\'ll stop sending low balance alerts &amp; charging the membership fee.</string>
+    <string name="close_account_ineligible">Sorry, you can\'t close your account at this time due to an outstanding advance.</string>
+
+    <!--Close Account-->
+    <string name="close_account_content">We are sorry you\'ve decided to part ways with us.</string>
+    <string name="what_is_the_reason">What\'s the reason?</string>
+    <string name="other_reason"><annotation action="textUs">Text us</annotation> for any other reason as we strive to improve our services.</string>
+    <string name="close_account_data_deletion">All of your personal identifiable data will be deleted in our databases.</string>
+    <string name="close_account_reason_advance_low">Max cash advance too low</string>
+    <string name="close_account_reason_fee">Express fee too high</string>
+    <string name="close_account_reason_ineligible">Ineligible for cash advances</string>
+    <string name="close_account_reason_competitor">A better competitor</string>
 
     <!--Home -->
     <string name="home">Home</string>
@@ -233,6 +258,20 @@
     <string name="logout">Logout</string>
     <string name="unpause_close_account">Unpause or Close account</string>
 
+    <!--Membership -->
+    <string name="membership_status">Membership status</string>
+    <string name="membership_status_active">Active</string>
+    <string name="membership_status_paused">Paused</string>
+    <string name="membership_started">Started</string>
+    <string name="membership_renewal">Renewal</string>
+    <string name="membership_amount">Amount</string>
+    <string name="cash_advance_amount">Amount</string>
+    <string name="cash_advance_due_date">Due Date</string>
+    <string name="cash_advance_paid_date">Paid Date</string>
+    <string name="cash_advance_overdue">Overdue</string>
+    <string name="cash_advance_paid">Paid</string>
+    <string name="membership_amount_value">%s/month</string>
+
     <!--Change Password-->
     <string name="change_password_toolbar_title">Change your password</string>
     <string name="change_password_title">Type and confirm a new password</string>
@@ -241,6 +280,14 @@
     <string name="change_password_confirm_new_password">CONFIRM NEW PASSWORD*</string>
     <string name="change_password_passwords_changed">Your password has been successfully changed.</string>
     <string name="change_password_passwords_match_error">New password cannot be the same as the old password.</string>
+
+    <!--Settings-->
+    <string name="low_balance_alerts">Low balance alerts</string>
+    <string name="notify_if_balance_is_below">Notify if balance is below $%s</string>
+    <string name="notify_balance_below_description">You will be notified on your phone if your bank account balance falls below this amount or if an upcoming bill might make it fall below it.</string>
+    <string name="notifications">Notifications</string>
+    <string name="enable_push_notifications">Enable push notifications</string>
+    <string name="et_low_balance_amount_hint">enter balance amount</string>
 
     <!--Log out-->
     <string name="log_out">Log out</string>
@@ -262,8 +309,15 @@
     <string name="phone">PHONE</string>
     <string name="email">EMAIL</string>
 
+    <!--PN-->
+    <string name="you_are_eligible_now">You are eligible to get a cash advance.</string>
+    <string name="low_balance">Low balance</string>
+    <string name="bank_balance_below">Your bank account balance is below $%s.</string>
+    <string name="link_account">Link account</string>
+    <string name="bank_account_connection_lost">We lost connection with your bank account. Resolve now.</string>
+
     <!--Plurals-->
-    <plurals name="past_days_plural">
+    <plurals name="past_days_plural" tools:ignore="MissingQuantity">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
         <item quantity="many">%d days ago</item>

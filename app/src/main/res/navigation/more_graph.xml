@@ -16,6 +16,15 @@
         <action
             android:id="@+id/action_moreFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_membershipFragment"
+            app:destination="@id/membershipFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_deleteAccountDialog"
+            app:destination="@id/deleteAccountDialog" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -51,4 +60,26 @@
         android:name="com.wolfpackdigital.cashli.presentation.changePassword.ChangePasswordFragment"
         android:label="ChangePasswordFragment"
         tools:layout="@layout/fr_change_password" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.more.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fr_settings" />
+
+    <fragment
+        android:id="@+id/membershipFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.membership.MembershipFragment"
+        android:label="MembershipFragment"
+        tools:layout="@layout/fr_membership" />
+
+    <dialog
+        android:id="@+id/deleteAccountDialog"
+        android:name="com.wolfpackdigital.cashli.presentation.more.deleteAccount.DeleteAccountDialog"
+        android:label="DeleteAccountDialog"
+        tools:layout="@layout/dialog_delete_account">
+        <argument
+            android:name="deleteAccountArgs"
+            app:argType="com.wolfpackdigital.cashli.presentation.entities.args.DeleteAccountArgs" />
+    </dialog>
 </navigation>

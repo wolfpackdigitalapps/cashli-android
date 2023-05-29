@@ -25,12 +25,12 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
     }
 
     override fun setupViews() {
-        setupSliderView()
         setupRv()
         setupObservers()
     }
 
     private fun setupObservers() {
+        observeTransferFees()
         viewModel.deliveryMethods.observe(viewLifecycleOwner, adapter::submitList)
         viewModel.cmd.observe(viewLifecycleOwner) { command ->
             when (command) {
@@ -60,20 +60,29 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
         binding?.mlCashAmount?.transitionToStart()
     }
 
-    private fun setupSliderView() {
+    private fun observeTransferFees() {
+        viewModel.transferFees.observe(viewLifecycleOwner) { transferFeesList ->
+            setupSliderView(
+                minValue = transferFeesList.minOf { it.lowerLimit },
+                maxValue = transferFeesList.maxOf { it.upperLimit }
+            )
+        }
+    }
+
+    private fun setupSliderView(minValue: Float, maxValue: Float) {
         binding?.cvCashAmount?.setContent {
             MaterialTheme {
                 StyledSlider(
                     uiState = StyledSliderUIState.ClaimCashSliderUIState(
-                        sliderValue = viewModel.amountPerc,
-                        labelValue = viewModel.amount,
-                        isInvertedColorScheme = false
+                        sliderValue = viewModel.labelAmount,
+                        isInvertedColorScheme = false,
+                        minSliderValue = minValue,
+                        maxSliderValue = maxValue
                     ),
-                    onAmountChanged = viewModel::setAmountPerc,
+                    onAmountChanged = viewModel::setLabelAmount,
                     horizontalPadding = dimensionResource(id = R.dimen.dimen_20dp)
                 )
             }
         }
-        viewModel.deliveryMethods.observe(viewLifecycleOwner, adapter::submitList)
     }
 }

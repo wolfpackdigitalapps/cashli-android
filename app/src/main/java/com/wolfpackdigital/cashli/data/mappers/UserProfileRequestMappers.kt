@@ -5,7 +5,7 @@ import com.wolfpackdigital.cashli.domain.entities.requests.UserProfileRequest
 import com.wolfpackdigital.cashli.shared.base.Mapper
 
 class UserProfileRequestDtoToUserProfileRequestMapper(
-    private val languagesMapper: LanguagesDtoToLanguagesMapper
+    private val languagesMapper: LanguageDtoToLanguageMapper
 ) : Mapper<UserProfileRequestDto, UserProfileRequest> {
     override fun map(input: UserProfileRequestDto): UserProfileRequest {
         return UserProfileRequest(
@@ -24,7 +24,7 @@ class UserProfileRequestDtoToUserProfileRequestMapper(
 }
 
 class UserProfileRequestToUserProfileRequestDtoMapper(
-    private val languagesMapper: LanguagesToLanguagesDtoMapper
+    private val languagesMapper: LanguageToLanguageDtoMapper
 ) : Mapper<UserProfileRequest, UserProfileRequestDto> {
     override fun map(input: UserProfileRequest): UserProfileRequestDto {
         return UserProfileRequestDto(

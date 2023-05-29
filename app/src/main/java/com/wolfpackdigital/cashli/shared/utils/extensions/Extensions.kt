@@ -15,9 +15,12 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDeepLinkRequest
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
+import com.google.gson.reflect.TypeToken
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.shared.base.ApiError
@@ -37,7 +40,7 @@ private const val KEYBOARD_HIDDEN_FLAG = 0
 private const val PASSWORD_COMPLEXITY_REGEXP = "^(?=.*\\d)(?=.*[A-Za-z])(?=.*\\W).{8,}\$"
 private const val EMAIL_PATTERN = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" +
     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." +
-    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+    "[a-zA-Z0-9][a-zA-Z0-9]{1,25}" + ")+"
 private const val DIGITS_PATTERN = "^[0-9]*$"
 private const val LETTERS_COMMA_PATTERN = "[a-zA-Z]+[\\s]*\\,[\\s]*[a-zA-Z]{2}\$"
 private const val ONLY_CITY_OR_STATE_PATTERN = "([\\s]*[\\,][\\s]*)|" +
@@ -148,6 +151,13 @@ fun <T1 : Any, T2 : Any, T3 : Any, R : Any> safeLet(
     return if (p1 != null && p2 != null && p3 != null) block(p1, p2, p3) else null
 }
 
+inline fun <reified T : Any> T?.json() = this?.let { Gson().toJson(this, T::class.java) }
+
+inline fun <reified T : Any> String?.fromJson(): T? = this?.let {
+    val type = object : TypeToken<T>() {}.type
+    Gson().fromJson(this, type)
+}
+
 // Usage: condition then "yes" ?: "no"
 infix fun <T> Boolean.then(param: T): T? = if (this) param else null
 
@@ -236,3 +246,8 @@ fun NotificationManagerCompat.areDeviceNotificationsFullyEnabled(): Boolean {
     }
     return true
 }
+
+fun handleDeepLinkRequest(deepLink: String) =
+    NavDeepLinkRequest.Builder
+        .fromUri(deepLink.toUri())
+        .build()

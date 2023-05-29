@@ -20,21 +20,28 @@ import com.smarttoolfactory.slider.SliderBrushColor
 import com.wolfpackdigital.cashli.R
 
 private const val LABEL_TEXT_SIZE = 12
-private const val MAX_SEEKBAR_RANGE = 100f
+private const val MAX_TIP_SLIDER = 15f
 
-sealed class StyledSliderUIState(val value: LiveData<Float>, val invertedColorScheme: Boolean) {
+sealed class StyledSliderUIState(
+    val value: LiveData<Float>,
+    val invertedColorScheme: Boolean,
+    val minValue: Float,
+    val maxValue: Float
+) {
     data class ClaimCashSliderUIState(
-        val sliderValue: LiveData<Float>,
-        val labelValue: LiveData<Float>,
-        val isInvertedColorScheme: Boolean
-    ) : StyledSliderUIState(sliderValue, isInvertedColorScheme)
+        private val sliderValue: LiveData<Float>,
+        private val isInvertedColorScheme: Boolean,
+        private val minSliderValue: Float,
+        private val maxSliderValue: Float
+    ) : StyledSliderUIState(sliderValue, isInvertedColorScheme, minSliderValue, maxSliderValue)
 
     data class TipAmountSliderUIState(
-        val sliderValue: LiveData<Float>,
-        val tipAmountPerc: LiveData<Float>,
         val tipAmount: LiveData<Float>,
-        val isInvertedColorScheme: Boolean,
-    ) : StyledSliderUIState(sliderValue, isInvertedColorScheme)
+        private val sliderValue: LiveData<Float>,
+        private val isInvertedColorScheme: Boolean,
+        private val minSliderValue: Float = 0f,
+        private val maxSliderValue: Float = MAX_TIP_SLIDER,
+    ) : StyledSliderUIState(sliderValue, isInvertedColorScheme, minSliderValue, maxSliderValue)
 }
 
 @Suppress("LongMethod", "FunctionNaming")
@@ -75,7 +82,7 @@ fun StyledSlider(
         }
     )
 
-    val currentValue by uiState.value.observeAsState(0f)
+    val currentValue by uiState.value.observeAsState(uiState.minValue)
 
     val labelText = when (uiState) {
         is StyledSliderUIState.ClaimCashSliderUIState -> {
@@ -83,9 +90,8 @@ fun StyledSlider(
         }
 
         is StyledSliderUIState.TipAmountSliderUIState -> {
-            val tipAmountPerc by uiState.tipAmountPerc.observeAsState(initial = 0f)
             val tipAmount by uiState.tipAmount.observeAsState(initial = 0f)
-            stringResource(id = R.string.quiz_tip_amount_slider, tipAmountPerc, tipAmount)
+            stringResource(id = R.string.quiz_tip_amount_slider, currentValue, tipAmount)
         }
     }
 
@@ -94,7 +100,7 @@ fun StyledSlider(
         onValueChange = onAmountChanged,
         trackHeight = dimensionResource(id = R.dimen.dimen_10dp),
         thumbRadius = dimensionResource(id = R.dimen.dimen_12dp),
-        valueRange = 0f..MAX_SEEKBAR_RANGE,
+        valueRange = uiState.minValue..uiState.maxValue,
         colors = MaterialSliderDefaults.materialColors(
             thumbColor = SliderBrushColor(color = thumbColor),
             activeTrackColor = SliderBrushColor(brush = trackColor),

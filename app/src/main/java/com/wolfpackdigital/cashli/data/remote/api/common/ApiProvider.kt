@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import com.wolfpackdigital.cashli.BuildConfig
 import com.wolfpackdigital.cashli.data.remote.api.AuthApi
 import com.wolfpackdigital.cashli.data.remote.api.BankApi
+import com.wolfpackdigital.cashli.data.remote.api.CashAdvanceApi
 import com.wolfpackdigital.cashli.data.remote.api.UserApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,7 +39,11 @@ object ApiProvider {
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
         if (BuildConfig.DEBUG) {
-            client.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+            client.addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
         }
         client.build()
     }
@@ -52,4 +57,5 @@ object ApiProvider {
     fun provideAuthApi(): AuthApi = retrofit.create(AuthApi::class.java)
     fun provideBankApi(): BankApi = retrofit.create(BankApi::class.java)
     fun provideUserApi(): UserApi = retrofit.create(UserApi::class.java)
+    fun provideCashAdvanceApi(): CashAdvanceApi = retrofit.create(CashAdvanceApi::class.java)
 }

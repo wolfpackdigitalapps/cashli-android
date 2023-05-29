@@ -1,30 +1,37 @@
+@file:Suppress("TooManyFunctions")
+
 package com.wolfpackdigital.cashli.presentation.home
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.plaid.link.OpenPlaidLink
+import com.plaid.link.result.LinkExit
+import com.plaid.link.result.LinkSuccess
 import com.wolfpackdigital.cashli.HomeBinding
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.presentation.entities.GenericWarningInfo
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
 import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
+import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
 import com.wolfpackdigital.cashli.shared.utils.extensions.areDeviceNotificationsFullyEnabled
 import com.wolfpackdigital.cashli.shared.utils.extensions.canScrollBothDirections
 import com.wolfpackdigital.cashli.shared.utils.extensions.getBackStackData
+import com.wolfpackdigital.cashli.shared.utils.extensions.handleNotificationsRequest
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.reachedViewBottom
 import com.wolfpackdigital.cashli.shared.utils.extensions.reachedViewTop
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val SCROLL_TO_TOP = 0
@@ -32,8 +39,13 @@ private const val SCROLL_TO_TOP = 0
 class HomeFragment :
     BaseFragment<HomeBinding, HomeViewModel>(R.layout.fr_home) {
 
+    private val activityViewModel by activityViewModel<MainActivityViewModel>()
+
     override val viewModel by viewModel<HomeViewModel>()
 
+    private val warningAdapter: GenericWarningAdapter by lazy {
+        GenericWarningAdapter()
+    }
     private val bankShortDetailsSectionAdapter: BankShortDetailsSectionAdapter by lazy {
         BankShortDetailsSectionAdapter()
     }
@@ -48,6 +60,7 @@ class HomeFragment :
     }
     private val concatAdapter: ConcatAdapter by lazy {
         ConcatAdapter(
+            warningAdapter,
             bankAccountSectionAdapter,
             cashAdvanceSectionAdapter,
             bankShortDetailsSectionAdapter,
@@ -58,6 +71,19 @@ class HomeFragment :
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             viewModel.handleUserPushNotificationsSetting(isGranted)
+        }
+
+    private val updateLinkAccountToPLaidLauncher =
+        registerForActivityResult(OpenPlaidLink()) { linkResult ->
+            when (linkResult) {
+                is LinkSuccess -> {
+                    viewModel.onSuccessUpdatingLinkBankAccount(linkResult)
+                }
+
+                is LinkExit -> {
+                    viewModel.onFailUpdatingLinkBankAccount(linkResult)
+                }
+            }
         }
 
     override fun setupViews() {
@@ -91,6 +117,12 @@ class HomeFragment :
     }
 
     private fun setupObservers() {
+        activityViewModel.cmd.observe(viewLifecycleOwner) {
+            when (it) {
+                MainActivityViewModel.Command.RefreshUserProfileData ->
+                    viewModel.getUserProfile()
+            }
+        }
         viewModel.cmd.observe(viewLifecycleOwner) {
             when (it) {
                 HomeViewModel.Command.CheckPushNotificationPermissions ->
@@ -101,9 +133,26 @@ class HomeFragment :
 
                 is HomeViewModel.Command.RefreshRequestCashAdvanceInfo ->
                     handleRequestCashSection(it.requestCashAdvanceInfo)
+
+                is HomeViewModel.Command.ConnectionLostWarningInfo ->
+                    handleWarningsSection(it.genericWarningInfo)
+
+                is HomeViewModel.Command.StartUpdatingLinkBankAccount -> {
+                    updateLinkAccountToPLaidLauncher.launch(it.linkTokenConfiguration)
+                }
+
+                is HomeViewModel.Command.RemoveConnectionLostWarning -> {
+                    handleWarningsSection()
+                }
             }
         }
         setupBackStackData()
+    }
+
+    private fun handleWarningsSection(genericWarningInfo: GenericWarningInfo? = null) {
+        warningAdapter.submitList(
+            genericWarningInfo?.let { item -> listOf(item) } ?: emptyList()
+        )
     }
 
     private fun handleBankAccountInfoSections(linkBankAccountInfo: LinkBankAccountInfo?) {
@@ -162,20 +211,27 @@ class HomeFragment :
         viewModel.getUserProfile()
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.cancelCheckEligibilityStatusJob()
+    }
+
     private fun handlePushNotificationPermissions() {
         context?.let { ctx ->
-            if (ContextCompat.checkSelfPermission(
-                    ctx,
+            val permission =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
                     Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_DENIED &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-            ) {
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            } else {
-                val deviceNotificationsEnabled =
-                    NotificationManagerCompat.from(ctx).areDeviceNotificationsFullyEnabled()
-                viewModel.handleUserPushNotificationsSetting(deviceNotificationsEnabled)
-            }
+                else
+                    null
+            ctx.handleNotificationsRequest(
+                permission,
+                requestPermissionLauncher,
+                onPermissionAlreadyGranted = {
+                    val deviceNotificationsEnabled =
+                        NotificationManagerCompat.from(ctx).areDeviceNotificationsFullyEnabled()
+                    viewModel.handleUserPushNotificationsSetting(deviceNotificationsEnabled)
+                }
+            )
         }
     }
 }

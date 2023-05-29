@@ -8,6 +8,7 @@ import android.text.SpannedString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
@@ -30,11 +31,16 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.toLocalDateFromPattern
 import java.time.LocalDate
 
 private const val KEY_SPAN_ACTION = "action"
+private const val TAG = "TextViewBindingAdapters"
 
 @BindingAdapter("textRes")
 fun TextView.textRes(@StringRes textRes: Int?) {
     textRes ?: return
-    setText(textRes)
+    try {
+        setText(textRes)
+    } catch (e: Exception) {
+        Log.e(TAG, "textRes: ${e.stackTrace}")
+    }
 }
 
 @Suppress("SpreadOperator")
@@ -46,34 +52,47 @@ fun TextView.setTextIdOrString(textIdOrString: Any?, textArgs: Array<Any>?) {
 }
 
 @BindingAdapter(value = ["actions", "textWithActions"], requireAll = true)
-fun TextView.setTextSpanByAction(actions: List<TextSpanAction>, @StringRes textWithActions: Int) {
-    val termsText = context.getText(textWithActions) as? SpannedString ?: return
-    val annotations = termsText.getSpans(0, termsText.length, Annotation::class.java)
-    val termsCopy = SpannableString(termsText)
-    annotations.forEach {
-        if (it.key == KEY_SPAN_ACTION) {
-            val action = actions.firstOrNull { action -> action.actionKey == it.value }
-            val clickSpan = action?.let { textSpanAction ->
-                CustomClickSpan(
-                    onClickListener = textSpanAction.action,
-                    textColor = context.getColor(textSpanAction.spanTextColor),
-                    shouldUnderline = textSpanAction.isSpanTextUnderlined,
-                    isBold = textSpanAction.isSpanTextBold
-                )
-            } ?: throw NotImplementedError(
-                context.getString(R.string.generic_not_implemented_error)
-            )
-            termsCopy.setSpan(
-                clickSpan,
-                termsText.getSpanStart(it),
-                termsText.getSpanEnd(it),
-                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+fun TextView.setTextSpanByAction(actions: List<TextSpanAction>?, @StringRes textWithActions: Int) {
+    val termsText = context.getText(textWithActions) as? SpannedString
+    termsText?.let {
+        val termsCopy = SpannableString(termsText)
+        actions?.let {
+            val annotations = termsText.getSpans(0, termsText.length, Annotation::class.java)
+            annotations.forEach {
+                setClickSpanForAction(it, actions, termsCopy, termsText)
+            }
         }
+        text = termsCopy
+        movementMethod = LinkMovementMethod.getInstance()
+        highlightColor = Color.TRANSPARENT
+    } ?: textRes(textWithActions)
+}
+
+private fun TextView.setClickSpanForAction(
+    it: Annotation,
+    actions: List<TextSpanAction>,
+    termsCopy: SpannableString,
+    termsText: SpannedString
+) {
+    if (it.key == KEY_SPAN_ACTION) {
+        val action = actions.firstOrNull { action -> action.actionKey == it.value }
+        val clickSpan = action?.let { textSpanAction ->
+            CustomClickSpan(
+                onClickListener = textSpanAction.action,
+                textColor = context.getColor(textSpanAction.spanTextColor),
+                shouldUnderline = textSpanAction.isSpanTextUnderlined,
+                isBold = textSpanAction.isSpanTextBold
+            )
+        } ?: throw NotImplementedError(
+            context.getString(R.string.generic_not_implemented_error)
+        )
+        termsCopy.setSpan(
+            clickSpan,
+            termsText.getSpanStart(it),
+            termsText.getSpanEnd(it),
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
     }
-    text = termsCopy
-    movementMethod = LinkMovementMethod.getInstance()
-    highlightColor = Color.TRANSPARENT
 }
 
 @BindingAdapter(

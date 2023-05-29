@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import androidx.annotation.StringRes
 
 data class PopupConfig(
-    val titleId: Int,
+    val titleIdOrString: Any?,
     val imageId: Int,
     val contentIdOrString: Any? = null,
     val timerCount: Long? = null,
@@ -12,6 +12,8 @@ data class PopupConfig(
     @StringRes val secondaryContent: Int? = null,
     val buttonPrimaryId: Int? = null,
     val buttonSecondaryId: Int? = null,
+    val buttonPrimaryEnabled: Boolean = true,
+    val buttonSecondaryEnabled: Boolean = true,
     val buttonPrimaryClick: () -> Unit = {},
     val buttonSecondaryClick: () -> Unit = {},
     val buttonCloseClick: () -> Unit = {},

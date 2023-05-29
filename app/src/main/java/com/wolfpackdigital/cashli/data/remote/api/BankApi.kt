@@ -1,8 +1,8 @@
 package com.wolfpackdigital.cashli.data.remote.api
 
-import com.wolfpackdigital.cashli.data.remote.dto.enums.EligibilityStatusDto
 import com.wolfpackdigital.cashli.data.remote.dto.requests.CompleteLinkBankAccountRequestDto
 import com.wolfpackdigital.cashli.data.remote.dto.response.BankTokenDto
+import com.wolfpackdigital.cashli.data.remote.dto.response.EligibilityChecksDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -12,7 +12,7 @@ import retrofit2.http.POST
 interface BankApi {
 
     @GET("v1/eligibility_checks/statuses")
-    suspend fun getEligibilityStatus(): EligibilityStatusDto
+    suspend fun getEligibilityStatus(): EligibilityChecksDto
 
     @POST("v1/bank_accounts/link")
     suspend fun generateLinkToken(): BankTokenDto
@@ -24,4 +24,12 @@ interface BankApi {
 
     @DELETE("v1/bank_accounts/link")
     suspend fun unlinkAccount()
+
+    @POST("v1/bank_accounts/update_link")
+    suspend fun generateUpdateLinkToken(): BankTokenDto
+
+    @PATCH("v1/bank_accounts/update_link")
+    suspend fun completeUpdateLinkingBankAccount(
+        @Body updateLinkBankAccountRequest: CompleteLinkBankAccountRequestDto
+    )
 }

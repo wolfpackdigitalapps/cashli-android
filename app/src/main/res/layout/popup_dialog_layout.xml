@@ -61,7 +61,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_top"
-                app:textRes="@{viewModel.titleId}"
+                app:textIdOrString="@{viewModel.titleIdOrString}"
                 tools:text="Congrats!" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -118,6 +118,7 @@
                 android:layout_marginHorizontal="@dimen/dimen_24dp"
                 android:layout_marginTop="@dimen/dimen_64dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
+                android:enabled="@{viewModel.buttonPrimaryEnabled}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_12dp"
                 android:layout_marginBottom="@dimen/dimen_12dp"
+                android:enabled="@{viewModel.buttonSecondaryEnabled}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
