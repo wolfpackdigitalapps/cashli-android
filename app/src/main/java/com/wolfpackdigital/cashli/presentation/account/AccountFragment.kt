@@ -23,6 +23,7 @@ class AccountFragment :
         }
 
     override fun setupViews() {
+        viewModel.getUserProfile()
         setupObservers()
     }
 

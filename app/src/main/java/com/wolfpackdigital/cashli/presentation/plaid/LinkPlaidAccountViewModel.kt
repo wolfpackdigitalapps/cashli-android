@@ -37,8 +37,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 
-private const val CHECK_ELIGIBILITY_DELAY = 10
-
 abstract class LinkPlaidAccountViewModel(
     private val generateLinkTokenUseCase: GenerateLinkTokenUseCase,
     private val completeLinkingBankAccountUseCase: CompleteLinkingBankAccountUseCase,
@@ -76,7 +74,7 @@ abstract class LinkPlaidAccountViewModel(
             result.onSuccess {
                 _baseCmd.value = BaseCommand.ShowPopupById(
                     PopupConfig(
-                        titleId = R.string.pending,
+                        titleIdOrString = R.string.pending,
                         contentIdOrString = R.string.pending_content,
                         imageId = R.drawable.ic_pending,
                         isCloseVisible = false,
@@ -104,7 +102,7 @@ abstract class LinkPlaidAccountViewModel(
 
     private fun initCheckEligibilityStatusJob(alertDialog: AlertDialog) {
         // TODO replace eligibility delay with minutes after more tests
-        checkEligibilityStatusJob = initTimer(CHECK_ELIGIBILITY_DELAY).onCompletion {
+        checkEligibilityStatusJob = initTimer(Constants.COUNT_DOWN_TIME_30_SEC).onCompletion {
             if (it == null)
                 handleEligibilityStatus(alertDialog)
             cancelCheckEligibilityStatusJob()
@@ -130,47 +128,23 @@ abstract class LinkPlaidAccountViewModel(
         viewModelScope.launch {
             val result = getEligibilityStatusUseCase(Unit)
             result.onSuccess { eligibilityStatus ->
-                when (eligibilityStatus) {
+                when (eligibilityStatus.status) {
                     EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                         toggleEligibilityStatusJob(alertDialog)
                     }
 
                     EligibilityStatus.ELIGIBLE -> {
                         alertDialog.dismiss()
-                        _baseCmd.value = BaseCommand.ShowPopupById(
-                            PopupConfig(
-                                titleId = R.string.congrats,
-                                contentIdOrString = R.string.bank_account_connection_success,
-                                contentFormatArgs = arrayOf(123),
-                                imageId = R.drawable.ic_congrats,
-                                isCloseVisible = false,
-                                buttonPrimaryId = R.string.cash_out,
-                                buttonSecondaryId = R.string.take_me_to_home,
-                                buttonSecondaryClick = {
-                                    _cmd.value = Command.RefreshUserDataNeeded
-                                    _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
-                                },
-                                buttonPrimaryClick = {
-                                    _baseCmd.value = BaseCommand.PerformNavAction(
-                                        LinkAccountGraphDirections.actionGlobalClaimCashGraph(),
-                                        popUpTo = R.id.linkBankAccountInformativeFragment,
-                                        inclusive = true
-                                    )
-                                }
-                            )
-                        )
+                        onEligibleStatusCallback()
                     }
 
                     EligibilityStatus.NOT_ELIGIBLE -> {
                         alertDialog.dismiss()
-                        _baseCmd.value = BaseCommand.PerformNavAction(
-                            LinkBankAccountInformativeFragmentDirections
-                                .actionLinkBankAccountInformativeFragmentToIneligibleInformativeFragment()
-                        )
+                        onNotEligibleStatusCallback()
                     }
 
                     else -> {
-                        // TODO add logic if necessary
+
                     }
                 }
             }
@@ -178,10 +152,48 @@ abstract class LinkPlaidAccountViewModel(
                 val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
                 _baseCmd.value = BaseCommand.ShowToast(error)
                 alertDialog.dismiss()
-                _cmd.value = Command.RefreshUserDataNeeded
-                _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
+                onEligibilityStatusCheckError()
             }
         }
+    }
+
+    open fun onEligibleStatusCallback() {
+        _baseCmd.value = BaseCommand.ShowPopupById(
+            PopupConfig(
+                titleIdOrString = R.string.congrats,
+                contentIdOrString = R.string.bank_account_connection_success,
+                contentFormatArgs = arrayOf(123),
+                imageId = R.drawable.ic_congrats,
+                isCloseVisible = false,
+                buttonPrimaryId = R.string.cash_out,
+                buttonSecondaryId = R.string.take_me_to_home,
+                buttonSecondaryClick = {
+                    _cmd.value = Command.RefreshUserDataNeeded
+                    _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
+                },
+                buttonPrimaryClick = {
+                    _baseCmd.value = BaseCommand.PerformNavAction(
+                        LinkAccountGraphDirections.actionGlobalClaimCashGraph(),
+                        popUpTo = R.id.linkBankAccountInformativeFragment,
+                        inclusive = true
+                    )
+                }
+            )
+        )
+    }
+
+    open fun onNotEligibleStatusCallback() {
+        _baseCmd.value = BaseCommand.PerformNavAction(
+            LinkBankAccountInformativeFragmentDirections
+                .actionLinkBankAccountInformativeFragmentToIneligibleGraph(),
+            popUpTo = R.id.linkBankAccountInformativeFragment,
+            inclusive = true
+        )
+    }
+
+    open fun onEligibilityStatusCheckError() {
+        _cmd.value = Command.RefreshUserDataNeeded
+        _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
     }
 
     private fun createLinkBankAccountRequest(linkSuccess: LinkSuccess) =
@@ -231,17 +243,17 @@ abstract class LinkPlaidAccountViewModel(
         }
     }
 
-    private fun handlePlaidErrorPopup(@StringRes titleId: Int, contentIdOrString: Any?) {
+    open fun handlePlaidErrorPopup(@StringRes titleId: Int, contentIdOrString: Any?) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
-                titleId = titleId,
+                titleIdOrString = titleId,
                 contentIdOrString = contentIdOrString,
                 imageId = R.drawable.ic_warning,
                 isCloseVisible = false,
                 buttonPrimaryId = R.string.go_back_to_home,
                 buttonSecondaryId = R.string.get_support,
                 buttonSecondaryClick = {
-                    _baseCmd.value = BaseCommand.ShowSMSApp()
+                    _baseCmd.value = BaseCommand.OpenSMSApp()
                 },
                 buttonPrimaryClick = {
                     _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)

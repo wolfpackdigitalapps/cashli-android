@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ineligible_graph"
+    app:startDestination="@id/ineligibleInformativeFragment">
+
+    <fragment
+        android:id="@+id/ineligibleInformativeFragment"
+        android:name="com.wolfpackdigital.cashli.presentation.linkBank.ineligible.IneligibleInformativeFragment"
+        android:label="IneligibleInformativeFragment"
+        tools:layout="@layout/fr_ineligible_informative">
+        <deepLink app:uri="android-app://com.wolfpackdigital.cashli/ineligibleInformative" />
+    </fragment>
+</navigation>

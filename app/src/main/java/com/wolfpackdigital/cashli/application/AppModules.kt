@@ -189,7 +189,7 @@ object AppModules {
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
         viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
-        viewModel { AccountViewModel(get(), get(), get(), get(), get()) }
+        viewModel { AccountViewModel(get(), get(), get(), get(), get(), get()) }
         viewModel { MoreViewModel(get(), get(), get(), get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(

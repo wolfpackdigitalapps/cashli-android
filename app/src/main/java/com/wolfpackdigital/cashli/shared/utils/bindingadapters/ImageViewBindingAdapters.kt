@@ -18,7 +18,7 @@ import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.IconGravity
 import com.wolfpackdigital.cashli.R
 
-private const val ARROW_MIDDLE_POSITION = 0.5f
+const val ARROW_MIDDLE_POSITION = 0.5f
 
 @BindingAdapter("drawableRes")
 fun ImageView.drawableRes(@DrawableRes drawableRes: Int?) {

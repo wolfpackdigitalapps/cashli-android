@@ -5,9 +5,19 @@
     android:id="@+id/account_graph"
     app:startDestination="@id/accountFragment">
 
+    <include app:graph="@navigation/ineligible_graph" />
+    <include app:graph="@navigation/claim_cash_graph" />
+
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.wolfpackdigital.cashli.presentation.account.AccountFragment"
         android:label="AccountFragment"
-        tools:layout="@layout/fr_account" />
+        tools:layout="@layout/fr_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_ineligible_graph"
+            app:destination="@id/ineligible_graph" />
+        <action
+            android:id="@+id/action_accountFragment_to_claim_cash_graph"
+            app:destination="@id/claim_cash_graph" />
+    </fragment>
 </navigation>
