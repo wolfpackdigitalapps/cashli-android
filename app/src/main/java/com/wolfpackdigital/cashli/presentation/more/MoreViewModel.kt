@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
+import com.wolfpackdigital.cashli.domain.entities.requests.CloseUserAccountReasonRequest
+import com.wolfpackdigital.cashli.domain.usecases.CloseUserAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UnpauseAccountUseCase
@@ -19,12 +22,12 @@ import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants.SIGN_IN_SCREEN_DL
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
-import kotlinx.coroutines.delay
-import kotlin.random.Random
 
 class MoreViewModel(
     private val logOutUserUseCase: LogOutUserUseCase,
     private val pauseUserAccountUseCase: PauseUserAccountUseCase,
+    private val closeUserAccountUseCase: CloseUserAccountUseCase,
+    private val getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase
     private val unpauseAccountUseCase: UnpauseAccountUseCase
 ) : BaseViewModel(), PersistenceService {
 
@@ -42,10 +45,10 @@ class MoreViewModel(
     fun handleMenuItems() {
         _menuItems.value = buildList {
             addAll(MenuItem.values())
-//            when (userProfile?.accountStatus) {
-//                AccountStatus.PAUSED -> remove(MenuItem.PAUSE_CLOSE_ACCOUNT)
-//                else -> remove(MenuItem.UNPAUSE_CLOSE_ACCOUNT)
-//            }
+            when (userProfile?.accountStatus) {
+                AccountStatus.PAUSED -> remove(MenuItem.PAUSE_CLOSE_ACCOUNT)
+                else -> remove(MenuItem.UNPAUSE_CLOSE_ACCOUNT)
+            }
             if (userProfile?.lastMembership == null)
                 remove(MenuItem.MEMBERSHIP_ADVANCE_HISTORY)
         }
@@ -107,10 +110,11 @@ class MoreViewModel(
                 titleIdOrString = R.string.pause_or_close_account,
                 imageId = R.drawable.ic_stop,
                 contentIdOrString = R.string.pause_account_content,
+                buttonPrimaryEnabled = userProfile?.bankAccountConnected ?: false,
                 buttonPrimaryId = R.string.pause_account,
                 buttonSecondaryId = R.string.close_account_instead,
-                buttonPrimaryClick = ::handlePauseAccount,
-                buttonSecondaryClick = ::showCloseAccountDialog
+                buttonPrimaryClick = { handlePauseAccount() },
+                buttonSecondaryClick = { handleCloseAccountAllowance() }
             )
         )
     }
@@ -144,6 +148,23 @@ class MoreViewModel(
         )
     }
 
+    private fun handleCloseAccountAllowance() {
+        performApiCall {
+            val result = getUserOutstandingBalanceStatusUseCase(Unit)
+            result.onSuccess { userOutstandingBalanceStatus ->
+                if (userOutstandingBalanceStatus.outstandingBalance)
+                    showCloseAccountIneligibleDialog()
+                else
+                    showCloseAccountDialog()
+            }
+            result.onError {
+                val error =
+                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                _baseCmd.value = BaseCommand.ShowToast(error)
+            }
+        }
+    }
+
     private fun showCloseAccountDialog() {
         _baseCmd.value = BaseCommand.PerformNavAction(
             MoreFragmentDirections.actionMoreFragmentToDeleteAccountDialog(
@@ -170,17 +191,18 @@ class MoreViewModel(
         )
     }
 
-    @Suppress("MagicNumber")
     private fun handleCloseAccount(reason: String?) {
-        // TODO add real logic if success go to login if not show close failed
         performApiCall {
-            delay(1000)
-            val rand = Random(System.currentTimeMillis()).nextInt(0, 4)
-            if (rand > 1)
-                showCloseAccountIneligibleDialog()
-            else {
-                _baseCmd.value = reason?.let { BaseCommand.ShowToast(it) }
+            val result = closeUserAccountUseCase(
+                CloseUserAccountReasonRequest(reason = reason)
+            )
+            result.onSuccess {
                 clearDataAndRedirectToLogin()
+            }
+            result.onError {
+                val error =
+                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                _baseCmd.value = BaseCommand.ShowToast(error)
             }
         }
     }

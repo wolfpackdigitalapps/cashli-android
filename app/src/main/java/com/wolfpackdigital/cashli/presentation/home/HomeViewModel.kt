@@ -17,6 +17,7 @@ import com.wolfpackdigital.cashli.HomeGraphDirections
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
 import com.wolfpackdigital.cashli.domain.entities.UserSetting
+import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
 import com.wolfpackdigital.cashli.domain.entities.enums.UserSettingsKeys
 import com.wolfpackdigital.cashli.domain.entities.requests.CompleteLinkBankAccountRequest
@@ -34,7 +35,7 @@ import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
-import com.wolfpackdigital.cashli.presentation.entities.HomeGenericWarningInfo
+import com.wolfpackdigital.cashli.presentation.entities.GenericWarningInfo
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
@@ -66,6 +67,7 @@ private const val TRANSACTIONS_PAGE_SIZE = 10
 
 // Span actions
 private const val VALUE_SPAN_OPEN_RESOLVE_CONNECTION = "openResolveConnection"
+private const val VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN = "openIneligibilityScreen"
 
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
@@ -100,19 +102,6 @@ class HomeViewModel(
         inject<BankTransactionsPagingSource>().value
     }.flow.cachedIn(viewModelScope)
 
-    @StringRes
-    val connectionLostTextId = R.string.warning_lost_connection
-
-    private val connectionLostSpanAction: List<TextSpanAction> = listOf(
-        TextSpanAction(
-            actionKey = VALUE_SPAN_OPEN_RESOLVE_CONNECTION,
-            spanTextColor = R.color.colorPrimaryDark,
-            isSpanTextUnderlined = true,
-            isSpanTextBold = true,
-            action = { generateBankAccountUpdateLinkToken() }
-        )
-    )
-
     init {
         if (!isNotificationPermissionAsked) viewModelScope.launch(Dispatchers.Main) {
             isNotificationPermissionAsked = true
@@ -141,13 +130,25 @@ class HomeViewModel(
 
     private fun handleConnectionLostInfo() {
         val homeWarningInfo = currentUserProfile.value?.let {
-            HomeGenericWarningInfo(
-                warningTextId = connectionLostTextId,
-                spanActions = connectionLostSpanAction
+            val connectionLostSpanAction: List<TextSpanAction> = listOf(
+                TextSpanAction(
+                    actionKey = VALUE_SPAN_OPEN_RESOLVE_CONNECTION,
+                    spanTextColor = R.color.colorPrimaryDark,
+                    isSpanTextUnderlined = true,
+                    isSpanTextBold = true,
+                    action = { generateBankAccountUpdateLinkToken() }
+                )
             )
+            generateWarningInfoContent(R.string.warning_lost_connection, connectionLostSpanAction)
         }
         _cmd.value = Command.ConnectionLostWarningInfo(homeWarningInfo)
     }
+
+    private fun generateWarningInfoContent(@StringRes textId: Int, actions: List<TextSpanAction>?) =
+        GenericWarningInfo(
+            warningTextId = textId,
+            spanActions = actions
+        )
 
     private fun handleLinkBankAccountInfo() {
         val bankInfo = currentUserProfile.value?.let { userProfile ->
@@ -180,49 +181,105 @@ class HomeViewModel(
         _cmd.value = Command.RefreshLinkBankAccountInfo(bankInfo)
     }
 
+    @Suppress("LongMethod")
     private fun handleRequestCashAdvanceInfo() {
+        // TODO refactor after BE response update
         val cashAdvanceInfo = currentUserProfile.value?.let { userProfile ->
+            val isAccountPaused = userProfile.accountStatus == AccountStatus.PAUSED
             when {
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
                     userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
-                        eligibilityStatus = userProfile.eligibilityStatus,
                         upToSum = SUM_150
                     )
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.ELIGIBLE -> {
                     // TODO add already claimed cash check
+                    val eligibilityDate = if (isAccountPaused)
+                        LocalDateTime.now().toString().toFormattedLocalDateTime() ?: EMPTY_STRING
+                    else
+                        null
+
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.APPROVED_FOR,
                         cashApproved = "$123.12",
                         isClaimCashEnabled = !userProfile.connectionExpired,
-                        claimCashNowAction = { goToClaimCash() }
+                        isAccountPaused = isAccountPaused,
+                        eligibilityDate = eligibilityDate,
+                        buttonAction = {
+                            if (isAccountPaused) {
+                                // TODO add action
+                            } else {
+                                goToClaimCash()
+                            }
+                        }
                     )
                 }
 
-                userProfile.eligibilityStatus == EligibilityStatus.NOT_ELIGIBLE -> RequestCashAdvanceInfo(
-                    requestCashAdvanceType = RequestCashAdvanceType.NOT_ELIGIBLE,
-                    seeMoreAction = {
-                        _baseCmd.value = BaseCommand.PerformNavDeepLink(
-                            deepLink = Constants.INELIGIBLE_INFORMATIVE_SCREEN_DL
-                        )
-                    }
-                )
+                userProfile.eligibilityStatus == EligibilityStatus.NOT_ELIGIBLE -> {
+                    val warningInfo =
+                        when (isAccountPaused) {
+                            true ->
+                                generateWarningInfoContent(
+                                    textId = R.string.can_not_get_cash_advance_see_more,
+                                    actions = listOf(
+                                        TextSpanAction(
+                                            actionKey = VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN,
+                                            spanTextColor = R.color.colorWhite,
+                                            isSpanTextUnderlined = true,
+                                            isSpanTextBold = false,
+                                            action = { goToIneligibleScreen() }
+                                        )
+                                    )
+                                )
+
+                            false -> generateWarningInfoContent(
+                                textId = R.string.can_not_get_cash_advance,
+                                actions = null
+                            )
+                        }
+
+                    RequestCashAdvanceInfo(
+                        requestCashAdvanceType = RequestCashAdvanceType.NOT_ELIGIBLE,
+                        isAccountPaused = isAccountPaused,
+                        warningInfo = warningInfo,
+                        buttonAction = {
+                            if (isAccountPaused) {
+                                // TODO add action
+                            } else {
+                                goToIneligibleScreen()
+                            }
+                        }
+
+                    )
+                }
 
                 else -> {
                     // TODO add already claimed cash check
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CLAIMED_ADVANCE,
                         cashAdvanceBalance = "-$123.44",
+                        isAccountPaused = isAccountPaused,
                         repaymentDate = LocalDateTime.now().toString().toFormattedLocalDateTime()
-                            ?: EMPTY_STRING
+                            ?: EMPTY_STRING,
+                        buttonAction = {
+                            if (isAccountPaused) {
+                                // TODO add action
+                            }
+                        }
                     )
                 }
             }
         }
         _cmd.value = Command.RefreshRequestCashAdvanceInfo(cashAdvanceInfo)
+    }
+
+    private fun goToIneligibleScreen() {
+        _baseCmd.value = BaseCommand.PerformNavDeepLink(
+            deepLink = Constants.INELIGIBLE_INFORMATIVE_SCREEN_DL
+        )
     }
 
     fun handleUserPushNotificationsSetting(isGranted: Boolean) {
@@ -428,7 +485,7 @@ class HomeViewModel(
         ) : Command()
 
         data class ConnectionLostWarningInfo(
-            val homeGenericWarningInfo: HomeGenericWarningInfo?
+            val genericWarningInfo: GenericWarningInfo?
         ) : Command()
 
         data class StartUpdatingLinkBankAccount(
