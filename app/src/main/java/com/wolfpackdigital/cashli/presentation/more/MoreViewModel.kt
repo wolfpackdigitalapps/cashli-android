@@ -8,6 +8,7 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.UnpauseAccountUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.args.DeleteAccountArgs
 import com.wolfpackdigital.cashli.presentation.entities.enums.MenuItem
@@ -23,7 +24,8 @@ import kotlin.random.Random
 
 class MoreViewModel(
     private val logOutUserUseCase: LogOutUserUseCase,
-    private val pauseUserAccountUseCase: PauseUserAccountUseCase
+    private val pauseUserAccountUseCase: PauseUserAccountUseCase,
+    private val unpauseAccountUseCase: UnpauseAccountUseCase
 ) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
@@ -40,10 +42,10 @@ class MoreViewModel(
     fun handleMenuItems() {
         _menuItems.value = buildList {
             addAll(MenuItem.values())
-            when (userProfile?.accountStatus) {
-                AccountStatus.PAUSED -> remove(MenuItem.PAUSE_CLOSE_ACCOUNT)
-                else -> remove(MenuItem.UNPAUSE_CLOSE_ACCOUNT)
-            }
+//            when (userProfile?.accountStatus) {
+//                AccountStatus.PAUSED -> remove(MenuItem.PAUSE_CLOSE_ACCOUNT)
+//                else -> remove(MenuItem.UNPAUSE_CLOSE_ACCOUNT)
+//            }
             if (userProfile?.lastMembership == null)
                 remove(MenuItem.MEMBERSHIP_ADVANCE_HISTORY)
         }
@@ -90,21 +92,11 @@ class MoreViewModel(
             }
 
             MenuItem.UNPAUSE_CLOSE_ACCOUNT -> {
-                // TODO new card
+                showUnpauseAccountDialog()
             }
 
             MenuItem.LOGOUT -> {
-                _baseCmd.value = BaseCommand.ShowPopupById(
-                    PopupConfig(
-                        titleIdOrString = R.string.log_out,
-                        imageId = R.drawable.ic_log_out,
-                        contentIdOrString = R.string.log_out_message,
-                        buttonPrimaryId = R.string.yes_log_out,
-                        isCloseVisible = false,
-                        buttonSecondaryId = R.string.cancel,
-                        buttonPrimaryClick = { handleLogOut() },
-                    )
-                )
+                showLogoutDialog()
             }
         }
     }
@@ -117,8 +109,37 @@ class MoreViewModel(
                 contentIdOrString = R.string.pause_account_content,
                 buttonPrimaryId = R.string.pause_account,
                 buttonSecondaryId = R.string.close_account_instead,
-                buttonPrimaryClick = { handlePauseAccount() },
-                buttonSecondaryClick = { showCloseAccountDialog() }
+                buttonPrimaryClick = ::handlePauseAccount,
+                buttonSecondaryClick = ::showCloseAccountDialog
+            )
+        )
+    }
+
+    private fun showLogoutDialog() {
+        _baseCmd.value = BaseCommand.ShowPopupById(
+            PopupConfig(
+                titleIdOrString = R.string.log_out,
+                imageId = R.drawable.ic_log_out,
+                contentIdOrString = R.string.log_out_message,
+                buttonPrimaryId = R.string.yes_log_out,
+                isCloseVisible = false,
+                buttonSecondaryId = R.string.cancel,
+                buttonPrimaryClick = ::handleLogOut,
+            )
+        )
+    }
+
+    private fun showUnpauseAccountDialog() {
+        _baseCmd.value = BaseCommand.ShowPopupById(
+            PopupConfig(
+                titleIdOrString = R.string.welcome_back,
+                imageId = R.drawable.ic_pause,
+                contentIdOrString = R.string.unpause_account_description,
+                buttonPrimaryId = R.string.unpause_account,
+                isCloseVisible = true,
+                buttonSecondaryId = R.string.close_account_instead,
+                buttonPrimaryClick = ::unpauseAccount,
+                buttonSecondaryClick = ::showCloseAccountDialog
             )
         )
     }
@@ -144,7 +165,7 @@ class MoreViewModel(
                 buttonPrimaryId = R.string.close_account,
                 buttonSecondaryId = R.string.pause_account_instead,
                 buttonPrimaryEnabled = false,
-                buttonSecondaryClick = { showPauseAccountDialog() }
+                buttonSecondaryClick = ::showPauseAccountDialog
             )
         )
     }
@@ -160,6 +181,19 @@ class MoreViewModel(
             else {
                 _baseCmd.value = reason?.let { BaseCommand.ShowToast(it) }
                 clearDataAndRedirectToLogin()
+            }
+        }
+    }
+
+    private fun unpauseAccount() {
+        performApiCall {
+            val result = unpauseAccountUseCase(Unit)
+            result.onSuccess {
+                _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
+            }
+            result.onError {
+                val error = it.message ?: R.string.generic_error
+                _baseCmd.value = BaseCommand.ShowToast(error)
             }
         }
     }

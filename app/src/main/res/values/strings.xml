@@ -250,6 +250,8 @@
     <string name="pause_close_account">Pause or Close account</string>
     <string name="logout">Logout</string>
     <string name="unpause_close_account">Unpause or Close account</string>
+    <string name="unpause_account">Unpause Account</string>
+    <string name="unpause_account_description">Nothing has changed, you can pick up where you left off!</string>
 
     <!--Membership -->
     <string name="membership_status">Membership status</string>
