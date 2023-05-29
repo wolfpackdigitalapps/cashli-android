@@ -112,7 +112,7 @@ class MoreViewModel(
     private fun showPauseAccountDialog() {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
-                titleId = R.string.pause_or_close_account,
+                titleIdOrString = R.string.pause_or_close_account,
                 imageId = R.drawable.ic_stop,
                 contentIdOrString = R.string.pause_account_content,
                 buttonPrimaryId = R.string.pause_account,
@@ -138,7 +138,7 @@ class MoreViewModel(
     private fun showCloseAccountIneligibleDialog() {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
-                titleId = R.string.close_account,
+                titleIdOrString = R.string.close_account,
                 imageId = R.drawable.ic_stop_gray,
                 contentIdOrString = R.string.close_account_ineligible,
                 buttonPrimaryId = R.string.close_account,
