@@ -11,6 +11,7 @@ import com.wolfpackdigital.cashli.data.mappers.BankTransactionDtoToBankTransacti
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionToBankTransactionDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CashAdvanceRequestToCashAdvanceRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CloseUserAccountReasonRequestToCloseAccountReasonRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestToCompleteLinkBankAccountRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CreateUserProfileRequestDtoToCreateUserProfileRequestMapper
@@ -53,6 +54,7 @@ import com.wolfpackdigital.cashli.data.mappers.UpdateIdentifiersCodeValidationRe
 import com.wolfpackdigital.cashli.data.mappers.UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UpdateUserProfileRequestToUserProfileRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.UserOutstandingBalanceStatusMapperDtoToUserOutstandingBalanceStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileDtoToUserProfileMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestDtoToUserProfileRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserProfileRequestToUserProfileRequestDtoMapper
@@ -84,6 +86,7 @@ import com.wolfpackdigital.cashli.domain.entities.OnboardingStep
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.enums.EditPhoneOrEmail
 import com.wolfpackdigital.cashli.domain.usecases.ChangePasswordUseCase
+import com.wolfpackdigital.cashli.domain.usecases.CloseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
@@ -91,6 +94,7 @@ import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetTransferFeesUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
@@ -185,7 +189,7 @@ object AppModules {
         viewModel { SignInViewModel(get(), get(), get()) }
         viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
         viewModel { AccountViewModel() }
-        viewModel { MoreViewModel(get(), get()) }
+        viewModel { MoreViewModel(get(), get(), get(), get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 identifier, codeReceivedViaType, get(), get()
@@ -255,6 +259,8 @@ object AppModules {
                 get(),
                 get(),
                 get(),
+                get(),
+                get(),
                 get()
             )
         }
@@ -272,6 +278,8 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { UserOutstandingBalanceStatusMapperDtoToUserOutstandingBalanceStatusMapper() }
+        factory { CloseUserAccountReasonRequestToCloseAccountReasonRequestDtoMapper() }
         factory { EligibilityChecksDtoToEligibilityChecksMapper(get()) }
         factory { EligibilityChecksToEligibilityChecksDtoMapper(get()) }
         factory { UserSettingsKeyToUserSettingsKeyDtoMapper() }
@@ -355,6 +363,8 @@ object AppModules {
     }
 
     private val useCases = module {
+        single { GetUserOutstandingBalanceStatusUseCase(get()) }
+        single { CloseUserAccountUseCase(get()) }
         single { UpdateUserSettingUseCase(get()) }
         single { RegisterDeviceTokenUseCase(get()) }
         single { GetUserProfileUseCase(get()) }

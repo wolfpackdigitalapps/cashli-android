@@ -9,15 +9,9 @@ enum class AccountStatusDto : Parcelable {
     @SerializedName("active")
     ACTIVE,
 
-    @SerializedName("locked")
-    LOCKED,
-
     @SerializedName("paused")
     PAUSED,
 
     @SerializedName("closed")
-    CLOSED,
-
-    @SerializedName("suspended")
-    SUSPENDED
+    CLOSED
 }
