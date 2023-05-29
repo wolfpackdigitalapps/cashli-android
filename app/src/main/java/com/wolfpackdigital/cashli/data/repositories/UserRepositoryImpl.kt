@@ -21,7 +21,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.BankTransaction
 import com.wolfpackdigital.cashli.domain.entities.response.UserOutstandingBalanceStatus
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "MaxLineLength")
 class UserRepositoryImpl(
     private val userApi: UserApi,
     private val userProfileMapper: UserProfileDtoToUserProfileMapper,
@@ -29,8 +29,7 @@ class UserRepositoryImpl(
     private val userSettingMapper: UserSettingDtoToUserSettingMapper,
     private val bankTransactionMapper: BankTransactionDtoToBankTransactionMapper,
     private val changeIdentifiersRequestMapper: IdentifiersRequestToIdentifiersRequestDtoMapper,
-    private val updateIdentifiersRequestMapper:
-        UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper,
+    private val updateIdentifiersRequestMapper: UpdateIdentifiersCodeValidationRequestToUpdateIdentifiersCodeValidationRequestDtoMapper,
     private val updateUserProfileRequestMapper: UpdateUserProfileRequestToUserProfileRequestDtoMapper,
     private val closeUserAccountReasonRequestMapper: CloseUserAccountReasonRequestToCloseAccountReasonRequestDtoMapper,
     private val userOutstandingBalanceStatusMapper: UserOutstandingBalanceStatusMapperDtoToUserOutstandingBalanceStatusMapper
@@ -59,8 +58,7 @@ class UserRepositoryImpl(
         bankTransactionsRequest: BankTransactionsRequest
     ): List<BankTransaction> {
         val result = userApi.getUserBankTransaction(
-            bankTransactionsRequest.page,
-            bankTransactionsRequest.perPage
+            bankTransactionsRequest.page, bankTransactionsRequest.perPage
         )
         return result.map { bankTransactionMapper.map(it) }
     }
