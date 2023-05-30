@@ -6,33 +6,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
-import com.wolfpackdigital.cashli.domain.entities.requests.CloseUserAccountReasonRequest
 import com.wolfpackdigital.cashli.domain.usecases.CloseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UnpauseAccountUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
-import com.wolfpackdigital.cashli.presentation.entities.args.DeleteAccountArgs
 import com.wolfpackdigital.cashli.presentation.entities.enums.MenuItem
+import com.wolfpackdigital.cashli.presentation.shared.PauseOrCloseAccountViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
-import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
-import com.wolfpackdigital.cashli.shared.utils.Constants.SIGN_IN_SCREEN_DL
-import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class MoreViewModel(
     private val logOutUserUseCase: LogOutUserUseCase,
-    private val pauseUserAccountUseCase: PauseUserAccountUseCase,
-    private val closeUserAccountUseCase: CloseUserAccountUseCase,
-    private val getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase,
-    private val unpauseAccountUseCase: UnpauseAccountUseCase
-) : BaseViewModel(), PersistenceService {
-
-    private val _cmd = LiveEvent<Command>()
-    val cmd: LiveData<Command> = _cmd
+    pauseUserAccountUseCase: PauseUserAccountUseCase,
+    closeUserAccountUseCase: CloseUserAccountUseCase,
+    getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase,
+    unpauseAccountUseCase: UnpauseAccountUseCase
+) : PauseOrCloseAccountViewModel(
+    pauseUserAccountUseCase,
+    closeUserAccountUseCase,
+    getUserOutstandingBalanceStatusUseCase,
+    unpauseAccountUseCase
+) {
 
     private val _firstName = MutableLiveData(userProfile?.firstName)
     val firstName: LiveData<String?> = _firstName
@@ -104,21 +101,6 @@ class MoreViewModel(
         }
     }
 
-    private fun showPauseAccountDialog() {
-        _baseCmd.value = BaseCommand.ShowPopupById(
-            PopupConfig(
-                titleIdOrString = R.string.pause_or_close_account,
-                imageId = R.drawable.ic_stop,
-                contentIdOrString = R.string.pause_account_content,
-                buttonPrimaryEnabled = userProfile?.bankAccountConnected ?: false,
-                buttonPrimaryId = R.string.pause_account,
-                buttonSecondaryId = R.string.close_account_instead,
-                buttonPrimaryClick = { handlePauseAccount() },
-                buttonSecondaryClick = { handleCloseAccountAllowance() }
-            )
-        )
-    }
-
     private fun showLogoutDialog() {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
@@ -133,112 +115,14 @@ class MoreViewModel(
         )
     }
 
-    private fun showUnpauseAccountDialog() {
-        _baseCmd.value = BaseCommand.ShowPopupById(
-            PopupConfig(
-                titleIdOrString = R.string.welcome_back,
-                imageId = R.drawable.ic_pause,
-                contentIdOrString = R.string.unpause_account_description,
-                buttonPrimaryId = R.string.unpause_account,
-                isCloseVisible = true,
-                buttonSecondaryId = R.string.close_account_instead,
-                buttonPrimaryClick = ::unpauseAccount,
-                buttonSecondaryClick = ::handleCloseAccountAllowance
+    override fun onPausedAccountSuccessful() {
+        _menuItems.value = buildList {
+            addAll(menuItems.value ?: emptyList())
+            add(
+                menuItems.value?.indexOf(MenuItem.PAUSE_CLOSE_ACCOUNT) ?: 0,
+                MenuItem.UNPAUSE_CLOSE_ACCOUNT
             )
-        )
-    }
-
-    private fun handleCloseAccountAllowance() {
-        performApiCall {
-            val result = getUserOutstandingBalanceStatusUseCase(Unit)
-            result.onSuccess { userOutstandingBalanceStatus ->
-                if (userOutstandingBalanceStatus.outstandingBalance)
-                    showCloseAccountIneligibleDialog()
-                else
-                    showCloseAccountDialog()
-            }
-            result.onError {
-                val error =
-                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                _baseCmd.value = BaseCommand.ShowToast(error)
-            }
-        }
-    }
-
-    private fun showCloseAccountDialog() {
-        _baseCmd.value = BaseCommand.PerformNavAction(
-            MoreFragmentDirections.actionMoreFragmentToDeleteAccountDialog(
-                DeleteAccountArgs(
-                    onDeleteAccount = { reason ->
-                        handleCloseAccount(reason)
-                    }
-                )
-            )
-        )
-    }
-
-    private fun showCloseAccountIneligibleDialog() {
-        _baseCmd.value = BaseCommand.ShowPopupById(
-            PopupConfig(
-                titleIdOrString = R.string.close_account,
-                imageId = R.drawable.ic_stop_gray,
-                contentIdOrString = R.string.close_account_ineligible,
-                buttonPrimaryId = R.string.close_account,
-                buttonSecondaryId = R.string.pause_account_instead,
-                buttonPrimaryEnabled = false,
-                buttonSecondaryClick = ::showPauseAccountDialog
-            )
-        )
-    }
-
-    private fun handleCloseAccount(reason: String?) {
-        performApiCall {
-            val result = closeUserAccountUseCase(
-                CloseUserAccountReasonRequest(reason = reason)
-            )
-            result.onSuccess {
-                clearDataAndRedirectToLogin()
-            }
-            result.onError {
-                val error =
-                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                _baseCmd.value = BaseCommand.ShowToast(error)
-            }
-        }
-    }
-
-    private fun unpauseAccount() {
-        performApiCall {
-            val result = unpauseAccountUseCase(Unit)
-            result.onSuccess {
-                _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
-            }
-            result.onError {
-                val error = it.message ?: R.string.generic_error
-                _baseCmd.value = BaseCommand.ShowToast(error)
-            }
-        }
-    }
-
-    private fun handlePauseAccount() {
-        performApiCall {
-            val result = pauseUserAccountUseCase(Unit)
-            result.onSuccess {
-                userProfile = userProfile?.copy(accountStatus = AccountStatus.PAUSED)
-                _menuItems.value = buildList {
-                    addAll(menuItems.value ?: emptyList())
-                    add(
-                        menuItems.value?.indexOf(MenuItem.PAUSE_CLOSE_ACCOUNT) ?: 0,
-                        MenuItem.UNPAUSE_CLOSE_ACCOUNT
-                    )
-                    remove(MenuItem.PAUSE_CLOSE_ACCOUNT)
-                }
-            }
-            result.onError {
-                val error =
-                    it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                _baseCmd.value = BaseCommand.ShowToast(error)
-            }
+            remove(MenuItem.PAUSE_CLOSE_ACCOUNT)
         }
     }
 
@@ -266,14 +150,4 @@ class MoreViewModel(
             }
         }
     }
-
-    private fun clearDataAndRedirectToLogin() {
-        clearUserData()
-        _baseCmd.value = BaseCommand.PerformNavDeepLink(
-            deepLink = SIGN_IN_SCREEN_DL,
-            popUpTo = R.id.navigation
-        )
-    }
-
-    sealed class Command
 }
