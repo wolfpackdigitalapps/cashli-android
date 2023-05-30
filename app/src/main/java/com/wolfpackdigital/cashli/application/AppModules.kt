@@ -107,6 +107,7 @@ import com.wolfpackdigital.cashli.domain.usecases.SignInUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
+import com.wolfpackdigital.cashli.domain.usecases.UnpauseAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
@@ -176,7 +177,11 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
-        viewModel { (deleteAccountArgs: DeleteAccountArgs) -> DeleteAccountViewModel(deleteAccountArgs) }
+        viewModel { (deleteAccountArgs: DeleteAccountArgs) ->
+            DeleteAccountViewModel(
+                deleteAccountArgs
+            )
+        }
         viewModel { SettingsViewModel(get()) }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
@@ -187,9 +192,9 @@ object AppModules {
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
-        viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
+        viewModel { HomeViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
         viewModel { AccountViewModel() }
-        viewModel { MoreViewModel(get(), get(), get(), get()) }
+        viewModel { MoreViewModel(get(), get(), get(), get(), get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 identifier, codeReceivedViaType, get(), get()
@@ -411,6 +416,7 @@ object AppModules {
         single { RequestCashAdvanceUseCase(get()) }
         single { GenerateUpdateLinkTokenUseCase(get()) }
         single { CompleteUpdateLinkingBankAccountUseCase(get()) }
+        single { UnpauseAccountUseCase(get()) }
     }
 
     private val pagingSources = module {
