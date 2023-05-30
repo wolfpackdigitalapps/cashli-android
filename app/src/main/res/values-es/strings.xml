@@ -169,7 +169,6 @@
     <string name="delivery_method_express_within_minutes">Within minutes</string>
     <string name="delivery_method_express_several_hours">Several hours</string>
     <string name="delivery_method_express_within_20_hours">Within 20 hours</string>
-    <string name="delivery_method_express_secondary_description">Leapfrogged</string>
     <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
 
     <string name="delivery_method_free" tools:ignore="UnusedResources">Free</string>
@@ -183,7 +182,6 @@
     <string name="quiz_tip_label">Please pick a tip amount:</string>
     <string name="quiz_tip_choose_amount">Choose a different amount</string>
     <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in need.</string>
-    <string name="quiz_agreement">By confirming, you agree to ACH terms.</string>
     <string name="quiz_popup_description">Your cash advance is on its way. On %1$s, we will withdraw %2$s* from your bank account.</string>
     <string name="quiz_popup_annex">It includes a tip and an express fee, if applicable.</string>
 

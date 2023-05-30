@@ -129,7 +129,6 @@ class ClaimCashViewModel(
 
     private fun isAfter3PM() = LocalTime.now().isAfter(LocalTime.of(THREE_O_CLOCK, 0, 0))
 
-
     sealed class Command {
         object TransitionToStart : Command()
     }
