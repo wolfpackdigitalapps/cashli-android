@@ -98,6 +98,7 @@
     <string name="bank_transactions">Latest bank transactions</string>
     <string name="back_to_top">Back to top</string>
     <string name="warning_lost_connection">We lost connection with your bank account. <annotation action="openResolveConnection">Resolve now</annotation></string>
+    <string name="warning_account_suspended">Your account has been suspended. Please <annotation action="callUs">contact support</annotation> for more info.</string>
     <string name="unpause_your_membership">Unpause your membership</string>
     <string name="can_not_get_cash_advance_see_more">Unfortunately, you can\'t get a cash advance at this time. <annotation action="openIneligibilityScreen">See more</annotation></string>
 

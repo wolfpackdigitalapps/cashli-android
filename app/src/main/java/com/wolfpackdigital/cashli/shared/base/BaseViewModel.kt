@@ -132,5 +132,9 @@ sealed class BaseCommand {
         val phoneNumber: String = SUPPORT_PHONE_NUMBER
     ) : BaseCommand()
 
+    data class OpenPhoneApp(
+        val phoneNumber: String = SUPPORT_PHONE_NUMBER
+    ) : BaseCommand()
+
     object ForceCloseKeyboard : BaseCommand()
 }
