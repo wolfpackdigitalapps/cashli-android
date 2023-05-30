@@ -47,8 +47,8 @@ import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.presentation.entities.enums.BankAccountInfoType
 import com.wolfpackdigital.cashli.presentation.entities.enums.RequestCashAdvanceType
-import com.wolfpackdigital.cashli.presentation.shared.PauseOrCloseAccountViewModel
 import com.wolfpackdigital.cashli.presentation.entities.enums.WarningInfoType
+import com.wolfpackdigital.cashli.presentation.shared.PauseOrCloseAccountViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
