@@ -108,8 +108,8 @@ class HomeViewModel(
     private val _currentUserProfile = MutableLiveData<UserProfile?>()
     val currentUserProfile: LiveData<UserProfile?> = _currentUserProfile
 
-    private val _accountWarnings = MutableLiveData<List<GenericWarningInfo>>(emptyList())
-    val accountWarnings: LiveData<List<GenericWarningInfo>> = _accountWarnings
+    private val _accountWarnings = MutableLiveData<List<GenericWarningInfo>?>()
+    val accountWarnings: LiveData<List<GenericWarningInfo>?> = _accountWarnings
 
     private var checkEligibilityStatusJob: Job? = null
 
@@ -180,19 +180,28 @@ class HomeViewModel(
         condition: Boolean,
         @StringRes warningTextId: Int,
         warningInfoGenerator: () -> GenericWarningInfo
-    ) =
-        mutableListOf<GenericWarningInfo>().apply {
-            addAll(accountWarnings.value ?: emptyList())
-            val warning = find { warningInfo ->
-                warningInfo.warningTextId == warningTextId
-            }
-            if (warning == null && condition)
-                add(warningInfoGenerator())
-            else if (warning != null && !condition)
-                removeIf { warningInfo ->
-                    warningInfo.warningTextId == warningTextId
-                }
+    ): List<GenericWarningInfo>? {
+        val warning = accountWarnings.value?.find { warningInfo ->
+            warningInfo.warningTextId == warningTextId
         }
+        return when {
+            (warning == null && !condition) -> null
+            else -> {
+                mutableListOf<GenericWarningInfo>().apply {
+                    addAll(accountWarnings.value ?: emptyList())
+                    when {
+                        warning == null ->
+                            add(warningInfoGenerator())
+
+                        !condition ->
+                            removeIf { warningInfo ->
+                                warningInfo.warningTextId == warningTextId
+                            }
+                    }
+                }
+            }
+        }
+    }
 
     private fun handleConnectionLostWarningInfo(): GenericWarningInfo {
         val connectionLostSpanAction: List<TextSpanAction> = listOf(
@@ -243,7 +252,7 @@ class HomeViewModel(
                 }
 
                 userProfile.bankAccount == null &&
-                    userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                        userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         linkBankAccountAction = { goToLinkBankAccount() }
@@ -272,7 +281,7 @@ class HomeViewModel(
             val isAccountPaused = userProfile.accountStatus == AccountStatus.PAUSED
             when {
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                        userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         upToSum = SUM_150
