@@ -252,7 +252,7 @@ class HomeViewModel(
                 }
 
                 userProfile.bankAccount == null &&
-                        userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                    userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         linkBankAccountAction = { goToLinkBankAccount() }
@@ -281,7 +281,7 @@ class HomeViewModel(
             val isAccountPaused = userProfile.accountStatus == AccountStatus.PAUSED
             when {
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                        userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         upToSum = SUM_150
