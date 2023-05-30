@@ -17,6 +17,7 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.navigate
 import com.wolfpackdigital.cashli.shared.utils.extensions.navigateById
 import com.wolfpackdigital.cashli.shared.utils.extensions.openUrl
+import com.wolfpackdigital.cashli.shared.utils.extensions.showDialer
 import com.wolfpackdigital.cashli.shared.utils.extensions.showMessage
 import com.wolfpackdigital.cashli.shared.utils.extensions.showPopupById
 import com.wolfpackdigital.cashli.shared.utils.extensions.showSMSApp
@@ -96,6 +97,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VIEW_MODEL : BaseViewMode
                     }
 
                 is BaseCommand.OpenSMSApp -> activity?.showSMSApp(it.phoneNumber)
+                is BaseCommand.OpenPhoneApp -> activity?.showDialer(it.phoneNumber)
             }
         }
     }

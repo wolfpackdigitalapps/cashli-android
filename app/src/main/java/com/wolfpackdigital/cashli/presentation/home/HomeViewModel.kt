@@ -43,6 +43,7 @@ import com.wolfpackdigital.cashli.presentation.entities.TextSpanAction
 import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.presentation.entities.enums.BankAccountInfoType
 import com.wolfpackdigital.cashli.presentation.entities.enums.RequestCashAdvanceType
+import com.wolfpackdigital.cashli.presentation.entities.enums.WarningInfoType
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
@@ -68,6 +69,7 @@ private const val TRANSACTIONS_PAGE_SIZE = 10
 // Span actions
 private const val VALUE_SPAN_OPEN_RESOLVE_CONNECTION = "openResolveConnection"
 private const val VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN = "openIneligibilityScreen"
+private const val VALUE_SPAN_CALL_US = "callUs"
 
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
@@ -89,6 +91,9 @@ class HomeViewModel(
 
     private val _currentUserProfile = MutableLiveData<UserProfile?>()
     val currentUserProfile: LiveData<UserProfile?> = _currentUserProfile
+
+    private val _accountWarnings = MutableLiveData<List<GenericWarningInfo>>(emptyList())
+    val accountWarnings: LiveData<List<GenericWarningInfo>> = _accountWarnings
 
     private var checkEligibilityStatusJob: Job? = null
 
@@ -115,9 +120,16 @@ class HomeViewModel(
             result.onSuccess { newUserProfile ->
                 userProfile = token?.let { newUserProfile.copy(tokens = it) }
                 _currentUserProfile.value = userProfile
-                if (newUserProfile.connectionExpired) {
-                    handleConnectionLostInfo()
-                }
+
+                handleWarningInfo(
+                    type = WarningInfoType.BANK_CONNECTION_LOST,
+                    condition = newUserProfile.connectionExpired
+                )
+                handleWarningInfo(
+                    type = WarningInfoType.ACCOUNT_SUSPENDED,
+                    condition = newUserProfile.suspended
+                )
+
                 handleLinkBankAccountInfo()
                 handleRequestCashAdvanceInfo()
             }
@@ -128,20 +140,76 @@ class HomeViewModel(
         }
     }
 
-    private fun handleConnectionLostInfo() {
-        val homeWarningInfo = currentUserProfile.value?.let {
-            val connectionLostSpanAction: List<TextSpanAction> = listOf(
-                TextSpanAction(
-                    actionKey = VALUE_SPAN_OPEN_RESOLVE_CONNECTION,
-                    spanTextColor = R.color.colorPrimaryDark,
-                    isSpanTextUnderlined = true,
-                    isSpanTextBold = true,
-                    action = { generateBankAccountUpdateLinkToken() }
+    private fun handleWarningInfo(type: WarningInfoType, condition: Boolean) {
+        _accountWarnings.value = when (type) {
+            WarningInfoType.BANK_CONNECTION_LOST -> {
+                generateWarningsByType(
+                    condition,
+                    R.string.warning_lost_connection,
+                    ::handleConnectionLostWarningInfo
                 )
-            )
-            generateWarningInfoContent(R.string.warning_lost_connection, connectionLostSpanAction)
+            }
+
+            WarningInfoType.ACCOUNT_SUSPENDED -> {
+                generateWarningsByType(
+                    condition,
+                    R.string.warning_account_suspended,
+                    ::handleAccountSuspendedWarningInfo
+                )
+            }
         }
-        _cmd.value = Command.ConnectionLostWarningInfo(homeWarningInfo)
+    }
+
+    private fun generateWarningsByType(
+        condition: Boolean,
+        @StringRes warningTextId: Int,
+        warningInfoGenerator: () -> GenericWarningInfo
+    ) =
+        mutableListOf<GenericWarningInfo>().apply {
+            addAll(accountWarnings.value ?: emptyList())
+            val warning = find { warningInfo ->
+                warningInfo.warningTextId == warningTextId
+            }
+            if (warning == null && condition)
+                add(warningInfoGenerator())
+            else if (warning != null && !condition)
+                removeIf { warningInfo ->
+                    warningInfo.warningTextId == warningTextId
+                }
+        }
+
+    private fun handleConnectionLostWarningInfo(): GenericWarningInfo {
+        val connectionLostSpanAction: List<TextSpanAction> = listOf(
+            TextSpanAction(
+                actionKey = VALUE_SPAN_OPEN_RESOLVE_CONNECTION,
+                spanTextColor = R.color.colorPrimaryDark,
+                isSpanTextUnderlined = true,
+                isSpanTextBold = true,
+                action = ::generateBankAccountUpdateLinkToken
+            )
+        )
+        return generateWarningInfoContent(
+            R.string.warning_lost_connection,
+            connectionLostSpanAction
+        )
+    }
+
+    private fun handleAccountSuspendedWarningInfo(): GenericWarningInfo {
+        val connectionLostSpanAction: List<TextSpanAction> = listOf(
+            TextSpanAction(
+                actionKey = VALUE_SPAN_CALL_US,
+                spanTextColor = R.color.colorPrimaryDark,
+                isSpanTextUnderlined = true,
+                isSpanTextBold = true,
+                action = {
+                    _baseCmd.value = BaseCommand.OpenPhoneApp()
+                }
+            )
+        )
+        return generateWarningInfoContent(
+            R.string.warning_account_suspended,
+            connectionLostSpanAction
+        )
     }
 
     private fun generateWarningInfoContent(@StringRes textId: Int, actions: List<TextSpanAction>?) =
@@ -202,10 +270,16 @@ class HomeViewModel(
                     else
                         null
 
+                    val isActionButtonEnabled = when {
+                        isAccountPaused -> true
+                        userProfile.connectionExpired || userProfile.suspended -> false
+                        else -> true
+                    }
+
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.APPROVED_FOR,
                         cashApproved = "$123.12",
-                        isClaimCashEnabled = !userProfile.connectionExpired,
+                        isActionButtonEnabled = isActionButtonEnabled,
                         isAccountPaused = isAccountPaused,
                         eligibilityDate = eligibilityDate,
                         buttonAction = {
@@ -346,7 +420,10 @@ class HomeViewModel(
             val request = createLinkBankAccountRequest(linkSuccess)
             val result = completeUpdateLinkingBankAccountUseCase(request)
             result.onSuccess {
-                _cmd.value = Command.RemoveConnectionLostWarning
+                handleWarningInfo(
+                    type = WarningInfoType.BANK_CONNECTION_LOST,
+                    condition = false
+                )
             }
             result.onError {
                 val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
@@ -484,16 +561,10 @@ class HomeViewModel(
             val linkBankAccountInfo: LinkBankAccountInfo?
         ) : Command()
 
-        data class ConnectionLostWarningInfo(
-            val genericWarningInfo: GenericWarningInfo?
-        ) : Command()
-
         data class StartUpdatingLinkBankAccount(
             val linkTokenConfiguration: LinkTokenConfiguration
         ) : Command()
 
         object CheckPushNotificationPermissions : Command()
-
-        object RemoveConnectionLostWarning : Command()
     }
 }
