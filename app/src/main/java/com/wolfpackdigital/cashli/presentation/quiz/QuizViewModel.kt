@@ -13,8 +13,9 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.extensions.percentOf
+import com.wolfpackdigital.cashli.shared.utils.views.MAX_TIP_SLIDER
 
-private const val INITIAL_SLIDER_TIP = 8f
+private const val INITIAL_SLIDER_TIP = 7f
 
 class QuizViewModel(
     private val cashAmount: Float,
@@ -27,7 +28,7 @@ class QuizViewModel(
 
     private val _sliderValue = MutableLiveData(INITIAL_SLIDER_TIP)
     val sliderValue: LiveData<Float> = _sliderValue
-    val tipAmount: LiveData<Float> = _sliderValue.map { it.percentOf(cashAmount) }
+    val tipAmount: LiveData<Float> = _sliderValue.map { (MAX_TIP_SLIDER - it).percentOf(cashAmount) }
 
     private val _displayAltSecondQuestion = MutableLiveData(false)
     val displayAltSecondQuestion: LiveData<Boolean> = _displayAltSecondQuestion

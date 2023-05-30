@@ -178,27 +178,13 @@
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginTop="@dimen/dimen_56dp"
                 android:layout_marginEnd="@dimen/dimen_24dp"
-                android:layout_marginBottom="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_64dp"
                 android:onClick="@{()-> viewModel.onContinueClicked()}"
                 android:text="@string/continue_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_footnote" />
-
-            <TextView
-                android:id="@+id/tv_agreement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_12dp"
-                android:layout_marginBottom="@dimen/dimen_64dp"
-                android:fontFamily="@font/lato"
-                android:text="@string/quiz_agreement"
-                android:textColor="@color/colorGrayB6"
-                android:textSize="@dimen/size_14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_continue"
+                app:layout_constraintTop_toBottomOf="@id/tv_footnote"
                 app:layout_constraintVertical_bias="0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
