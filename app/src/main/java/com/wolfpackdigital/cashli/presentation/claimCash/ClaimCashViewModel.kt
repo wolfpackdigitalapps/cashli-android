@@ -41,7 +41,12 @@ class ClaimCashViewModel(
     private val _dueDate = MutableLiveData("February 15th, 2023")
     val dueDate: LiveData<String> = _dueDate
 
-    private val _selectedDeliveryMethod = MutableLiveData(DeliveryMethod.EXPRESS_WITHIN_MINUTES)
+    private val _selectedDeliveryMethod = MutableLiveData(
+        if (isAfter3PM())
+            DeliveryMethod.EXPRESS_WITHIN_20_HOURS
+        else
+            DeliveryMethod.EXPRESS_SEVERAL_HOURS
+    )
     val selectedDeliveryMethod: LiveData<DeliveryMethod> = _selectedDeliveryMethod
 
     private val _transferFees = MutableLiveData<List<TransferFees>>()
@@ -56,17 +61,14 @@ class ClaimCashViewModel(
             DeliveryMethod.values().map { type ->
                 val fees = transferFees.find { amount in it.lowerLimit..it.upperLimit }
                 val isDisabled = when (type) {
-                    DeliveryMethod.EXPRESS_SEVERAL_HOURS -> {
-                        LocalTime.now().isAfter(LocalTime.of(THREE_O_CLOCK, 0, 0))
-                    }
-
+                    DeliveryMethod.EXPRESS_SEVERAL_HOURS -> isAfter3PM()
                     else -> false
                 }
                 val cost = when (type) {
                     DeliveryMethod.REGULAR -> fees?.regularFee ?: String()
-                    DeliveryMethod.EXPRESS_WITHIN_MINUTES -> fees?.instantFee ?: String()
                     DeliveryMethod.EXPRESS_SEVERAL_HOURS -> fees?.sameDayFee ?: String()
                     DeliveryMethod.EXPRESS_WITHIN_20_HOURS -> fees?.nextDayFee ?: String()
+                    else -> String()
                 }
                 DeliveryMethodItem(
                     deliveryMethod = type,
@@ -124,6 +126,8 @@ class ClaimCashViewModel(
     fun setLabelAmount(amountPerc: Float) {
         _labelAmount.value = amountPerc
     }
+
+    private fun isAfter3PM() = LocalTime.now().isAfter(LocalTime.of(THREE_O_CLOCK, 0, 0))
 
     sealed class Command {
         object TransitionToStart : Command()
