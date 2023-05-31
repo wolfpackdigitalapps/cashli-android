@@ -31,6 +31,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/colorClaimCashBgDotsTint" />
 
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:onClick="@{() -> viewModel.back()}"
+                android:padding="@dimen/dimen_16dp"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.wolfpackdigital.cashli.shared.utils.views.ArcBackgroundView
                 android:id="@+id/iv_arc_overlay"
                 android:layout_width="match_parent"
