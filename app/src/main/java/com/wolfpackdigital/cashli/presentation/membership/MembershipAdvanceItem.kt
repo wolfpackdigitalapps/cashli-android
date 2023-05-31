@@ -72,4 +72,18 @@ sealed class MembershipAdvanceItem(
         statusDrawableRes = R.drawable.ic_alert,
         topTint = R.color.colorAccent
     )
+
+    data class AdvanceScheduledItem(
+        private val topText: String,
+        private val middleText: String,
+        private val bottomText: String
+    ) : MembershipAdvanceItem(
+        itemType = MembershipAdvanceItemType.CASH_ADVANCE,
+        topValue = topText,
+        middleValue = middleText,
+        bottomValue = bottomText,
+        status = R.string.cash_advance_scheduled,
+        statusDrawableRes = R.drawable.ic_alert,
+        topTint = R.color.colorYellow35
+    )
 }

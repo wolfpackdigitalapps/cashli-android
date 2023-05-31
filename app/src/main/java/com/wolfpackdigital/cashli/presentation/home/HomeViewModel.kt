@@ -54,6 +54,7 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
+import com.wolfpackdigital.cashli.shared.utils.Constants.TRANSACTIONS_PAGE_SIZE
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDateTime
@@ -68,7 +69,6 @@ import org.koin.core.component.inject
 import java.time.LocalDateTime
 
 private const val SUM_150 = "150"
-private const val TRANSACTIONS_PAGE_SIZE = 10
 
 // Span actions
 private const val VALUE_SPAN_OPEN_RESOLVE_CONNECTION = "openResolveConnection"

@@ -6,13 +6,16 @@ import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.requests.CashAdvanceRequest
+import com.wolfpackdigital.cashli.domain.entities.response.CashAdvanceDetails
 import com.wolfpackdigital.cashli.domain.usecases.RequestCashAdvanceUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
+import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.percentOf
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
 import com.wolfpackdigital.cashli.shared.utils.views.MAX_TIP_SLIDER
 
 private const val INITIAL_SLIDER_TIP = 7f
@@ -20,7 +23,7 @@ private const val INITIAL_SLIDER_TIP = 7f
 class QuizViewModel(
     private val cashAmount: Float,
     private val deliveryMethod: DeliveryMethod,
-    private val requestCashAdvance: RequestCashAdvanceUseCase
+    private val requestCashAdvanceUseCase: RequestCashAdvanceUseCase
 ) : BaseViewModel() {
 
     private val _tipSeekbarVisible = MutableLiveData(false)
@@ -45,15 +48,15 @@ class QuizViewModel(
         _tipPercAmounts.value = aux
     }
 
-    private fun displayPopup() {
+    private fun displayPopup(cashAdvanceDetails: CashAdvanceDetails) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
                 titleIdOrString = R.string.congrats,
                 imageId = R.drawable.ic_congrats,
                 contentIdOrString = R.string.quiz_popup_description,
                 contentFormatArgs = arrayOf(
-                    "14 February 2023",
-                    "${cashAmount + (tipAmount.value ?: 0f)}"
+                    cashAdvanceDetails.dueDate.toFormattedZonedDate() ?: Constants.DASH,
+                    cashAdvanceDetails.totalRepayable
                 ),
                 secondaryContent = R.string.quiz_popup_annex,
                 buttonCloseClick = {
@@ -66,15 +69,16 @@ class QuizViewModel(
     fun onContinueClicked() {
         tipAmount.value?.let { tip ->
             performApiCall {
-                val result = requestCashAdvance(
+                val result = requestCashAdvanceUseCase(
                     CashAdvanceRequest(
                         amount = cashAmount,
                         tip = tip,
                         transferChannel = deliveryMethod
-
                     )
                 )
-                result.onSuccess { displayPopup() }
+                result.onSuccess { cashAdvanceDetails ->
+                    displayPopup(cashAdvanceDetails)
+                }
                 result.onError {
                     val error =
                         it.errors?.firstOrNull() ?: it.message ?: R.string.generic_error

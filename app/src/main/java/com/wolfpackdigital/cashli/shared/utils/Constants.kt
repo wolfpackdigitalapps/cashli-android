@@ -19,6 +19,10 @@ object Constants {
     const val COMMA = ","
     const val VARIANT_DEVELOP = "develop"
     const val DOUBLE_SPACE = "  "
+    const val DEFAULT_PAGE_INDEX = 1
+    const val TRANSACTIONS_PAGE_SIZE = 10
+    const val SCROLL_TO_TOP = 0
+    const val DASH = "-"
 
     // Input text constraints
     const val PHONE_PREFIX_US = "+1"

@@ -254,17 +254,19 @@
     <string name="unpause_account_description">Nothing has changed, you can pick up where you left off!</string>
 
     <!--Membership -->
+    <string name="advance_history">Advance history</string>
     <string name="membership_status">Membership status</string>
     <string name="membership_status_active">Active</string>
     <string name="membership_status_paused">Paused</string>
     <string name="membership_started">Started</string>
     <string name="membership_renewal">Renewal</string>
     <string name="membership_amount">Amount</string>
-    <string name="cash_advance_amount">Amount</string>
+    <string name="cash_advance_amount">Cash Advance Amount</string>
     <string name="cash_advance_due_date">Due Date</string>
     <string name="cash_advance_paid_date">Paid Date</string>
     <string name="cash_advance_overdue">Overdue</string>
     <string name="cash_advance_paid">Paid</string>
+    <string name="cash_advance_scheduled">Scheduled</string>
     <string name="membership_amount_value">%s/month</string>
 
     <!--Change Password-->
