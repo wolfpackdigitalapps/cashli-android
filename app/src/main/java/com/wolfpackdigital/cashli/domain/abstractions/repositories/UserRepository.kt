@@ -1,9 +1,9 @@
 package com.wolfpackdigital.cashli.domain.abstractions.repositories
 
 import com.wolfpackdigital.cashli.domain.entities.UserSetting
-import com.wolfpackdigital.cashli.domain.entities.requests.BankTransactionsRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.CloseUserAccountReasonRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.PaginationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateIdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.response.BankTransaction
@@ -15,7 +15,7 @@ interface UserRepository {
     suspend fun closeUserAccount(closeUserAccountReasonRequest: CloseUserAccountReasonRequest)
     suspend fun pauseUserAccount()
     suspend fun getUserProfile(): UserProfile
-    suspend fun getUserBankTransactions(bankTransactionsRequest: BankTransactionsRequest): List<BankTransaction>
+    suspend fun getUserBankTransactions(paginationRequest: PaginationRequest): List<BankTransaction>
     suspend fun updateUserProfileSetting(userSetting: UserSetting): UserSetting
     suspend fun submitChangeIdentifiers(
         changeIdentifiersRequest: IdentifiersRequest

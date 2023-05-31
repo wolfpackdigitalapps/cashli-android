@@ -12,9 +12,9 @@ import com.wolfpackdigital.cashli.data.mappers.UserSettingToUserSettingDtoMapper
 import com.wolfpackdigital.cashli.data.remote.api.UserApi
 import com.wolfpackdigital.cashli.domain.abstractions.repositories.UserRepository
 import com.wolfpackdigital.cashli.domain.entities.UserSetting
-import com.wolfpackdigital.cashli.domain.entities.requests.BankTransactionsRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.CloseUserAccountReasonRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.IdentifiersRequest
+import com.wolfpackdigital.cashli.domain.entities.requests.PaginationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateIdentifiersCodeValidationRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.UpdateUserProfileRequest
 import com.wolfpackdigital.cashli.domain.entities.response.BankTransaction
@@ -55,10 +55,10 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getUserBankTransactions(
-        bankTransactionsRequest: BankTransactionsRequest
+        paginationRequest: PaginationRequest
     ): List<BankTransaction> {
         val result = userApi.getUserBankTransaction(
-            bankTransactionsRequest.page, bankTransactionsRequest.perPage
+            paginationRequest.page, paginationRequest.perPage
         )
         return result.map { bankTransactionMapper.map(it) }
     }

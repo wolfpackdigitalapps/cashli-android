@@ -20,10 +20,12 @@ import com.wolfpackdigital.cashli.presentation.entities.RequestCashAdvanceInfo
 import com.wolfpackdigital.cashli.presentation.main.MainActivityViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseFragment
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.SCROLL_TO_TOP
 import com.wolfpackdigital.cashli.shared.utils.bindingadapters.setOnClickDebounced
 import com.wolfpackdigital.cashli.shared.utils.extensions.areDeviceNotificationsFullyEnabled
 import com.wolfpackdigital.cashli.shared.utils.extensions.canScrollBothDirections
 import com.wolfpackdigital.cashli.shared.utils.extensions.getBackStackData
+import com.wolfpackdigital.cashli.shared.utils.extensions.handleExtraPadding
 import com.wolfpackdigital.cashli.shared.utils.extensions.handleNotificationsRequest
 import com.wolfpackdigital.cashli.shared.utils.extensions.navController
 import com.wolfpackdigital.cashli.shared.utils.extensions.reachedViewBottom
@@ -32,8 +34,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
-private const val SCROLL_TO_TOP = 0
 
 class HomeFragment :
     BaseFragment<HomeBinding, HomeViewModel>(R.layout.fr_home) {
@@ -148,7 +148,9 @@ class HomeFragment :
             bankAccountInfo.bankAccount?.let { bankAccount ->
                 lifecycleScope.launch {
                     viewModel.bankTransactionsFlow.collectLatest { pagingData ->
-                        handleExtraPaddingForFloatingButton()
+                        binding?.rvHome?.handleExtraPadding(
+                            extraPaddingResId = R.dimen.dimen_100dp
+                        )
                         bankTransactionsAdapter.submitData(pagingData)
                     }
                 }
@@ -173,14 +175,10 @@ class HomeFragment :
         lifecycleScope.launch {
             bankTransactionsAdapter.submitData(PagingData.empty())
         }
-        handleExtraPaddingForFloatingButton(extraPaddingNeeded = false)
-    }
-
-    private fun handleExtraPaddingForFloatingButton(extraPaddingNeeded: Boolean = true) {
-        val bottomPadding =
-            if (extraPaddingNeeded) resources.getDimension(R.dimen.dimen_100dp).toInt()
-            else resources.getDimension(R.dimen.dimen_20dp).toInt()
-        binding?.rvHome?.setPadding(0, 0, 0, bottomPadding)
+        binding?.rvHome?.handleExtraPadding(
+            extraPaddingNeeded = false,
+            defaultPaddingResId = R.dimen.dimen_20dp
+        )
     }
 
     private fun setupBackStackData() {

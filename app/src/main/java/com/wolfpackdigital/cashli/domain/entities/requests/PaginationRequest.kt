@@ -1,6 +1,6 @@
 package com.wolfpackdigital.cashli.domain.entities.requests
 
-data class BankTransactionsRequest(
+data class PaginationRequest(
     val page: Int,
     val perPage: Int
 )
