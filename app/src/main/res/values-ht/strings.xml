@@ -83,6 +83,7 @@
     <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
     <string name="up_to_sum">Up to $%s!</string>
     <string name="hello_user">Hi, %s!</string>
+    <string name="hello">Hi!</string>
     <string name="request_cash_approved_for">You’ve been approved for</string>
     <string name="claim_cash_now">Claim cash now</string>
     <string name="request_cash_tips">Cash could be delivered in minutes.</string>
