@@ -22,6 +22,7 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_401
+import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.Constants.REPEAT_ANIM_ONE_TIME
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
@@ -77,8 +78,8 @@ class SignInViewModel(
 
     val isPasswordVisible = MutableLiveData(false)
 
-    private val _error = MutableLiveData<Int?>()
-    val error: LiveData<Int?> = _error
+    private val _error = MutableLiveData<Any?>()
+    val error: LiveData<Any?> = _error
 
     private fun validateFields(onValidInput: suspend () -> Unit) {
         isEmailCredentialsInUse.value?.let { emailInUse ->
@@ -117,14 +118,16 @@ class SignInViewModel(
             result.onError {
                 val error =
                     it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                if (it.errorCode == ERROR_CODE_401) {
-                    isEmailCredentialsInUse.value?.let { emailInUse ->
-                        _error.value =
-                            if (emailInUse) R.string.incorrect_credentials_with_email
-                            else R.string.incorrect_credentials_with_phone
+                when (it.errorCode) {
+                    ERROR_CODE_401 -> {
+                        isEmailCredentialsInUse.value?.let { emailInUse ->
+                            _error.value =
+                                if (emailInUse) R.string.incorrect_credentials_with_email
+                                else R.string.incorrect_credentials_with_phone
+                        }
                     }
-                } else {
-                    _baseCmd.value = BaseCommand.ShowToast(error)
+                    ERROR_CODE_429 -> _error.value = error
+                    else -> _baseCmd.value = BaseCommand.ShowToast(error)
                 }
             }
         }
