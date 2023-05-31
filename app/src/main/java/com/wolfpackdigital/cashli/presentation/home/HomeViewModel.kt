@@ -30,10 +30,14 @@ import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkA
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountVerificationStatusRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkInstitutionRequest
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
+import com.wolfpackdigital.cashli.domain.usecases.CloseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
+import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.UnpauseAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.presentation.entities.GenericWarningInfo
 import com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo
@@ -44,8 +48,8 @@ import com.wolfpackdigital.cashli.presentation.entities.Toolbar
 import com.wolfpackdigital.cashli.presentation.entities.enums.BankAccountInfoType
 import com.wolfpackdigital.cashli.presentation.entities.enums.RequestCashAdvanceType
 import com.wolfpackdigital.cashli.presentation.entities.enums.WarningInfoType
+import com.wolfpackdigital.cashli.presentation.shared.PauseOrCloseAccountViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
-import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
@@ -71,13 +75,25 @@ private const val VALUE_SPAN_OPEN_RESOLVE_CONNECTION = "openResolveConnection"
 private const val VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN = "openIneligibilityScreen"
 private const val VALUE_SPAN_CALL_US = "callUs"
 
+@Suppress("LongParameterList")
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserSettingUseCase: UpdateUserSettingUseCase,
     private val getEligibilityStatusUseCase: GetEligibilityStatusUseCase,
     private val generateUpdateLinkTokenUseCase: GenerateUpdateLinkTokenUseCase,
-    private val completeUpdateLinkingBankAccountUseCase: CompleteUpdateLinkingBankAccountUseCase
-) : BaseViewModel(), PersistenceService, KoinComponent {
+    private val completeUpdateLinkingBankAccountUseCase: CompleteUpdateLinkingBankAccountUseCase,
+    pauseUserAccountUseCase: PauseUserAccountUseCase,
+    closeUserAccountUseCase: CloseUserAccountUseCase,
+    getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase,
+    unpauseAccountUseCase: UnpauseAccountUseCase
+) : PauseOrCloseAccountViewModel(
+    pauseUserAccountUseCase,
+    closeUserAccountUseCase,
+    getUserOutstandingBalanceStatusUseCase,
+    unpauseAccountUseCase
+),
+    PersistenceService,
+    KoinComponent {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
@@ -284,7 +300,7 @@ class HomeViewModel(
                         eligibilityDate = eligibilityDate,
                         buttonAction = {
                             if (isAccountPaused) {
-                                // TODO add action
+                                showUnpauseAccountDialog()
                             } else {
                                 goToClaimCash()
                             }
@@ -321,7 +337,7 @@ class HomeViewModel(
                         warningInfo = warningInfo,
                         buttonAction = {
                             if (isAccountPaused) {
-                                // TODO add action
+                                showUnpauseAccountDialog()
                             } else {
                                 goToIneligibleScreen()
                             }
@@ -340,7 +356,7 @@ class HomeViewModel(
                             ?: EMPTY_STRING,
                         buttonAction = {
                             if (isAccountPaused) {
-                                // TODO add action
+                                showUnpauseAccountDialog()
                             }
                         }
                     )
@@ -550,6 +566,10 @@ class HomeViewModel(
                 }
             }
         }
+    }
+
+    override fun onUnpauseAccountSuccessful() {
+        getUserProfile()
     }
 
     sealed class Command {

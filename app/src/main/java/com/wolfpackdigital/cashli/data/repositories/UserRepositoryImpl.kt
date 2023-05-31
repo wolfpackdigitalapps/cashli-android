@@ -87,4 +87,6 @@ class UserRepositoryImpl(
         )
         return userProfileMapper.map(result)
     }
+
+    override suspend fun unpauseAccount() = userApi.unpauseUserAccount()
 }

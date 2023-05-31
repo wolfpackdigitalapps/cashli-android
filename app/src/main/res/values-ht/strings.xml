@@ -169,7 +169,6 @@
     <string name="delivery_method_express_within_minutes">Within minutes</string>
     <string name="delivery_method_express_several_hours">Several hours</string>
     <string name="delivery_method_express_within_20_hours">Within 20 hours</string>
-    <string name="delivery_method_express_secondary_description">Leapfrogged</string>
     <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
 
     <string name="delivery_method_free" tools:ignore="UnusedResources">Free</string>
@@ -182,8 +181,7 @@
     <string name="quiz_tip_info">Providing cash advances with no interest &amp; no unfair fees is a hard business. Your generous tips will help our mission to carry on!</string>
     <string name="quiz_tip_label">Please pick a tip amount:</string>
     <string name="quiz_tip_choose_amount">Choose a different amount</string>
-    <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in Latin America.</string>
-    <string name="quiz_agreement">By confirming, you agree to ACH terms.</string>
+    <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in need.</string>
     <string name="quiz_popup_description">Your cash advance is on its way. On %1$s, we will withdraw %2$s* from your bank account.</string>
     <string name="quiz_popup_annex">It includes a tip and an express fee, if applicable.</string>
 
@@ -200,6 +198,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="on_date">On %s</string>
+    <string name="coming_soon">Coming soon</string>
 
     <!--Push Notifications -->
     <string name="notification_rejected_text">Without notification permission you will not receive alerts from “Cashli” app.</string>
@@ -251,6 +250,8 @@
     <string name="pause_close_account">Pause or Close account</string>
     <string name="logout">Logout</string>
     <string name="unpause_close_account">Unpause or Close account</string>
+    <string name="unpause_account">Unpause Account</string>
+    <string name="unpause_account_description">Nothing has changed, you can pick up where you left off!</string>
 
     <!--Membership -->
     <string name="advance_history">Advance history</string>

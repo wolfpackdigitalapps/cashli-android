@@ -47,6 +47,9 @@ interface UserApi {
     @POST("v1/profile/pause")
     suspend fun pauseUserAccount()
 
+    @POST("v1/profile/unpause")
+    suspend fun unpauseUserAccount()
+
     @POST("v1/profile/close")
     suspend fun closeUserAccount(
         @Body closeAccountReasonRequest: CloseUserAccountReasonRequestDto

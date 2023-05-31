@@ -28,4 +28,6 @@ interface UserRepository {
     suspend fun updateUserProfile(
         updateUserProfileRequest: UpdateUserProfileRequest
     ): UserProfile
+
+    suspend fun unpauseAccount()
 }
