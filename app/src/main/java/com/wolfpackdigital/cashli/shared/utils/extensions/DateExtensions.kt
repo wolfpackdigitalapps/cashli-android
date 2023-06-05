@@ -5,7 +5,6 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.time.temporal.ChronoUnit
@@ -23,13 +22,6 @@ fun String.toLocalDateTimeOrNull(): LocalDateTime? =
         null
     }
 
-fun String?.toZonedDateTimeOrNull(): ZonedDateTime? =
-    try {
-        ZonedDateTime.parse(this)
-    } catch (ex: Throwable) {
-        null
-    }
-
 fun String.toLocalDateFromPatternOrNull(pattern: String? = null): LocalDate? =
     try {
         pattern?.let {
@@ -39,8 +31,8 @@ fun String.toLocalDateFromPatternOrNull(pattern: String? = null): LocalDate? =
         null
     }
 
-fun String.toFormattedZonedDate(): String? =
-    this.toZonedLocalDateTimeOrNull()?.toLocalDate()
+fun String?.toFormattedZonedDate(): String? =
+    this?.toZonedLocalDateTimeOrNull()?.toLocalDate()
         ?.format(DateTimeFormatter.ofPattern(Constants.FULL_MONTH_DAY_YEAR))
 
 fun Instant.toZonedLocalDateTimeOrNull(): LocalDateTime =

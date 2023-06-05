@@ -15,7 +15,7 @@ import com.wolfpackdigital.cashli.presentation.plaid.LinkPlaidAccountViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
-import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDateTime
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class AccountViewModel(
@@ -36,7 +36,7 @@ class AccountViewModel(
     val account: LiveData<BankAccount?> = _account
 
     private val _relinkDate =
-        MutableLiveData(userProfile?.bankAccount?.relinkableAt?.toFormattedLocalDateTime())
+        MutableLiveData(userProfile?.bankAccount?.relinkableAt?.toFormattedZonedDate())
     val relinkDate: LiveData<String?> = _relinkDate
 
     private var userHasOutstandingBalance = false
