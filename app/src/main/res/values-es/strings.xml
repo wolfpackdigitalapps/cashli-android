@@ -322,10 +322,9 @@
     <string name="bank_account_connection_lost">We lost connection with your bank account. Resolve now.</string>
 
     <!--Plurals-->
-    <plurals name="past_days_plural" tools:ignore="MissingQuantity">
+    <plurals name="past_days_plural">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
-        <item quantity="many">%d days ago</item>
     </plurals>
 
 </resources>
