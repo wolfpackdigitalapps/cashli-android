@@ -93,7 +93,7 @@
             android:layout_marginHorizontal="@dimen/dimen_24dp"
             android:layout_marginTop="@dimen/dimen_24dp"
             android:layout_marginBottom="@dimen/dimen_24dp"
-            android:enabled="@{requestCashAdvanceInfo.claimCashEnabled}"
+            android:enabled="@{requestCashAdvanceInfo.actionButtonEnabled}"
             android:onClick="@{() -> requestCashAdvanceInfo.buttonAction.invoke()}"
             android:text="@{requestCashAdvanceInfo.isAccountPaused ? @string/unpause_your_membership : @string/claim_cash_now}"
             app:layout_constraintBottom_toBottomOf="parent"

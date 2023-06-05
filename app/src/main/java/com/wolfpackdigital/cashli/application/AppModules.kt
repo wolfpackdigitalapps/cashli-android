@@ -9,7 +9,9 @@ import com.wolfpackdigital.cashli.data.mappers.BankTokenDtoToBankTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTokenToBankTokenDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionDtoToBankTransactionMapper
 import com.wolfpackdigital.cashli.data.mappers.BankTransactionToBankTransactionDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CashAdvanceDetailsDtoToCashAdvanceDetailsMapper
 import com.wolfpackdigital.cashli.data.mappers.CashAdvanceRequestToCashAdvanceRequestDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.CashAdvanceStatusDtoToCashAdvanceStatusMapper
 import com.wolfpackdigital.cashli.data.mappers.ChangePasswordRequestToChangePasswordRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CloseUserAccountReasonRequestToCloseAccountReasonRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.CompleteLinkBankAccountRequestDtoToCompleteLinkBankAccountRequestMapper
@@ -65,6 +67,7 @@ import com.wolfpackdigital.cashli.data.mappers.UserSettingsKeyToUserSettingsKeyD
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestDtoToUserSignInRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.UserSignInRequestToUserSignInRequestDtoMapper
 import com.wolfpackdigital.cashli.data.paging.BankTransactionsPagingSource
+import com.wolfpackdigital.cashli.data.paging.CashAdvanceHistoryPagingSource
 import com.wolfpackdigital.cashli.data.patternMatchers.CityAndStatePatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.EmailPatternMatcherImpl
 import com.wolfpackdigital.cashli.data.patternMatchers.LettersAndCommaPatternMatcherImpl
@@ -108,6 +111,7 @@ import com.wolfpackdigital.cashli.domain.usecases.SubmitChangeIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitPasswordIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.SubmitRegistrationIdentifiersUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UnlinkAccountUseCase
+import com.wolfpackdigital.cashli.domain.usecases.UnpauseAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UpdateUserSettingUseCase
 import com.wolfpackdigital.cashli.domain.usecases.ValidateCodeByIdentifierUseCase
@@ -192,9 +196,9 @@ object AppModules {
         viewModel { PhoneNumberViewModel(get(), get()) }
         viewModel { ChoosePasswordViewModel(get(), get(), get()) }
         viewModel { SignInViewModel(get(), get(), get()) }
-        viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
         viewModel { AccountViewModel(get(), get(), get(), get(), get(), get()) }
-        viewModel { MoreViewModel(get(), get(), get(), get()) }
+        viewModel { HomeViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+        viewModel { MoreViewModel(get(), get(), get(), get(), get()) }
         viewModel { (identifier: String?, codeReceivedViaType: CodeReceivedViaType) ->
             ValidateCodeViewModel(
                 identifier, codeReceivedViaType, get(), get()
@@ -269,7 +273,7 @@ object AppModules {
                 get()
             )
         }
-        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get(), get()) }
+        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get(), get(), get()) }
     }
 
     private val patternsModule = module {
@@ -283,6 +287,8 @@ object AppModules {
     }
 
     private val mappersModule = module {
+        factory { CashAdvanceStatusDtoToCashAdvanceStatusMapper() }
+        factory { CashAdvanceDetailsDtoToCashAdvanceDetailsMapper(get()) }
         factory { UserOutstandingBalanceStatusMapperDtoToUserOutstandingBalanceStatusMapper() }
         factory { CloseUserAccountReasonRequestToCloseAccountReasonRequestDtoMapper() }
         factory { EligibilityChecksDtoToEligibilityChecksMapper(get()) }
@@ -417,10 +423,12 @@ object AppModules {
         single { RequestCashAdvanceUseCase(get()) }
         single { GenerateUpdateLinkTokenUseCase(get()) }
         single { CompleteUpdateLinkingBankAccountUseCase(get()) }
+        single { UnpauseAccountUseCase(get()) }
     }
 
     private val pagingSources = module {
         factory { BankTransactionsPagingSource(get()) }
+        factory { CashAdvanceHistoryPagingSource(get()) }
     }
     val modules = listOf(
         viewModels,

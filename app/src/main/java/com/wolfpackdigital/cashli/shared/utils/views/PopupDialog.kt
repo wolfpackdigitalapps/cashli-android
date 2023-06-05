@@ -49,9 +49,7 @@ class PopupDialog(
             dialog.dismiss()
         }
         binding.btnClose.setOnClickDebounced {
-            popupConfig.buttonCloseClick.invoke()
-            countDownTimerObj?.cancel()
-            dialog.dismiss()
+            dismissDialog()
         }
         binding.clTimer.apply {
             popupConfig.timerCount?.let { countDownTime ->
@@ -59,7 +57,8 @@ class PopupDialog(
                     countDownTime,
                     onTickCallback = { timer ->
                         updateTimerTextOnTick(timer, binding)
-                    }
+                    },
+                    onFinishCallback = ::dismissDialog
                 ).start()
             }
         }
@@ -78,15 +77,18 @@ class PopupDialog(
         }
     }
 
+    private fun dismissDialog() {
+        countDownTimerObj?.cancel()
+        popupConfig.buttonCloseClick.invoke()
+        dialog.dismiss()
+    }
+
     private fun updateTimerTextOnTick(timer: Long, binding: PopupDialogBinding) {
         val seconds = TimeUnit.MILLISECONDS.toSeconds(timer)
-        if (seconds > 0) {
+        if (seconds > 0)
             binding.tvTimer.text = seconds.toString()
-        } else {
-            countDownTimerObj?.cancel()
-            popupConfig.buttonCloseClick.invoke()
-            dialog.dismiss()
-        }
+        else
+            dismissDialog()
     }
 
     fun show() {

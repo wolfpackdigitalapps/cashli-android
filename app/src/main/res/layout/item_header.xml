@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="HeaderItemBinding">
+
+        <variable
+            name="viewModel"
+            type="com.wolfpackdigital.cashli.presentation.entities.HeaderItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_40dp">
+
+        <TextView
+            android:id="@+id/tv_header"
+            style="@style/TextView.H4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24dp"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textRes="@{viewModel.title}"
+            tools:text="Advance history" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -20,7 +20,7 @@ import com.smarttoolfactory.slider.SliderBrushColor
 import com.wolfpackdigital.cashli.R
 
 private const val LABEL_TEXT_SIZE = 12
-private const val MAX_TIP_SLIDER = 15f
+const val MAX_TIP_SLIDER = 15f
 
 sealed class StyledSliderUIState(
     val value: LiveData<Float>,
@@ -91,7 +91,11 @@ fun StyledSlider(
 
         is StyledSliderUIState.TipAmountSliderUIState -> {
             val tipAmount by uiState.tipAmount.observeAsState(initial = 0f)
-            stringResource(id = R.string.quiz_tip_amount_slider, currentValue, tipAmount)
+            stringResource(
+                id = R.string.quiz_tip_amount_slider,
+                MAX_TIP_SLIDER - currentValue,
+                tipAmount
+            )
         }
     }
 

@@ -53,7 +53,7 @@ class ChoosePasswordViewModel(
         TextSpanAction(
             actionKey = VALUE_SPAN_OPEN_TS,
             action = {
-                _baseCmd.value = BaseCommand.OpenUrl(R.string.terms_of_service_url)
+                _baseCmd.value = BaseCommand.OpenUrl(R.string.terms_and_conditions_url)
             },
             spanTextColor = R.color.colorWhiteF5
         ),

@@ -9,7 +9,7 @@ data class RequestCashAdvanceInfo(
     val eligibilityDate: String? = null,
     val repaymentDate: String? = null,
     val requestCashAdvanceType: RequestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
-    val isClaimCashEnabled: Boolean = true,
+    val isActionButtonEnabled: Boolean = true,
     val isAccountPaused: Boolean = false,
     val warningInfo: GenericWarningInfo? = null,
     val buttonAction: () -> Unit = {}

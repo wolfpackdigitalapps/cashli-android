@@ -3,6 +3,7 @@ package com.wolfpackdigital.cashli.shared.utils.extensions
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
 import com.wolfpackdigital.cashli.presentation.entities.AlphaAnimationConfig
 
@@ -42,6 +43,19 @@ fun RecyclerView.reachedViewTop() = !canScrollVertically(SCROLL_UP)
 
 fun RecyclerView.canScrollBothDirections() =
     canScrollVertically(SCROLL_DOWN) && canScrollVertically(SCROLL_UP)
+
+fun View.handleExtraPadding(
+    extraPaddingNeeded: Boolean = true,
+    @DimenRes defaultPaddingResId: Int? = null,
+    @DimenRes extraPaddingResId: Int? = null
+) {
+    val bottomPadding =
+        if (extraPaddingNeeded)
+            extraPaddingResId?.let { resources.getDimension(it).toInt() } ?: return
+        else
+            defaultPaddingResId?.let { resources.getDimension(it).toInt() } ?: return
+    setPadding(0, 0, 0, bottomPadding)
+}
 
 fun View.getFocusAndShowKeyboard() {
     this.isEnabled = true

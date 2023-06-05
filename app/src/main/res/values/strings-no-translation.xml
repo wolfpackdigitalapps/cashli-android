@@ -8,7 +8,6 @@
     <string name="language_spanish" translatable="false">Yo hablo Español</string>
     <string name="language_creole" translatable="false">Mwen pale Kreyol</string>
 
-    <string name="terms_of_service_url" translatable="false">https://google.com</string>
     <string name="privacy_policy_url" translatable="false">https://www.cashli.io/privacy-policy</string>
     <string name="dwolla_terms_of_service_url" translatable="false">https://www.dwolla.com/legal/dwolla-account-terms-of-service/#legal-content</string>
     <string name="dwolla_privacy_policy_url" translatable="false">https://www.dwolla.com/legal/privacy/</string>

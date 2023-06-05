@@ -70,12 +70,11 @@
     <string name="et_street">STREET*</string>
     <string name="zip_code_error">ZIP codes must be 5-digit numbers.</string>
     <string name="email_error">Invalid email address.</string>
-    <string name="city_and_state_error">For city and state, enter only letters separated by a comma.</string>
+    <string name="city_and_state_error">Invalid input! Enter only letters separated by a comma. Ex: Chicago, IL</string>
     <string name="street_error">Address should be at least 2 characters long.</string>
     <string name="name_error">Enter only letters or special characters for your name.</string>
     <string name="first_name_length_error">First name should be at least 2 characters long</string>
     <string name="last_name_length_error">Last name should be at least 2 characters long.</string>
-    <string name="city_state_both_error">Please enter both the City and State separated by a comma.</string>
 
     <!--Home screen-->
     <string name="link_your_bank_account">Link your bank account</string>
@@ -84,6 +83,7 @@
     <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
     <string name="up_to_sum">Up to $%s!</string>
     <string name="hello_user">Hi, %s!</string>
+    <string name="hello">Hi!</string>
     <string name="request_cash_approved_for">You’ve been approved for</string>
     <string name="claim_cash_now">Claim cash now</string>
     <string name="request_cash_tips">Cash could be delivered in minutes.</string>
@@ -99,6 +99,7 @@
     <string name="bank_transactions">Latest bank transactions</string>
     <string name="back_to_top">Back to top</string>
     <string name="warning_lost_connection">We lost connection with your bank account. <annotation action="openResolveConnection">Resolve now</annotation></string>
+    <string name="warning_account_suspended">Your account has been suspended. Please <annotation action="callUs">contact support</annotation> for more info.</string>
     <string name="unpause_your_membership">Unpause your membership</string>
     <string name="can_not_get_cash_advance_see_more">Unfortunately, you can\'t get a cash advance at this time. <annotation action="openIneligibilityScreen">See more</annotation></string>
 
@@ -168,7 +169,6 @@
     <string name="delivery_method_express_within_minutes">Within minutes</string>
     <string name="delivery_method_express_several_hours">Several hours</string>
     <string name="delivery_method_express_within_20_hours">Within 20 hours</string>
-    <string name="delivery_method_express_secondary_description">Leapfrogged</string>
     <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
 
     <string name="delivery_method_free" tools:ignore="UnusedResources">Free</string>
@@ -181,8 +181,7 @@
     <string name="quiz_tip_info">Providing cash advances with no interest &amp; no unfair fees is a hard business. Your generous tips will help our mission to carry on!</string>
     <string name="quiz_tip_label">Please pick a tip amount:</string>
     <string name="quiz_tip_choose_amount">Choose a different amount</string>
-    <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in Latin America.</string>
-    <string name="quiz_agreement">By confirming, you agree to ACH terms.</string>
+    <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in need.</string>
     <string name="quiz_popup_description">Your cash advance is on its way. On %1$s, we will withdraw %2$s* from your bank account.</string>
     <string name="quiz_popup_annex">It includes a tip and an express fee, if applicable.</string>
 
@@ -200,6 +199,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="on_date">On %s</string>
+    <string name="coming_soon">Coming soon</string>
 
     <!--Push Notifications -->
     <string name="notification_rejected_text">Without notification permission you will not receive alerts from “Cashli” app.</string>
@@ -215,7 +215,7 @@
     <string name="close_account_instead">Close account instead</string>
     <string name="pause_account_instead">Pause account instead</string>
     <string name="pause_account_content">If you pause your account we will no longer be able to notify you about future cash advances eligibility.\n\nWe\'ll stop sending low balance alerts &amp; charging the membership fee.</string>
-    <string name="close_account_ineligible">Sorry, you can\'t close your account at this time due to an outstanding advance.</string>
+    <string name="close_account_ineligible">Sorry, you can\'t close your account at this time due to an outstanding payment.</string>
 
     <!--Close Account-->
     <string name="close_account_content">We are sorry you\'ve decided to part ways with us.</string>
@@ -258,19 +258,23 @@
     <string name="pause_close_account">Pause or Close account</string>
     <string name="logout">Logout</string>
     <string name="unpause_close_account">Unpause or Close account</string>
+    <string name="unpause_account">Unpause Account</string>
+    <string name="unpause_account_description">Nothing has changed, you can pick up where you left off!</string>
 
     <!--Membership -->
+    <string name="advance_history">Advance history</string>
     <string name="membership_status">Membership status</string>
     <string name="membership_status_active">Active</string>
     <string name="membership_status_paused">Paused</string>
     <string name="membership_started">Started</string>
     <string name="membership_renewal">Renewal</string>
     <string name="membership_amount">Amount</string>
-    <string name="cash_advance_amount">Amount</string>
+    <string name="cash_advance_amount">Cash Advance Amount</string>
     <string name="cash_advance_due_date">Due Date</string>
     <string name="cash_advance_paid_date">Paid Date</string>
     <string name="cash_advance_overdue">Overdue</string>
     <string name="cash_advance_paid">Paid</string>
+    <string name="cash_advance_scheduled">Scheduled</string>
     <string name="membership_amount_value">%s/month</string>
 
     <!--Change Password-->
