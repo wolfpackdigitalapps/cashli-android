@@ -238,6 +238,7 @@
     <string name="account_remove_bank_account_proceed">Proceed</string>
     <string name="account_remove_bank_account_outstanding_advance_balance">Sorry, you can\'t remove your account at this time.\n\nYou have an outstanding advance balance.</string>
     <string name="account_remove_bank_account_try_again">Please try again after the due payment has cleared your bank account. ACH may still take days to reflect the payment in our systems.</string>
+    <string name="account_unlinked_account">Your bank account was removed. You can link again a bank account starting %s</string>
 
     <!--Help-->
     <string name="help_description">We will do our best to reply to each message within 24 hours.</string>

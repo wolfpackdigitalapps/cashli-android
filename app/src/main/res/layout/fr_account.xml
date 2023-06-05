@@ -59,8 +59,8 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_account_top"
-                app:visibility="@{viewModel.account == null}"
-                tools:visibility="gone">
+                app:visibility="@{viewModel.account == null || viewModel.relinkDate != null}"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/tv_account_description"
@@ -69,10 +69,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_32dp"
                     android:layout_marginTop="@dimen/dimen_32dp"
-                    android:text="@string/account_description"
+                    android:text="@{viewModel.relinkDate == null ? @string/account_description : @string/account_unlinked_account(viewModel.relinkDate)}"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorGray76"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/account_description" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_continue"
@@ -82,6 +83,7 @@
                     android:layout_marginHorizontal="@dimen/dimen_24dp"
                     android:layout_marginTop="@dimen/dimen_32dp"
                     android:layout_marginBottom="@dimen/dimen_32dp"
+                    android:enabled="@{viewModel.relinkDate == null}"
                     android:onClick="@{() -> viewModel.linkMyBankAccount()}"
                     android:text="@string/link_your_bank_account"
                     app:contentPadding="0dp"
@@ -102,7 +104,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_account_top"
                 app:layout_constraintVertical_bias="0"
-                app:visibility="@{viewModel.account != null}">
+                app:visibility="@{viewModel.account != null &amp;&amp; viewModel.relinkDate == null}"
+                tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_bank_name"

@@ -8,5 +8,6 @@ data class BankAccount(
     val accountSubtype: BankAccountSubtype,
     val accountNumberMask: String,
     val balance: String,
-    val timestamp: String
+    val timestamp: String,
+    val relinkableAt: String?
 )

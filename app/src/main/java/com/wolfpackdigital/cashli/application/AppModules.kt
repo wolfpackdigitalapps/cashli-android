@@ -177,7 +177,11 @@ private const val LETTERS_AND_COMMA_PATTERN_MATCHER = "letters_and_comma_pattern
 
 object AppModules {
     private val viewModels = module {
-        viewModel { (deleteAccountArgs: DeleteAccountArgs) -> DeleteAccountViewModel(deleteAccountArgs) }
+        viewModel { (deleteAccountArgs: DeleteAccountArgs) ->
+            DeleteAccountViewModel(
+                deleteAccountArgs
+            )
+        }
         viewModel { SettingsViewModel(get()) }
         viewModel { MainActivityViewModel() }
         viewModel { OnboardingViewModel(get()) }
@@ -200,9 +204,9 @@ object AppModules {
         viewModel { (token: String) -> ResetPasswordViewModel(token, get(), get()) }
         viewModel { RequestCodeViewModel(get(), get()) }
         viewModel { (
-            phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
-            fromEditProfile: Boolean
-        ) ->
+                        phoneNumberOrEmail: String, codeReceivedViaType: CodeReceivedViaType,
+                        fromEditProfile: Boolean
+                    ) ->
             ConfirmOneTimePasswordViewModel(
                 phoneNumberOrEmail, codeReceivedViaType, fromEditProfile, get(), get(), get(), get()
             )
