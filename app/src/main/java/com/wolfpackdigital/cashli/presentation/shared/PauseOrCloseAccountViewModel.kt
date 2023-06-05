@@ -85,15 +85,24 @@ abstract class PauseOrCloseAccountViewModel(
     }
 
     private fun showCloseAccountIneligibleDialog() {
+        val accountPaused = userProfile?.accountStatus == AccountStatus.PAUSED
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
                 titleIdOrString = R.string.close_account,
                 imageId = R.drawable.ic_stop_gray,
                 contentIdOrString = R.string.close_account_ineligible,
                 buttonPrimaryId = R.string.close_account,
-                buttonSecondaryId = R.string.pause_account_instead,
+                buttonSecondaryId = if (accountPaused) {
+                    R.string.unpause_account_instead
+                } else {
+                    R.string.pause_account_instead
+                },
                 buttonPrimaryEnabled = false,
-                buttonSecondaryClick = ::showPauseAccountDialog
+                buttonSecondaryClick = if (accountPaused) {
+                    ::showUnpauseAccountDialog
+                } else {
+                    ::showPauseAccountDialog
+                }
             )
         )
     }
