@@ -116,14 +116,7 @@ class MoreViewModel(
     }
 
     override fun onPausedAccountSuccessful() {
-        _menuItems.value = buildList {
-            addAll(menuItems.value ?: emptyList())
-            add(
-                menuItems.value?.indexOf(MenuItem.PAUSE_CLOSE_ACCOUNT) ?: 0,
-                MenuItem.UNPAUSE_CLOSE_ACCOUNT
-            )
-            remove(MenuItem.PAUSE_CLOSE_ACCOUNT)
-        }
+        handleMenuItems()
     }
 
     fun goToEditProfileScreen() {
