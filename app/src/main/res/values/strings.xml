@@ -214,7 +214,7 @@
     <string name="close_account_instead">Close account instead</string>
     <string name="pause_account_instead">Pause account instead</string>
     <string name="pause_account_content">If you pause your account we will no longer be able to notify you about future cash advances eligibility.\n\nWe\'ll stop sending low balance alerts &amp; charging the membership fee.</string>
-    <string name="close_account_ineligible">Sorry, you can\'t close your account at this time due to an outstanding advance.</string>
+    <string name="close_account_ineligible">Sorry, you can\'t close your account at this time due to an outstanding payment.</string>
 
     <!--Close Account-->
     <string name="close_account_content">We are sorry you\'ve decided to part ways with us.</string>
