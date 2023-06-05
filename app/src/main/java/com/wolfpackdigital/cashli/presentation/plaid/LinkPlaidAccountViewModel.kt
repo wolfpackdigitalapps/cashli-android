@@ -37,6 +37,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 
+@Suppress("TooManyFunctions")
 abstract class LinkPlaidAccountViewModel(
     private val generateLinkTokenUseCase: GenerateLinkTokenUseCase,
     private val completeLinkingBankAccountUseCase: CompleteLinkingBankAccountUseCase,
@@ -144,7 +145,6 @@ abstract class LinkPlaidAccountViewModel(
                     }
 
                     else -> {
-
                     }
                 }
             }
@@ -157,6 +157,7 @@ abstract class LinkPlaidAccountViewModel(
         }
     }
 
+    @Suppress("MagicNumber")
     open fun onEligibleStatusCallback() {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(

@@ -121,6 +121,7 @@ class AccountViewModel(
         }
     }
 
+    @Suppress("MagicNumber")
     override fun onEligibleStatusCallback() {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
