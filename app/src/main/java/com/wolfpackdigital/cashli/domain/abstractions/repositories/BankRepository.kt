@@ -8,6 +8,7 @@ interface BankRepository {
     suspend fun getEligibilityStatus(): EligibilityChecks
     suspend fun generateLinkToken(): BankToken
     suspend fun completeLinkingBankAccount(linkBankAccountDtoRequest: CompleteLinkBankAccountRequest)
+    suspend fun unlinkAccount()
     suspend fun generateUpdateLinkToken(): BankToken
     suspend fun completeUpdateLinkingBankAccount(updateLinkBankAccountDtoRequest: CompleteLinkBankAccountRequest)
 }

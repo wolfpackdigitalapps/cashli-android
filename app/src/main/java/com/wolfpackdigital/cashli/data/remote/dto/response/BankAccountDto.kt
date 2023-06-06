@@ -18,5 +18,7 @@ data class BankAccountDto(
     @SerializedName("balance")
     val balance: String,
     @SerializedName("timestamp")
-    val timestamp: String?
+    val timestamp: String?,
+    @SerializedName("relinkable_at")
+    val relinkableAt: String?,
 ) : Parcelable

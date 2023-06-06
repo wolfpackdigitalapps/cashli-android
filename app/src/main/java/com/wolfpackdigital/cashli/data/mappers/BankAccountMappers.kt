@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 @Suppress("MaxLineLength")
 class BankAccountToBankAccountDtoMapper(
-    private val bankAccountSubtypeMapper: BankAccountSubtypeToBankAccountSubtypeDtoMapper
+    private val bankAccountSubtypeMapper: BankAccountSubtypeToBankAccountSubtypeDtoMapper,
 ) : Mapper<BankAccount, BankAccountDto> {
     override fun map(input: BankAccount): BankAccountDto {
         return BankAccountDto(
@@ -16,14 +16,15 @@ class BankAccountToBankAccountDtoMapper(
             accountSubtype = bankAccountSubtypeMapper.map(input.accountSubtype),
             accountNumberMask = input.accountNumberMask,
             balance = input.balance,
-            timestamp = input.timestamp
+            timestamp = input.timestamp,
+            relinkableAt = input.relinkableAt,
         )
     }
 }
 
 @Suppress("MaxLineLength")
 class BankAccountDtoToBankAccountMapper(
-    private val bankAccountSubtypeMapper: BankAccountSubtypeDtoToBankAccountSubtypeMapper
+    private val bankAccountSubtypeMapper: BankAccountSubtypeDtoToBankAccountSubtypeMapper,
 ) : Mapper<BankAccountDto, BankAccount> {
     override fun map(input: BankAccountDto): BankAccount {
         return BankAccount(
@@ -32,7 +33,8 @@ class BankAccountDtoToBankAccountMapper(
             accountSubtype = bankAccountSubtypeMapper.map(input.accountSubtype),
             accountNumberMask = input.accountNumberMask,
             balance = input.balance,
-            timestamp = input.timestamp ?: LocalDateTime.now().toString()
+            timestamp = input.timestamp ?: LocalDateTime.now().toString(),
+            relinkableAt = input.relinkableAt,
         )
     }
 }

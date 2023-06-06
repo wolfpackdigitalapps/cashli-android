@@ -19,5 +19,6 @@ data class PopupConfig(
     val buttonCloseClick: () -> Unit = {},
     val otherAction: (AlertDialog) -> Unit = {},
     val isOtherActionInstant: Boolean = false,
-    val contentFormatArgs: Array<Any>? = null
+    val contentFormatArgs: Array<Any>? = null,
+    val isSecondaryContentBold: Boolean = false
 )

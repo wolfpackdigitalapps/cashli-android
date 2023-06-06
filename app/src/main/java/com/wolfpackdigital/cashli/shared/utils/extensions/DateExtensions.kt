@@ -31,8 +31,8 @@ fun String.toLocalDateFromPatternOrNull(pattern: String? = null): LocalDate? =
         null
     }
 
-fun String.toFormattedZonedDate(): String? =
-    this.toZonedLocalDateTimeOrNull()?.toLocalDate()
+fun String?.toFormattedZonedDate(): String? =
+    this?.toZonedLocalDateTimeOrNull()?.toLocalDate()
         ?.format(DateTimeFormatter.ofPattern(Constants.FULL_MONTH_DAY_YEAR))
 
 fun Instant.toZonedLocalDateTimeOrNull(): LocalDateTime =

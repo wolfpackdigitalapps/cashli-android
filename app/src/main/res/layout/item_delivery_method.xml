@@ -146,7 +146,7 @@
             app:layout_constraintStart_toEndOf="@id/delivery_method_description_tv"
             app:layout_constraintTop_toTopOf="@id/delivery_method_description_tv"
             app:tint="@color/colorGrayDC"
-            app:tooltip_text="@{viewModel.deliveryMethod.tooltipText}" />
+            app:delivery_tooltip_text="@{viewModel.deliveryMethod.tooltipText}" />
 
         <TextView
             android:id="@+id/delivery_method_secondary_description_tv"

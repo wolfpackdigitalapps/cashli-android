@@ -31,6 +31,10 @@ class BankRepositoryImpl(
         bankApi.completeLinkingBankAccount(dtoRequest)
     }
 
+    override suspend fun unlinkAccount() {
+        bankApi.unlinkAccount()
+    }
+
     override suspend fun generateUpdateLinkToken(): BankToken {
         val result = bankApi.generateUpdateLinkToken()
         return bankTokenMapper.map(result)
