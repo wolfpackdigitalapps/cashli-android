@@ -6,5 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserOutstandingBalanceStatusDto(
-    @SerializedName("outstanding_balance") val outstandingBalance: Boolean
+    @SerializedName("has_outstanding_balance") val outstandingBalance: Boolean,
+    @SerializedName("cash_advance_balance_due") val cashAdvanceBalanceDue: String?,
+    @SerializedName("repayment_date") val repaymentDate: String?
 ) : Parcelable

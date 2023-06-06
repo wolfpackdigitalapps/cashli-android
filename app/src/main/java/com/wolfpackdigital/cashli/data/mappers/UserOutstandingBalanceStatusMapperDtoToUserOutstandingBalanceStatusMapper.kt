@@ -8,7 +8,9 @@ class UserOutstandingBalanceStatusMapperDtoToUserOutstandingBalanceStatusMapper 
     Mapper<UserOutstandingBalanceStatusDto, UserOutstandingBalanceStatus> {
     override fun map(input: UserOutstandingBalanceStatusDto): UserOutstandingBalanceStatus {
         return UserOutstandingBalanceStatus(
-            outstandingBalance = input.outstandingBalance
+            outstandingBalance = input.outstandingBalance,
+            cashAdvanceBalanceDue = input.cashAdvanceBalanceDue,
+            repaymentDate = input.repaymentDate
         )
     }
 }

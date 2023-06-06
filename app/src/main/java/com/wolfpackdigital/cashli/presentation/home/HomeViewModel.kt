@@ -33,7 +33,7 @@ import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.usecases.CloseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
-import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetCashAdvancesLimitsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
@@ -79,7 +79,7 @@ private const val VALUE_SPAN_CALL_US = "callUs"
 class HomeViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserSettingUseCase: UpdateUserSettingUseCase,
-    private val getEligibilityStatusUseCase: GetEligibilityStatusUseCase,
+    private val getCashAdvancesLimitsUseCase: GetCashAdvancesLimitsUseCase,
     private val generateUpdateLinkTokenUseCase: GenerateUpdateLinkTokenUseCase,
     private val completeUpdateLinkingBankAccountUseCase: CompleteUpdateLinkingBankAccountUseCase,
     pauseUserAccountUseCase: PauseUserAccountUseCase,
@@ -245,16 +245,16 @@ class HomeViewModel(
 
     private fun handleLinkBankAccountInfo() {
         val bankInfo = currentUserProfile.value?.let { userProfile ->
-            when {
-                userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+            when (userProfile.eligibilityStatus) {
+                EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                     toggleEligibilityStatusJob()
                     LinkBankAccountInfo(bankAccountInfoType = BankAccountInfoType.PENDING)
                 }
 
-                userProfile.bankAccount == null &&
-                    userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
+                        bankAccount = userProfile.bankAccount,
                         linkBankAccountAction = { goToLinkBankAccount() }
                     )
                 }
@@ -262,10 +262,7 @@ class HomeViewModel(
                 else -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.CONNECTED,
-                        bankAccount = userProfile.bankAccount?.copy(
-                            timestamp = userProfile.bankAccount.timestamp.toFormattedLocalDateTime()
-                                ?: EMPTY_STRING
-                        )
+                        bankAccount = userProfile.bankAccount
                     )
                 }
             }
@@ -309,7 +306,7 @@ class HomeViewModel(
                         eligibilityDate = eligibilityDate,
                         buttonAction = {
                             if (isAccountPaused) {
-                                showUnpauseAccountDialog()
+                                showUnpauseAccountDialog(R.id.homeFragment)
                             } else {
                                 goToClaimCash()
                             }
@@ -346,7 +343,7 @@ class HomeViewModel(
                         warningInfo = warningInfo,
                         buttonAction = {
                             if (isAccountPaused) {
-                                showUnpauseAccountDialog()
+                                showUnpauseAccountDialog(R.id.homeFragment)
                             } else {
                                 goToIneligibleScreen()
                             }
@@ -365,7 +362,7 @@ class HomeViewModel(
                             ?: EMPTY_STRING,
                         buttonAction = {
                             if (isAccountPaused) {
-                                showUnpauseAccountDialog()
+                                showUnpauseAccountDialog(R.id.homeFragment)
                             }
                         }
                     )
@@ -555,10 +552,9 @@ class HomeViewModel(
         checkEligibilityStatusJob = null
     }
 
-    @Suppress("MagicNumber")
     private fun handleEligibilityStatus() {
         viewModelScope.launch {
-            val result = getEligibilityStatusUseCase(Unit)
+            val result = getCashAdvancesLimitsUseCase(Unit)
             result.onSuccess { eligibilityStatus ->
                 when (eligibilityStatus.status) {
                     EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {

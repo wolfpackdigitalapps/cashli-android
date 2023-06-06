@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethodItem
@@ -14,8 +15,10 @@ import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
+import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 import java.time.LocalTime
@@ -38,9 +41,6 @@ class ClaimCashViewModel(
     private val _amount = MutableLiveData(0f)
     val amount: LiveData<Float> = _amount
 
-    private val _dueDate = MutableLiveData("February 15th, 2023")
-    val dueDate: LiveData<String> = _dueDate
-
     private val _selectedDeliveryMethod = MutableLiveData(
         if (isAfter3PM())
             DeliveryMethod.EXPRESS_WITHIN_20_HOURS
@@ -51,6 +51,10 @@ class ClaimCashViewModel(
 
     private val _transferFees = MutableLiveData<List<TransferFees>>()
     val transferFees: LiveData<List<TransferFees>> = _transferFees
+
+    val dueDate = transferFees.map {
+        it.firstOrNull()?.repaymentDate?.toFormattedLocalDate() ?: DASH
+    }
 
     val deliveryMethods =
         combine(

@@ -9,7 +9,11 @@ class EligibilityChecksDtoToEligibilityChecksMapper(
 ) : Mapper<EligibilityChecksDto, EligibilityChecks> {
     override fun map(input: EligibilityChecksDto): EligibilityChecks {
         return EligibilityChecks(
-            status = eligibilityStatusMapper.map(input.status),
+            maxCashAdvance = input.maxCashAdvance,
+            minCashAdvance = input.minCashAdvance,
+            userMaxAdvanceAmount = input.userMaxAdvanceAmount,
+            userMaxAdvanceFormatted = input.userMaxAdvanceFormatted,
+            status = eligibilityStatusMapper.map(input.status)
         )
     }
 }
@@ -19,7 +23,11 @@ class EligibilityChecksToEligibilityChecksDtoMapper(
 ) : Mapper<EligibilityChecks, EligibilityChecksDto> {
     override fun map(input: EligibilityChecks): EligibilityChecksDto {
         return EligibilityChecksDto(
-            status = eligibilityStatusMapper.map(input.status),
+            maxCashAdvance = input.maxCashAdvance,
+            minCashAdvance = input.minCashAdvance,
+            userMaxAdvanceAmount = input.userMaxAdvanceAmount,
+            userMaxAdvanceFormatted = input.userMaxAdvanceFormatted,
+            status = eligibilityStatusMapper.map(input.status)
         )
     }
 }

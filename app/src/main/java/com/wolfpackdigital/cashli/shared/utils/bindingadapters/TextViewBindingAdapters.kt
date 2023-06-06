@@ -27,6 +27,8 @@ import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.CustomClickSpan
 import com.wolfpackdigital.cashli.shared.utils.extensions.daysBetweenDates
 import com.wolfpackdigital.cashli.shared.utils.extensions.getStringFromResourceOrText
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
 import com.wolfpackdigital.cashli.shared.utils.extensions.toLocalDateFromPatternOrNull
 import java.time.LocalDate
 
@@ -153,6 +155,24 @@ fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?, @StringRes 
         bankSubtype,
         bankAccount.accountNumberMask
     )
+}
+
+@BindingAdapter(value = ["isZonedDate", "stringDate", "stringRes"], requireAll = true)
+fun TextView.setTextWithDate(
+    isZonedDate: Boolean?,
+    stringDate: String?,
+    @StringRes stringRes: Int?
+) {
+    stringRes ?: return
+    stringDate ?: return
+
+    val date = when (isZonedDate) {
+        true -> stringDate.toFormattedZonedDate()
+        false -> stringDate.toFormattedLocalDate()
+        null -> Constants.DASH
+    }
+
+    text = context.getString(stringRes, date)
 }
 
 @BindingAdapter(
