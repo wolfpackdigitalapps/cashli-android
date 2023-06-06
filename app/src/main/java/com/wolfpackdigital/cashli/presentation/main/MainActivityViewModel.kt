@@ -31,8 +31,11 @@ class MainActivityViewModel : BaseViewModel(), PersistenceService {
     private val _isBottomBarVisible = MutableLiveData(true)
     val isBottomBarVisible: LiveData<Boolean> = _isBottomBarVisible
 
+    private var currentDestinationId: Int? = null
+
     val destinationChangeListener =
         NavController.OnDestinationChangedListener { _, destination, _ ->
+            currentDestinationId = destination.id
             val showBottomNav = when (destination.id) {
                 R.id.homeFragment,
                 R.id.accountFragment,
@@ -63,6 +66,10 @@ class MainActivityViewModel : BaseViewModel(), PersistenceService {
     }
 
     fun handlePushNotificationType(notificationModel: NotificationModel?) {
+        when (currentDestinationId) {
+            R.id.linkBankAccountInformativeFragment,
+            R.id.accountFragment -> return
+        }
         val popupConfig = when (notificationModel?.type) {
             PushNotificationAction.LOW_BALANCE -> {
                 PopupConfig(

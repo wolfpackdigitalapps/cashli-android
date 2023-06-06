@@ -94,7 +94,7 @@ import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseC
 import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateUpdateLinkTokenUseCase
-import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetCashAdvancesLimitsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetOnboardingStepsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetTransferFeesUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
@@ -258,7 +258,7 @@ object AppModules {
                 get()
             )
         }
-        single<BankRepository> { BankRepositoryImpl(get(), get(), get(), get()) }
+        single<BankRepository> { BankRepositoryImpl(get(), get(), get()) }
         single<UserRepository> {
             UserRepositoryImpl(
                 get(),
@@ -273,7 +273,15 @@ object AppModules {
                 get()
             )
         }
-        single<CashAdvanceRepository> { CashAdvanceRepositoryImpl(get(), get(), get(), get()) }
+        single<CashAdvanceRepository> {
+            CashAdvanceRepositoryImpl(
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
     }
 
     private val patternsModule = module {
@@ -379,7 +387,7 @@ object AppModules {
         single { UpdateUserSettingUseCase(get()) }
         single { RegisterDeviceTokenUseCase(get()) }
         single { GetUserProfileUseCase(get()) }
-        single { GetEligibilityStatusUseCase(get()) }
+        single { GetCashAdvancesLimitsUseCase(get()) }
         single { CompleteLinkingBankAccountUseCase(get()) }
         single { GenerateLinkTokenUseCase(get()) }
         single { SubmitRegistrationIdentifiersUseCase(get()) }

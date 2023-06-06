@@ -20,9 +20,10 @@ import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkA
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountTypeRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountVerificationStatusRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkInstitutionRequest
+import com.wolfpackdigital.cashli.domain.entities.response.EligibilityChecks
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
-import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetCashAdvancesLimitsUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.linkBank.informative.LinkBankAccountInformativeFragmentDirections
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
@@ -41,7 +42,7 @@ import kotlinx.coroutines.launch
 abstract class LinkPlaidAccountViewModel(
     private val generateLinkTokenUseCase: GenerateLinkTokenUseCase,
     private val completeLinkingBankAccountUseCase: CompleteLinkingBankAccountUseCase,
-    private val getEligibilityStatusUseCase: GetEligibilityStatusUseCase
+    private val getCashAdvancesLimitsUseCase: GetCashAdvancesLimitsUseCase
 ) : BaseViewModel() {
 
     @Suppress("VariableNaming")
@@ -124,19 +125,18 @@ abstract class LinkPlaidAccountViewModel(
         checkEligibilityStatusJob = null
     }
 
-    @Suppress("MagicNumber")
     private fun handleEligibilityStatus(alertDialog: AlertDialog) {
         viewModelScope.launch {
-            val result = getEligibilityStatusUseCase(Unit)
-            result.onSuccess { eligibilityStatus ->
-                when (eligibilityStatus.status) {
+            val result = getCashAdvancesLimitsUseCase(Unit)
+            result.onSuccess { eligibility ->
+                when (eligibility.status) {
                     EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                         toggleEligibilityStatusJob(alertDialog)
                     }
 
                     EligibilityStatus.ELIGIBLE -> {
                         alertDialog.dismiss()
-                        onEligibleStatusCallback()
+                        onEligibleStatusCallback(eligibility)
                     }
 
                     EligibilityStatus.NOT_ELIGIBLE -> {
@@ -157,13 +157,12 @@ abstract class LinkPlaidAccountViewModel(
         }
     }
 
-    @Suppress("MagicNumber")
-    open fun onEligibleStatusCallback() {
+    open fun onEligibleStatusCallback(eligibility: EligibilityChecks) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
                 titleIdOrString = R.string.congrats,
                 contentIdOrString = R.string.bank_account_connection_success,
-                contentFormatArgs = arrayOf(123),
+                contentFormatArgs = arrayOf(eligibility.userMaxAdvanceFormatted),
                 imageId = R.drawable.ic_congrats,
                 isCloseVisible = false,
                 buttonPrimaryId = R.string.cash_out,

@@ -2,11 +2,13 @@ package com.wolfpackdigital.cashli.presentation.account
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.response.BankAccount
+import com.wolfpackdigital.cashli.domain.entities.response.EligibilityChecks
 import com.wolfpackdigital.cashli.domain.usecases.CompleteLinkingBankAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GenerateLinkTokenUseCase
-import com.wolfpackdigital.cashli.domain.usecases.GetEligibilityStatusUseCase
+import com.wolfpackdigital.cashli.domain.usecases.GetCashAdvancesLimitsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserOutstandingBalanceStatusUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetUserProfileUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UnlinkAccountUseCase
@@ -21,23 +23,23 @@ import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 class AccountViewModel(
     generateLinkTokenUseCase: GenerateLinkTokenUseCase,
     completeLinkingBankAccountUseCase: CompleteLinkingBankAccountUseCase,
-    getEligibilityStatusUseCase: GetEligibilityStatusUseCase,
+    getCashAdvancesLimitsUseCase: GetCashAdvancesLimitsUseCase,
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val unlinkAccountUseCase: UnlinkAccountUseCase,
     private val getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase
 ) : LinkPlaidAccountViewModel(
     generateLinkTokenUseCase,
     completeLinkingBankAccountUseCase,
-    getEligibilityStatusUseCase
+    getCashAdvancesLimitsUseCase
 ),
     PersistenceService {
 
     private val _account = MutableLiveData(userProfile?.bankAccount)
     val account: LiveData<BankAccount?> = _account
 
-    private val _relinkDate =
-        MutableLiveData(userProfile?.bankAccount?.relinkableAt?.toFormattedZonedDate())
-    val relinkDate: LiveData<String?> = _relinkDate
+    val relinkDate = account.map {
+        it?.relinkableAt?.toFormattedZonedDate()
+    }
 
     private var userHasOutstandingBalance = false
 
@@ -121,13 +123,12 @@ class AccountViewModel(
         }
     }
 
-    @Suppress("MagicNumber")
-    override fun onEligibleStatusCallback() {
+    override fun onEligibleStatusCallback(eligibility: EligibilityChecks) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
                 titleIdOrString = R.string.congrats,
                 contentIdOrString = R.string.bank_account_connection_success,
-                contentFormatArgs = arrayOf(123),
+                contentFormatArgs = arrayOf(eligibility.userMaxAdvanceFormatted),
                 imageId = R.drawable.ic_congrats,
                 isCloseVisible = true,
                 buttonPrimaryId = R.string.cash_out,
@@ -137,7 +138,8 @@ class AccountViewModel(
                         popUpTo = R.id.accountFragment,
                         inclusive = true
                     )
-                }
+                },
+                buttonCloseClick = ::getUserProfile
             )
         )
     }

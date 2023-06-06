@@ -3,7 +3,6 @@ package com.wolfpackdigital.cashli.data.mappers
 import com.wolfpackdigital.cashli.data.remote.dto.response.BankAccountDto
 import com.wolfpackdigital.cashli.domain.entities.response.BankAccount
 import com.wolfpackdigital.cashli.shared.base.Mapper
-import java.time.LocalDateTime
 
 @Suppress("MaxLineLength")
 class BankAccountToBankAccountDtoMapper(
@@ -16,8 +15,8 @@ class BankAccountToBankAccountDtoMapper(
             accountSubtype = bankAccountSubtypeMapper.map(input.accountSubtype),
             accountNumberMask = input.accountNumberMask,
             balance = input.balance,
-            timestamp = input.timestamp,
             relinkableAt = input.relinkableAt,
+            balanceRefreshedAt = input.balanceRefreshedAt
         )
     }
 }
@@ -33,8 +32,8 @@ class BankAccountDtoToBankAccountMapper(
             accountSubtype = bankAccountSubtypeMapper.map(input.accountSubtype),
             accountNumberMask = input.accountNumberMask,
             balance = input.balance,
-            timestamp = input.timestamp ?: LocalDateTime.now().toString(),
             relinkableAt = input.relinkableAt,
+            balanceRefreshedAt = input.balanceRefreshedAt,
         )
     }
 }

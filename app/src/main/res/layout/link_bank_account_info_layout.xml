@@ -6,6 +6,8 @@
 
     <data class=".LinkBankAccountInfoBinding">
 
+        <import type="com.wolfpackdigital.cashli.R" />
+
         <variable
             name="linkBankAccountInfo"
             type="com.wolfpackdigital.cashli.presentation.entities.LinkBankAccountInfo" />
@@ -80,13 +82,15 @@
             android:layout_marginHorizontal="@dimen/dimen_28dp"
             android:layout_marginTop="@dimen/dimen_16dp"
             android:layout_marginBottom="@dimen/dimen_16dp"
-            android:text="@{@string/bank_account_check_date(linkBankAccountInfo.bankAccount.timestamp)}"
             android:textColor="@color/colorPrimary"
+            app:isZonedDate="@{true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_balance_value"
             app:layout_constraintVertical_bias="0.0"
+            app:stringRes="@{R.string.bank_account_check_date}"
+            app:stringSimpleDate="@{linkBankAccountInfo.bankAccount.relinkableAt}"
             tools:text="As of February 21, 2023" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

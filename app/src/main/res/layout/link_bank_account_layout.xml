@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".LinkBankAccountBinding">
+
+        <import type="com.wolfpackdigital.cashli.R" />
 
         <variable
             name="linkBankAccountInfo"
@@ -93,6 +96,7 @@
             android:layout_marginHorizontal="@dimen/dimen_24dp"
             android:layout_marginTop="@dimen/dimen_24dp"
             android:layout_marginBottom="@dimen/dimen_24dp"
+            android:enabled="@{linkBankAccountInfo.bankAccount.relinkableAt == null}"
             android:onClick="@{() -> linkBankAccountInfo.linkBankAccountAction.invoke()}"
             android:text="@string/link_your_bank_account"
             app:layout_constrainedWidth="true"
@@ -101,6 +105,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_message_two"
             app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_account_description"
+            style="@style/TextView.S1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:textColor="@color/colorPrimaryDark"
+            app:isZonedDate="@{true}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_link_account"
+            app:stringRes="@{R.string.account_unlinked_account}"
+            app:stringSimpleDate="@{linkBankAccountInfo.bankAccount.relinkableAt}"
+            app:visibility="@{linkBankAccountInfo.bankAccount.relinkableAt != null}"
+            tools:text="@string/account_unlinked_account"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
