@@ -118,8 +118,8 @@
             app:isZonedDate="@{true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_link_account"
+            app:stringDate="@{linkBankAccountInfo.bankAccount.relinkableAt}"
             app:stringRes="@{R.string.account_unlinked_account}"
-            app:stringSimpleDate="@{linkBankAccountInfo.bankAccount.relinkableAt}"
             app:visibility="@{linkBankAccountInfo.bankAccount.relinkableAt != null}"
             tools:text="@string/account_unlinked_account"
             tools:visibility="visible" />

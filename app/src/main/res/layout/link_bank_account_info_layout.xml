@@ -89,8 +89,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_balance_value"
             app:layout_constraintVertical_bias="0.0"
+            app:stringDate="@{linkBankAccountInfo.bankAccount.balanceRefreshedAt}"
             app:stringRes="@{R.string.bank_account_check_date}"
-            app:stringSimpleDate="@{linkBankAccountInfo.bankAccount.relinkableAt}"
             tools:text="As of February 21, 2023" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
