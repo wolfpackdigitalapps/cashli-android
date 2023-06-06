@@ -306,7 +306,7 @@ class HomeViewModel(
                         eligibilityDate = eligibilityDate,
                         buttonAction = {
                             if (isAccountPaused) {
-                                showUnpauseAccountDialog()
+                                showUnpauseAccountDialog(R.id.homeFragment)
                             } else {
                                 goToClaimCash()
                             }
@@ -343,7 +343,7 @@ class HomeViewModel(
                         warningInfo = warningInfo,
                         buttonAction = {
                             if (isAccountPaused) {
-                                showUnpauseAccountDialog()
+                                showUnpauseAccountDialog(R.id.homeFragment)
                             } else {
                                 goToIneligibleScreen()
                             }
@@ -362,7 +362,7 @@ class HomeViewModel(
                             ?: EMPTY_STRING,
                         buttonAction = {
                             if (isAccountPaused) {
-                                showUnpauseAccountDialog()
+                                showUnpauseAccountDialog(R.id.homeFragment)
                             }
                         }
                     )

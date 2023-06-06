@@ -5,6 +5,7 @@
     android:id="@+id/home_graph"
     app:startDestination="@id/homeFragment">
 
+
     <action
         android:id="@+id/action_global_linkAccountGraph"
         app:destination="@id/link_account_graph" />
@@ -18,7 +19,20 @@
         android:name="com.wolfpackdigital.cashli.presentation.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fr_home">
+        <action
+            android:id="@+id/action_homeFragment_to_deleteAccountDialog"
+            app:destination="@id/deleteAccountDialog" />
     </fragment>
+
+    <dialog
+        android:id="@+id/deleteAccountDialog"
+        android:name="com.wolfpackdigital.cashli.presentation.more.deleteAccount.DeleteAccountDialog"
+        android:label="DeleteAccountDialog"
+        tools:layout="@layout/dialog_delete_account">
+        <argument
+            android:name="deleteAccountArgs"
+            app:argType="com.wolfpackdigital.cashli.presentation.entities.args.DeleteAccountArgs" />
+    </dialog>
 
     <include app:graph="@navigation/link_account_graph" />
 

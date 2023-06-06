@@ -1,5 +1,6 @@
 package com.wolfpackdigital.cashli.presentation.shared
 
+import androidx.annotation.IdRes
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.enums.AccountStatus
 import com.wolfpackdigital.cashli.domain.entities.requests.CloseUserAccountReasonRequest
@@ -9,6 +10,7 @@ import com.wolfpackdigital.cashli.domain.usecases.PauseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.UnpauseAccountUseCase
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.presentation.entities.args.DeleteAccountArgs
+import com.wolfpackdigital.cashli.presentation.home.HomeFragmentDirections
 import com.wolfpackdigital.cashli.presentation.more.MoreFragmentDirections
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
@@ -25,7 +27,7 @@ abstract class PauseOrCloseAccountViewModel(
     private val unpauseAccountUseCase: UnpauseAccountUseCase
 ) : BaseViewModel(), PersistenceService {
 
-    protected fun showPauseAccountDialog() {
+    protected fun showPauseAccountDialog(@IdRes fromScreen: Int = R.id.moreFragment) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
                 titleIdOrString = R.string.pause_or_close_account,
@@ -34,13 +36,13 @@ abstract class PauseOrCloseAccountViewModel(
                 buttonPrimaryEnabled = userProfile?.bankAccountConnected ?: false,
                 buttonPrimaryId = R.string.pause_account,
                 buttonSecondaryId = R.string.close_account_instead,
-                buttonPrimaryClick = { handlePauseAccount() },
-                buttonSecondaryClick = { handleCloseAccountAllowance() }
+                buttonPrimaryClick = ::handlePauseAccount,
+                buttonSecondaryClick = { handleCloseAccountAllowance(fromScreen) }
             )
         )
     }
 
-    protected fun showUnpauseAccountDialog() {
+    protected fun showUnpauseAccountDialog(@IdRes fromScreen: Int = R.id.moreFragment) {
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
                 titleIdOrString = R.string.welcome_back,
@@ -50,19 +52,19 @@ abstract class PauseOrCloseAccountViewModel(
                 isCloseVisible = true,
                 buttonSecondaryId = R.string.close_account_instead,
                 buttonPrimaryClick = ::unpauseAccount,
-                buttonSecondaryClick = ::handleCloseAccountAllowance
+                buttonSecondaryClick = { handleCloseAccountAllowance(fromScreen) }
             )
         )
     }
 
-    private fun handleCloseAccountAllowance() {
+    private fun handleCloseAccountAllowance(@IdRes fromScreen: Int = R.id.moreFragment) {
         performApiCall {
             val result = getUserOutstandingBalanceStatusUseCase(Unit)
             result.onSuccess { userOutstandingBalanceStatus ->
                 if (userOutstandingBalanceStatus.outstandingBalance)
-                    showCloseAccountIneligibleDialog()
+                    showCloseAccountIneligibleDialog(fromScreen)
                 else
-                    showCloseAccountDialog()
+                    showCloseAccountDialog(fromScreen)
             }
             result.onError {
                 val error =
@@ -72,19 +74,30 @@ abstract class PauseOrCloseAccountViewModel(
         }
     }
 
-    private fun showCloseAccountDialog() {
-        _baseCmd.value = BaseCommand.PerformNavAction(
-            MoreFragmentDirections.actionMoreFragmentToDeleteAccountDialog(
-                DeleteAccountArgs(
-                    onDeleteAccount = { reason ->
-                        handleCloseAccount(reason)
-                    }
-                )
-            )
+    private fun showCloseAccountDialog(@IdRes fromScreen: Int = R.id.moreFragment) {
+        val deleteArgs = DeleteAccountArgs(
+            onDeleteAccount = { reason ->
+                handleCloseAccount(reason)
+            }
         )
+        _baseCmd.value = when (fromScreen) {
+            R.id.homeFragment -> {
+                BaseCommand.PerformNavAction(
+                    HomeFragmentDirections.actionHomeFragmentToDeleteAccountDialog(deleteArgs)
+                )
+            }
+
+            R.id.moreFragment -> {
+                BaseCommand.PerformNavAction(
+                    MoreFragmentDirections.actionMoreFragmentToDeleteAccountDialog(deleteArgs)
+                )
+            }
+
+            else -> return
+        }
     }
 
-    private fun showCloseAccountIneligibleDialog() {
+    private fun showCloseAccountIneligibleDialog(@IdRes fromScreen: Int = R.id.moreFragment) {
         val accountPaused = userProfile?.accountStatus == AccountStatus.PAUSED
         _baseCmd.value = BaseCommand.ShowPopupById(
             PopupConfig(
@@ -99,9 +112,9 @@ abstract class PauseOrCloseAccountViewModel(
                 },
                 buttonPrimaryEnabled = false,
                 buttonSecondaryClick = if (accountPaused) {
-                    ::showUnpauseAccountDialog
+                    { showUnpauseAccountDialog(fromScreen) }
                 } else {
-                    ::showPauseAccountDialog
+                    { showPauseAccountDialog(fromScreen) }
                 }
             )
         )
