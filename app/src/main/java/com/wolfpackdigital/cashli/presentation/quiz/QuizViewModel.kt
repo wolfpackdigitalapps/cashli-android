@@ -99,12 +99,12 @@ class QuizViewModel(
     private companion object {
         const val TIP_4 = 4
         const val TIP_5 = 5
-        const val TIP_6 = 6
+        const val TIP_8 = 8
         fun getTipsList() =
             buildList {
-                add(TipAmount(TIP_4, true))
+                add(TipAmount(TIP_4, false))
                 add(TipAmount(TIP_5, false))
-                add(TipAmount(TIP_6, false))
+                add(TipAmount(TIP_8, true))
                 add(TipAmount(null, false))
             }
     }
