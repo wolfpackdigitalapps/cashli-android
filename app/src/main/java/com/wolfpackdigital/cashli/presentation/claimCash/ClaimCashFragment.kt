@@ -61,10 +61,10 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
     }
 
     private fun observeTransferFees() {
-        viewModel.transferFees.observe(viewLifecycleOwner) { transferFeesList ->
+        viewModel.cashAdvancesLimits.observe(viewLifecycleOwner) { cashAdvancesLimits ->
             setupSliderView(
-                minValue = transferFeesList.minOf { it.lowerLimit },
-                maxValue = transferFeesList.maxOf { it.upperLimit }
+                minValue = cashAdvancesLimits.minCashAdvance?.toFloat() ?: 0f,
+                maxValue = cashAdvancesLimits.maxCashAdvance?.toFloat() ?: 0f
             )
         }
     }

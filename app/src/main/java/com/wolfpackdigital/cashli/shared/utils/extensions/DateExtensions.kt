@@ -12,8 +12,8 @@ import java.time.temporal.ChronoUnit
 fun String.toFormattedLocalDateTime(): String? =
     this.toLocalDateTimeOrNull()?.format(DateTimeFormatter.ofPattern(Constants.FULL_MONTH_DAY_YEAR))
 
-fun String.toFormattedLocalDate(pattern: String? = null): String? =
-    this.toLocalDateFromPatternOrNull(pattern)?.format(DateTimeFormatter.ofPattern(Constants.FULL_MONTH_DAY_YEAR))
+fun String?.toFormattedLocalDate(pattern: String? = null): String? =
+    this?.toLocalDateFromPatternOrNull(pattern)?.format(DateTimeFormatter.ofPattern(Constants.FULL_MONTH_DAY_YEAR))
 
 fun String.toLocalDateTimeOrNull(): LocalDateTime? =
     try {

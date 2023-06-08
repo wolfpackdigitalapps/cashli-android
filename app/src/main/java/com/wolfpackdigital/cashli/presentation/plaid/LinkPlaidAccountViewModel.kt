@@ -31,8 +31,10 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
+import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
@@ -43,7 +45,7 @@ abstract class LinkPlaidAccountViewModel(
     private val generateLinkTokenUseCase: GenerateLinkTokenUseCase,
     private val completeLinkingBankAccountUseCase: CompleteLinkingBankAccountUseCase,
     private val getCashAdvancesLimitsUseCase: GetCashAdvancesLimitsUseCase
-) : BaseViewModel() {
+) : BaseViewModel(), PersistenceService {
 
     @Suppress("VariableNaming")
     protected val _cmd = LiveEvent<Command>()
@@ -81,6 +83,9 @@ abstract class LinkPlaidAccountViewModel(
                         imageId = R.drawable.ic_pending,
                         isCloseVisible = false,
                         otherAction = { alertDialog ->
+                            userProfile = userProfile?.copy(
+                                eligibilityStatus = EligibilityStatus.ELIGIBILITY_CHECK_PENDING
+                            )
                             toggleEligibilityStatusJob(alertDialog)
                         },
                         isOtherActionInstant = true
@@ -129,6 +134,9 @@ abstract class LinkPlaidAccountViewModel(
         viewModelScope.launch {
             val result = getCashAdvancesLimitsUseCase(Unit)
             result.onSuccess { eligibility ->
+                userProfile = userProfile?.copy(
+                    eligibilityStatus = eligibility.status
+                )
                 when (eligibility.status) {
                     EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                         toggleEligibilityStatusJob(alertDialog)
@@ -162,9 +170,11 @@ abstract class LinkPlaidAccountViewModel(
             PopupConfig(
                 titleIdOrString = R.string.congrats,
                 contentIdOrString = R.string.bank_account_connection_success,
-                contentFormatArgs = arrayOf(eligibility.userMaxAdvanceFormatted),
+                contentFormatArgs = arrayOf(eligibility.userMaxAdvanceFormatted ?: DASH),
                 imageId = R.drawable.ic_congrats,
                 isCloseVisible = false,
+                buttonPrimaryEnabled = userProfile?.connectionExpired == false &&
+                    userProfile?.suspended == false,
                 buttonPrimaryId = R.string.cash_out,
                 buttonSecondaryId = R.string.take_me_to_home,
                 buttonSecondaryClick = {

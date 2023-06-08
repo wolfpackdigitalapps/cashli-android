@@ -163,7 +163,7 @@ class HomeViewModel(
                     condition,
                     R.string.warning_lost_connection,
                     ::handleConnectionLostWarningInfo
-                )
+                ) ?: return
             }
 
             WarningInfoType.ACCOUNT_SUSPENDED -> {
@@ -171,7 +171,7 @@ class HomeViewModel(
                     condition,
                     R.string.warning_account_suspended,
                     ::handleAccountSuspendedWarningInfo
-                )
+                ) ?: return
             }
         }
     }
@@ -245,13 +245,14 @@ class HomeViewModel(
 
     private fun handleLinkBankAccountInfo() {
         val bankInfo = currentUserProfile.value?.let { userProfile ->
-            when (userProfile.eligibilityStatus) {
-                EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+            when {
+                userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
                     toggleEligibilityStatusJob()
                     LinkBankAccountInfo(bankAccountInfoType = BankAccountInfoType.PENDING)
                 }
 
-                EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED -> {
+                userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
+                    !userProfile.bankAccountConnected -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         bankAccount = userProfile.bankAccount,
@@ -278,7 +279,8 @@ class HomeViewModel(
             val isAccountPaused = userProfile.accountStatus == AccountStatus.PAUSED
             when {
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
+                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING ||
+                    !userProfile.bankAccountConnected -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         upToSum = SUM_150

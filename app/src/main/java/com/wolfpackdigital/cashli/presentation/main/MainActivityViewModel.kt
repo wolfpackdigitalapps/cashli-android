@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.EligibilityStatus
 import com.wolfpackdigital.cashli.domain.entities.enums.UserSettingsKeys
 import com.wolfpackdigital.cashli.presentation.entities.PopupConfig
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
@@ -66,10 +67,14 @@ class MainActivityViewModel : BaseViewModel(), PersistenceService {
     }
 
     fun handlePushNotificationType(notificationModel: NotificationModel?) {
-        when (currentDestinationId) {
-            R.id.linkBankAccountInformativeFragment,
-            R.id.accountFragment -> return
+        when {
+            currentDestinationId == R.id.linkBankAccountInformativeFragment -> return
+            currentDestinationId == R.id.accountFragment &&
+                userProfile?.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING &&
+                userProfile?.bankAccount == null &&
+                notificationModel?.type == PushNotificationAction.USER_ELIGIBLE -> return
         }
+
         val popupConfig = when (notificationModel?.type) {
             PushNotificationAction.LOW_BALANCE -> {
                 PopupConfig(

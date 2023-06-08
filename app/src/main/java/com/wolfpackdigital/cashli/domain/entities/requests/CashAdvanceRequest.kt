@@ -5,5 +5,6 @@ import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 data class CashAdvanceRequest(
     val amount: Float,
     val tip: Float,
-    val transferChannel: DeliveryMethod
+    val transferChannel: DeliveryMethod,
+    val quizAnswers: List<QuizAnswer>
 )

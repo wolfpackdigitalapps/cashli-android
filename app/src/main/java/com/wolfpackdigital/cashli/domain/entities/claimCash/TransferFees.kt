@@ -9,6 +9,5 @@ data class TransferFees(
     val regularFee: String,
     val nextDayFee: String,
     val sameDayFee: String,
-    val instantFee: String,
-    val repaymentDate: String
+    val instantFee: String
 )

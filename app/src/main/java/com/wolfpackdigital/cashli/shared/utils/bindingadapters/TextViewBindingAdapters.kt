@@ -157,22 +157,21 @@ fun TextView.setBankAccountSubtypeAndMask(bankAccount: BankAccount?, @StringRes 
     )
 }
 
-@BindingAdapter(value = ["isZonedDate", "stringDate", "stringRes"], requireAll = true)
+@BindingAdapter(value = ["isZonedDate", "stringDate", "stringRes"], requireAll = false)
 fun TextView.setTextWithDate(
     isZonedDate: Boolean?,
     stringDate: String?,
     @StringRes stringRes: Int?
 ) {
-    stringRes ?: return
     stringDate ?: return
 
     val date = when (isZonedDate) {
         true -> stringDate.toFormattedZonedDate()
         false -> stringDate.toFormattedLocalDate()
-        null -> Constants.DASH
-    }
+        else -> null
+    } ?: Constants.DASH
 
-    text = context.getString(stringRes, date)
+    text = stringRes?.let { context.getString(stringRes, date) } ?: date
 }
 
 @BindingAdapter(

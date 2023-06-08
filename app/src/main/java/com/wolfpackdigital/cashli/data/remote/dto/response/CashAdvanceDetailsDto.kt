@@ -13,5 +13,5 @@ data class CashAdvanceDetailsDto(
     @SerializedName("total_repayable") val totalRepayable: String,
     @SerializedName("cash_advance_status") val cashAdvanceStatus: CashAdvanceStatusDto,
     @SerializedName("due_date") val dueDate: String,
-    @SerializedName("paid_date") val paidDate: String
+    @SerializedName("paid_date") val paidDate: String?
 ) : Parcelable

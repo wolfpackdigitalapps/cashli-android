@@ -9,5 +9,6 @@ import kotlinx.parcelize.Parcelize
 data class CashAdvanceRequestDto(
     @SerializedName("amount") val amount: Float,
     @SerializedName("tip") val tip: Float,
-    @SerializedName("transfer_channel") val transferChannel: DeliveryMethodDto
+    @SerializedName("transfer_channel") val transferChannel: DeliveryMethodDto,
+    @SerializedName("question_answers") val quizAnswers: List<QuizAnswerDto>
 ) : Parcelable

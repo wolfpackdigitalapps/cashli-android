@@ -13,7 +13,8 @@ class EligibilityChecksDtoToEligibilityChecksMapper(
             minCashAdvance = input.minCashAdvance,
             userMaxAdvanceAmount = input.userMaxAdvanceAmount,
             userMaxAdvanceFormatted = input.userMaxAdvanceFormatted,
-            status = eligibilityStatusMapper.map(input.status)
+            status = eligibilityStatusMapper.map(input.status),
+            repaymentDate = input.repaymentDate
         )
     }
 }
@@ -27,7 +28,8 @@ class EligibilityChecksToEligibilityChecksDtoMapper(
             minCashAdvance = input.minCashAdvance,
             userMaxAdvanceAmount = input.userMaxAdvanceAmount,
             userMaxAdvanceFormatted = input.userMaxAdvanceFormatted,
-            status = eligibilityStatusMapper.map(input.status)
+            status = eligibilityStatusMapper.map(input.status),
+            repaymentDate = input.repaymentDate
         )
     }
 }

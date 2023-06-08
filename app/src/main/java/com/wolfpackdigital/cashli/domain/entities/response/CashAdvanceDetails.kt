@@ -9,5 +9,5 @@ data class CashAdvanceDetails(
     val totalRepayable: String,
     val cashAdvanceStatus: CashAdvanceStatus,
     val dueDate: String,
-    val paidDate: String
+    val paidDate: String?
 )
