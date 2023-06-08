@@ -17,10 +17,9 @@ enum class DeliveryMethod(
     @StringRes val tooltipText: Int? = null,
     val available: Boolean = true
 ) {
-    REGULAR(
+    STANDARD(
         methodName = R.string.delivery_method_regular,
         description = R.string.delivery_method_regular_description,
-        secondaryDescription = null,
         disclaimer = R.string.delivery_method_regular_disclaimer,
         background = R.drawable.bg_regular_item,
         icon = R.drawable.ic_regular_delivery,
@@ -38,19 +37,18 @@ enum class DeliveryMethod(
     EXPRESS_SEVERAL_HOURS(
         methodName = R.string.delivery_method_express,
         description = R.string.delivery_method_express_several_hours,
-        disclaimer = R.string.delivery_method_regular_disclaimer,
+        secondaryDescription = R.string.delivery_method_express_several_hours_secondary_description,
+        disclaimer = R.string.delivery_method_express_several_hours_disclaimer,
         background = R.drawable.bg_express_item,
         icon = R.drawable.ic_express_delivery,
-        tint = R.color.colorAccent,
-        tooltipText = R.string.pending
+        tint = R.color.colorAccent
     ),
     EXPRESS_WITHIN_20_HOURS(
         methodName = R.string.delivery_method_express,
         description = R.string.delivery_method_express_within_20_hours,
-        disclaimer = R.string.delivery_method_regular_disclaimer,
+        disclaimer = R.string.delivery_method_express_within_20_hours_disclaimer,
         background = R.drawable.bg_express_item,
         icon = R.drawable.ic_express_delivery,
-        tint = R.color.colorAccent,
-        tooltipText = R.string.pending
+        tint = R.color.colorAccent
     )
 }
