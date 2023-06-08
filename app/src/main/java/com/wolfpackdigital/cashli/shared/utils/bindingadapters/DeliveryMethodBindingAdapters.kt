@@ -24,7 +24,7 @@ private const val DISABLED_ALPHA = 0.5f
 fun TextView.setDisclaimerForDeliveryMethod(
     deliveryMethod: DeliveryMethod?
 ) {
-    deliveryMethod?: return
+    deliveryMethod ?: return
     setText(deliveryMethod.disclaimer)
 }
 
