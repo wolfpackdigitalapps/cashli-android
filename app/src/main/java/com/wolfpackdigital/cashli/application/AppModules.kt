@@ -41,6 +41,7 @@ import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestDtoToLi
 import com.wolfpackdigital.cashli.data.mappers.LinkAccountMetadataRequestToLinkAccountMetadataRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenDtoToPasswordIdentifierTokenMapper
 import com.wolfpackdigital.cashli.data.mappers.PasswordIdentifierTokenToPasswordIdentifierTokenDtoMapper
+import com.wolfpackdigital.cashli.data.mappers.QuizAnswerToQuizAnswerDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestDtoToRefreshTokenRequestMapper
 import com.wolfpackdigital.cashli.data.mappers.RefreshTokenRequestToRefreshTokenRequestDtoMapper
 import com.wolfpackdigital.cashli.data.mappers.ResetPasswordRequestDtoToResetPasswordRequestMapper
@@ -216,7 +217,7 @@ object AppModules {
             )
         }
         viewModel { IneligibleInformativeViewModel() }
-        viewModel { ClaimCashViewModel(get()) }
+        viewModel { ClaimCashViewModel(get(), get()) }
         viewModel { (cashAmount: Float, deliveryMethod: DeliveryMethod) ->
             QuizViewModel(
                 cashAmount,
@@ -378,7 +379,8 @@ object AppModules {
         factory { LastMembershipStatusDtoToLastMembershipStatusMapper() }
         factory { TransferFeesDtoToTransferFeesMapper() }
         factory { DeliveryMethodToDeliveryMethodDtoMapper() }
-        factory { CashAdvanceRequestToCashAdvanceRequestDtoMapper(get()) }
+        factory { CashAdvanceRequestToCashAdvanceRequestDtoMapper(get(), get()) }
+        factory { QuizAnswerToQuizAnswerDtoMapper() }
     }
 
     private val useCases = module {

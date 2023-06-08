@@ -17,8 +17,8 @@ import com.wolfpackdigital.cashli.presentation.plaid.LinkPlaidAccountViewModel
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
+import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class AccountViewModel(
     generateLinkTokenUseCase: GenerateLinkTokenUseCase,
@@ -31,8 +31,7 @@ class AccountViewModel(
     generateLinkTokenUseCase,
     completeLinkingBankAccountUseCase,
     getCashAdvancesLimitsUseCase
-),
-    PersistenceService {
+) {
 
     private val _account = MutableLiveData(userProfile?.bankAccount)
     val account: LiveData<BankAccount?> = _account
@@ -128,9 +127,11 @@ class AccountViewModel(
             PopupConfig(
                 titleIdOrString = R.string.congrats,
                 contentIdOrString = R.string.bank_account_connection_success,
-                contentFormatArgs = arrayOf(eligibility.userMaxAdvanceFormatted),
+                contentFormatArgs = arrayOf(eligibility.userMaxAdvanceFormatted ?: DASH),
                 imageId = R.drawable.ic_congrats,
                 isCloseVisible = true,
+                buttonPrimaryEnabled = userProfile?.connectionExpired == false &&
+                    userProfile?.suspended == false,
                 buttonPrimaryId = R.string.cash_out,
                 buttonPrimaryClick = {
                     _baseCmd.value = BaseCommand.PerformNavAction(

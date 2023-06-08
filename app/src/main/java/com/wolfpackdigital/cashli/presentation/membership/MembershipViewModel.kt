@@ -15,7 +15,6 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.Constants.TRANSACTIONS_PAGE_SIZE
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
-import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
@@ -46,20 +45,20 @@ class MembershipViewModel : BaseViewModel(), PersistenceService, KoinComponent {
                     CashAdvanceStatus.OVERDUE ->
                         MembershipAdvanceItem.AdvanceOverdueItem(
                             topText = cashAdvanceDetails.amount,
-                            middleText = cashAdvanceDetails.dueDate.toFormattedZonedDate() ?: DASH,
-                            bottomText = cashAdvanceDetails.paidDate.toFormattedZonedDate() ?: DASH
+                            middleText = cashAdvanceDetails.dueDate.toFormattedLocalDate() ?: DASH,
+                            bottomText = cashAdvanceDetails.paidDate.toFormattedLocalDate() ?: DASH
                         )
                     CashAdvanceStatus.PAID ->
                         MembershipAdvanceItem.AdvancePaidItem(
                             topText = cashAdvanceDetails.amount,
-                            middleText = cashAdvanceDetails.dueDate.toFormattedZonedDate() ?: DASH,
-                            bottomText = cashAdvanceDetails.paidDate.toFormattedZonedDate() ?: DASH
+                            middleText = cashAdvanceDetails.dueDate.toFormattedLocalDate() ?: DASH,
+                            bottomText = cashAdvanceDetails.paidDate.toFormattedLocalDate() ?: DASH
                         )
                     CashAdvanceStatus.SCHEDULED ->
                         MembershipAdvanceItem.AdvanceScheduledItem(
                             topText = cashAdvanceDetails.amount,
-                            middleText = cashAdvanceDetails.dueDate.toFormattedZonedDate() ?: DASH,
-                            bottomText = cashAdvanceDetails.paidDate.toFormattedZonedDate() ?: DASH
+                            middleText = cashAdvanceDetails.dueDate.toFormattedLocalDate() ?: DASH,
+                            bottomText = cashAdvanceDetails.paidDate.toFormattedLocalDate() ?: DASH
                         )
                 }
             }

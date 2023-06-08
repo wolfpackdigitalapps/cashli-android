@@ -122,7 +122,11 @@ class HomeFragment :
                     viewModel.getUserProfile()
             }
         }
-        viewModel.accountWarnings.observe(viewLifecycleOwner, warningAdapter::submitList)
+        viewModel.accountWarnings.observe(viewLifecycleOwner) {
+            warningAdapter.submitList(it) {
+                binding?.rvHome?.scrollToPosition(SCROLL_TO_TOP)
+            }
+        }
         viewModel.cmd.observe(viewLifecycleOwner) {
             when (it) {
                 HomeViewModel.Command.CheckPushNotificationPermissions ->

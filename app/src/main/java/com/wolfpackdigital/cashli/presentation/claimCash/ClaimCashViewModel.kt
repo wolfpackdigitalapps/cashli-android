@@ -9,16 +9,16 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethodItem
 import com.wolfpackdigital.cashli.domain.entities.claimCash.TransferFees
+import com.wolfpackdigital.cashli.domain.entities.response.EligibilityChecks
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
+import com.wolfpackdigital.cashli.domain.usecases.GetCashAdvancesLimitsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetTransferFeesUseCase
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
-import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 import java.time.LocalTime
@@ -26,7 +26,8 @@ import java.time.LocalTime
 private const val THREE_O_CLOCK = 15
 
 class ClaimCashViewModel(
-    private val getTransferFees: GetTransferFeesUseCase
+    private val getTransferFees: GetTransferFeesUseCase,
+    private val getCashAdvancesLimitsUseCase: GetCashAdvancesLimitsUseCase
 ) : BaseViewModel(), PersistenceService {
 
     private val _cmd = LiveEvent<Command>()
@@ -49,16 +50,14 @@ class ClaimCashViewModel(
     )
     val selectedDeliveryMethod: LiveData<DeliveryMethod> = _selectedDeliveryMethod
 
-    private val _transferFees = MutableLiveData<List<TransferFees>>()
-    val transferFees: LiveData<List<TransferFees>> = _transferFees
+    private val transferFees = MutableLiveData<List<TransferFees>>()
 
-    val dueDate = transferFees.map {
-        it.firstOrNull()?.repaymentDate?.toFormattedLocalDate() ?: DASH
-    }
+    private val _cashAdvancesLimits = MutableLiveData<EligibilityChecks>()
+    val cashAdvancesLimits: LiveData<EligibilityChecks> = _cashAdvancesLimits
 
     val deliveryMethods =
         combine(
-            _transferFees.asFlow(),
+            transferFees.asFlow(),
             _labelAmount.asFlow(),
             _selectedDeliveryMethod.asFlow()
         ) { transferFees, amount, selectedDeliveryMethod ->
@@ -85,17 +84,29 @@ class ClaimCashViewModel(
 
     init {
         getTransferFees()
+        getEligibilityStatus()
+    }
+
+    private fun getEligibilityStatus() {
+        performApiCall {
+            val result = getCashAdvancesLimitsUseCase(Unit)
+            result.onSuccess { eligibility ->
+                _cashAdvancesLimits.value = eligibility
+                _amount.value = eligibility.minCashAdvance?.toFloat() ?: 0f
+                _labelAmount.value = eligibility.minCashAdvance?.toFloat() ?: 0f
+            }
+            result.onError {
+                val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+                _baseCmd.value = BaseCommand.ShowToast(error)
+            }
+        }
     }
 
     private fun getTransferFees() {
         performApiCall {
             val result = getTransferFees(Unit)
             result.onSuccess {
-                with(it.minOf { fees -> fees.lowerLimit }) {
-                    _amount.value = this
-                    _labelAmount.value = this
-                }
-                _transferFees.value = it
+                transferFees.value = it
             }
             result.onError {
                 val error =
