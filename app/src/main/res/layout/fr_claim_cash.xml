@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_48dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:background="@drawable/rounded_layout_20dp"
                 android:backgroundTint="@color/colorPrimaryDark"
                 app:layoutDescription="@xml/cash_amount_description"
@@ -220,7 +220,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_24dp"
-                android:layout_marginTop="@dimen/dimen_48dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:text="@string/claim_cash_delivery_method_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_alert" />
@@ -247,7 +247,6 @@
                 android:textAlignment="textStart"
                 app:deliveryMethod="@{viewModel.selectedDeliveryMethod}"
                 app:layout_constraintTop_toBottomOf="@id/rv_delivery_method"
-                app:userProfile="@{viewModel.userProfileData}"
                 tools:text="@string/delivery_method_express_disclaimer" />
 
             <com.google.android.material.button.MaterialButton
@@ -256,8 +255,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_24dp"
-                android:layout_marginTop="@dimen/dimen_48dp"
-                android:layout_marginBottom="@dimen/dimen_36dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
                 android:enabled="@{viewModel.cashAdvancesLimits != null}"
                 android:onClick="@{() -> viewModel.continueToQuiz()}"
                 android:text="@string/continue_name"

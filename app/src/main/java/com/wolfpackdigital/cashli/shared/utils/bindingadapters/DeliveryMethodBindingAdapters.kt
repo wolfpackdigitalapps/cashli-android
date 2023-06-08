@@ -15,31 +15,15 @@ import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
-import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
-import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 
 private const val DISABLED_ALPHA = 0.5f
 
-@BindingAdapter("deliveryMethod", "userProfile")
+@BindingAdapter("deliveryMethod")
 fun TextView.setDisclaimerForDeliveryMethod(
-    deliveryMethod: DeliveryMethod?,
-    userProfile: UserProfile?
+    deliveryMethod: DeliveryMethod?
 ) {
-    safeLet(deliveryMethod, userProfile?.bankAccount) { type, bankAccount ->
-        when (type) {
-            DeliveryMethod.EXPRESS_WITHIN_MINUTES -> {
-                setText(type.disclaimer)
-            }
-
-            else -> {
-                text = context.getString(
-                    type.disclaimer,
-                    bankAccount.institutionName,
-                    bankAccount.accountNumberMask
-                )
-            }
-        }
-    }
+    deliveryMethod ?: return
+    setText(deliveryMethod.disclaimer)
 }
 
 @BindingAdapter("disabled")

@@ -68,7 +68,7 @@ class ClaimCashViewModel(
                     else -> false
                 }
                 val cost = when (type) {
-                    DeliveryMethod.REGULAR -> fees?.regularFee ?: String()
+                    DeliveryMethod.STANDARD -> fees?.regularFee ?: String()
                     DeliveryMethod.EXPRESS_SEVERAL_HOURS -> fees?.sameDayFee ?: String()
                     DeliveryMethod.EXPRESS_WITHIN_20_HOURS -> fees?.nextDayFee ?: String()
                     else -> String()
