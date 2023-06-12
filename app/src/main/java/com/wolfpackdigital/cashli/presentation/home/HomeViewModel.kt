@@ -298,7 +298,7 @@ class HomeViewModel(
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                        !userProfile.bankAccountConnected -> {
+                    !userProfile.bankAccountConnected -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         bankAccount = userProfile.bankAccount,
@@ -342,8 +342,8 @@ class HomeViewModel(
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                        userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING ||
-                        !userProfile.bankAccountConnected -> {
+                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING ||
+                    !userProfile.bankAccountConnected -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         upToSum = SUM_150
