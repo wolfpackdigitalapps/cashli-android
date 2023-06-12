@@ -298,7 +298,7 @@ class HomeViewModel(
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                    !userProfile.bankAccountConnected -> {
+                        !userProfile.bankAccountConnected -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         bankAccount = userProfile.bankAccount,
@@ -326,12 +326,12 @@ class HomeViewModel(
         ) { userProfile, outstandingBalance, cashAdvanceLimits ->
             val isAccountPaused = userProfile.accountStatus == AccountStatus.PAUSED
             when {
-                outstandingBalance.outstandingBalance -> {
+                outstandingBalance.outstandingBalance && outstandingBalance.repaymentDate != null -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CLAIMED_ADVANCE,
                         cashAdvanceBalance = "-${outstandingBalance.cashAdvanceBalanceDue}",
                         isAccountPaused = isAccountPaused,
-                        repaymentDate = outstandingBalance.repaymentDate?.toFormattedLocalDate()
+                        repaymentDate = outstandingBalance.repaymentDate.toFormattedLocalDate()
                             ?: DASH,
                         buttonAction = {
                             if (isAccountPaused) {
@@ -342,8 +342,8 @@ class HomeViewModel(
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING ||
-                    !userProfile.bankAccountConnected -> {
+                        userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING ||
+                        !userProfile.bankAccountConnected -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         upToSum = SUM_150
