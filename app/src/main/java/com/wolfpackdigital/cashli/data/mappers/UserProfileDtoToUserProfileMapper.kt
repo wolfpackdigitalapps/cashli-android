@@ -34,7 +34,8 @@ class UserProfileDtoToUserProfileMapper(
             bankAccount = input.bankAccount?.let { bankAccountMapper.map(it) },
             userSettings = input.userSettings?.map { userSettingMapper.map(it) } ?: listOf(),
             accountStatus = accountStatusMapper.map(input.accountStatus),
-            suspended = input.suspended
+            suspended = input.suspended,
+            becameEligibleAt = input.becameEligibleAt
         )
     }
 }

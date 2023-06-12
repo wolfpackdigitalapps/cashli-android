@@ -79,13 +79,12 @@
     <string name="link_your_bank_account">Link your bank account</string>
     <string name="request_a_cash_advance">Request a cash advance</string>
     <string name="link_account_message_one">In order to get cash advances, you must link your bank account to Cashli.</string>
-    <string name="cash_delivered_time">Cash could be delivered in minutes.</string>
+    <string name="cash_delivered_time">Cash could be delivered in 2 hours.</string>
     <string name="up_to_sum">Up to $%s!</string>
     <string name="hello_user">Hi, %s!</string>
     <string name="hello">Hi!</string>
     <string name="request_cash_approved_for">You’ve been approved for</string>
     <string name="claim_cash_now">Claim cash now</string>
-    <string name="request_cash_tips">Cash could be delivered in minutes.</string>
     <string name="request_cash_balance_label">Cash advance balance</string>
     <string name="request_cash_balance_details">Including tips &amp; express fee, if applicable.</string>
     <string name="scheduled_repayment_date">Scheduled repayment date: %s</string>
@@ -142,7 +141,7 @@
     <!--Link Bank Account -->
     <string name="pending">Pending</string>
     <string name="pending_content">Your bank account will be connected soon.</string>
-    <string name="pending_time_content">Please wait for a few moments.</string>
+    <string name="pending_time_content">Please wait a few moments.</string>
     <string name="congrats">Congrats!</string>
     <string name="bank_account_connection_success">Connection to your bank account has been successful.\n\n<b>You are approved for %s.</b></string>
     <string name="cash_out">Cash out</string>
