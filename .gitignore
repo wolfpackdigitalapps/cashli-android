@@ -54,6 +54,7 @@ cashli_keystore
 google-services.json
 app/src/develop/google-services.json
 app/src/staging/google-services.json
+app/src/production/google-services.json
 
 # Freeline
 freeline.py
