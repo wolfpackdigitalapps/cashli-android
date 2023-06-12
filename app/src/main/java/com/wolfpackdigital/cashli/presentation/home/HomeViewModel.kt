@@ -29,6 +29,8 @@ import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkA
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountTypeRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkAccountVerificationStatusRequest
 import com.wolfpackdigital.cashli.domain.entities.requests.linkBankAccount.LinkInstitutionRequest
+import com.wolfpackdigital.cashli.domain.entities.response.EligibilityChecks
+import com.wolfpackdigital.cashli.domain.entities.response.UserOutstandingBalanceStatus
 import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.usecases.CloseUserAccountUseCase
 import com.wolfpackdigital.cashli.domain.usecases.CompleteUpdateLinkingBankAccountUseCase
@@ -49,24 +51,28 @@ import com.wolfpackdigital.cashli.presentation.entities.enums.BankAccountInfoTyp
 import com.wolfpackdigital.cashli.presentation.entities.enums.RequestCashAdvanceType
 import com.wolfpackdigital.cashli.presentation.entities.enums.WarningInfoType
 import com.wolfpackdigital.cashli.presentation.shared.PauseOrCloseAccountViewModel
+import com.wolfpackdigital.cashli.shared.base.ApiError
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
+import com.wolfpackdigital.cashli.shared.base.Result
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
+import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.Constants.TRANSACTIONS_PAGE_SIZE
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
-import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDateTime
+import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.time.LocalDateTime
 
 private const val SUM_150 = "150"
 
@@ -84,7 +90,7 @@ class HomeViewModel(
     private val completeUpdateLinkingBankAccountUseCase: CompleteUpdateLinkingBankAccountUseCase,
     pauseUserAccountUseCase: PauseUserAccountUseCase,
     closeUserAccountUseCase: CloseUserAccountUseCase,
-    getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase,
+    private val getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase,
     unpauseAccountUseCase: UnpauseAccountUseCase
 ) : PauseOrCloseAccountViewModel(
     pauseUserAccountUseCase,
@@ -108,6 +114,9 @@ class HomeViewModel(
     private val _currentUserProfile = MutableLiveData<UserProfile?>()
     val currentUserProfile: LiveData<UserProfile?> = _currentUserProfile
 
+    private var outstandingBalance: UserOutstandingBalanceStatus? = null
+    private var cashAdvanceLimits: EligibilityChecks? = null
+
     private val _accountWarnings = MutableLiveData<List<GenericWarningInfo>?>()
     val accountWarnings: LiveData<List<GenericWarningInfo>?> = _accountWarnings
 
@@ -130,7 +139,7 @@ class HomeViewModel(
         }
     }
 
-    fun getUserProfile() {
+    fun getUserProfile(eligibilityChecks: EligibilityChecks? = null) {
         performApiCall {
             val result = getUserProfileUseCase(Unit)
             result.onSuccess { newUserProfile ->
@@ -147,13 +156,50 @@ class HomeViewModel(
                 )
 
                 handleLinkBankAccountInfo()
+
+                handleRequestCashAdvanceEligibility(eligibilityChecks)
+
                 handleRequestCashAdvanceInfo()
             }
             result.onError {
-                val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
-                _baseCmd.value = BaseCommand.ShowToast(error)
+                handleDefaultErrors(it)
             }
         }
+    }
+
+    private suspend fun handleRequestCashAdvanceEligibility(eligibilityChecks: EligibilityChecks? = null) {
+        withContext(Dispatchers.Default) {
+            val outstandingDef = async { getUserOutstandingBalanceStatusUseCase(Unit) }
+            val eligibilityChecksDef =
+                if (eligibilityChecks == null)
+                    async { getCashAdvancesLimitsUseCase(Unit) }
+                else
+                    null
+
+            val outstandingResult = outstandingDef.await()
+            val eligibilityChecksResult = eligibilityChecksDef?.await()
+
+            when {
+                outstandingResult is Result.Error -> {
+                    handleDefaultErrors(outstandingResult.exception)
+                }
+
+                eligibilityChecksResult is Result.Error -> {
+                    handleDefaultErrors(eligibilityChecksResult.exception)
+                }
+
+                else -> {
+                    outstandingBalance = (outstandingResult as Result.Success).data
+                    cashAdvanceLimits =
+                        eligibilityChecks ?: (eligibilityChecksResult as Result.Success).data
+                }
+            }
+        }
+    }
+
+    private fun handleDefaultErrors(it: ApiError) {
+        val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
+        _baseCmd.value = BaseCommand.ShowToast(error)
     }
 
     private fun handleWarningInfo(type: WarningInfoType, condition: Boolean) {
@@ -252,7 +298,7 @@ class HomeViewModel(
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                    !userProfile.bankAccountConnected -> {
+                        !userProfile.bankAccountConnected -> {
                     LinkBankAccountInfo(
                         bankAccountInfoType = BankAccountInfoType.NOT_CONNECTED,
                         bankAccount = userProfile.bankAccount,
@@ -272,15 +318,32 @@ class HomeViewModel(
         _cmd.value = Command.RefreshLinkBankAccountInfo(bankInfo)
     }
 
-    @Suppress("LongMethod")
     private fun handleRequestCashAdvanceInfo() {
-        // TODO refactor after BE response update
-        val cashAdvanceInfo = currentUserProfile.value?.let { userProfile ->
+        val cashAdvanceInfo = safeLet(
+            currentUserProfile.value,
+            outstandingBalance,
+            cashAdvanceLimits
+        ) { userProfile, outstandingBalance, cashAdvanceLimits ->
             val isAccountPaused = userProfile.accountStatus == AccountStatus.PAUSED
             when {
+                outstandingBalance.outstandingBalance && outstandingBalance.repaymentDate != null -> {
+                    RequestCashAdvanceInfo(
+                        requestCashAdvanceType = RequestCashAdvanceType.CLAIMED_ADVANCE,
+                        cashAdvanceBalance = "-${outstandingBalance.cashAdvanceBalanceDue}",
+                        isAccountPaused = isAccountPaused,
+                        repaymentDate = outstandingBalance.repaymentDate.toFormattedLocalDate()
+                            ?: DASH,
+                        buttonAction = {
+                            if (isAccountPaused) {
+                                showUnpauseAccountDialog(R.id.homeFragment)
+                            }
+                        }
+                    )
+                }
+
                 userProfile.eligibilityStatus == EligibilityStatus.BANK_ACCOUNT_NOT_CONNECTED ||
-                    userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING ||
-                    !userProfile.bankAccountConnected -> {
+                        userProfile.eligibilityStatus == EligibilityStatus.ELIGIBILITY_CHECK_PENDING ||
+                        !userProfile.bankAccountConnected -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
                         upToSum = SUM_150
@@ -288,91 +351,92 @@ class HomeViewModel(
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.ELIGIBLE -> {
-                    // TODO add already claimed cash check
-                    val eligibilityDate = if (isAccountPaused)
-                        LocalDateTime.now().toString().toFormattedLocalDateTime() ?: EMPTY_STRING
-                    else
-                        null
-
-                    val isActionButtonEnabled = when {
-                        isAccountPaused -> true
-                        userProfile.connectionExpired || userProfile.suspended -> false
-                        else -> true
-                    }
-
-                    RequestCashAdvanceInfo(
-                        requestCashAdvanceType = RequestCashAdvanceType.APPROVED_FOR,
-                        cashApproved = "$123.12",
-                        isActionButtonEnabled = isActionButtonEnabled,
-                        isAccountPaused = isAccountPaused,
-                        eligibilityDate = eligibilityDate,
-                        buttonAction = {
-                            if (isAccountPaused) {
-                                showUnpauseAccountDialog(R.id.homeFragment)
-                            } else {
-                                goToClaimCash()
-                            }
-                        }
+                    handleUserEligibleForCashAdvance(
+                        isAccountPaused,
+                        userProfile,
+                        cashAdvanceLimits
                     )
                 }
 
                 userProfile.eligibilityStatus == EligibilityStatus.NOT_ELIGIBLE -> {
-                    val warningInfo =
-                        when (isAccountPaused) {
-                            true ->
-                                generateWarningInfoContent(
-                                    textId = R.string.can_not_get_cash_advance_see_more,
-                                    actions = listOf(
-                                        TextSpanAction(
-                                            actionKey = VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN,
-                                            spanTextColor = R.color.colorWhite,
-                                            isSpanTextUnderlined = true,
-                                            isSpanTextBold = false,
-                                            action = { goToIneligibleScreen() }
-                                        )
-                                    )
-                                )
-
-                            false -> generateWarningInfoContent(
-                                textId = R.string.can_not_get_cash_advance,
-                                actions = null
-                            )
-                        }
-
-                    RequestCashAdvanceInfo(
-                        requestCashAdvanceType = RequestCashAdvanceType.NOT_ELIGIBLE,
-                        isAccountPaused = isAccountPaused,
-                        warningInfo = warningInfo,
-                        buttonAction = {
-                            if (isAccountPaused) {
-                                showUnpauseAccountDialog(R.id.homeFragment)
-                            } else {
-                                goToIneligibleScreen()
-                            }
-                        }
-
-                    )
+                    handleUserNotEligibleForCashAdvance(isAccountPaused)
                 }
 
-                else -> {
-                    // TODO add already claimed cash check
-                    RequestCashAdvanceInfo(
-                        requestCashAdvanceType = RequestCashAdvanceType.CLAIMED_ADVANCE,
-                        cashAdvanceBalance = "-$123.44",
-                        isAccountPaused = isAccountPaused,
-                        repaymentDate = LocalDateTime.now().toString().toFormattedLocalDateTime()
-                            ?: EMPTY_STRING,
-                        buttonAction = {
-                            if (isAccountPaused) {
-                                showUnpauseAccountDialog(R.id.homeFragment)
-                            }
-                        }
-                    )
-                }
+                else -> null
             }
         }
         _cmd.value = Command.RefreshRequestCashAdvanceInfo(cashAdvanceInfo)
     }
+
+    private fun handleUserEligibleForCashAdvance(
+        isAccountPaused: Boolean,
+        userProfile: UserProfile,
+        cashAdvanceLimits: EligibilityChecks
+    ): RequestCashAdvanceInfo {
+        val eligibilityDate = if (isAccountPaused) userProfile.becameEligibleAt ?: DASH else null
+
+        val isActionButtonEnabled = when {
+            isAccountPaused -> true
+            userProfile.connectionExpired || userProfile.suspended -> false
+            else -> true
+        }
+
+        return RequestCashAdvanceInfo(
+            requestCashAdvanceType = RequestCashAdvanceType.APPROVED_FOR,
+            cashApproved = cashAdvanceLimits.userMaxAdvanceFormatted,
+            isActionButtonEnabled = isActionButtonEnabled,
+            isAccountPaused = isAccountPaused,
+            eligibilityDate = eligibilityDate,
+            buttonAction = {
+                if (isAccountPaused) {
+                    showUnpauseAccountDialog(R.id.homeFragment)
+                } else {
+                    goToClaimCash()
+                }
+            }
+        )
+    }
+
+    private fun handleUserNotEligibleForCashAdvance(isAccountPaused: Boolean): RequestCashAdvanceInfo {
+        val warningInfo =
+            handleNotEligibleExplanationSection(isAccountPaused)
+
+        return RequestCashAdvanceInfo(
+            requestCashAdvanceType = RequestCashAdvanceType.NOT_ELIGIBLE,
+            isAccountPaused = isAccountPaused,
+            warningInfo = warningInfo,
+            buttonAction = {
+                if (isAccountPaused) {
+                    showUnpauseAccountDialog(R.id.homeFragment)
+                } else {
+                    goToIneligibleScreen()
+                }
+            }
+
+        )
+    }
+
+    private fun handleNotEligibleExplanationSection(isAccountPaused: Boolean) =
+        when (isAccountPaused) {
+            true ->
+                generateWarningInfoContent(
+                    textId = R.string.can_not_get_cash_advance_see_more,
+                    actions = listOf(
+                        TextSpanAction(
+                            actionKey = VALUE_SPAN_OPEN_INELIGIBILITY_SCREEN,
+                            spanTextColor = R.color.colorWhite,
+                            isSpanTextUnderlined = true,
+                            isSpanTextBold = false,
+                            action = { goToIneligibleScreen() }
+                        )
+                    )
+                )
+
+            false -> generateWarningInfoContent(
+                textId = R.string.can_not_get_cash_advance,
+                actions = null
+            )
+        }
 
     private fun goToIneligibleScreen() {
         _baseCmd.value = BaseCommand.PerformNavDeepLink(
@@ -535,7 +599,15 @@ class HomeViewModel(
         // TODO replace eligibility delay with minutes after more tests
         checkEligibilityStatusJob = initTimer(Constants.COUNT_DOWN_TIME_30_SEC).onCompletion {
             if (it == null)
-                handleEligibilityStatus()
+                viewModelScope.launch {
+                    handleEligibilityStatus(
+                        onEligibleCallback = { eligibilityChecks ->
+                            getUserProfile(eligibilityChecks)
+                        },
+                        onNotEligibleCallback = ::getUserProfile,
+                        onPendingCallback = ::toggleEligibilityStatusJob
+                    )
+                }
             cancelCheckEligibilityStatusJob()
         }.launchIn(viewModelScope)
     }
@@ -554,23 +626,22 @@ class HomeViewModel(
         checkEligibilityStatusJob = null
     }
 
-    private fun handleEligibilityStatus() {
-        viewModelScope.launch {
-            val result = getCashAdvancesLimitsUseCase(Unit)
-            result.onSuccess { eligibilityStatus ->
-                when (eligibilityStatus.status) {
-                    EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> {
-                        toggleEligibilityStatusJob()
-                    }
+    private suspend fun handleEligibilityStatus(
+        onEligibleCallback: (EligibilityChecks) -> Unit = {},
+        onNotEligibleCallback: () -> Unit = {},
+        onPendingCallback: () -> Unit = {},
+        onOtherCasesCallback: () -> Unit = {}
+    ) {
+        val result = getCashAdvancesLimitsUseCase(Unit)
+        result.onSuccess { eligibility ->
+            when (eligibility.status) {
+                EligibilityStatus.ELIGIBILITY_CHECK_PENDING -> onPendingCallback()
 
-                    EligibilityStatus.ELIGIBLE, EligibilityStatus.NOT_ELIGIBLE -> {
-                        getUserProfile()
-                    }
+                EligibilityStatus.ELIGIBLE -> onEligibleCallback(eligibility)
 
-                    else -> {
-                        // TODO add logic if necessary
-                    }
-                }
+                EligibilityStatus.NOT_ELIGIBLE -> onNotEligibleCallback()
+
+                else -> onOtherCasesCallback()
             }
         }
     }

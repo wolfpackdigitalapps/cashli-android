@@ -27,7 +27,6 @@ class ValidateRequestCodeFormUseCase(
                         successful = false,
                         errorMessageId = R.string.email_error
                     )
-                // TODO add validation for existing account after integration with backend
                 else
                     ValidationResult(true)
             }
@@ -47,7 +46,6 @@ class ValidateRequestCodeFormUseCase(
                         successful = false,
                         errorMessageId = R.string.phone_number_digits_error
                     )
-                // TODO add validation for existing account after integration with backend
                 else
                     ValidationResult(true)
             }
