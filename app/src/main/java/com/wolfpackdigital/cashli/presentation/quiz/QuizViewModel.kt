@@ -22,7 +22,7 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
 import com.wolfpackdigital.cashli.shared.utils.views.MAX_TIP_SLIDER
 
-private const val INITIAL_SLIDER_TIP = 7f
+private const val INITIAL_SLIDER_TIP = 0f
 private const val QUIZ_ANSWERS_COUNT = 2
 
 class QuizViewModel(
