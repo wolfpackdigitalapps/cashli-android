@@ -4,17 +4,21 @@ import android.app.Application
 import androidx.core.app.NotificationManagerCompat
 import com.orhanobut.hawk.Hawk
 import com.wolfpackdigital.cashli.R
+import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.shared.notifications.NotificationHelper
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
+import com.yariksoffice.lingver.Lingver
 import org.koin.core.context.startKoin
 
 @Suppress("unused")
-class ApplicationClass : Application() {
+class ApplicationClass : Application(), PersistenceService {
     override fun onCreate() {
         super.onCreate()
         Hawk.init(applicationContext).build()
         startKoin {
             modules(AppModules.modules)
         }
+        Lingver.init(this, language?.toString() ?: Language.ENGLISH.toString())
         createNotificationChannel()
     }
 

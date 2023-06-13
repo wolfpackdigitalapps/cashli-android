@@ -49,6 +49,7 @@ object Libs {
     const val PLAID_LINK = "com.plaid.link:sdk-core"
     const val TOOLTIP_BALLOON = "com.github.skydoves:balloon"
     const val PAGINATION = "androidx.paging:paging-runtime"
+    const val LOCALE = "com.github.YarikSOffice:lingver"
 
     const val ANDROIDX_COMPOSE_UI = "androidx.compose.ui:ui"
     const val ANDROIDX_COMPOSE_MATERIAL = "androidx.compose.material:material"

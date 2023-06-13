@@ -36,6 +36,7 @@ val androidxBrowser = "1.5.0"
 val plaidLink = "3.11.0"
 val tooltipBalloon = "1.4.7"
 val pagination = "3.1.1"
+val locale = "1.3.0"
 
 /* TODO: Replace this with version after update
  * https://github.com/SmartToolFactory/Compose-Colorful-Sliders/issues/12
@@ -91,6 +92,7 @@ dependencies {
         api("${Libs.PLAID_LINK}:$plaidLink")
         api("${Libs.TOOLTIP_BALLOON}:$tooltipBalloon")
         api("${Libs.PAGINATION}:$pagination")
+        api("${Libs.LOCALE}:$locale")
         api("${Libs.ANDROIDX_COMPOSE_UI}:${Versions.COMPOSE}")
         api("${Libs.ANDROIDX_COMPOSE_MATERIAL}:${Versions.COMPOSE}")
         api("${Libs.ANDROIDX_COMPOSE_UI_TOOLING}:${Versions.COMPOSE}")
