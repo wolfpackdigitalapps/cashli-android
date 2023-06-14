@@ -34,7 +34,6 @@ import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
@@ -45,7 +44,7 @@ abstract class LinkPlaidAccountViewModel(
     private val generateLinkTokenUseCase: GenerateLinkTokenUseCase,
     private val completeLinkingBankAccountUseCase: CompleteLinkingBankAccountUseCase,
     private val getCashAdvancesLimitsUseCase: GetCashAdvancesLimitsUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     @Suppress("VariableNaming")
     protected val _cmd = LiveEvent<Command>()

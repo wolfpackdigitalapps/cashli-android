@@ -21,12 +21,11 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class RequestCodeViewModel(
     private val validateRequestCodeFormUseCase: ValidateRequestCodeFormUseCase,
     private val submitPasswordIdentifiersUseCase: SubmitPasswordIdentifiersUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _cmd = MutableLiveData<Command>()
     val cmd: LiveData<Command> = _cmd

@@ -19,7 +19,6 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 import java.time.LocalTime
 
@@ -28,7 +27,7 @@ private const val THREE_O_CLOCK = 15
 class ClaimCashViewModel(
     private val getTransferFees: GetTransferFeesUseCase,
     private val getCashAdvancesLimitsUseCase: GetCashAdvancesLimitsUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd

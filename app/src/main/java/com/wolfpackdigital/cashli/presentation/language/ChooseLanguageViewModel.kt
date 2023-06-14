@@ -5,9 +5,8 @@ import com.wolfpackdigital.cashli.domain.entities.enums.Language
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
-class ChooseLanguageViewModel : BaseViewModel(), PersistenceService {
+class ChooseLanguageViewModel : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd

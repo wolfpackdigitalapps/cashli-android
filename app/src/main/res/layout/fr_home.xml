@@ -48,7 +48,6 @@
             android:layout_marginStart="@dimen/dimen_20dp"
             android:layout_marginTop="@dimen/dimen_16dp"
             android:layout_marginEnd="@dimen/dimen_68dp"
-            android:onClick="@{() -> viewModel.goToClaimCash()}"
             android:text="@{viewModel.currentUserProfile.firstName == null ? @string/hello : @string/hello_user(viewModel.currentUserProfile.firstName)}"
             android:textAlignment="viewStart"
             android:textSize="@dimen/size_28sp"

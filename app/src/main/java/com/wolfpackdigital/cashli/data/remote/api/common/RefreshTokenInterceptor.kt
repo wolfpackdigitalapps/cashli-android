@@ -1,7 +1,6 @@
 package com.wolfpackdigital.cashli.data.remote.api.common
 
 import com.wolfpackdigital.cashli.data.mappers.TokenToTokenDtoMapper
-import com.wolfpackdigital.cashli.domain.usecases.LogOutUserUseCase
 import com.wolfpackdigital.cashli.domain.usecases.RefreshTokenUseCase
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
@@ -17,15 +16,19 @@ import org.koin.core.component.inject
 import java.net.HttpURLConnection
 
 private const val CHANGE_PASSWORD_LAST_SEGMENT = "change"
+private const val MAX_RETRY_COUNT = 2
 
 class RefreshTokenInterceptor : Authenticator, KoinComponent, PersistenceService {
     private val refreshTokenUseCase: RefreshTokenUseCase by inject()
 
-    private val logoutUseCase: LogOutUserUseCase by inject()
     private val tokenMapper: TokenToTokenDtoMapper by inject()
 
     override fun authenticate(route: Route?, response: Response): Request? {
-        if (response.request.url.pathSegments.last() == CHANGE_PASSWORD_LAST_SEGMENT) {
+        val retryCount = response.retryCount
+
+        if (response.request.url.pathSegments.last() == CHANGE_PASSWORD_LAST_SEGMENT ||
+            retryCount > MAX_RETRY_COUNT
+        ) {
             return null
         }
 
@@ -45,11 +48,21 @@ class RefreshTokenInterceptor : Authenticator, KoinComponent, PersistenceService
                 token = it
             }
             result.onError {
-                if (it.errorCode == HttpURLConnection.HTTP_FORBIDDEN) {
-                    logoutUseCase.invoke(Unit)
+                if (it.errorCode == HttpURLConnection.HTTP_BAD_REQUEST) {
                     throw RefreshTokenExpiredException()
                 }
             }
         }
     }
 }
+
+private val Response.retryCount: Int
+    get() {
+        var currentResponse = priorResponse
+        var result = 0
+        while (currentResponse != null) {
+            result++
+            currentResponse = currentResponse.priorResponse
+        }
+        return result
+    }

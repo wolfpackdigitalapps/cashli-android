@@ -22,7 +22,6 @@ import com.wolfpackdigital.cashli.presentation.entities.enums.CodeReceivedViaTyp
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_422
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onCompletion
@@ -31,7 +30,7 @@ import kotlinx.coroutines.launch
 private const val COUNT_DOWN_TIME = 60
 private const val VERIFICATION_CODE_VALID_LENGTH = 4
 
-abstract class BaseValidateCodeViewModel : BaseViewModel(), PersistenceService {
+abstract class BaseValidateCodeViewModel : BaseViewModel() {
 
     val verificationCode = MutableLiveData<String?>()
 

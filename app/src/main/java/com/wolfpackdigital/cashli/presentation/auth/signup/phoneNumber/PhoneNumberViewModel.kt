@@ -24,12 +24,11 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_RO
 import com.wolfpackdigital.cashli.shared.utils.Constants.PHONE_PREFIX_US
 import com.wolfpackdigital.cashli.shared.utils.Constants.VARIANT_DEVELOP
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class PhoneNumberViewModel(
     private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase,
     private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
