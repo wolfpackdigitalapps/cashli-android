@@ -15,14 +15,13 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 @Suppress("TooManyFunctions")
 class EditProfileViewModel(
     private val validateFirstNameFormUseCase: ValidateFirstNameFormUseCase,
     private val validateLastNameFormUseCase: ValidateLastNameFormUseCase,
     private val updateUserProfileUseCase: UpdateUserProfileUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(

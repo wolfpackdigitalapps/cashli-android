@@ -16,8 +16,6 @@ import com.wolfpackdigital.cashli.shared.base.BaseCommand
 import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
-import com.wolfpackdigital.cashli.shared.utils.Constants
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 @Suppress("TooManyFunctions")
 abstract class PauseOrCloseAccountViewModel(
@@ -25,7 +23,7 @@ abstract class PauseOrCloseAccountViewModel(
     private val closeUserAccountUseCase: CloseUserAccountUseCase,
     private val getUserOutstandingBalanceStatusUseCase: GetUserOutstandingBalanceStatusUseCase,
     private val unpauseAccountUseCase: UnpauseAccountUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     protected fun showPauseAccountDialog(@IdRes fromScreen: Int = R.id.moreFragment) {
         _baseCmd.value = BaseCommand.ShowPopupById(
@@ -167,13 +165,5 @@ abstract class PauseOrCloseAccountViewModel(
     open fun onPausedAccountSuccessful() {}
     open fun onUnpauseAccountSuccessful() {
         _baseCmd.value = BaseCommand.GoBackTo(R.id.homeFragment)
-    }
-
-    protected fun clearDataAndRedirectToLogin() {
-        clearUserData()
-        _baseCmd.value = BaseCommand.PerformNavDeepLink(
-            deepLink = Constants.SIGN_IN_SCREEN_DL,
-            popUpTo = R.id.navigation
-        )
     }
 }

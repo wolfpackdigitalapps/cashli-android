@@ -22,7 +22,6 @@ import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.STEP_3
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 
 // Span actions
@@ -35,7 +34,7 @@ class ChoosePasswordViewModel(
     private val validateChoosePasswordFormUseCase: ValidateChoosePasswordFormUseCase,
     private val registerNewUserUseCase: RegisterNewUserUseCase,
     private val registerDeviceTokenUseCase: RegisterDeviceTokenUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd

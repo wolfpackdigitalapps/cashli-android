@@ -17,14 +17,13 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 
 class ResetPasswordViewModel(
     private val resetToken: String,
     private val choosePasswordFormUseCase: ValidateChoosePasswordFormUseCase,
     private val resetPasswordUseCase: ResetPasswordUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(

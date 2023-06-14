@@ -22,14 +22,13 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.CONFIRM_ONE_TIME_PASSWORD_DL
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class ChangePhoneOrEmailViewModel(
     val editPhoneOrEmail: EditPhoneOrEmail,
     private val validatePhoneNumberFormUseCase: ValidatePhoneNumberFormUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val submitChangeIdentifiersUseCase: SubmitChangeIdentifiersUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _toolbar = MutableLiveData(
         Toolbar(

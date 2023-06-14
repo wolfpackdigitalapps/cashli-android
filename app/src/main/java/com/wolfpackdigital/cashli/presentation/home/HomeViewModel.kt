@@ -64,7 +64,6 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -99,7 +98,6 @@ class HomeViewModel(
     getUserOutstandingBalanceStatusUseCase,
     unpauseAccountUseCase
 ),
-    PersistenceService,
     KoinComponent {
 
     private val _cmd = LiveEvent<Command>()
@@ -594,7 +592,7 @@ class HomeViewModel(
         )
     }
 
-    fun goToClaimCash() {
+    private fun goToClaimCash() {
         _baseCmd.value = BaseCommand.PerformNavAction(
             HomeGraphDirections.actionGlobalClaimCashGraph()
         )

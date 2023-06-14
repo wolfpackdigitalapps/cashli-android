@@ -231,7 +231,7 @@ object AppModules {
         viewModel { (editPhoneOrEmail: EditPhoneOrEmail) ->
             ChangePhoneOrEmailViewModel(editPhoneOrEmail, get(), get(), get())
         }
-        viewModel { MembershipViewModel() }
+        viewModel { MembershipViewModel(get()) }
     }
 
     private val apiModule = module {
@@ -401,7 +401,7 @@ object AppModules {
         single { ValidateEmailUseCase(get(named(EMAIL_PATTERN_MATCHER))) }
         single { ValidatePasswordUseCase(get(named(PASSWORD_PATTERN_MATCHER))) }
         single { ValidatePhoneNumberUseCase(get(named(PHONE_NUMBER_PATTERN_MATCHER))) }
-        single { ValidateSignInFormUseCase(get(), get(), get(), get(), get(), get()) }
+        single { ValidateSignInFormUseCase(get(), get(), get(), get()) }
         single { ValidateChoosePasswordFormUseCase(get(), get(), get()) }
         single { ValidateRequestCodeFormUseCase(get(), get(), get(), get()) }
         single { ValidatePhoneNumberLengthUseCase() }

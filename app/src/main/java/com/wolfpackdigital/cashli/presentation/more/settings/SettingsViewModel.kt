@@ -13,11 +13,10 @@ import com.wolfpackdigital.cashli.shared.base.onError
 import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants.EMPTY_STRING
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class SettingsViewModel(
     private val updateUserSettingUseCase: UpdateUserSettingUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
