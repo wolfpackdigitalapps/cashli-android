@@ -63,6 +63,7 @@ import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.initTimer
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
 import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -373,7 +374,11 @@ class HomeViewModel(
         userProfile: UserProfile,
         cashAdvanceLimits: EligibilityChecks
     ): RequestCashAdvanceInfo {
-        val eligibilityDate = if (isAccountPaused) userProfile.becameEligibleAt ?: DASH else null
+        val eligibilityDate =
+            if (isAccountPaused)
+                userProfile.becameEligibleAt?.toFormattedZonedDate() ?: DASH
+            else
+                null
 
         val isActionButtonEnabled = when {
             isAccountPaused -> true
