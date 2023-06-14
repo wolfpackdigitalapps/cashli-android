@@ -4,12 +4,10 @@ import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.ValidationResult
 
 class ValidateSignInFormUseCase(
-    private val validatePasswordLengthUseCase: ValidatePasswordLengthUseCase,
     private val validateBlankFieldUseCase: ValidateBlankFieldUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePhoneNumberUseCase: ValidatePhoneNumberUseCase,
-    private val validatePhoneNumberLengthUseCase: ValidatePhoneNumberLengthUseCase,
-    private val validatePasswordUseCase: ValidatePasswordUseCase
+    private val validatePhoneNumberLengthUseCase: ValidatePhoneNumberLengthUseCase
 ) {
     @Suppress("ComplexCondition")
     operator fun invoke(
@@ -30,10 +28,7 @@ class ValidateSignInFormUseCase(
                         successful = false,
                         errorMessageId = R.string.email_or_phone_can_not_be_empty
                     )
-                else if (!validateEmailUseCase(email) ||
-                    !validatePasswordUseCase(password) ||
-                    !validatePasswordLengthUseCase(password)
-                )
+                else if (!validateEmailUseCase(email))
                     ValidationResult(
                         successful = false,
                         errorMessageId = R.string.incorrect_credentials_with_email
@@ -48,9 +43,7 @@ class ValidateSignInFormUseCase(
                         errorMessageId = R.string.email_or_phone_can_not_be_empty
                     )
                 else if (!validatePhoneNumberUseCase(phoneNumber) ||
-                    !validatePhoneNumberLengthUseCase(phoneNumber) ||
-                    !validatePasswordUseCase(password) ||
-                    !validatePasswordLengthUseCase(password)
+                    !validatePhoneNumberLengthUseCase(phoneNumber)
                 ) {
                     ValidationResult(
                         successful = false,

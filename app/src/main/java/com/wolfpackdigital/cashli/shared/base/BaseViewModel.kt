@@ -21,10 +21,11 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.SUPPORT_PHONE_NUMBER
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.minusAssign
 import com.wolfpackdigital.cashli.shared.utils.extensions.plusAssign
+import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel(), PersistenceService {
     @Suppress("PropertyName", "VariableNaming")
     protected val _apiCallsCount = MutableLiveData<Int>()
     val apiCallsCount: LiveData<Int>
@@ -45,7 +46,7 @@ abstract class BaseViewModel : ViewModel() {
                 block()
             } catch (ex: RefreshTokenExpiredException) {
                 displaySessionExpiredMessage()
-                openLogin()
+                clearDataAndRedirectToLogin()
             } finally {
                 if (showLoading) _apiCallsCount -= 1
             }
@@ -56,10 +57,11 @@ abstract class BaseViewModel : ViewModel() {
         _baseCmd.value = BaseCommand.ShowToast(R.string.generic_session_expired)
     }
 
-    private fun openLogin() {
+    protected fun clearDataAndRedirectToLogin() {
+        clearUserData()
         _baseCmd.value = BaseCommand.PerformNavDeepLink(
             deepLink = SIGN_IN_SCREEN_DL,
-            popUpToRoot = true,
+            popUpTo = R.id.navigation,
             inclusive = true
         )
     }

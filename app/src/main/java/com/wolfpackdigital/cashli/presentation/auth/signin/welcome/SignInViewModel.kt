@@ -26,13 +26,12 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.Constants.REPEAT_ANIM_ONE_TIME
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 
 class SignInViewModel(
     private val validateSignInFormUseCase: ValidateSignInFormUseCase,
     private val signInUserUseCase: SignInUserUseCase,
     private val registerDeviceTokenUseCase: RegisterDeviceTokenUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command>

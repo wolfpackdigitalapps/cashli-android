@@ -28,7 +28,6 @@ import com.wolfpackdigital.cashli.shared.utils.Constants
 import com.wolfpackdigital.cashli.shared.utils.Constants.COMMA
 import com.wolfpackdigital.cashli.shared.utils.Constants.ERROR_CODE_429
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.flow.combine
 
 @Suppress("LongParameterList")
@@ -40,7 +39,7 @@ class CreateProfileViewModel(
     private val validateLastNameFormUseCase: ValidateLastNameFormUseCase,
     private val validateCityAndStateFormUseCase: ValidateCityAndStateFormUseCase,
     private val submitRegistrationIdentifiersUseCase: SubmitRegistrationIdentifiersUseCase
-) : BaseViewModel(), PersistenceService {
+) : BaseViewModel() {
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd

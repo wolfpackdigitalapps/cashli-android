@@ -13,8 +13,7 @@ class GetOnboardingStepsUseCase : BaseUseCase<Unit, List<OnboardingStep>>() {
                     image = R.drawable.ic_onboarding_1,
                     title = R.string.onboarding_title_1,
                     subtitle = R.string.onboarding_subtitle_1,
-                    content = R.string.onboarding_content_1,
-                    news = R.string.onboarding_news_1
+                    content = R.string.onboarding_content_1
                 ),
                 OnboardingStep(
                     image = R.drawable.ic_onboarding_2,

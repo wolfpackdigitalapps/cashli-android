@@ -13,13 +13,12 @@ import com.wolfpackdigital.cashli.shared.base.BaseViewModel
 import com.wolfpackdigital.cashli.shared.notifications.NotificationModel
 import com.wolfpackdigital.cashli.shared.notifications.PushNotificationAction
 import com.wolfpackdigital.cashli.shared.utils.LiveEvent
-import com.wolfpackdigital.cashli.shared.utils.persistence.PersistenceService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 private const val SPLASH_SCREEN_DELAY = 2000L
 
-class MainActivityViewModel : BaseViewModel(), PersistenceService {
+class MainActivityViewModel : BaseViewModel() {
     private val _keepShowingSplash = MutableLiveData<Boolean>()
     val keepShowingSplash: LiveData<Boolean> = _keepShowingSplash
 

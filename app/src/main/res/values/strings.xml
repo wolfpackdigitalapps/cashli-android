@@ -4,12 +4,11 @@
     <string name="get_support">Get support</string>
     <string name="sign_in">Sign in</string>
     <string name="already_have_an_account">Already have an account?</string>
-    <string name="onboarding_title_1">Your best financial luck!</string>
+    <string name="onboarding_title_1">Get up to $150*!</string>
     <string name="onboarding_title_2">The most inclusive cash advance app on the market.</string>
     <string name="onboarding_title_3">Save hundreds of $ on BOTH bank overdraft fees &amp; remittance fees.</string>
-    <string name="onboarding_subtitle_1">Get up to $150* instantly!</string>
-    <string name="onboarding_content_1">*Eligibility rules apply\n\nRecipients of Social Security benefits as well as unearned incomes (alimony, child support etc.) may apply.</string>
-    <string name="onboarding_news_1">No tricks. No interest. No credit checks.\nNo SSN. No ITIN. No hidden or late fees.</string>
+    <string name="onboarding_content_1">Recipients of Social Security, SSI, other unearned income (child support, alimony etc.) may apply.\n\n*Cash could be delivered in 2 hours.\n*Eligibility rules apply</string>
+    <string name="onboarding_subtitle_1">No tricks. No interest. No credit checks.\nNo SSN. No ITIN. No hidden or late fees.</string>
     <string name="onboarding_news_2">The only cash advance app in three languages.\n(and more to come)</string>
     <string name="work_in_progress">(work in progress)</string>
 

@@ -210,6 +210,11 @@
         <item name="android:textSize">@dimen/size_34sp</item>
     </style>
 
+    <style name="TextView.H2" parent="TextView">
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/size_28sp</item>
+    </style>
+
     <style name="TextView.H4" parent="TextView">
         <item name="fontFamily">@font/lato_bold</item>
         <item name="android:textSize">@dimen/size_20sp</item>
