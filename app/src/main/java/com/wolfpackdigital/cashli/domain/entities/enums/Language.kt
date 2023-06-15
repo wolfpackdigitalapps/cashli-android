@@ -6,7 +6,7 @@ enum class Language {
     HAITI;
 
     override fun toString(): String {
-        return when(this) {
+        return when (this) {
             ENGLISH -> "en"
             SPANISH -> "es"
             HAITI -> "ht"
