@@ -21,6 +21,7 @@ import com.wolfpackdigital.cashli.shared.base.onSuccess
 import com.wolfpackdigital.cashli.shared.utils.Constants.DASH
 import com.wolfpackdigital.cashli.shared.utils.Constants.TRANSACTIONS_PAGE_SIZE
 import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedLocalDate
+import com.wolfpackdigital.cashli.shared.utils.extensions.toFormattedZonedDate
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -53,21 +54,21 @@ class MembershipViewModel(
                         MembershipAdvanceItem.AdvanceOverdueItem(
                             topText = cashAdvanceDetails.amount,
                             middleText = cashAdvanceDetails.dueDate.toFormattedLocalDate() ?: DASH,
-                            bottomText = cashAdvanceDetails.paidDate.toFormattedLocalDate() ?: DASH
+                            bottomText = cashAdvanceDetails.paidDate.toFormattedZonedDate() ?: DASH
                         )
 
                     CashAdvanceStatus.PAID ->
                         MembershipAdvanceItem.AdvancePaidItem(
                             topText = cashAdvanceDetails.amount,
                             middleText = cashAdvanceDetails.dueDate.toFormattedLocalDate() ?: DASH,
-                            bottomText = cashAdvanceDetails.paidDate.toFormattedLocalDate() ?: DASH
+                            bottomText = cashAdvanceDetails.paidDate.toFormattedZonedDate() ?: DASH
                         )
 
                     CashAdvanceStatus.SCHEDULED ->
                         MembershipAdvanceItem.AdvanceScheduledItem(
                             topText = cashAdvanceDetails.amount,
                             middleText = cashAdvanceDetails.dueDate.toFormattedLocalDate() ?: DASH,
-                            bottomText = cashAdvanceDetails.paidDate.toFormattedLocalDate() ?: DASH
+                            bottomText = cashAdvanceDetails.paidDate.toFormattedZonedDate() ?: DASH
                         )
                 }
             }
