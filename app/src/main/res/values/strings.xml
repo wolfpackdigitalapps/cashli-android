@@ -18,7 +18,7 @@
     <string name="first_sign_up_screen_message_two">You\'ll be able to request a cash advance to keep up with bills &amp; unexpected expenses.</string>
     <string name="first_sign_up_screen_message_three">Do you often send money to loved ones overseas? You could save hundreds of $ in transfer fees (work in progress).</string>
     <string name="continue_name">Continue</string>
-    <string name="phone_number_question">What is your phone \nnumber?</string>
+    <string name="phone_number_question">What is your phone number?</string>
     <string name="phone_number">Phone number</string>
     <string name="country_code_US">+1</string>
     <string name="phone_number_hint">ex: 0123456789</string>
@@ -71,7 +71,7 @@
     <string name="city_and_state_error">Invalid input! Enter only letters separated by a comma. Ex: Chicago, IL</string>
     <string name="street_error">Address should be at least 2 characters long.</string>
     <string name="name_error">Enter only letters or special characters for your name.</string>
-    <string name="first_name_length_error">First name should be at least 2 characters long</string>
+    <string name="first_name_length_error">First name should be at least 2 characters long.</string>
     <string name="last_name_length_error">Last name should be at least 2 characters long.</string>
 
     <!--Home screen-->
