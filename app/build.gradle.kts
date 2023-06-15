@@ -168,6 +168,9 @@ dependencies {
     // Pagination
     implementation(Libs.PAGINATION)
 
+    // Locale
+    implementation(Libs.LOCALE)
+
     // Compose
     implementation(Libs.ANDROIDX_COMPOSE_UI)
     implementation(Libs.ANDROIDX_COMPOSE_MATERIAL)

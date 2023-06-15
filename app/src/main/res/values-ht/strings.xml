@@ -1,333 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--Onboarding -->
-    <string name="create_account">Create account</string>
-    <string name="get_support">Get support</string>
-    <string name="sign_in">Sign in</string>
-    <string name="already_have_an_account">Already have an account?</string>
-    <string name="onboarding_title_1">Get up to $150*!</string>
-    <string name="onboarding_title_2">The most inclusive cash advance app on the market.</string>
-    <string name="onboarding_title_3">Save hundreds of $ on BOTH bank overdraft fees &amp; remittance fees.</string>
-    <string name="onboarding_content_1">Recipients of Social Security, SSI, other unearned income (child support, alimony etc.) may apply.\n\n*Cash could be delivered in 2 hours.\n*Eligibility rules apply</string>
-    <string name="onboarding_subtitle_1">No tricks. No interest. No credit checks.\nNo SSN. No ITIN. No hidden or late fees.</string>
-    <string name="onboarding_news_2">The only cash advance app in three languages.\n(and more to come)</string>
-    <string name="work_in_progress">(work in progress)</string>
+    <string name="create_account">Kreye kont</string>
+    <string name="get_support">Jwenn Sipò</string>
+    <string name="sign_in">Konekte sou kont la</string>
+    <string name="already_have_an_account">Ou genyen kont pa ou a deja?</string>
+    <string name="onboarding_title_1">Jwenn jiska $150* kounye a!</string>
+    <string name="onboarding_title_2">Aplikasyon avans lajan kach ki pi konplè sou mache a.</string>
+    <string name="onboarding_title_3">Ekonomize plizyè santèn  $ sou alafwa frè bankè pou balans kont negatif ak frè pou transfè lajan aletranje.</string>
+    <string name="onboarding_content_1">Benefisyè avantaj Sekirite Sosyal yo ansanm ak benefisyè revni moun fè san yo pa travay pou sa ( Pansyon alimantè, sipò finansye pou timoun, elatriye) ka aplike.\n\n*Lajan kach ka rive nan 2 èdtan.\n*Règ pou kalifikasyon yo aplikab</string>
+    <string name="onboarding_subtitle_1">Pa gen mannigèt. Pa gen enterè. Pa gen tchèk sou kredi ou. Pa bezwen Nimewo Sekirite Sosyal (SSN). Pa bezwen Nimewo idantifikasyon Endividyèl pou peye Taks (ITIN). Pa gen frè kache oswa frè pou pèman anreta.</string>
+    <string name="onboarding_news_2">Sèl aplikasyon avans lajan kach ki nan twa lang.\n(ak plis ankò trè pwochennman)</string>
+    <string name="work_in_progress">(nou ap travay sou sa)</string>
 
     <!--Signup -->
-    <string name="sign_up">Sign up</string>
-    <string name="first_sign_up_screen_message_one">You\'ll be alerted on your phone when your \nbank balance is running too low.</string>
-    <string name="first_sign_up_screen_message_two">You\'ll be able to request a cash advance to \nkeep up with bills &amp; unexpected expenses.</string>
-    <string name="first_sign_up_screen_message_three">Do you often send money to loved ones \noverseas? You could save hundreds of $ in \ntransfer fees (work in progress).</string>
-    <string name="continue_name">Continue</string>
-    <string name="phone_number_question">What is your phone \nnumber?</string>
-    <string name="phone_number">Phone number</string>
+    <string name="sign_up">Enskri</string>
+    <string name="first_sign_up_screen_message_one">Ou ap resevwa yon notifikasyon sou telefòn ou lè  balans bank ou ap desann twò ba.</string>
+    <string name="first_sign_up_screen_message_two">Ou ap kapab mande yon avans lajan kach pou ou ka peye bil ak jere depans ou pat prevwa.</string>
+    <string name="first_sign_up_screen_message_three">Èske w souvan voye lajan pou moun ou renmen yo lòt bò dlo? Ou te kapab ekonomize plizyè santèn  $ nan frè transfè (nou ap travay sou sa).</string>
+    <string name="continue_name">Kontinye</string>
+    <string name="phone_number_question">Ki nimewo telefòn ou?</string>
+    <string name="phone_number">Nimewo telefòn</string>
     <string name="country_code_US">+1</string>
-    <string name="phone_number_hint">ex: 0123456789</string>
-    <string name="phone_number_length_error">The phone number must contain 10 digits</string>
-    <string name="phone_number_digits_error">The phone number must contain digits only</string>
+    <string name="phone_number_hint">eg: 0123456789</string>
+    <string name="phone_number_length_error">Nimewo telefòn nan dwe gen 10 chif</string>
+    <string name="phone_number_digits_error">Nimewo telefòn nan dwe gen chif sèlman</string>
 
     <!--Signin -->
-    <string name="welcome_back">Welcome back!</string>
-    <string name="use_your_email">Use your email instead</string>
-    <string name="use_your_phone">Use your phone instead</string>
-    <string name="forgot_your_password">Forgot your password?</string>
-    <string name="do_not_have_account">Don\'t have an account?</string>
-    <string name="register_now">Register now</string>
-    <string name="password_label_caps">PASSWORD</string>
-    <string name="email_label_caps">EMAIL</string>
-    <string name="incorrect_credentials_with_email">Incorrect email or password.</string>
-    <string name="incorrect_credentials_with_phone">Incorrect phone or password.</string>
-    <string name="password_can_not_be_empty">Password cannot be empty.</string>
-    <string name="email_or_phone_can_not_be_empty">Email/phone cannot be empty.</string>
+    <string name="welcome_back">Byenvini ankò!</string>
+    <string name="use_your_email">Itilize imèl ou pito</string>
+    <string name="use_your_phone">Sèvi ak telefòn ou pito</string>
+    <string name="forgot_your_password">Bliye modpas ou?</string>
+    <string name="do_not_have_account">Ou pa gen yon kont?</string>
+    <string name="register_now">Enskri kounye a</string>
+    <string name="password_label_caps">MODPAS</string>
+    <string name="email_label_caps">IMÈL</string>
+    <string name="incorrect_credentials_with_email">Imèl oswa modpas enkòrèk.</string>
+    <string name="incorrect_credentials_with_phone">Telefòn oswa modpas enkòrèk.</string>
+    <string name="password_can_not_be_empty">Modpas pa ka vid.</string>
+    <string name="email_or_phone_can_not_be_empty">Imèl/telefòn pa ka vid.</string>
 
     <!--Validate Code -->
-    <string name="code_from_sms">Enter the code received via SMS</string>
-    <string name="code_from_email">Enter the code received via email</string>
-    <string name="resend_code">Resend code</string>
-    <string name="resend_code_counter">Resend code in %d s</string>
+    <string name="code_from_sms">Antre kòd ou resevwa nan SMS la</string>
+    <string name="code_from_email">Antre kòd ou resevwa nan imèl la</string>
+    <string name="resend_code">Revoye Kòd</string>
+    <string name="resend_code_counter">Revoye Kòd la nan %d s</string>
 
     <!--Choose password -->
-    <string name="finish_signing_up">Finish signing up</string>
-    <string name="choose_your_password">Choose your password</string>
-    <string name="password_label">PASSWORD*</string>
-    <string name="confirm_password_label">CONFIRM PASSWORD*</string>
-    <string name="password_length">Password must be at least 8 characters long.</string>
-    <string name="password_format">Password must contain at least one digit, one letter and one special character.</string>
-    <string name="password_not_match">Passwords don\'t match.</string>
-    <string name="terms_and_conditions">By checking this box you agree to our <annotation action="openTS">Terms of Service</annotation> and <annotation action="openPP">Privacy Policy</annotation>, as well as our partner <annotation action="openDTS">Dwolla\'s Terms of Service</annotation> and <annotation action="openDPP">Privacy Policy</annotation>.</string>
+    <string name="finish_signing_up">Fini enskripsyon an</string>
+    <string name="choose_your_password">Chwazi modpas ou</string>
+    <string name="password_label">MODPAS*</string>
+    <string name="confirm_password_label">KONFIRME MODPAS*</string>
+    <string name="password_length">Modpas dwe omwen gen 8 karaktè.</string>
+    <string name="password_format">Modpas dwe gen omwen yon chif, yon lèt ak yon karaktè espesyal.</string>
+    <string name="password_not_match">Modpas yo pa matche.</string>
+    <string name="terms_and_conditions">Lè ou tcheke ti kare sa a ou dakò ak <annotation action="openTS">Kondisyon sèvis</annotation> ak <annotation action="openPP">Règleman sou enfòmasyon prive</annotation> nou yo, ansanm ak <annotation action="openDTS">Kondisyon sèvis</annotation> ak <annotation action="openDPP">Règleman sou enfòmasyon prive</annotation> patnè nou Dwolla.</string>
 
     <!--Create Profile -->
-    <string name="mandatory_message">All the fields marked with * are mandatory.</string>
-    <string name="create_your_profile">Create your profile</string>
-    <string name="et_hint">type here</string>
-    <string name="city_state_hint">ex: Chicago, IL</string>
-    <string name="et_zip_code">ZIP CODE*</string>
-    <string name="et_city_state">CITY AND STATE*</string>
-    <string name="et_email">EMAIL*</string>
-    <string name="et_first_name">FIRST NAME*</string>
-    <string name="et_last_name">LAST NAME*</string>
-    <string name="et_street">STREET*</string>
-    <string name="zip_code_error">ZIP codes must be 5-digit numbers.</string>
-    <string name="email_error">Invalid email address.</string>
-    <string name="city_and_state_error">Invalid input! Enter only letters separated by a comma. Ex: Chicago, IL</string>
-    <string name="street_error">Address should be at least 2 characters long.</string>
-    <string name="name_error">Enter only letters or special characters for your name.</string>
-    <string name="first_name_length_error">First name should be at least 2 characters long</string>
-    <string name="last_name_length_error">Last name should be at least 2 characters long.</string>
+    <string name="mandatory_message">Tout jaden ki make ak * yo obligatwa.</string>
+    <string name="create_your_profile">Kreye pwofil ou</string>
+    <string name="et_hint">ekri la</string>
+    <string name="city_state_hint">eg: Chicago, IL</string>
+    <string name="et_zip_code">KÒD POSTAL*</string>
+    <string name="et_city_state">VIL AK ETA*</string>
+    <string name="et_email">IMÈL*</string>
+    <string name="et_first_name">PRENON*</string>
+    <string name="et_last_name">SIYATI *</string>
+    <string name="et_street">RI*</string>
+    <string name="zip_code_error">Kòd postal yo dwe yon nimewo ak 5 chif.</string>
+    <string name="email_error">Adrès imèl pa bon.</string>
+    <string name="city_and_state_error">Sa ou tape a pa bon! Tape sèlman lèt separe ak yon vigil. Eg: Chicago, IL</string>
+    <string name="street_error">Adrès yo ta dwe omwen gen 2 karaktè.</string>
+    <string name="name_error">Antre sèlman lèt oswa karaktè espesyal pou non ou.</string>
+    <string name="first_name_length_error">Non ou dwe gen omwen 2 lèt.</string>
+    <string name="last_name_length_error">Siyati ou dwe gen omwen 2 lèt.</string>
 
     <!--Home screen-->
-    <string name="link_your_bank_account">Link your bank account</string>
-    <string name="request_a_cash_advance">Request a cash advance</string>
-    <string name="link_account_message_one">In order to get cash advances, you must link your bank account to Cashli.</string>
-    <string name="cash_delivered_time">Cash could be delivered in 2 hours.</string>
-    <string name="up_to_sum">Up to $%s!</string>
-    <string name="hello_user">Hi, %s!</string>
-    <string name="hello">Hi!</string>
-    <string name="request_cash_approved_for">You’ve been approved for</string>
-    <string name="claim_cash_now">Claim cash now</string>
-    <string name="request_cash_balance_label">Cash advance balance</string>
-    <string name="request_cash_balance_details">Including tips &amp; express fee, if applicable.</string>
-    <string name="scheduled_repayment_date">Scheduled repayment date: %s</string>
-    <string name="bank_account_balance">Bank account balance</string>
-    <string name="bank_account_check_date">As of %s</string>
+    <string name="link_your_bank_account">Konekte kont bankè ou</string>
+    <string name="request_a_cash_advance">Mande yon avans lajan kach</string>
+    <string name="link_account_message_one">Pou ou kapab jwenn avans lajan kach, ou dwe konekte kont bankè ou nan Cashli.</string>
+    <string name="cash_delivered_time">Lajan kach ka rive nan 2 èdtan.</string>
+    <string name="up_to_sum">Jiska $%s!</string>
+    <string name="hello_user">Bonjou, %s!</string>
+    <string name="hello">Bonjou!</string>
+    <string name="request_cash_approved_for">Ou te apwouve pou</string>
+    <string name="claim_cash_now">Reklame lajan kach kounye a</string>
+    <string name="request_cash_balance_label">Balans lajan kach</string>
+    <string name="request_cash_balance_details">Ki gen ladan tep ak frè eksprès yo, si sa aplikab.</string>
+    <string name="scheduled_repayment_date">Dat ranbousman pwograme: %s</string>
+    <string name="bank_account_balance">Balans kont bankè ou</string>
+    <string name="bank_account_check_date">Nan jou ki %s</string>
     <string name="bank_account_subtype_and_mask">%s - %s</string>
-    <string name="bank_account_subtype_checking">Checking</string>
-    <string name="bank_account_subtype_depository">Depository</string>
-    <string name="bank_account_subtype_savings">Savings</string>
-    <string name="bank_transactions">Latest bank transactions</string>
-    <string name="back_to_top">Back to top</string>
-    <string name="warning_lost_connection">We lost connection with your bank account. <annotation action="openResolveConnection">Resolve now</annotation></string>
-    <string name="warning_account_suspended">Your account has been suspended. Please <annotation action="callUs">contact support</annotation> for more info.</string>
-    <string name="unpause_your_membership">Unpause your membership</string>
-    <string name="can_not_get_cash_advance_see_more">Unfortunately, you can\'t get a cash advance at this time. <annotation action="openIneligibilityScreen">See more</annotation></string>
+    <string name="bank_account_subtype_checking">Tcheke</string>
+    <string name="bank_account_subtype_depository">Depo</string>
+    <string name="bank_account_subtype_savings">Epay</string>
+    <string name="bank_transactions">Dènye tranzaksyon bankè yo</string>
+    <string name="back_to_top">Retounen nan tèt</string>
+    <string name="warning_lost_connection">Nou pèdi koneksyon ak kont bank ou. <annotation action="openResolveConnection">Rezoud sa kounye a</annotation></string>
+    <string name="warning_account_suspended">Nou kanpe kont ou a. Tanpri kontake sipò kliyantèl <annotation action="callUs">contact support</annotation> pou plis enfòmasyon.</string>
+    <string name="unpause_your_membership">Retire kont afilyasyon ou sou poz</string>
+    <string name="can_not_get_cash_advance_see_more">Malerezman, ou pap ka jwenn yon avans lajan kach nan moman sa a. <annotation action="openIneligibilityScreen">Wè plis</annotation></string>
 
     <!--Link account informative -->
-    <string name="link_my_bank_account">Link my bank account</string>
-    <string name="link_my_bank_account_title">Link your bank account where paychecks are deposited into.</string>
-    <string name="link_my_bank_account_message_one">The bank account must be at least 2 months old.</string>
-    <string name="link_my_bank_account_message_two">For a joint account, only one of the account holders will be able to link it to the app.</string>
-    <string name="link_my_bank_account_message_three">Cash advances will be transferred to the same bank account.</string>
-    <string name="link_my_bank_account_message_four">We use bank-level and military-grade encryption tools to protect your data.</string>
+    <string name="link_my_bank_account">Konekte kont bankè mwen</string>
+    <string name="link_my_bank_account_title">Konekte kont bankè ou kote yo depoze chèk.</string>
+    <string name="link_my_bank_account_message_one">Kont bankè ou dwe genyen omwen de mwa depi l kreye.</string>
+    <string name="link_my_bank_account_message_two">Pou yon kont ki gen plizyè mèt, sèlman youn nan moun ki mèt kont lan pral kapab konekte li nan aplikasyon an.</string>
+    <string name="link_my_bank_account_message_three">Avans lajan kach yo pral transfere sou menm kont bankè a.</string>
+    <string name="link_my_bank_account_message_four">Nou itilize nivo sekirite labank ak nivo sekirite  militè pou pwoteje done ou yo.</string>
 
     <!--Ineligible bank account -->
-    <string name="can_not_get_cash_advance">Unfortunately, you can\'t get a cash advance at this time.</string>
-    <string name="ineligible_message_one">Since Cashli does not check your credit history, it has to rely on your bank account transaction history to determine your eligibility for a cash advance.</string>
-    <string name="ineligible_message_two">If you have another bank account where paychecks are deposited into, you may connect it to the app instead and try again.</string>
-    <string name="ineligible_requirements">Make sure the following requirements have been met:</string>
-    <string name="salary">Salary</string>
-    <string name="transaction_history">Transaction history on your connected bank account</string>
-    <string name="spending_habits">Spending habits around paydays</string>
-    <string name="creation_date">Creation date of your bank account</string>
-    <string name="salary_tooltip">Salary text pending..</string>
-    <string name="transaction_history_tooltip">Transaction history on your connected bank account pending..</string>
-    <string name="spending_habits_tooltip">Spending habits around paydays pending..</string>
-    <string name="creation_date_tooltip">Creation date of your bank account pending..</string>
-    <string name="ineligible_try_again">You may try again after your next paycheck.</string>
+    <string name="can_not_get_cash_advance">Malerezman, ou pap ka jwenn yon avans lajan kach nan moman sa a.</string>
+    <string name="ineligible_message_one">Piske Cashli pa tcheke istwa kredi ou, li dwe konte sou istwa tranzaksyon kont bankè ou pou detèmine si ou kalifye pou yon avans lajan kach.	</string>
+    <string name="ineligible_message_two">Si ou gen yon lòt kont bankè kote yo depoze chèk oswa benefis sosyal, ou ka konekte li nan aplikasyon an pito epi eseye ankò.</string>
+    <string name="ineligible_requirements">Asire w ke kondisyon sa yo te satisfè:</string>
+    <string name="salary">Salè</string>
+    <string name="transaction_history">Istwa tranzaksyon sou kont bankè ou konekte a</string>
+    <string name="spending_habits">Abitid depans  nan lè ou touche</string>
+    <string name="creation_date">Dat kreyasyon kont bankè ou</string>
+    <string name="salary_tooltip">Tèks salè annatant..</string>
+    <string name="transaction_history_tooltip">Istwa tranzaksyon yo sou kont labank konekte ou an annatant..</string>
+    <string name="spending_habits_tooltip">Abitid depans alantou jou peman annatant..</string>
+    <string name="creation_date_tooltip">Dat kreyasyon kont labank ou annatant..</string>
+    <string name="ineligible_try_again">Ou ka eseye ankò apre pwochen chèk ou oswa pwochen pèman avantaj sosyal ou.</string>
 
     <!--Forgot Password -->
-    <string name="forgot_password">Forgot password</string>
-    <string name="confirm_one_time_password">Confirm one time password</string>
-    <string name="reset_password">Reset your password</string>
-    <string name="forgot_password_screen_message_email">Please enter the email address you used to create your Cashli account.</string>
-    <string name="forgot_password_screen_message_phone">Please enter the phone number you used to create your Cashli account.</string>
-    <string name="type_new_password">Type a new password</string>
-    <string name="confirm_one_time_password_message">Code has been sent to %s</string>
-    <string name="wrong_email_error">There is no existing account with this email.</string>
-    <string name="wrong_phone_error">There is no existing account with this phone number.</string>
-    <string name="password_reset_success">Your password has been successfully reset.</string>
-    <string name="email_can_not_be_empty">Email cannot be empty.</string>
-    <string name="phone_can_not_be_empty">Phone cannot be empty.</string>
+    <string name="forgot_password">Bliye modpas</string>
+    <string name="confirm_one_time_password">Konfime modpas yon sèl fwa a</string>
+    <string name="reset_password">Reyinisyalize modpas ou</string>
+    <string name="forgot_password_screen_message_email">Tanpri antre adrès imèl ou te itilize pou kreye kont Cashli ou a.</string>
+    <string name="forgot_password_screen_message_phone">Tanpri antre nimewo telefòn ou te itilize pou kreye kont Cashli ou a.</string>
+    <string name="type_new_password">Tape yon nouvo modpas</string>
+    <string name="confirm_one_time_password_message">Kòd la ale sou %s</string>
+    <string name="wrong_email_error">Pa gen okenn kont ki deja egziste ak imèl sa a.</string>
+    <string name="wrong_phone_error">Pa gen okenn kont ki deja egziste ak nimewo telefòn sa a.</string>
+    <string name="password_reset_success">Modpas ou reyinisyalize avèk siksè.</string>
+    <string name="email_can_not_be_empty">Imèl pa ka vid.</string>
+    <string name="phone_can_not_be_empty">Telefòn pa ka vid.</string>
 
     <!--Link Bank Account -->
-    <string name="pending">Pending</string>
-    <string name="pending_content">Your bank account will be connected soon.</string>
-    <string name="pending_time_content">Please wait a few moments.</string>
-    <string name="congrats">Congrats!</string>
-    <string name="bank_account_connection_success">Connection to your bank account has been successful.\n\n<b>You are approved for %s.</b></string>
-    <string name="cash_out">Cash out</string>
-    <string name="take_me_to_home">Take me to homepage</string>
-    <string name="connection_failed">Connection failed</string>
-    <string name="bank_account_connection_fail">Connection to your bank account has failed.</string>
-    <string name="duplicate_account">Duplicate account</string>
-    <string name="bank_account_already_in_use">Your bank account has already been used.</string>
-    <string name="go_back_to_home">Go back to Homepage</string>
+    <string name="pending">Anatant</string>
+    <string name="pending_content">Kont bankè ou a pral konekte byento.</string>
+    <string name="pending_time_content">Tanpri tann kèk moman.</string>
+    <string name="congrats">Konpliman!</string>
+    <string name="bank_account_connection_success">Koneksyon avèk kont bankè ou a fèt ak siksè.\n\n<b>Yo apwouve ou pou %s.</b></string>
+    <string name="cash_out">Retire Lajan kach</string>
+    <string name="take_me_to_home">Mennen m sou paj akèy la</string>
+    <string name="connection_failed">Koneksyon echwe</string>
+    <string name="bank_account_connection_fail">Koneksyon ak kont bankè ou echwe.</string>
+    <string name="duplicate_account">Kont sa dedouble</string>
+    <string name="bank_account_already_in_use">Kont bank ou a te itilize deja.</string>
+    <string name="go_back_to_home">Tounen nan Paj Akèy la</string>
 
     <!--    Claim Cash-->
-    <string name="claim_cash_title">Claim cash now!</string>
-    <string name="claim_cash_cash_amount">Cash amount</string>
+    <string name="claim_cash_title">Reklame lajan kach kounye a!</string>
+    <string name="claim_cash_cash_amount">Kantite lajan kach</string>
 
-    <string name="claim_cash_due_date">Due date</string>
-    <string name="claim_cash_delivery_method_title">Pick a delivery method</string>
+    <string name="claim_cash_due_date">Dat limit</string>
+    <string name="claim_cash_delivery_method_title">Chwazi yon metòd livrezon</string>
 
-    <string name="delivery_method_regular">Standard</string>
-    <string name="delivery_method_regular_description">2–3 business days</string>
-    <string name="delivery_method_regular_disclaimer">The cash will be available in your bank account in 2 or 3 business days. Same bank account will be used for repayment.</string>
+    <string name="delivery_method_regular">Estanda</string>
+    <string name="delivery_method_regular_description">2–3 jou ouvrab</string>
+    <string name="delivery_method_regular_disclaimer">Lajan an ap disponib sou kont bank ou nan 2 oswa 3 jou ouvrab. Yo pral itilize menm kont labank pou ranbousman.</string>
 
-    <string name="delivery_method_express">Express</string>
-    <string name="delivery_method_express_within_minutes">Within minutes</string>
-    <string name="delivery_method_express_several_hours">Several hours</string>
-    <string name="delivery_method_express_within_20_hours">Within 20 hours</string>
-    <string name="delivery_method_express_disclaimer">The cash will de deposited into your bank account between 20 and 30 minutes.</string>
-    <string name="delivery_method_express_several_hours_disclaimer">The cash will be available in your bank account at 11:30 AM CT the same day if requested before 9 AM CT. And at 5 PM CT the same day if requested before 3 PM CT. Same bank account will be used for repayment.</string>
-    <string name="delivery_method_express_within_20_hours_disclaimer">The cash will be available in your bank account at 11:30 AM CT tomorrow if tomorrow is a business day. Same bank account will be used for repayment.</string>
-    <string name="delivery_method_express_several_hours_secondary_description">On a business day</string>
+    <string name="delivery_method_express">Eksprès</string>
+    <string name="delivery_method_express_within_minutes">Nan kèlke minit</string>
+    <string name="delivery_method_express_several_hours">Nan plizyè èdtan</string>
+    <string name="delivery_method_express_within_20_hours">Nan 20 èdtan</string>
+    <string name="delivery_method_express_disclaimer">Lajan kach la pral depoze sou kont labank ou ant 20 ak 30 minit.</string>
+    <string name="delivery_method_express_several_hours_disclaimer">Lajan an ap disponib sou kont bank ou a 11:30 AM CT nan menm jou a si ou mande l anvan 9 AM CT. Ak a 5 PM CT nan menm jou a si ou mande l anvan 3 PM CT. Yo pral itilize menm kont labank pou ranbousman.</string>
+    <string name="delivery_method_express_within_20_hours_disclaimer">Lajan an ap disponib sou kont bank ou a 11:30 AM CT nan demen si demen se yon jou ouvrab. Yo pral itilize menm kont labank pou ranbousman.</string>
+    <string name="delivery_method_express_several_hours_secondary_description">Nan yon jou ouvrab</string>
 
-    <string name="delivery_method_free" tools:ignore="UnusedResources">Free</string>
+    <string name="delivery_method_free" tools:ignore="UnusedResources">Gratis</string>
 
     <!--Quiz-->
-    <string name="quiz_title">Cashli strives to reduce remittance fees.</string>
-    <string name="quiz_first_question">Have you ever sent money to loved ones or friends abroad?</string>
+    <string name="quiz_title">Cashli fè efò pou diminye frè transfè yo</string>
+    <string name="quiz_first_question">Èske w te janm voye lajan bay moun ou renmen yo oswa zanmi ou yo aletranje?</string>
     <string name="quiz_second_question">Would you be interested in saving up to hundreds of dollars in fees per year?</string>
-    <string name="quiz_second_question_alt">Do you still think it’s a good idea to help hard-working folks save up to hundreds of dollars in fees per year?</string>
-    <string name="quiz_tip_info">Providing cash advances with no interest &amp; no unfair fees is a hard business. Your generous tips will help our mission to carry on!</string>
-    <string name="quiz_tip_label">Please pick a tip amount:</string>
-    <string name="quiz_tip_choose_amount">Choose a different amount</string>
-    <string name="quiz_footnote">A big portion of every dollar you donate will go toward helping children in need.</string>
-    <string name="quiz_popup_description">Your cash advance is on its way. On %1$s, we will withdraw %2$s* from your bank account.</string>
-    <string name="quiz_popup_annex">It includes a tip and an express fee, if applicable.</string>
+    <string name="quiz_second_question_alt">Èske ou toujou panse li se yon bon lide pou ede moun k ap travay di ekonomize jiska dè santèn de dola nan frè pa ane?</string>
+    <string name="quiz_tip_info">Bay avans lajan kach ki pa gen okenn enterè epi pa gen okenn frè enjis se yon biznis difisil. Tep jenere ou yo ap ede misyon nou a kontinye!</string>
+    <string name="quiz_tip_label">Tanpri chwazi yon kantite tep:</string>
+    <string name="quiz_tip_choose_amount">Chwazi yon kantite diferan</string>
+    <string name="quiz_footnote">Yon bon pati nan chak dola ou bay pral ede timoun ki nan bezwen.</string>
+    <string name="quiz_popup_description">Avans lajan kach ou nan wout. Le %1$s, nou pral retire %2$s* nan kont bankè ou.</string>
+    <string name="quiz_popup_annex">Li gen ladan yon tep ak yon frè eksprès, si sa aplikab.</string>
 
     <!--Generic -->
-    <string name="generic_continue">Continue</string>
-    <string name="generic_remove">Remove</string>
-    <string name="generic_seconds_abbreviation">sec</string>
-    <string name="generic_confirm">Confirm</string>
-    <string name="no_messaging_app_found">No messaging app found.</string>
-    <string name="no_mail_app_found">No mail app found.</string>
-    <string name="generic_error">Something went wrong, please try again.</string>
-    <string name="generic_session_expired">Session expired, please login again.</string>
-    <string name="generic_see_more">See more</string>
-    <string name="save">Save</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="on_date">On %s</string>
-    <string name="coming_soon">Coming soon</string>
+    <string name="generic_continue">Kontinye</string>
+    <string name="generic_remove">Retire</string>
+    <string name="generic_seconds_abbreviation">seg</string>
+    <string name="generic_confirm">Konfime</string>
+    <string name="no_messaging_app_found">Pa gen okenn aplikasyon pou messagerie jwenn.</string>
+    <string name="no_mail_app_found">Pa gen okenn aplikasyon lapòs yo jwenn.</string>
+    <string name="generic_error">Gen yon bagay ki mal pase, tanpri eseye ankò.</string>
+    <string name="generic_session_expired">Sesyon ekspire, tanpri konekte ankò.</string>
+    <string name="generic_see_more">Wè plis</string>
+    <string name="save">Anrejistre</string>
+    <string name="yes">Wi</string>
+    <string name="no">Non</string>
+    <string name="on_date">Le %s</string>
+    <string name="coming_soon">Vini byento</string>
 
     <!--Push Notifications -->
-    <string name="notification_rejected_text">Without notification permission you will not receive alerts from “Cashli” app.</string>
+    <string name="notification_rejected_text">San pèmisyon notifikasyon ou p ap resevwa alèt nan men aplikasyon “Cashli”.</string>
 
     <!--Dialog -->
     <string name="bravo_text">Bravo!</string>
-    <string name="account_created_successfully">Your account has been\nsuccessfully created.</string>
+    <string name="account_created_successfully">Kont ou a\nkreye avèk siksè.</string>
 
     <!--Pause or Close Account-->
-    <string name="pause_or_close_account">Pause or Close\nAccount</string>
-    <string name="pause_account">Pause Account</string>
-    <string name="close_account">Close Account</string>
-    <string name="close_account_instead">Close account instead</string>
-    <string name="pause_account_instead">Pause account instead</string>
-    <string name="unpause_account_instead">Unpause account instead</string>
-    <string name="pause_account_content">If you pause your account we will no longer be able to notify you about future cash advances eligibility.\n\nWe\'ll stop sending low balance alerts &amp; charging the membership fee.</string>
-    <string name="close_account_ineligible">Sorry, you can\'t close your account at this time due to an outstanding payment.</string>
+    <string name="pause_or_close_account">Pran Poz oswa Fèmen kont</string>
+    <string name="pause_account">Mete Kont la sou poz</string>
+    <string name="close_account">Fèmen Kont</string>
+    <string name="close_account_instead">Fèmen kont la pito</string>
+    <string name="pause_account_instead">Mete kont la sou poz pito</string>
+    <string name="unpause_account_instead">Unpause kont la pito</string>
+    <string name="pause_account_content">Si ou mete kont ou a sou poz nou pap kapab fè w konnen si ou kalifye pou avans lajan kach nan lavni.\n\nNou ap sispann voye notifikasyon pou balans ki ba epi sipann pran frè afilyasyon a.</string>
+    <string name="close_account_ineligible">Nou regrèt, ou pa ka fèmen kont ou nan moman sa a akòz yon peman ou poko fè.</string>
 
     <!--Close Account-->
-    <string name="close_account_content">We are sorry you\'ve decided to part ways with us.</string>
-    <string name="what_is_the_reason">What\'s the reason?</string>
-    <string name="other_reason"><annotation action="textUs">Text us</annotation> for any other reason as we strive to improve our services.</string>
-    <string name="close_account_data_deletion">All of your personal identifiable data will be deleted in our databases.</string>
-    <string name="close_account_reason_advance_low">Max cash advance too low</string>
-    <string name="close_account_reason_fee">Express fee too high</string>
-    <string name="close_account_reason_ineligible">Ineligible for cash advances</string>
-    <string name="close_account_reason_competitor">A better competitor</string>
+    <string name="close_account_content">Nou regrèt ou deside kite nou.</string>
+    <string name="what_is_the_reason">Ki rezon ki fè sa?</string>
+    <string name="other_reason"><annotation action="textUs">Tèks nou</annotation> pou nenpòt lòt rezon pandan nou ap fè efò pou amelyore sèvis nou yo.</string>
+    <string name="close_account_data_deletion"> Nou ap efase tout done pèsonèl ki idantifye ou yo nan baz done nou yo.</string>
+    <string name="close_account_reason_advance_low">Maksimòm avans lajan kach la twò piti</string>
+    <string name="close_account_reason_fee">Frè eksprès yo twò wo</string>
+    <string name="close_account_reason_ineligible">Pa kalifye pou avans lajan kach</string>
+    <string name="close_account_reason_competitor">Yon pi bon konkiran</string>
 
     <!--Home -->
-    <string name="home">Home</string>
+    <string name="home">Akèy</string>
 
     <!--Account -->
-    <string name="account">Account</string>
-    <string name="account_description">Without a linked bank account, we won\'t be able to determine your eligibility for a cash advance.</string>
-    <string name="account_remove_bank_account">Remove bank account</string>
-    <string name="account_remove_bank_account_description">Removing your bank account will disqualify you for requesting future cash advances.</string>
-    <string name="account_remove_bank_account_proceed">Proceed</string>
-    <string name="account_remove_bank_account_outstanding_advance_balance">Sorry, you can\'t remove your account at this time.\n\nYou have an outstanding advance balance.</string>
-    <string name="account_remove_bank_account_try_again">Please try again after the due payment has cleared your bank account. ACH may still take days to reflect the payment in our systems.</string>
-    <string name="account_unlinked_account">Your bank account was removed. You can link again a bank account starting %s</string>
+    <string name="account">Kont</string>
+    <string name="account_description">San yon kont bankè ki konekte, nou pap kapab detèmine kalifikasyon ou pou yon avans lajan kach.</string>
+    <string name="account_remove_bank_account">Retire kont bankè a</string>
+    <string name="account_remove_bank_account_description">Si ou Retire kont bankè ou sa pral diskalifye ou pou mande avans lajan kach nan lavni.</string>
+    <string name="account_remove_bank_account_proceed">Kontinye</string>
+    <string name="account_remove_bank_account_outstanding_advance_balance">Nou regrèt, ou pa ka chanje kont bankè ou nan moman sa a.\n\nOu gen yon balans avans ki pa peye.</string>
+    <string name="account_remove_bank_account_try_again">Tanpri eseye ankò apre pèman ou a dwe a otorize nan kont bankè. Rezo Otorizasyon Otomatik la (ACH) ka toujou pran jou pou afiche pèman an nan sistèm nou an.</string>
+    <string name="account_unlinked_account">Nou te retire kont bank ou a. Ou ka konekte yon lòt kont bank ankò apati %s</string>
 
     <!--Help-->
-    <string name="help_description">We will do our best to reply to each message within 24 hours.</string>
-    <string name="help_text_us">Text us</string>
-    <string name="help_email_us">Email us</string>
+    <string name="help_description">Nou pral fè tout sa nou kapab pou nou reponn chak mesaj nan lespas 24 èdtan.</string>
+    <string name="help_text_us">Tèks nou</string>
+    <string name="help_email_us">Imèl nou</string>
 
     <!--More -->
-    <string name="more">More</string>
+    <string name="more">Plis</string>
     <string name="user_name">%s %s</string>
-    <string name="membership_advance_history">Membership &amp; Advance history</string>
-    <string name="terms_and_conditions_title">Terms and Conditions</string>
-    <string name="privacy_policy">Privacy Policy</string>
-    <string name="settings">Settings</string>
-    <string name="help">Help</string>
-    <string name="refer_friend">Refer a friend</string>
-    <string name="faq">FAQ</string>
-    <string name="pause_close_account">Pause or Close account</string>
-    <string name="logout">Logout</string>
-    <string name="unpause_close_account">Unpause or Close account</string>
-    <string name="unpause_account">Unpause Account</string>
-    <string name="unpause_account_description">Nothing has changed, you can pick up where you left off!</string>
+    <string name="membership_advance_history">Afilyasyon ak istwa avanse</string>
+    <string name="terms_and_conditions_title">Tèm ak Kondisyon</string>
+    <string name="privacy_policy">Règleman sou konfidansyalite </string>
+    <string name="settings">Reglaj</string>
+    <string name="help">Èd</string>
+    <string name="refer_friend">Refere yon zanmi</string>
+    <string name="faq">Kesyon moun poze souvan</string>
+    <string name="pause_close_account">Pran Poz oswa fèmen kont</string>
+    <string name="logout">Dekonekte</string>
+    <string name="unpause_close_account">Retire kont la sou poz oswa fèmen kont la</string>
+    <string name="unpause_account">Retire kont ou sou poz</string>
+    <string name="unpause_account_description">Pa gen anyen ki chanje, ou ka rekòmanse kote ou te kite a!</string>
 
     <!--Membership -->
-    <string name="advance_history">Advance history</string>
-    <string name="membership_status">Membership status</string>
-    <string name="membership_status_active">Active</string>
-    <string name="membership_status_paused">Paused</string>
-    <string name="membership_started">Started</string>
-    <string name="membership_renewal">Renewal</string>
-    <string name="membership_amount">Amount</string>
-    <string name="cash_advance_amount">Cash Advance Amount</string>
-    <string name="cash_advance_due_date">Due Date</string>
-    <string name="cash_advance_paid_date">Paid Date</string>
-    <string name="cash_advance_overdue">Overdue</string>
-    <string name="cash_advance_paid">Paid</string>
-    <string name="cash_advance_scheduled">Scheduled</string>
-    <string name="membership_amount_value">%s/month</string>
+    <string name="advance_history">Istwa avanse</string>
+    <string name="membership_status">Estati afilyasyon</string>
+    <string name="membership_status_active">Aktif</string>
+    <string name="membership_status_paused">Pran poz</string>
+    <string name="membership_started">Te kòmanse</string>
+    <string name="membership_renewal">Renouvèlman</string>
+    <string name="membership_amount">Kantite lajan</string>
+    <string name="cash_advance_amount">Kantite avans Lajan Kach la</string>
+    <string name="cash_advance_due_date">Dat limit pou peye</string>
+    <string name="cash_advance_paid_date">Dat ou peye</string>
+    <string name="cash_advance_overdue">An reta</string>
+    <string name="cash_advance_paid">Peye</string>
+    <string name="cash_advance_scheduled">Pwograme</string>
+    <string name="membership_amount_value">%s/mwa</string>
 
     <!--Change Password-->
-    <string name="change_password_toolbar_title">Change your password</string>
-    <string name="change_password_title">Type and confirm a new password</string>
-    <string name="change_password_current_password">CURRENT PASSWORD*</string>
-    <string name="change_password_new_password">NEW PASSWORD*</string>
-    <string name="change_password_confirm_new_password">CONFIRM NEW PASSWORD*</string>
-    <string name="change_password_passwords_changed">Your password has been successfully changed.</string>
-    <string name="change_password_passwords_match_error">New password cannot be the same as the old password.</string>
+    <string name="change_password_toolbar_title">Chanje modpas ou</string>
+    <string name="change_password_title">Tape epi konfime yon nouvo modpas</string>
+    <string name="change_password_current_password">MODPAS AKTYÈL*</string>
+    <string name="change_password_new_password">NOUVO MODPAS*</string>
+    <string name="change_password_confirm_new_password">KONFIME NOUVO MODPAS*</string>
+    <string name="change_password_passwords_changed">Modpas ou te chanje avèk siksè.</string>
+    <string name="change_password_passwords_match_error">Ansyen ak nouvo modpas ou pa kapab menm.</string>
 
     <!--Settings-->
-    <string name="low_balance_alerts">Low balance alerts</string>
-    <string name="notify_if_balance_is_below">Notify if balance is below $%s</string>
-    <string name="notify_balance_below_description">You will be notified on your phone if your bank account balance falls below this amount or if an upcoming bill might make it fall below it.</string>
-    <string name="notifications">Notifications</string>
-    <string name="enable_push_notifications">Enable push notifications</string>
-    <string name="et_low_balance_amount_hint">enter balance amount”</string>
+    <string name="low_balance_alerts">Voye notifikasyon si balans lan ba</string>
+    <string name="notify_if_balance_is_below">Voye notifikasyon si balans lan anba $%s</string>
+    <string name="notify_balance_below_description">N ap voye notifikasyon sou telefòn ou si balans kont bankè ou tonbe anba kantite lajan sa a oswa si yon pwochen bil ta ka fè li tonbe anba  li.</string>
+    <string name="notifications">Notifikasyon</string>
+    <string name="enable_push_notifications">Pèmèt notifikasyon dirèk</string>
+    <string name="et_low_balance_amount_hint">antre kantite balans</string>
 
     <!--Log out-->
-    <string name="log_out">Log out</string>
-    <string name="log_out_message">Are you sure you want to log out?</string>
-    <string name="yes_log_out">Yes, Log me out</string>
-    <string name="cancel">Cancel</string>
+    <string name="log_out">Dekonekte</string>
+    <string name="log_out_message">Èske ou sèten ou vle dekonekte?</string>
+    <string name="yes_log_out">Wi, dekonekte m</string>
+    <string name="cancel">Anile</string>
 
     <!-- Edit profile-->
-    <string name="edit_profile">Edit profile</string>
-    <string name="current_email">Current email: %s</string>
-    <string name="current_phone">Current phone: %s</string>
-    <string name="change_phone">Change your phone</string>
-    <string name="change_email">Change your email</string>
-    <string name="change_password">Change your password</string>
-    <string name="edit_first_name_label">FIRST NAME</string>
-    <string name="edit_last_name_label">LAST NAME</string>
-    <string name="new_phone_number">Type a new phone number</string>
-    <string name="new_email">Type a new email</string>
-    <string name="phone">PHONE</string>
-    <string name="email">EMAIL</string>
+    <string name="edit_profile">Edit pwofil</string>
+    <string name="current_email">Imèl aktyèl ou: %s</string>
+    <string name="current_phone">Telefòn aktyèl ou: %s</string>
+    <string name="change_phone">Chanje telefòn ou</string>
+    <string name="change_email">Chanje imèl ou</string>
+    <string name="change_password">Chanje modpas ou</string>
+    <string name="edit_first_name_label">PRENON</string>
+    <string name="edit_last_name_label">SIYATI</string>
+    <string name="new_phone_number">Tape yon nouvo nimewo telefòn</string>
+    <string name="new_email">Tape yon nouvo imèl</string>
+    <string name="phone">TELEFÒN</string>
+    <string name="email">IMÈL</string>
 
     <!--PN-->
-    <string name="you_are_eligible_now">You are eligible to get a cash advance.</string>
-    <string name="low_balance">Low balance</string>
-    <string name="bank_balance_below">Your bank account balance is below $%s.</string>
-    <string name="link_account">Link account</string>
-    <string name="bank_account_connection_lost">We lost connection with your bank account. Resolve now.</string>
+    <string name="you_are_eligible_now">Ou elijib pou jwenn yon avans lajan.</string>
+    <string name="low_balance">Balans ba</string>
+    <string name="bank_balance_below">Balans kont bankè ou anba $%s.</string>
+    <string name="link_account">Link kont</string>
+    <string name="bank_account_connection_lost">Nou pèdi koneksyon ak kont bank ou. Rezoud sa kounye a.</string>
 
     <!--Plurals-->
     <plurals name="past_days_plural">
-        <item quantity="zero">today</item>
-        <item quantity="one">%d day ago</item>
-        <item quantity="other">%d days ago</item>
+        <item quantity="zero">Jodi a</item>
+        <item quantity="one">%d Yon jou de sa</item>
+        <item quantity="other">%d Plizyè jou de sa</item>
     </plurals>
 
 </resources>
