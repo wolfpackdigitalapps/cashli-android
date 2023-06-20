@@ -345,7 +345,7 @@ class HomeViewModel(
                     !userProfile.bankAccountConnected -> {
                     RequestCashAdvanceInfo(
                         requestCashAdvanceType = RequestCashAdvanceType.CASH_UP_TO,
-                        upToSum = SUM_150
+                        upToSum = cashAdvanceLimits.maxCashAdvance?.toString() ?: SUM_150
                     )
                 }
 

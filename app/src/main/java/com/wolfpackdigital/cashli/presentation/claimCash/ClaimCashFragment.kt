@@ -64,7 +64,7 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
         viewModel.cashAdvancesLimits.observe(viewLifecycleOwner) { cashAdvancesLimits ->
             setupSliderView(
                 minValue = cashAdvancesLimits.minCashAdvance?.toFloat() ?: 0f,
-                maxValue = cashAdvancesLimits.maxCashAdvance?.toFloat() ?: 0f
+                maxValue = cashAdvancesLimits.userMaxAdvanceAmount?.toFloat() ?: 0f
             )
         }
     }

@@ -73,4 +73,11 @@ class MainActivity : BaseActivity<ActMainBinding, MainActivityViewModel>(R.layou
             false -> viewModel.handlePushNotificationType(notification)
         }
     }
+
+    fun refreshBottomNavigation() {
+        val selectedBottomItem = binding.mainBottomNav.selectedItemId
+        binding.mainBottomNav.menu.clear()
+        binding.mainBottomNav.inflateMenu(R.menu.bottom_nav_menu)
+        binding.mainBottomNav.selectedItemId = selectedBottomItem
+    }
 }

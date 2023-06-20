@@ -1,6 +1,7 @@
 package com.wolfpackdigital.cashli.application
 
 import android.app.Application
+import android.webkit.WebView
 import androidx.core.app.NotificationManagerCompat
 import com.orhanobut.hawk.Hawk
 import com.wolfpackdigital.cashli.R
@@ -18,6 +19,13 @@ class ApplicationClass : Application(), PersistenceService {
         startKoin {
             modules(AppModules.modules)
         }
+
+        /**
+         This line fixes a bug related to the app locale - without it after a WebView is
+         displayed the app locale is changed to the system default
+         */
+        WebView(applicationContext)
+
         Lingver.init(this, language?.toString() ?: Language.ENGLISH.toString())
         createNotificationChannel()
     }
