@@ -50,5 +50,5 @@ tasks.create<Delete>("clean") {
 }
 
 tasks.create<GradleBuild>("x") {
-    tasks = listOf(":app:ktlintFormat", ":app:ktlint", ":app:detekt")
+    tasks = listOf(":app:ktlintFormat", ":app:ktlint", ":app:detekt", "lintDevelopRelease")
 }
