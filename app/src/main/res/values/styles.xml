@@ -158,6 +158,12 @@
         <item name="android:splitMotionEvents">false</item>
     </style>
 
+    <style name="RecyclerView.VerticalPinkScrollBar">
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarThumbVertical">@drawable/scrollview_thumb</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
     <style name="Switch.Green" parent="Widget.MaterialComponents.CompoundButton.Switch">
         <item name="useMaterialThemeColors">false</item>
         <item name="trackTint">@color/switch_track_selector</item>
@@ -201,8 +207,8 @@
     <style name="FloatingActionButton.Expanded">
         <item name="android:textAllCaps">false</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingStart">@dimen/dimen_0dp</item>
-        <item name="android:paddingEnd">@dimen/dimen_0dp</item>
+        <item name="android:paddingStart">@dimen/dimen_10dp</item>
+        <item name="android:paddingEnd">@dimen/dimen_10dp</item>
     </style>
 
     <style name="TextView.H1" parent="TextView">
