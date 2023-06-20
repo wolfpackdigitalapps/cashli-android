@@ -1,6 +1,5 @@
 package com.wolfpackdigital.cashli.shared.utils
 
-import android.graphics.Typeface
 import android.os.SystemClock
 import android.text.TextPaint
 import android.text.style.ClickableSpan
@@ -11,8 +10,7 @@ import com.wolfpackdigital.cashli.shared.utils.Constants.DEBOUNCE_INTERVAL_MILLI
 class CustomClickSpan(
     private val onClickListener: () -> Unit,
     @ColorInt private val textColor: Int,
-    private val shouldUnderline: Boolean = true,
-    private val isBold: Boolean = true
+    private val shouldUnderline: Boolean = true
 ) : ClickableSpan() {
     private var lastTimeClicked: Long = 0
     override fun onClick(p0: View) {
@@ -24,7 +22,6 @@ class CustomClickSpan(
     }
 
     override fun updateDrawState(textPaint: TextPaint) {
-        if (isBold) textPaint.typeface = Typeface.DEFAULT_BOLD
         textPaint.isUnderlineText = shouldUnderline
         textPaint.color = textColor
     }

@@ -54,19 +54,19 @@
 
     <style name="Widget.Cashli.Button.Accent">
         <item name="android:theme">@style/ButtonTheme.Accent</item>
-        <item name="android:height">@dimen/dimen_64dp</item>
+        <item name="android:minHeight">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorPinkBF</item>
     </style>
 
     <style name="Widget.Cashli.Button.PrimaryDark">
         <item name="android:theme">@style/ButtonTheme.PrimaryDark</item>
-        <item name="android:height">@dimen/dimen_64dp</item>
+        <item name="android:minHeight">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorGray64</item>
     </style>
 
     <style name="Widget.Cashli.Button.Primary">
         <item name="android:theme">@style/ButtonTheme.Primary</item>
-        <item name="android:height">@dimen/dimen_64dp</item>
+        <item name="android:minHeight">@dimen/dimen_64dp</item>
         <item name="rippleColor">@color/colorGray64</item>
     </style>
 
@@ -79,7 +79,7 @@
     </style>
 
     <style name="Widget.Cashli.Button.NoBackground" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:height">@dimen/dimen_48dp</item>
+        <item name="android:minHeight">@dimen/dimen_48dp</item>
         <item name="android:textSize">@dimen/size_14sp</item>
         <item name="fontFamily">@font/lato_bold</item>
         <item name="android:textAlignment">center</item>

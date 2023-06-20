@@ -323,6 +323,9 @@
     <string name="link_account">Vincular cuenta</string>
     <string name="bank_account_connection_lost">Nosotros perdimos la conexión con su cuenta bancaria. Resolver ahora.</string>
 
+    <string name="privacy_policy_url">https://www.cashli.io/privacy-policy-spanish</string>
+    <string name="terms_and_conditions_url">https://www.cashli.io/terms-of-use-spanish</string>
+
     <!--Plurals-->
     <plurals name="past_days_plural">
         <item quantity="one">%d hace un día</item>

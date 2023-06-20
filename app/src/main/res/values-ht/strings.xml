@@ -323,6 +323,9 @@
     <string name="link_account">Link kont</string>
     <string name="bank_account_connection_lost">Nou pèdi koneksyon ak kont bank ou. Rezoud sa kounye a.</string>
 
+    <string name="privacy_policy_url">https://www.cashli.io/privacy-policy-in-creole</string>
+    <string name="terms_and_conditions_url">https://www.cashli.io/terms-of-use-creole</string>
+
     <!--Plurals-->
     <plurals name="past_days_plural">
         <item quantity="zero">Jodi a</item>

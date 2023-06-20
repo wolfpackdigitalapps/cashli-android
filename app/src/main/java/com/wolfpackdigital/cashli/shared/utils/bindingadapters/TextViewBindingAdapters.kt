@@ -1,6 +1,7 @@
 package com.wolfpackdigital.cashli.shared.utils.bindingadapters
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.text.Annotation
 import android.text.Spannable
 import android.text.SpannableString
@@ -8,6 +9,7 @@ import android.text.SpannedString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -78,21 +80,28 @@ private fun TextView.setClickSpanForAction(
 ) {
     if (it.key == KEY_SPAN_ACTION) {
         val action = actions.firstOrNull { action -> action.actionKey == it.value }
-        val clickSpan = action?.let { textSpanAction ->
-            CustomClickSpan(
+        action?.let { textSpanAction ->
+            val clickSpan = CustomClickSpan(
                 onClickListener = textSpanAction.action,
                 textColor = context.getColor(textSpanAction.spanTextColor),
                 shouldUnderline = textSpanAction.isSpanTextUnderlined,
                 isBold = textSpanAction.isSpanTextBold
             )
+            termsCopy.setSpan(
+                clickSpan,
+                termsText.getSpanStart(it),
+                termsText.getSpanEnd(it),
+                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            if (textSpanAction.isSpanTextBold)
+                termsCopy.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    termsText.getSpanStart(it),
+                    termsText.getSpanEnd(it),
+                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
         } ?: throw NotImplementedError(
             context.getString(R.string.generic_not_implemented_error)
-        )
-        termsCopy.setSpan(
-            clickSpan,
-            termsText.getSpanStart(it),
-            termsText.getSpanEnd(it),
-            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
         )
     }
 }
