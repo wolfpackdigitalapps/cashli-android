@@ -60,8 +60,13 @@ android {
         create("production") {
             this.dimension = dimension
             resValue("string", "app_name", "Cashli")
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://api.cashli.io/api/\""
+            )
             versionCode = 1
-            versionName = "1.0"
+            versionName = "1.0.0"
         }
     }
 
