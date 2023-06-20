@@ -84,8 +84,7 @@ private fun TextView.setClickSpanForAction(
             val clickSpan = CustomClickSpan(
                 onClickListener = textSpanAction.action,
                 textColor = context.getColor(textSpanAction.spanTextColor),
-                shouldUnderline = textSpanAction.isSpanTextUnderlined,
-                isBold = textSpanAction.isSpanTextBold
+                shouldUnderline = textSpanAction.isSpanTextUnderlined
             )
             termsCopy.setSpan(
                 clickSpan,
