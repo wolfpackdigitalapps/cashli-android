@@ -172,8 +172,6 @@
     <string name="delivery_method_express_within_20_hours_disclaimer">Lajan an ap disponib sou kont bank ou a 11:30 AM CT nan demen si demen se yon jou ouvrab. Yo pral itilize menm kont labank pou ranbousman.</string>
     <string name="delivery_method_express_several_hours_secondary_description">Nan yon jou ouvrab</string>
 
-    <string name="delivery_method_free" tools:ignore="UnusedResources">Gratis</string>
-
     <!--Quiz-->
     <string name="quiz_title">Cashli fè efò pou diminye frè transfè yo</string>
     <string name="quiz_first_question">Èske w te janm voye lajan bay moun ou renmen yo oswa zanmi ou yo aletranje?</string>

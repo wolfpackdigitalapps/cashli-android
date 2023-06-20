@@ -172,8 +172,6 @@
     <string name="delivery_method_express_within_20_hours_disclaimer">The cash will be available in your bank account at 11:30 AM CT tomorrow if tomorrow is a business day. Same bank account will be used for repayment.</string>
     <string name="delivery_method_express_several_hours_secondary_description">On a business day</string>
 
-    <string name="delivery_method_free" tools:ignore="UnusedResources">Free</string>
-
     <!--Quiz-->
     <string name="quiz_title">Cashli strives to reduce remittance fees.</string>
     <string name="quiz_first_question">Have you ever sent money to loved ones or friends abroad?</string>

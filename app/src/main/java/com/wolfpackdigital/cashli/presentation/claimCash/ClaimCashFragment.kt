@@ -47,7 +47,7 @@ class ClaimCashFragment : BaseFragment<ClaimCashFragmentBinding, ClaimCashViewMo
                 addItemDecoration(
                     DeliveryMethodItemDecoration(
                         spanCount = COLUMN_COUNT,
-                        spacing = context.resources.getDimensionPixelSize(R.dimen.dimen_12dp),
+                        spacing = context.resources.getDimensionPixelSize(R.dimen.dimen_8dp),
                         includeEdge = true,
                         headerNum = 0
                     )
