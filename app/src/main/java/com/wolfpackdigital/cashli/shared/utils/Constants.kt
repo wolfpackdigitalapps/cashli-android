@@ -50,7 +50,7 @@ object Constants {
     const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"
 
     // DateTime Formatter
-    const val FULL_MONTH_DAY_YEAR = "MMMM d, yyyy"
+    const val FULL_MONTH_DAY_YEAR = "d MMMM yyyy"
 
     // PUSH NOTIFICATIONS
     const val PUSH_NOTIFICATION_EXTRA = "push_notification_extra"
