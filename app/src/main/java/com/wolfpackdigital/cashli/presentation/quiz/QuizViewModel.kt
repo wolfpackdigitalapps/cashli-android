@@ -57,20 +57,23 @@ class QuizViewModel(
         addSource(selectedTipPercAmount) { tipAmount ->
             value = tipAmount.value?.let { value ->
                 (value).percentOf(cashAmount)
-            } ?: (MAX_TIP_SLIDER - (sliderValue.value ?: INITIAL_SLIDER_TIP)).percentOf(cashAmount)
+            } ?: INITIAL_SLIDER_TIP
         }
     }
 
-    fun onTipAmountSelected(tipAmountIndex: Int) {
-        val aux = _tipPercAmounts.value ?: listOf()
-        aux.onEachIndexed { index, tipAmount ->
-            if (tipAmountIndex == index)
-                selectedTipPercAmount.value = tipAmount
-
-            tipAmount.isChecked = tipAmountIndex == index
+    fun onTipAmountSelected(tipAmountIndex: Int, initialTipAmount: TipAmount? = null) {
+        initialTipAmount?.let {
+            selectedTipPercAmount.value = it
+        } ?: run {
+            val aux = _tipPercAmounts.value ?: listOf()
+            aux.onEachIndexed { index, tipAmount ->
+                if (tipAmountIndex == index)
+                    selectedTipPercAmount.value = tipAmount
+                tipAmount.isChecked = tipAmountIndex == index
+            }
+            _tipSeekbarVisible.value = aux.any { it.isChecked && it.value == null }
+            _tipPercAmounts.value = aux
         }
-        _tipSeekbarVisible.value = aux.any { it.isChecked && it.value == null }
-        _tipPercAmounts.value = aux
     }
 
     private fun displayPopup(cashAdvanceDetails: CashAdvanceDetails) {

@@ -65,7 +65,7 @@
             android:id="@+id/icon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginStart="@dimen/dimen_12dp"
             android:layout_marginTop="@dimen/dimen_16dp"
             android:contentDescription="@null"
             app:drawableRes="@{viewModel.deliveryMethod.icon}"
@@ -74,8 +74,27 @@
             tools:src="@drawable/ic_express_delivery" />
 
         <TextView
+            android:id="@+id/delivery_method_coming_soon_tv"
+            style="@style/TextView.H7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:text="@{viewModel.deliveryMethod.methodName}"
+            android:textAlignment="viewStart"
+            android:textColor="@{ContextCompat.getColor(context, viewModel.deliveryMethod.tint)}"
+            app:hidden="@{viewModel.deliveryMethod.available}"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/icon_iv"
+            app:layout_constraintTop_toBottomOf="@id/icon_iv"
+            tools:text="Coming soon"
+            tools:textColor="@color/colorGreen71"
+            tools:visibility="invisible" />
+
+        <TextView
             android:id="@+id/delivery_method_name_tv"
-            style="@style/TextView.H6"
+            style="@style/TextView.H7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_12dp"
@@ -87,6 +106,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/icon_iv"
             app:layout_constraintTop_toBottomOf="@id/icon_iv"
+            app:visibility="@{viewModel.deliveryMethod.available}"
             tools:text="Regular"
             tools:textColor="@color/colorGreen71" />
 
@@ -101,7 +121,7 @@
             android:id="@+id/arrow_iv"
             android:layout_width="@dimen/dimen_16dp"
             android:layout_height="@dimen/dimen_16dp"
-            android:layout_marginStart="@dimen/dimen_4dp"
+            android:layout_marginStart="@dimen/dimen_2dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_arrow_forward"
             app:hidden="@{!viewModel.deliveryMethod.available}"
@@ -113,12 +133,12 @@
 
         <TextView
             android:id="@+id/delivery_method_value_tv"
-            style="@style/TextView.H6"
+            style="@style/TextView.H7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_4dp"
+            android:layout_marginStart="@dimen/dimen_2dp"
             android:layout_marginTop="@dimen/dimen_16dp"
-            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:layout_marginEnd="@dimen/dimen_12dp"
             android:text="@{viewModel.cost}"
             android:textAlignment="viewStart"
             android:textColor="@{ContextCompat.getColor(context, viewModel.deliveryMethod.tint)}"
@@ -135,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="delivery_method_value_tv, delivery_method_name_tv" />
+            app:constraint_referenced_ids="delivery_method_value_tv, delivery_method_name_tv, delivery_method_coming_soon_tv" />
 
         <TextView
             android:id="@+id/delivery_method_description_tv"

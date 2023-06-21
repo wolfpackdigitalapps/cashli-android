@@ -154,7 +154,7 @@
 
     <!--    Claim Cash-->
     <string name="claim_cash_title">Solicitar efectivo ahora!</string>
-    <string name="claim_cash_cash_amount">¡Cash amount</string>
+    <string name="claim_cash_cash_amount">Importe en efectivo</string>
 
     <string name="claim_cash_due_date">Fecha de Pago</string>
     <string name="claim_cash_delivery_method_title">Elija un método de entrega</string>
@@ -171,8 +171,6 @@
     <string name="delivery_method_express_several_hours_disclaimer">El efectivo estará disponible en su cuenta bancaria a las 11:30 a.m. Horario Central el mismo día si es solicitado antes de las 9 a.m. Horario Central. Y a las 5 p.m. Horario Central el mismo día si es solicitado antes de las 3 p.m. Horario Central. Se utilizará la misma cuenta bancaria para el pago.</string>
     <string name="delivery_method_express_within_20_hours_disclaimer">El efectivo estará disponible en su cuenta bancaria a las 11:30 a.m. Horario Central mañana si mañana es un día laboral. Se utilizará la misma cuenta bancaria para el pago.</string>
     <string name="delivery_method_express_several_hours_secondary_description">En un día laboral</string>
-
-    <string name="delivery_method_free" tools:ignore="UnusedResources">Gratuito</string>
 
     <!--Quiz-->
     <string name="quiz_title">Cashli se esfuerza por reducir las tarifas de envío de remesas.</string>

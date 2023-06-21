@@ -166,6 +166,8 @@ class QuizFragment : BaseFragment<QuizFragmentBinding, QuizViewModel>(R.layout.f
                         ivArrow.setImageTint(tint)
                     }
                     radioButton.isChecked = tipAmount.isChecked
+                    if (tipAmount.isChecked)
+                        viewModel.onTipAmountSelected(index, tipAmount)
                     clRoot.setOnClickListener { viewModel.onTipAmountSelected(index) }
                 }.root
             )

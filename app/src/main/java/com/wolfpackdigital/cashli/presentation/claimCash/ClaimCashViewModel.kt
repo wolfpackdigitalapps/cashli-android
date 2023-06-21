@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
 import com.wolfpackdigital.cashli.R
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethod
 import com.wolfpackdigital.cashli.domain.entities.claimCash.DeliveryMethodItem
 import com.wolfpackdigital.cashli.domain.entities.claimCash.TransferFees
 import com.wolfpackdigital.cashli.domain.entities.response.EligibilityChecks
-import com.wolfpackdigital.cashli.domain.entities.response.UserProfile
 import com.wolfpackdigital.cashli.domain.usecases.GetCashAdvancesLimitsUseCase
 import com.wolfpackdigital.cashli.domain.usecases.GetTransferFeesUseCase
 import com.wolfpackdigital.cashli.shared.base.BaseCommand
@@ -21,8 +19,10 @@ import com.wolfpackdigital.cashli.shared.utils.LiveEvent
 import com.wolfpackdigital.cashli.shared.utils.extensions.safeLet
 import kotlinx.coroutines.flow.combine
 import java.time.LocalTime
+import java.time.ZoneId
 
 private const val THREE_O_CLOCK = 15
+private const val CST = "CST6CDT"
 
 class ClaimCashViewModel(
     private val getTransferFees: GetTransferFeesUseCase,
@@ -31,9 +31,6 @@ class ClaimCashViewModel(
 
     private val _cmd = LiveEvent<Command>()
     val cmd: LiveData<Command> = _cmd
-
-    private val _userProfile = MutableLiveData(userProfile)
-    val userProfileData: LiveData<UserProfile?> = _userProfile
 
     private val _labelAmount = MutableLiveData(0f)
     val labelAmount: LiveData<Float> = _labelAmount
@@ -141,7 +138,8 @@ class ClaimCashViewModel(
         _labelAmount.value = amountPerc
     }
 
-    private fun isAfter3PM() = LocalTime.now().isAfter(LocalTime.of(THREE_O_CLOCK, 0, 0))
+    private fun isAfter3PM() =
+        LocalTime.now(ZoneId.of(CST)).isAfter(LocalTime.of(THREE_O_CLOCK, 0, 0))
 
     sealed class Command {
         object TransitionToStart : Command()
