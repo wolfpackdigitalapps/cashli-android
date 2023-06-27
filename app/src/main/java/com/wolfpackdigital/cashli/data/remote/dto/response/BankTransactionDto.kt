@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
 data class BankTransactionDto(
     @SerializedName("transaction_id") val transactionId: Int,
     @SerializedName("date") val date: String?,
-    @SerializedName("merchant_name") val merchantName: String?,
+    @SerializedName("name") val merchantName: String?,
     @SerializedName("amount") val amount: String?
 ) : Parcelable
