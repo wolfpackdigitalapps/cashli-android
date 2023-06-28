@@ -88,8 +88,8 @@ class ClaimCashViewModel(
             val result = getCashAdvancesLimitsUseCase(Unit)
             result.onSuccess { eligibility ->
                 _cashAdvancesLimits.value = eligibility
-                _amount.value = eligibility.minCashAdvance?.toFloat() ?: 0f
-                _labelAmount.value = eligibility.minCashAdvance?.toFloat() ?: 0f
+                _amount.value = eligibility.userMaxAdvanceAmount?.toFloat() ?: 0f
+                _labelAmount.value = eligibility.userMaxAdvanceAmount?.toFloat() ?: 0f
             }
             result.onError {
                 val error = it.errors?.firstOrNull() ?: it.messageId ?: R.string.generic_error
