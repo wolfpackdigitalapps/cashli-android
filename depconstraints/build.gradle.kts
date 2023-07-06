@@ -37,11 +37,7 @@ val plaidLink = "3.11.0"
 val tooltipBalloon = "1.4.7"
 val pagination = "3.1.1"
 val locale = "1.3.0"
-
-/* TODO: Replace this with version after update
- * https://github.com/SmartToolFactory/Compose-Colorful-Sliders/issues/12
-*/
-val sliders = "master-SNAPSHOT"
+val sliders = "1.2.0"
 
 dependencies {
     constraints {

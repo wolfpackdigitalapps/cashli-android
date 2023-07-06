@@ -10,14 +10,15 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
@@ -35,7 +36,6 @@ import com.wolfpackdigital.cashli.shared.utils.extensions.toLocalDateFromPattern
 import java.time.LocalDate
 
 private const val KEY_SPAN_ACTION = "action"
-private const val TAG = "TextViewBindingAdapters"
 
 @BindingAdapter("textRes")
 fun TextView.textRes(@StringRes textRes: Int?) {
@@ -43,7 +43,7 @@ fun TextView.textRes(@StringRes textRes: Int?) {
     try {
         setText(textRes)
     } catch (e: Exception) {
-        Log.e(TAG, "textRes: ${e.stackTrace}")
+        FirebaseCrashlytics.getInstance().recordException(e)
     }
 }
 
@@ -56,20 +56,40 @@ fun TextView.setTextIdOrString(textIdOrString: Any?, textArgs: Array<Any>?) {
 }
 
 @BindingAdapter(value = ["actions", "textWithActions"], requireAll = true)
-fun TextView.setTextSpanByAction(actions: List<TextSpanAction>?, @StringRes textWithActions: Int) {
-    val termsText = context.getText(textWithActions) as? SpannedString
-    termsText?.let {
-        val termsCopy = SpannableString(termsText)
-        actions?.let {
-            val annotations = termsText.getSpans(0, termsText.length, Annotation::class.java)
-            annotations.forEach {
-                setClickSpanForAction(it, actions, termsCopy, termsText)
-            }
+fun TextView.setTextSpanByAction(actions: List<TextSpanAction>?, @StringRes textWithActions: Int?) {
+    when (textWithActions) {
+        null, ResourcesCompat.ID_NULL -> {
+            return
         }
-        text = termsCopy
-        movementMethod = LinkMovementMethod.getInstance()
-        highlightColor = Color.TRANSPARENT
-    } ?: textRes(textWithActions)
+
+        else -> {
+            val termsText = try {
+                context.getText(textWithActions) as? SpannedString
+            } catch (_: Exception) {
+                null
+            }
+            termsText?.let {
+                addClickSpansAndSetText(termsText, actions)
+            } ?: textRes(textWithActions)
+        }
+    }
+}
+
+private fun TextView.addClickSpansAndSetText(
+    termsText: SpannedString,
+    actions: List<TextSpanAction>?
+) {
+    val termsCopy = SpannableString(termsText)
+    actions?.let {
+        val annotations =
+            termsText.getSpans(0, termsText.length, Annotation::class.java)
+        annotations.forEach {
+            setClickSpanForAction(it, actions, termsCopy, termsText)
+        }
+    }
+    text = termsCopy
+    movementMethod = LinkMovementMethod.getInstance()
+    highlightColor = Color.TRANSPARENT
 }
 
 private fun TextView.setClickSpanForAction(
