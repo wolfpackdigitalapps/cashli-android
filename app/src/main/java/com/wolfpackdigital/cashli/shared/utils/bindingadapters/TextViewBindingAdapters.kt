@@ -69,20 +69,27 @@ fun TextView.setTextSpanByAction(actions: List<TextSpanAction>?, @StringRes text
                 null
             }
             termsText?.let {
-                val termsCopy = SpannableString(termsText)
-                actions?.let {
-                    val annotations =
-                        termsText.getSpans(0, termsText.length, Annotation::class.java)
-                    annotations.forEach {
-                        setClickSpanForAction(it, actions, termsCopy, termsText)
-                    }
-                }
-                text = termsCopy
-                movementMethod = LinkMovementMethod.getInstance()
-                highlightColor = Color.TRANSPARENT
+                addClickSpansAndSetText(termsText, actions)
             } ?: textRes(textWithActions)
         }
     }
+}
+
+private fun TextView.addClickSpansAndSetText(
+    termsText: SpannedString,
+    actions: List<TextSpanAction>?
+) {
+    val termsCopy = SpannableString(termsText)
+    actions?.let {
+        val annotations =
+            termsText.getSpans(0, termsText.length, Annotation::class.java)
+        annotations.forEach {
+            setClickSpanForAction(it, actions, termsCopy, termsText)
+        }
+    }
+    text = termsCopy
+    movementMethod = LinkMovementMethod.getInstance()
+    highlightColor = Color.TRANSPARENT
 }
 
 private fun TextView.setClickSpanForAction(
