@@ -65,7 +65,7 @@ android {
                 "BASE_URL",
                 "\"https://api.cashli.io/api/\""
             )
-            versionCode = 4
+            versionCode = 5
             versionName = "1.0.0"
         }
     }

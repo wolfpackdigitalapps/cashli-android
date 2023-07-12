@@ -19,11 +19,19 @@ private fun handleCurrentLocale(): Locale {
     }
 }
 
+private fun handleDateFormatByLocale(): String {
+    val currentLocale = Locale.getDefault()
+    return when (currentLocale.language) {
+        Language.ENGLISH.toString() -> Constants.FULL_MONTH_DAY_YEAR_EN
+        else -> Constants.FULL_MONTH_DAY_YEAR
+    }
+}
+
 fun String?.toFormattedLocalDate(pattern: String? = null): String? =
     this?.toLocalDateFromPatternOrNull(pattern)
         ?.format(
             DateTimeFormatter.ofPattern(
-                Constants.FULL_MONTH_DAY_YEAR,
+                handleDateFormatByLocale(),
                 handleCurrentLocale()
             )
         )
@@ -39,7 +47,7 @@ fun String.toLocalDateFromPatternOrNull(pattern: String? = null): LocalDate? =
 
 fun String?.toFormattedZonedDate(): String? =
     this?.toZonedLocalDateTimeOrNull()?.toLocalDate()
-        ?.format(DateTimeFormatter.ofPattern(Constants.FULL_MONTH_DAY_YEAR, handleCurrentLocale()))
+        ?.format(DateTimeFormatter.ofPattern(handleDateFormatByLocale(), handleCurrentLocale()))
 
 fun Instant.toZonedLocalDateTimeOrNull(): LocalDateTime =
     LocalDateTime.ofInstant(this, ZoneOffset.UTC)
