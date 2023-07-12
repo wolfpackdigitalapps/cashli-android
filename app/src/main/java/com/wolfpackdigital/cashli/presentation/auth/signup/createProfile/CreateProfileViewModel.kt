@@ -98,7 +98,7 @@ class CreateProfileViewModel(
                 )
                 val result = submitRegistrationIdentifiersUseCase(request)
                 result.onSuccess {
-                    val cityAndStateArray = cityAndState.value?.split(COMMA)?.map {it.trim()}
+                    val cityAndStateArray = cityAndState.value?.split(COMMA)?.map { it.trim() }
                     val temporaryUserProfileRequest = UserProfileRequest(
                         firstName = firstName.value.orEmpty(),
                         lastName = lastName.value.orEmpty(),
