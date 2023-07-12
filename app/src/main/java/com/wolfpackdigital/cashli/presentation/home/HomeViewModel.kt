@@ -272,7 +272,7 @@ class HomeViewModel(
                 isSpanTextUnderlined = true,
                 isSpanTextBold = true,
                 action = {
-                    _baseCmd.value = BaseCommand.OpenPhoneApp()
+                    _baseCmd.value = BaseCommand.OpenSMSApp()
                 }
             )
         )

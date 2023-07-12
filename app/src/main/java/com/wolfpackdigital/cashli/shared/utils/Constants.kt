@@ -47,10 +47,11 @@ object Constants {
     const val CONFIRM_ONE_TIME_PASSWORD_DL = "android-app://com.wolfpackdigital.cashli/confirmOneTimePassword/"
 
     // Support
-    const val SUPPORT_PHONE_NUMBER = "+1773-234-7405"
+    const val SUPPORT_PHONE_NUMBER = "+18722252743"
 
     // DateTime Formatter
     const val FULL_MONTH_DAY_YEAR = "d MMMM yyyy"
+    const val FULL_MONTH_DAY_YEAR_EN = "MMMM d, yyyy"
 
     // PUSH NOTIFICATIONS
     const val PUSH_NOTIFICATION_EXTRA = "push_notification_extra"

@@ -57,7 +57,7 @@ class QuizViewModel(
         addSource(selectedTipPercAmount) { tipAmount ->
             value = tipAmount.value?.let { value ->
                 (value).percentOf(cashAmount)
-            } ?: INITIAL_SLIDER_TIP
+            } ?: (MAX_TIP_SLIDER - (sliderValue.value ?: INITIAL_SLIDER_TIP)).percentOf(cashAmount)
         }
     }
 
